@@ -11,8 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\Application.h" />
     <ClInclude Include="src\Cobalt.h" />
     <ClInclude Include="src\Core\Core.h" />
+    <ClInclude Include="src\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Events\Event.h" />
+    <ClInclude Include="src\Events\KeyEvent.h" />
     <ClInclude Include="src\Log\Log.h" />
     <ClInclude Include="src\Platform\Window.h" />
     <ClInclude Include="vendor\SPDLOG\include\spdlog\async.h" />
@@ -116,6 +120,7 @@
     <ClInclude Include="vendor\SPDLOG\include\spdlog\version.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Log\Log.cpp" />
     <ClCompile Include="src\Platform\Window.cpp" />
   </ItemGroup>

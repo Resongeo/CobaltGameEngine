@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GLFW/glfw3.h"
-#include <string>
+#include "Log/Log.h"
 
 namespace Cobalt
 {
@@ -36,7 +36,5 @@ namespace Cobalt
 	private:
 		GLFWwindow* m_Window;
 		WindowProperties m_Properties;
-
-		void FrameBuffer_Size_Callback(GLFWwindow* window, int width, int height);
 	};
 }

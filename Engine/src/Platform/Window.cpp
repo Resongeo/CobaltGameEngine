@@ -9,10 +9,18 @@ namespace Cobalt
 
 	bool Window::Create()
 	{
-		if (!glfwInit()) return false;
+		if (!glfwInit())
+		{
+			LOG_ENGINE_ERROR("Failed to initialize GLFW!");
+			return false;
+		}
 
 		m_Window = glfwCreateWindow(m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str(), nullptr, nullptr);
-		if (m_Window == nullptr) return false;
+		if (m_Window == nullptr)
+		{
+			LOG_ENGINE_ERROR("Failed to create window!");
+			return false;
+		}
 
 		glfwMakeContextCurrent(m_Window);
 
@@ -75,9 +83,5 @@ namespace Cobalt
 	{
 		glfwDestroyWindow(m_Window);
 		glfwTerminate();
-	}
-
-	void Window::FrameBuffer_Size_Callback(GLFWwindow* window, int width, int height)
-	{
 	}
 }
