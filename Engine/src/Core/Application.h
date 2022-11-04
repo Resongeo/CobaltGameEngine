@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Log/Log.h"
 #include "Core/Core.h"
+#include "Events/ApplicationEvent.h"
+#include "Log/Log.h"
 #include "Platform/Window.h"
 
 namespace Cobalt
@@ -10,11 +11,12 @@ namespace Cobalt
 	{
 	public:
 		Application();
+		virtual ~Application();
 
-		void Run(){}
+		void Run();
 
 	private:
-
+		Window m_Window;
 		static Application* s_Instance;
 	};
 }

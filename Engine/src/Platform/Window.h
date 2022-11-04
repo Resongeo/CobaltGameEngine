@@ -28,10 +28,10 @@ namespace Cobalt
 		void SetWidth(uint32_t width);
 		void SetHeight(uint32_t height);
 		void SetTitle(const std::string& title);
-
 		void SetVsync(bool value);
-
 		void Destroy();
+		bool ShouldClose();
+		void SwapBuffers();
 
 	private:
 		GLFWwindow* m_Window;

@@ -1,4 +1,18 @@
-#include "Sandbox.h"
+#include "Cobalt.h"
+
+class Sandbox : public Cobalt::Application
+{
+public:
+	Sandbox()
+	{
+
+	}
+
+	~Sandbox()
+	{
+
+	}
+};
 
 int main()
 {
