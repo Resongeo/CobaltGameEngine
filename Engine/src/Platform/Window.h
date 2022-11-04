@@ -1,7 +1,14 @@
 #pragma once
 
-#include "GLFW/glfw3.h"
+#include "Core/Core.h"
 #include "Log/Log.h"
+
+#include "Events/Event.h"
+#include "Events/KeyEvent.h"
+#include "Events/MouseEvent.h"
+#include "Events/ApplicationEvent.h"
+
+#include "GLFW/glfw3.h"
 
 namespace Cobalt
 {
@@ -19,6 +26,8 @@ namespace Cobalt
 	class Window
 	{
 	public:
+		using EventCallbackFn = std::function<void(Event&)>;
+
 		Window(const WindowProperties& properties = WindowProperties());
 		bool Create();
 
@@ -33,8 +42,22 @@ namespace Cobalt
 		bool ShouldClose();
 		void SwapBuffers();
 
+		inline void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
+
 	private:
 		GLFWwindow* m_Window;
 		WindowProperties m_Properties;
+
+		struct WindowData
+		{
+			std::string Title;
+			unsigned int Width;
+			unsigned int Height;
+			bool Vsync;
+
+			EventCallbackFn EventCallback;
+		};
+
+		WindowData m_Data;
 	};
 }

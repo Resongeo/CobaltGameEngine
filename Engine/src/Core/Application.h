@@ -15,8 +15,14 @@ namespace Cobalt
 
 		void Run();
 
+		void OnEvent(Event& e);
+
 	private:
 		Window m_Window;
 		static Application* s_Instance;
+
+		bool m_Running = true;
+
+		bool OnWindowClose(WindowCloseEvent& e);
 	};
 }
