@@ -23,7 +23,7 @@ namespace Cobalt
 	{
 		while (m_Running)
 		{
-			glClearColor(0.058, 0.45, 0.67, 1.0);
+			glClearColor(0.05, 0.4, 0.6, 1.0);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_LayerStack)

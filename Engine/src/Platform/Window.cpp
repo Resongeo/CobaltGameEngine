@@ -20,6 +20,10 @@ namespace Cobalt
 		}
 		LOG_ENGINE_INFO("GLFW initialized");
 
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, COBALT_OPENGL_VERSION_MAJOR);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, COBALT_OPENGL_VERSION_MINOR);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, COBALT_OPENGL_PROFILE);
+
 		m_Window = glfwCreateWindow(m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str(), nullptr, nullptr);
 		if (m_Window == nullptr)
 		{
@@ -32,8 +36,15 @@ namespace Cobalt
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVsync(true);
 
-		/* Callbacks */
+		/* Load OpenGL headers */
+		if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) < 1)
+		{
+			LOG_ENGINE_ERROR("Failed to load GLAD!");
+			return false;
+		}
+		LOG_ENGINE_INFO("GLAD loaded OpenGL headers!");
 
+		/* Callbacks */
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);

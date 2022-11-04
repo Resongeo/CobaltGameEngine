@@ -8,7 +8,10 @@
 #include "Events/MouseEvent.h"
 #include "Events/ApplicationEvent.h"
 
+#define GLFW_INCLUDE_NONE
 #include "GLFW/glfw3.h"
+
+#include "glad/glad.h"
 
 namespace Cobalt
 {

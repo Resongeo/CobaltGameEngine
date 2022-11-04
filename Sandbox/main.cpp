@@ -5,9 +5,9 @@ class ExampleLayer : public Cobalt::Layer
 public:
 	ExampleLayer() : Layer("ExampleLayer") {}
 	
-	void OnUpdate() override
+	void OnAttach() override
 	{
-		LOG_INFO("Layer: {0} update", m_DebugName);
+		LOG_WARN("Layer: {0} attached!", m_DebugName);
 	}
 };
 
