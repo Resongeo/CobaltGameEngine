@@ -174,8 +174,9 @@ namespace Cobalt
 		return glfwWindowShouldClose(m_Window);
 	}
 
-	void Window::SwapBuffers()
+	void Window::Update()
 	{
+		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
 	}
 }

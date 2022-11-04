@@ -23,8 +23,15 @@ namespace Cobalt
 	{
 		while (m_Running)
 		{
-			glfwPollEvents();
-			m_Window.SwapBuffers();
+			glClearColor(0.058, 0.45, 0.67, 1.0);
+			glClear(GL_COLOR_BUFFER_BIT);
+
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnUpdate();
+			}
+
+			m_Window.Update();
 		}
 	}
 
@@ -33,7 +40,23 @@ namespace Cobalt
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
-		LOG_ENGINE_TRACE(e.ToString());
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+		{
+			(*--it)->OnEvent(e);
+			if (e.Handled) break;
+		}
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
+	}
+
+	void Application::PushOverlay(Layer* overlay)
+	{
+		m_LayerStack.PushOverlay(overlay);
+		overlay->OnAttach();
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)

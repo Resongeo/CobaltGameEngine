@@ -3,6 +3,7 @@
 #include <memory>
 #include <stdlib.h>
 #include <unordered_map>
+#include <vector>
 #include <functional>
 #include <string>
 #include <sstream>

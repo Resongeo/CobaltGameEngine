@@ -2,6 +2,7 @@
 
 #include "Core/Core.h"
 #include "Events/ApplicationEvent.h"
+#include "Layers/LayerStack.h"
 #include "Log/Log.h"
 #include "Platform/Window.h"
 
@@ -17,10 +18,14 @@ namespace Cobalt
 
 		void OnEvent(Event& e);
 
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* overlay);
+
 	private:
-		Window m_Window;
 		static Application* s_Instance;
 
+		Window m_Window;
+		LayerStack m_LayerStack;
 		bool m_Running = true;
 
 		bool OnWindowClose(WindowCloseEvent& e);

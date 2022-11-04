@@ -40,7 +40,7 @@ namespace Cobalt
 		void SetVsync(bool value);
 		void Destroy();
 		bool ShouldClose();
-		void SwapBuffers();
+		void Update();
 
 		inline void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
 
