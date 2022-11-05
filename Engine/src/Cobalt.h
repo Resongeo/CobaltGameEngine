@@ -16,6 +16,6 @@
 
 #include "Layers/Layer.h"
 
-#include "Log/Log.h"
+#include "Logger/Log.h"
 
 #include "Platform/Window.h"

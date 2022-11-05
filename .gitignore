@@ -30,8 +30,8 @@ bld/
 [Bb]in/
 [Bb]in-int/
 [Oo]bj/
-log/
-logs/
+[Ll]og/
+[Ll]ogs/
 [Ll]ib/
 
 # Visual Studio 2015/2017 cache/options directory

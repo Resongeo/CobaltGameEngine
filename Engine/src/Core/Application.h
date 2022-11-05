@@ -3,7 +3,7 @@
 #include "Core/Core.h"
 #include "Events/ApplicationEvent.h"
 #include "Layers/LayerStack.h"
-#include "Log/Log.h"
+#include "Logger/Log.h"
 #include "Platform/Window.h"
 
 namespace Cobalt

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Core/Core.h"
-#include "Log/Log.h"
+#include "Logger/Log.h"
 
 #include "Events/Event.h"
 #include "Events/KeyEvent.h"
