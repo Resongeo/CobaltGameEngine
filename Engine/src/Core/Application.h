@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core/Core.h"
+#include "Core/Gui.h"
 #include "Events/ApplicationEvent.h"
 #include "Layers/LayerStack.h"
 #include "Logger/Log.h"
@@ -20,6 +21,8 @@ namespace Cobalt
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
+
+		static Application& Get() { return *s_Instance; }
 
 	private:
 		static Application* s_Instance;

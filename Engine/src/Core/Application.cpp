@@ -12,11 +12,13 @@ namespace Cobalt
 		s_Instance = this;
 		m_Window.Create();
 		m_Window.SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		Gui::Init(m_Window.GetHandle());
 	}
 
 	Application::~Application()
 	{
-
+		Gui::Destroy();
 	}
 
 	void Application::Run()
@@ -25,12 +27,16 @@ namespace Cobalt
 		{
 			glClearColor(0.05, 0.4, 0.6, 1.0);
 			glClear(GL_COLOR_BUFFER_BIT);
+			Gui::NewFrame();
 
 			for (Layer* layer : m_LayerStack)
 			{
 				layer->OnUpdate();
 			}
 
+			ImGui::ShowDemoWindow();
+
+			Gui::Render();
 			m_Window.Update();
 		}
 	}

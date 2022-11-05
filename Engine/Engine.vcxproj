@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\Gui.h" />
     <ClInclude Include="src\Layers\LayerStack.h" />
     <ClInclude Include="src\Core\Application.h" />
     <ClInclude Include="src\Cobalt.h" />
@@ -22,6 +23,15 @@
     <ClInclude Include="src\Layers\Layer.h" />
     <ClInclude Include="src\Logger\Log.h" />
     <ClInclude Include="src\Platform\Window.h" />
+    <ClInclude Include="vendor\ImGui\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="vendor\ImGui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="vendor\ImGui\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="vendor\ImGui\imconfig.h" />
+    <ClInclude Include="vendor\ImGui\imgui.h" />
+    <ClInclude Include="vendor\ImGui\imgui_internal.h" />
+    <ClInclude Include="vendor\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="vendor\ImGui\imstb_textedit.h" />
+    <ClInclude Include="vendor\ImGui\imstb_truetype.h" />
     <ClInclude Include="vendor\SPDLOG\include\spdlog\async.h" />
     <ClInclude Include="vendor\SPDLOG\include\spdlog\async_logger-inl.h" />
     <ClInclude Include="vendor\SPDLOG\include\spdlog\async_logger.h" />
@@ -129,6 +139,13 @@
     <ClCompile Include="src\Layers\Layer.cpp" />
     <ClCompile Include="src\Logger\Log.cpp" />
     <ClCompile Include="src\Platform\Window.cpp" />
+    <ClCompile Include="vendor\ImGui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="vendor\ImGui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="vendor\ImGui\imgui.cpp" />
+    <ClCompile Include="vendor\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="vendor\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="vendor\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="vendor\ImGui\imgui_widgets.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -177,7 +194,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)src;$(SolutionDir)vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -193,7 +210,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)src;$(SolutionDir)vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
