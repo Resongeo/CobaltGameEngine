@@ -56,7 +56,9 @@ public:
 	void OnUpdate() override
 	{
 		ImGui::Begin(m_DebugName.c_str());
-		ImGui::Text("DEbug text");
+
+		if (ImGui::Button("Press me!")) LOG_TRACE("You pressed me :)");
+
 		ImGui::End();
 	}
 };

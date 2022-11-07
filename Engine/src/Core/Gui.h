@@ -9,9 +9,8 @@
 
 namespace Cobalt
 {
-	class Gui
+	namespace Gui
 	{
-	public:
 		static void Init(GLFWwindow* window)
 		{
 			IMGUI_CHECKVERSION();

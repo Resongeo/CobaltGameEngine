@@ -32,17 +32,11 @@ namespace Cobalt
 		}
 		LOG_ENGINE_INFO("Window created: {0}x{1} title: {2}", m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str());
 
-		glfwMakeContextCurrent(m_Window);
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVsync(true);
-
-		/* Load OpenGL headers */
-		if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) < 1)
-		{
-			LOG_ENGINE_ERROR("Failed to load GLAD!");
-			return false;
-		}
-		LOG_ENGINE_INFO("GLAD loaded OpenGL headers!");
 
 		/* Callbacks */
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
@@ -188,6 +182,6 @@ namespace Cobalt
 	void Window::Update()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 }

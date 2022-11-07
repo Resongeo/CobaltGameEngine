@@ -8,10 +8,10 @@
 #include "Events/MouseEvent.h"
 #include "Events/ApplicationEvent.h"
 
+#include "Platform/OpenGL/OpenGLContext.h"
+
 #define GLFW_INCLUDE_NONE
 #include "GLFW/glfw3.h"
-
-#include "glad/glad.h"
 
 namespace Cobalt
 {
@@ -50,6 +50,7 @@ namespace Cobalt
 	private:
 		GLFWwindow* m_Window;
 		WindowProperties m_Properties;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{
