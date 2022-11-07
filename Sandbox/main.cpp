@@ -33,6 +33,33 @@ public:
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
 
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+		std::string vertexSource = R"(
+			#version 460 core
+			
+			layout(location = 0) in vec3 aPosition;
+
+			out vec3 TexCoords;
+
+			void main()
+			{
+				gl_Position = vec4(aPosition, 1.0);
+				TexCoords = aPosition.xyz;
+			}
+		)";
+		std::string fragmentSource = R"(
+			#version 460 core
+			
+			layout(location = 0) out vec4 FragColor;
+			in vec3 TexCoords;
+
+			void main()
+			{
+				FragColor = vec4(TexCoords * 0.5 + 0.5, 1.0);
+			}
+		)";
+
+		m_Shader.reset(Cobalt::Shader::Create(vertexSource, fragmentSource, Cobalt::ShaderSourceType::String));
 	}
 	
 	void OnAttach() override
@@ -85,8 +112,10 @@ public:
 
 	void OnUpdate() override
 	{
-		glClearColor(0.05, 0.4, 0.6, 1.0);
+		glClearColor(bg_col[0], bg_col[1], bg_col[2], 1.0);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		m_Shader->Bind();
 
 		glBindVertexArray(m_VertexArray);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
@@ -94,12 +123,23 @@ public:
 		ImGui::Begin("Debug window");
 
 		if (ImGui::Button("Press me!")) LOG_TRACE("You pressed me :)");
+		ImGui::Text("");
+		ImGui::ColorEdit3("BG color", bg_col);
+		if (ImGui::Button("Reset BG color"))
+		{
+			bg_col[0] = 0.09f;
+			bg_col[1] = 0.09f;
+			bg_col[2] = 0.10f;
+		}
 
 		ImGui::End();
 	}
 
 private:
 	unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+	Scope<Cobalt::Shader> m_Shader;
+
+	float bg_col[3] = { 0.09f, 0.09f, 0.1f };
 };
 
 class Sandbox : public Cobalt::Application

@@ -18,6 +18,11 @@
 
 #include "Logger/Log.h"
 
+#include "Renderer/GraphicsContext.h"
+#include "Renderer/Renderer.h"
+#include "Renderer/Shader.h"
+
 #include "Platform/Window.h"
+#include "Platform/OpenGL/OpenGLShader.h"
 
 #include "imgui.h"
