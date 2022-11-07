@@ -17,7 +17,7 @@ namespace Cobalt
 			ImGui::CreateContext();
 
 			ImGuiIO& io = ImGui::GetIO(); (void)io;
-			io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+			//io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 			io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 			ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -30,7 +30,7 @@ namespace Cobalt
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
-			ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+			//ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 		}
 
 		static void Render()

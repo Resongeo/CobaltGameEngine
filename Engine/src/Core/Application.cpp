@@ -25,8 +25,6 @@ namespace Cobalt
 	{
 		while (m_Running)
 		{
-			glClearColor(0.05, 0.4, 0.6, 1.0);
-			glClear(GL_COLOR_BUFFER_BIT);
 			Gui::NewFrame();
 
 			for (Layer* layer : m_LayerStack)

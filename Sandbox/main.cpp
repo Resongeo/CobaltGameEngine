@@ -3,7 +3,37 @@
 class ExampleLayer : public Cobalt::Layer
 {
 public:
-	ExampleLayer() : Layer("GUI Debug Layer") {}
+	ExampleLayer() : Layer("Example Layer")
+	{
+		float vertices[4 * 3] =
+		{
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
+		};
+
+		unsigned int indices[6] =
+		{
+			0, 1, 3,
+			1, 2, 3
+		};
+
+		glGenVertexArrays(1, &m_VertexArray);
+		glBindVertexArray(m_VertexArray);
+
+		glGenBuffers(1, &m_VertexBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
+
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+
+		glGenBuffers(1, &m_IndexBuffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
+
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	}
 	
 	void OnAttach() override
 	{
@@ -55,12 +85,21 @@ public:
 
 	void OnUpdate() override
 	{
-		ImGui::Begin(m_DebugName.c_str());
+		glClearColor(0.05, 0.4, 0.6, 1.0);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glBindVertexArray(m_VertexArray);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+
+		ImGui::Begin("Debug window");
 
 		if (ImGui::Button("Press me!")) LOG_TRACE("You pressed me :)");
 
 		ImGui::End();
 	}
+
+private:
+	unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
 };
 
 class Sandbox : public Cobalt::Application

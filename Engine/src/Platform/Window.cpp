@@ -36,7 +36,7 @@ namespace Cobalt
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
-		SetVsync(true);
+		SetVsync(false);
 
 		/* Callbacks */
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
