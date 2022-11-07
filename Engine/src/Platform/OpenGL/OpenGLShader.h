@@ -20,6 +20,6 @@ namespace Cobalt
 		virtual void Bind() const;
 
 	private:
-		unsigned int m_ShaderID;
+		unsigned int m_ProgramID;
 	};
 }

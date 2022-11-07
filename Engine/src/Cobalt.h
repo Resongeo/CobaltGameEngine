@@ -20,6 +20,7 @@
 
 #include "Renderer/GraphicsContext.h"
 #include "Renderer/Renderer.h"
+#include "Renderer/Buffers.h"
 #include "Renderer/Shader.h"
 
 #include "Platform/Window.h"

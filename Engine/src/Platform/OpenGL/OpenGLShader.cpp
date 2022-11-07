@@ -4,7 +4,7 @@ namespace Cobalt
 {
 	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc, ShaderSourceType type)
 	{
-		m_ShaderID = 0;
+		m_ProgramID = 0;
 
 		const char* vertShaderCode;
 		const char* fragShaderCode;
@@ -74,15 +74,15 @@ namespace Cobalt
 			LOG_ENGINE_ERROR("Failed to compile fragment shader: {0}", infoLog);
 		}
 
-		m_ShaderID = glCreateProgram();
-		glAttachShader(m_ShaderID, vertex);
-		glAttachShader(m_ShaderID, fragment);
-		glLinkProgram(m_ShaderID);
+		m_ProgramID = glCreateProgram();
+		glAttachShader(m_ProgramID, vertex);
+		glAttachShader(m_ProgramID, fragment);
+		glLinkProgram(m_ProgramID);
 
-		glGetProgramiv(m_ShaderID, GL_LINK_STATUS, &succes);
+		glGetProgramiv(m_ProgramID, GL_LINK_STATUS, &succes);
 		if (!succes)
 		{
-			glGetProgramInfoLog(m_ShaderID, 512, NULL, infoLog);
+			glGetProgramInfoLog(m_ProgramID, 512, NULL, infoLog);
 			LOG_ENGINE_ERROR("Failed to create shader program!");
 		}
 
@@ -94,11 +94,11 @@ namespace Cobalt
 
 	OpenGLShader::~OpenGLShader()
 	{
-		glDeleteProgram(m_ShaderID);
+		glDeleteProgram(m_ProgramID);
 	}
 
 	void OpenGLShader::Bind() const
 	{
-		glUseProgram(m_ShaderID);
+		glUseProgram(m_ProgramID);
 	}
 }
