@@ -9,7 +9,7 @@ namespace Cobalt
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::OpenGL: return new OpenGLContext(glfwWindow);
+			case RendererAPI::OpenGL: return new OpenGLContext(glfwWindow);
 		}
 	}
 }

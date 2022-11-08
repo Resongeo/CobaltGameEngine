@@ -6,12 +6,12 @@ class ExampleLayer : public Layer
 public:
 	ExampleLayer() : Layer("Example Layer")
 	{
-		float vertices[4 * 3] =
+		float vertices[4 * 6] =
 		{
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.3f, 0.3f,
+			 0.5f, -0.5f, 0.0f, 0.3f, 0.8f, 0.3f,
+			 0.5f,  0.5f, 0.0f, 0.3f, 0.3f, 0.8f,
+			-0.5f,  0.5f, 0.0f, 0.8f, 0.3f, 0.3f
 		};
 
 		unsigned int indices[6] =
@@ -24,8 +24,23 @@ public:
 		glBindVertexArray(m_VertexArray);
 
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+
+		BufferLayout layout =
+		{
+			{ShaderDataType::Float3, "aPosition"},
+			{ShaderDataType::Float3, "aColor"},
+		};
+
+		m_VertexBuffer->SetLayout(layout);
+
+		unsigned int index = 0;
+		const auto& layout2 = m_VertexBuffer->GetLayout();
+		for (const auto& element : layout2)
+		{
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index, element.GetElementCount(), GL_FLOAT, GL_FALSE, layout2.GetStride(), (const void*)element.Offset);
+			index++;
+		}
 
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int)));
 
@@ -33,13 +48,16 @@ public:
 			#version 460 core
 			
 			layout(location = 0) in vec3 aPosition;
+			layout(location = 1) in vec3 aColor;
 
 			out vec3 TexCoords;
+			out vec3 vColor;
 
 			void main()
 			{
 				gl_Position = vec4(aPosition, 1.0);
 				TexCoords = aPosition.xyz;
+				vColor = aColor;
 			}
 		)";
 		std::string fragmentSource = R"(
@@ -47,20 +65,27 @@ public:
 			
 			layout(location = 0) out vec4 FragColor;
 			in vec3 TexCoords;
+			in vec3 vColor;
 
 			uniform vec3 inColor;
-			uniform bool showTexCoords;
-
-			void main()
+			uniform bool showTexCoordColor;
+			uniform bool showVertexColor;
+			uniform bool showCustomColor;
+			void main()	 
 			{
-				if(showTexCoords)
+				if(showTexCoordColor)
 				{
 					FragColor = vec4(TexCoords * 0.5 + 0.5, 1.0);
 				}
-				else
+				else if(showVertexColor)
+				{
+					FragColor = vec4(vColor, 1.0);
+				}
+				else if(showCustomColor)
 				{
 					FragColor = vec4(inColor, 1.0);
 				}
+
 			}
 		)";
 
@@ -121,7 +146,9 @@ public:
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		m_Shader->SetVec3("inColor", rect_col[0], rect_col[1], rect_col[2]);
-		m_Shader->SetBool("showTexCoords", showTexCoords);
+		m_Shader->SetBool("showTexCoordColor", showTexCoordColor);
+		m_Shader->SetBool("showVertexColor", showVertexColor);
+		m_Shader->SetBool("showCustomColor", showCustomColor);
 		m_Shader->Bind();
 
 		glBindVertexArray(m_VertexArray);
@@ -139,8 +166,22 @@ public:
 			bg_col[2] = 0.10f;
 		}
 		ImGui::Text("");
-		ImGui::Checkbox("Show texcoord colors?", &showTexCoords);
-		if (!showTexCoords)
+		if (ImGui::Checkbox("Show texcoord colors?", &showTexCoordColor))
+		{
+			showVertexColor = false;
+			showCustomColor = false;
+		}
+		if (ImGui::Checkbox("Show vertex colors?", &showVertexColor))
+		{
+			showTexCoordColor = false;
+			showCustomColor = false;
+		}
+		if (ImGui::Checkbox("Show custom colors?", &showCustomColor))
+		{
+			showVertexColor = false;
+			showTexCoordColor = false;
+		}
+		if (showCustomColor)
 		{
 			ImGui::Text("");
 			ImGui::ColorEdit3("Rect color", rect_col);
@@ -164,7 +205,9 @@ private:
 	float bg_col[3] = { 0.09f, 0.09f, 0.1f };
 	float rect_col[3] = { 0.8f, 0.3f, 0.3f };
 
-	bool showTexCoords = true;
+	bool showTexCoordColor = true;
+	bool showVertexColor = false;
+	bool showCustomColor = false;
 };
 
 class Sandbox : public Application

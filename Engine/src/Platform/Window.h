@@ -18,8 +18,8 @@ namespace Cobalt
 	struct WindowProperties
 	{
 		std::string Title;
-		uint32_t Width;
-		uint32_t Height;
+		unsigned int Width;
+		unsigned int Height;
 		bool Vsync;
 
 		WindowProperties(const std::string& title = "Cobalt Engine", uint32_t width = 1280, uint32_t height = 720, bool vsync = true)

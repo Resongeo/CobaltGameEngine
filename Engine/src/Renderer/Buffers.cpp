@@ -9,7 +9,7 @@ namespace Cobalt
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
+			case RendererAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
 		}
 		return nullptr;
 	}
@@ -18,7 +18,7 @@ namespace Cobalt
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::OpenGL: return new OpenGLIndexBuffer(indices, count);
+			case RendererAPI::OpenGL: return new OpenGLIndexBuffer(indices, count);
 		}
 		return nullptr;
 	}
