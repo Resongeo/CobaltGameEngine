@@ -6,14 +6,16 @@ namespace Cobalt
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application()
+	Application::Application(const WindowProperties& windowProperties)
 	{
 		Log::Init();
 		s_Instance = this;
-		m_Window.Create();
-		m_Window.SetEventCallback(BIND_EVENT_FN(OnEvent));
 
-		Gui::Init(m_Window.GetHandle());
+		m_Window.reset(new Window(windowProperties));
+		m_Window->Create();
+		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		Gui::Init(m_Window->GetHandle());
 	}
 
 	Application::~Application()
@@ -35,7 +37,7 @@ namespace Cobalt
 			ImGui::ShowDemoWindow();
 
 			Gui::Render();
-			m_Window.Update();
+			m_Window->Update();
 		}
 	}
 

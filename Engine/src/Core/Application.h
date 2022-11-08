@@ -12,7 +12,7 @@ namespace Cobalt
 	class Application
 	{
 	public:
-		Application();
+		Application(const WindowProperties& windowProperties);
 		virtual ~Application();
 
 		void Run();
@@ -27,7 +27,7 @@ namespace Cobalt
 	private:
 		static Application* s_Instance;
 
-		Window m_Window;
+		Scope<Window> m_Window;
 		LayerStack m_LayerStack;
 		bool m_Running = true;
 

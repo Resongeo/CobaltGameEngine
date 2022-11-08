@@ -142,7 +142,7 @@ private:
 class Sandbox : public Application
 {
 public:
-	Sandbox()
+	Sandbox(const WindowProperties& windowProperties) : Application(windowProperties)
 	{
 		PushLayer(new ExampleLayer());
 	}
@@ -155,7 +155,11 @@ public:
 
 int main()
 {
-	Sandbox* sandbox = new Sandbox();
+	WindowProperties windowProps;
+	windowProps.Width = 1920;
+	windowProps.Height = 1080;
+
+	Sandbox* sandbox = new Sandbox(windowProps);
 	sandbox->Run();
 	delete sandbox;
 
