@@ -20,10 +20,9 @@ public:
 			1, 2, 3
 		};
 
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
-
+		m_VertexArray.reset(VertexArray::Create());
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int)));
 
 		BufferLayout layout =
 		{
@@ -32,17 +31,8 @@ public:
 		};
 
 		m_VertexBuffer->SetLayout(layout);
-
-		unsigned int index = 0;
-		const auto& layout2 = m_VertexBuffer->GetLayout();
-		for (const auto& element : layout2)
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, element.GetElementCount(), GL_FLOAT, GL_FALSE, layout2.GetStride(), (const void*)element.Offset);
-			index++;
-		}
-
-		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int)));
+		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 
 		std::string vertexSource = R"(
 			#version 460 core
@@ -151,56 +141,58 @@ public:
 		m_Shader->SetBool("showCustomColor", showCustomColor);
 		m_Shader->Bind();
 
-		glBindVertexArray(m_VertexArray);
+		m_VertexArray->Bind();
 		glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
-		ImGui::Begin("Debug window");
+		{
+			ImGui::Begin("Debug window");
 
-		if (ImGui::Button("Press me!")) LOG_TRACE("You pressed me :)");
-		ImGui::Text("");
-		ImGui::ColorEdit3("BG color", bg_col);
-		if (ImGui::Button("Reset BG color"))
-		{
-			bg_col[0] = 0.09f;
-			bg_col[1] = 0.09f;
-			bg_col[2] = 0.10f;
-		}
-		ImGui::Text("");
-		if (ImGui::Checkbox("Show texcoord colors?", &showTexCoordColor))
-		{
-			showVertexColor = false;
-			showCustomColor = false;
-		}
-		if (ImGui::Checkbox("Show vertex colors?", &showVertexColor))
-		{
-			showTexCoordColor = false;
-			showCustomColor = false;
-		}
-		if (ImGui::Checkbox("Show custom colors?", &showCustomColor))
-		{
-			showVertexColor = false;
-			showTexCoordColor = false;
-		}
-		if (showCustomColor)
-		{
+			if (ImGui::Button("Press me!")) LOG_TRACE("You pressed me :)");
 			ImGui::Text("");
-			ImGui::ColorEdit3("Rect color", rect_col);
-			if (ImGui::Button("Reset rect color"))
+			ImGui::ColorEdit3("BG color", bg_col);
+			if (ImGui::Button("Reset BG color"))
 			{
-				rect_col[0] = 0.8f;
-				rect_col[1] = 0.3f;
-				rect_col[2] = 0.3f;
+				bg_col[0] = 0.09f;
+				bg_col[1] = 0.09f;
+				bg_col[2] = 0.10f;
 			}
-		}
+			ImGui::Text("");
+			if (ImGui::Checkbox("Show texcoord colors?", &showTexCoordColor))
+			{
+				showVertexColor = false;
+				showCustomColor = false;
+			}
+			if (ImGui::Checkbox("Show vertex colors?", &showVertexColor))
+			{
+				showTexCoordColor = false;
+				showCustomColor = false;
+			}
+			if (ImGui::Checkbox("Show custom colors?", &showCustomColor))
+			{
+				showVertexColor = false;
+				showTexCoordColor = false;
+			}
+			if (showCustomColor)
+			{
+				ImGui::Text("");
+				ImGui::ColorEdit3("Rect color", rect_col);
+				if (ImGui::Button("Reset rect color"))
+				{
+					rect_col[0] = 0.8f;
+					rect_col[1] = 0.3f;
+					rect_col[2] = 0.3f;
+				}
+			}
 
-		ImGui::End();
+			ImGui::End();
+		}
 	}
 
 private:
-	unsigned int m_VertexArray;
-	Scope<Shader> m_Shader;
-	Scope<VertexBuffer> m_VertexBuffer;
-	Scope<IndexBuffer> m_IndexBuffer;
+	Ref<VertexArray> m_VertexArray;
+	Ref<VertexBuffer> m_VertexBuffer;
+	Ref<IndexBuffer> m_IndexBuffer;
+	Ref<Shader> m_Shader;
 
 	float bg_col[3] = { 0.09f, 0.09f, 0.1f };
 	float rect_col[3] = { 0.8f, 0.3f, 0.3f };
