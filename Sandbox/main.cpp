@@ -48,9 +48,19 @@ public:
 			layout(location = 0) out vec4 FragColor;
 			in vec3 TexCoords;
 
+			uniform vec3 inColor;
+			uniform bool showTexCoords;
+
 			void main()
 			{
-				FragColor = vec4(TexCoords * 0.5 + 0.5, 1.0);
+				if(showTexCoords)
+				{
+					FragColor = vec4(TexCoords * 0.5 + 0.5, 1.0);
+				}
+				else
+				{
+					FragColor = vec4(inColor, 1.0);
+				}
 			}
 		)";
 
@@ -110,6 +120,8 @@ public:
 		glClearColor(bg_col[0], bg_col[1], bg_col[2], 1.0);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		m_Shader->SetVec3("inColor", rect_col[0], rect_col[1], rect_col[2]);
+		m_Shader->SetBool("showTexCoords", showTexCoords);
 		m_Shader->Bind();
 
 		glBindVertexArray(m_VertexArray);
@@ -126,6 +138,13 @@ public:
 			bg_col[1] = 0.09f;
 			bg_col[2] = 0.10f;
 		}
+		ImGui::Text("");
+		ImGui::Checkbox("Show texture coords?", &showTexCoords);
+		if (!showTexCoords)
+		{
+			ImGui::Text("");
+			ImGui::ColorEdit3("Rect color", rect_col);
+		}
 
 		ImGui::End();
 	}
@@ -137,6 +156,9 @@ private:
 	Scope<IndexBuffer> m_IndexBuffer;
 
 	float bg_col[3] = { 0.09f, 0.09f, 0.1f };
+	float rect_col[3] = { 0.0f };
+
+	bool showTexCoords = true;
 };
 
 class Sandbox : public Application

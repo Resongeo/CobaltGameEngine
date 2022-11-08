@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "Core/Core.h"
+#include "Core/Math.h"
 #include "Core/Application.h"
 
 #include "Events/Event.h"
