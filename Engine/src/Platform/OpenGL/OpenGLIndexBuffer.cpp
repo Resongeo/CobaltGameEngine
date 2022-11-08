@@ -1,31 +1,7 @@
-#include "OpenGLBuffers.h"
+#include "Platform/OpenGL/OpenGLIndexBuffer.h"
 
 namespace Cobalt
 {
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, unsigned int size)
-	{
-		glGenBuffers(1, &m_RendererID);
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
-	}
-
-	OpenGLVertexBuffer::~OpenGLVertexBuffer()
-	{
-		glDeleteBuffers(1, &m_RendererID);
-	}
-
-	void OpenGLVertexBuffer::Bind() const
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-	}
-
-	void OpenGLVertexBuffer::Unbind() const
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-	}
-
-	/* Index Buffer */
-
 	OpenGLIndexBuffer::OpenGLIndexBuffer(unsigned int* indices, unsigned int count) : m_Count(count)
 	{
 		glGenBuffers(1, &m_RendererID);

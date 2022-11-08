@@ -21,7 +21,8 @@
 
 #include "Renderer/GraphicsContext.h"
 #include "Renderer/Renderer.h"
-#include "Renderer/Buffers.h"
+#include "Renderer/VertexBuffer.h"
+#include "Renderer/IndexBuffer.h"
 #include "Renderer/Shader.h"
 
 #include "Platform/Window.h"
