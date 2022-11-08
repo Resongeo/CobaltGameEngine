@@ -32,8 +32,8 @@ namespace Cobalt
 		}
 		LOG_ENGINE_INFO("Window created: {0}x{1} title: {2}", m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str());
 
-		m_Context = new OpenGLContext(m_Window);
-		m_Context->Init();
+		m_GraphicsContext.reset(GraphicsContext::Create(m_Window));
+		m_GraphicsContext->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVsync(false);
@@ -182,6 +182,6 @@ namespace Cobalt
 	void Window::Update()
 	{
 		glfwPollEvents();
-		m_Context->SwapBuffers();
+		m_GraphicsContext->SwapBuffers();
 	}
 }

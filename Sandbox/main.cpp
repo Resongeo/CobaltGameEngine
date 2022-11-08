@@ -139,11 +139,17 @@ public:
 			bg_col[2] = 0.10f;
 		}
 		ImGui::Text("");
-		ImGui::Checkbox("Show texture coords?", &showTexCoords);
+		ImGui::Checkbox("Show texcoord colors?", &showTexCoords);
 		if (!showTexCoords)
 		{
 			ImGui::Text("");
 			ImGui::ColorEdit3("Rect color", rect_col);
+			if (ImGui::Button("Reset rect color"))
+			{
+				rect_col[0] = 0.8f;
+				rect_col[1] = 0.3f;
+				rect_col[2] = 0.3f;
+			}
 		}
 
 		ImGui::End();
@@ -156,7 +162,7 @@ private:
 	Scope<IndexBuffer> m_IndexBuffer;
 
 	float bg_col[3] = { 0.09f, 0.09f, 0.1f };
-	float rect_col[3] = { 0.0f };
+	float rect_col[3] = { 0.8f, 0.3f, 0.3f };
 
 	bool showTexCoords = true;
 };
