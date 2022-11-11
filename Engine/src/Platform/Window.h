@@ -50,7 +50,7 @@ namespace Cobalt
 	private:
 		GLFWwindow* m_Window;
 		WindowProperties m_Properties;
-		Scope<GraphicsContext> m_GraphicsContext;
+		Ref<GraphicsContext> m_GraphicsContext;
 
 		struct WindowData
 		{

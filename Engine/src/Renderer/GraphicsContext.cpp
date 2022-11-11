@@ -5,11 +5,11 @@
 
 namespace Cobalt
 {
-	GraphicsContext* Cobalt::GraphicsContext::Create(GLFWwindow* glfwWindow)
+	Ref<GraphicsContext> Cobalt::GraphicsContext::Create(GLFWwindow* glfwWindow)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::OpenGL: return new OpenGLContext(glfwWindow);
+			case RendererAPI::OpenGL: return CreateRef<OpenGLContext>(glfwWindow);
 		}
 	}
 }

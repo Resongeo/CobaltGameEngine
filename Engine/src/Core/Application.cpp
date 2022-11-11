@@ -34,8 +34,6 @@ namespace Cobalt
 				layer->OnUpdate();
 			}
 
-			ImGui::ShowDemoWindow();
-
 			Gui::Render();
 			m_Window->Update();
 		}

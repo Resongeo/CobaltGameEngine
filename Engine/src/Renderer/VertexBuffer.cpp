@@ -5,11 +5,11 @@
 
 namespace Cobalt
 {
-	VertexBuffer* VertexBuffer::Create(float* vertices, unsigned int size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, unsigned int size)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
+			case RendererAPI::OpenGL: return CreateRef<OpenGLVertexBuffer>(vertices, size);
 		}
 		return nullptr;
 	}

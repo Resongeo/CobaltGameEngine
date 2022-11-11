@@ -14,6 +14,6 @@ namespace Cobalt
 
 		virtual unsigned int GetCount() const = 0;
 
-		static IndexBuffer* Create(unsigned int* indices, unsigned int count);
+		static Ref<IndexBuffer> Create(unsigned int* indices, unsigned int count);
 	};
 }

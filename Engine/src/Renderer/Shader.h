@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Core/Core.h"
 #include "Core/Math.h"
 #include "Renderer/Renderer.h"
 
@@ -31,6 +32,6 @@ namespace Cobalt
 		virtual void SetVec4(const char* name, glm::vec4 value) const = 0;
 		virtual void SetMat4(const char* name, glm::mat4 value) const = 0;
 
-		static Shader* Create(const std::string& vertexSrc, const std::string& fragmentSrc, ShaderSourceType type);
+		static Ref<Shader> Create(const std::string& vertexSrc, const std::string& fragmentSrc, ShaderSourceType type);
 	};
 }

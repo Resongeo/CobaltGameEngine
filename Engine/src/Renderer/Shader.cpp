@@ -3,11 +3,11 @@
 
 namespace Cobalt
 {
-	Shader* Shader::Create(const std::string& vertexSrc, const std::string& fragmentSrc, ShaderSourceType type)
+	Ref<Shader> Shader::Create(const std::string& vertexSrc, const std::string& fragmentSrc, ShaderSourceType type)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::OpenGL: return new OpenGLShader(vertexSrc, fragmentSrc, type);
+			case RendererAPI::OpenGL: return CreateRef<OpenGLShader>(vertexSrc, fragmentSrc, type);
 		}
 
 		return nullptr;

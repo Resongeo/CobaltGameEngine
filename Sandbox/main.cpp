@@ -20,14 +20,14 @@ public:
 			1, 2, 3
 		};
 
-		m_VertexArray.reset(VertexArray::Create());
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
-		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int)));
+		m_VertexArray = VertexArray::Create();
+		m_VertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
+		m_IndexBuffer = IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int));
 
 		BufferLayout layout =
 		{
-			{ShaderDataType::Float3, "aPosition"},
-			{ShaderDataType::Float3, "aColor"},
+			{ ShaderDataType::Float3, "aPosition" },
+			{ ShaderDataType::Float3, "aColor" },
 		};
 
 		m_VertexBuffer->SetLayout(layout);
@@ -79,7 +79,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(Shader::Create(vertexSource, fragmentSource, ShaderSourceType::String));
+		m_Shader = Shader::Create(vertexSource, fragmentSource, ShaderSourceType::String);
 	}
 	
 	void OnAttach() override
@@ -186,6 +186,8 @@ public:
 
 			ImGui::End();
 		}
+
+		ImGui::ShowDemoWindow();
 	}
 
 private:

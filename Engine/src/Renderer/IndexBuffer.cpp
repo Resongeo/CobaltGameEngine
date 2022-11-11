@@ -5,11 +5,11 @@
 
 namespace Cobalt
 {
-	IndexBuffer* IndexBuffer::Create(unsigned int* indices, unsigned int count)
+	Ref<IndexBuffer> IndexBuffer::Create(unsigned int* indices, unsigned int count)
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::OpenGL: return new OpenGLIndexBuffer(indices, count);
+			case RendererAPI::OpenGL: return  CreateRef<OpenGLIndexBuffer>(indices, count);
 		}
 		return nullptr;
 	}

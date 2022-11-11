@@ -32,7 +32,7 @@ namespace Cobalt
 		}
 		LOG_ENGINE_INFO("Window created: {0}x{1} title: {2}", m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str());
 
-		m_GraphicsContext.reset(GraphicsContext::Create(m_Window));
+		m_GraphicsContext = GraphicsContext::Create(m_Window);
 		m_GraphicsContext->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
