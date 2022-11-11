@@ -207,8 +207,9 @@ private:
 class Sandbox : public Application
 {
 public:
-	Sandbox(const WindowProperties& windowProperties) : Application(windowProperties)
+	Sandbox(const ApplicationSpecification& applicationSpecifiacion) : Application(applicationSpecifiacion)
 	{
+		
 		PushLayer(new ExampleLayer());
 	}
 
@@ -220,11 +221,11 @@ public:
 
 int main()
 {
-	WindowProperties windowProps;
-	windowProps.Width = 1920;
-	windowProps.Height = 1080;
+	ApplicationSpecification appSpecs;
+	appSpecs.WindowProperties.Width = 1920;
+	appSpecs.WindowProperties.Height = 1080;
 
-	Sandbox* sandbox = new Sandbox(windowProps);
+	Sandbox* sandbox = new Sandbox(appSpecs);
 	sandbox->Run();
 	delete sandbox;
 

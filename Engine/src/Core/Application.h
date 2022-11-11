@@ -6,13 +6,22 @@
 #include "Layers/LayerStack.h"
 #include "Logger/Log.h"
 #include "Platform/Window.h"
+#include "Renderer/Renderer.h"
 
 namespace Cobalt
 {
+	struct ApplicationSpecification
+	{
+		WindowProperties WindowProperties;
+		RendererAPI RendererAPI;
+
+		ApplicationSpecification() : WindowProperties(WindowProperties), RendererAPI(RendererAPI::OpenGL) {}
+	};
+
 	class Application
 	{
 	public:
-		Application(const WindowProperties& windowProperties);
+		Application(const ApplicationSpecification& applicationSpecifiacion);
 		virtual ~Application();
 
 		void Run();

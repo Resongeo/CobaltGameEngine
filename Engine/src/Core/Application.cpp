@@ -6,12 +6,15 @@ namespace Cobalt
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application(const WindowProperties& windowProperties)
+	Application::Application(const ApplicationSpecification& applicationSpecifiacion)
 	{
 		Log::Init();
 		s_Instance = this;
 
-		m_Window.reset(new Window(windowProperties));
+		Renderer::SetAPI(applicationSpecifiacion.RendererAPI);
+		LOG_ENGINE_INFO("Renderer API: {0}", Renderer::GetAPIString());
+
+		m_Window.reset(new Window(applicationSpecifiacion.WindowProperties));
 		m_Window->Create();
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
