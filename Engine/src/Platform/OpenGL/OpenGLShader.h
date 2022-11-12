@@ -19,16 +19,16 @@ namespace Cobalt
 
 		virtual void Bind() const;
 
-		virtual void SetBool(const char* name, bool value) const;
-		virtual void SetInt(const char* name, int value) const;
-		virtual void SetFloat(const char* name, float value) const;
-		virtual void SetVec2(const char* name, float x, float y) const;
-		virtual void SetVec2(const char* name, glm::vec2 value) const;
-		virtual void SetVec3(const char* name, float x, float y, float z) const;
-		virtual void SetVec3(const char* name, glm::vec3 value) const;
-		virtual void SetVec4(const char* name, float x, float y, float z, float w) const;
-		virtual void SetVec4(const char* name, glm::vec4 value) const;
-		virtual void SetMat4(const char* name, glm::mat4 value) const;
+		virtual inline void SetBool(const char* name, bool value) const;
+		virtual inline void SetInt(const char* name, int value) const;
+		virtual inline void SetFloat(const char* name, float value) const;
+		virtual inline void SetVec2(const char* name, float x, float y) const;
+		virtual inline void SetVec2(const char* name, glm::vec2 value) const;
+		virtual inline void SetVec3(const char* name, float x, float y, float z) const;
+		virtual inline void SetVec3(const char* name, glm::vec3 value) const;
+		virtual inline void SetVec4(const char* name, float x, float y, float z, float w) const;
+		virtual inline void SetVec4(const char* name, glm::vec4 value) const;
+		virtual inline void SetMat4(const char* name, glm::mat4 value) const;
 
 	private:
 		unsigned int m_ProgramID;

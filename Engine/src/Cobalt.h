@@ -10,6 +10,8 @@
 #include "Core/Math.h"
 #include "Core/Application.h"
 
+#include "Cameras/SceneCamera.h"
+
 #include "Events/Event.h"
 #include "Events/KeyEvent.h"
 #include "Events/MouseEvent.h"
@@ -20,10 +22,11 @@
 #include "Logger/Log.h"
 
 #include "Renderer/GraphicsContext.h"
-#include "Renderer/Renderer.h"
-#include "Renderer/VertexArray.h"
+#include "Renderer/RenderCommand.h"
 #include "Renderer/VertexBuffer.h"
+#include "Renderer/VertexArray.h"
 #include "Renderer/IndexBuffer.h"
+#include "Renderer/Renderer.h"
 #include "Renderer/Shader.h"
 
 #include "Platform/Window.h"

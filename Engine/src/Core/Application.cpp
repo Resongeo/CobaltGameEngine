@@ -11,7 +11,7 @@ namespace Cobalt
 		Log::Init();
 		s_Instance = this;
 
-		Renderer::SetAPI(applicationSpecifiacion.RendererAPI);
+		Renderer::SetAPI(applicationSpecifiacion.GraphicsAPI);
 		LOG_ENGINE_INFO("Renderer API: {0}", Renderer::GetAPIString());
 
 		m_Window.reset(new Window(applicationSpecifiacion.WindowProperties));

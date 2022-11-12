@@ -9,7 +9,7 @@ namespace Cobalt
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::OpenGL: return CreateRef<OpenGLVertexBuffer>(vertices, size);
+			case GraphicsAPI::OpenGL: return CreateRef<OpenGLVertexBuffer>(vertices, size);
 		}
 		return nullptr;
 	}

@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Cameras\Camera.h" />
+    <ClInclude Include="src\Cameras\SceneCamera.h" />
     <ClInclude Include="src\Core\Gui.h" />
     <ClInclude Include="src\Core\Math.h" />
     <ClInclude Include="src\Layers\LayerStack.h" />
@@ -24,6 +26,7 @@
     <ClInclude Include="src\Layers\Layer.h" />
     <ClInclude Include="src\Logger\Log.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRenderer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
@@ -31,6 +34,7 @@
     <ClInclude Include="src\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Platform\Window.h" />
     <ClInclude Include="src\Renderer\IndexBuffer.h" />
+    <ClInclude Include="src\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\VertexArray.h" />
@@ -145,6 +149,7 @@
     <ClInclude Include="vendor\SPDLOG\include\spdlog\version.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Cameras\SceneCamera.cpp" />
     <ClCompile Include="src\Core\glad.c" />
     <ClCompile Include="src\Layers\LayerStack.cpp" />
     <ClCompile Include="src\Core\Application.cpp" />
@@ -157,6 +162,8 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\Window.cpp" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRenderer.cpp" />
+    <ClCompile Include="src\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Renderer\GraphicsContext.cpp" />

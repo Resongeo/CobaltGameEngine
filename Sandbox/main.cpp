@@ -40,12 +40,14 @@ public:
 			layout(location = 0) in vec3 aPosition;
 			layout(location = 1) in vec3 aColor;
 
+			uniform mat4 View;
+
 			out vec3 TexCoords;
 			out vec3 vColor;
 
 			void main()
 			{
-				gl_Position = vec4(aPosition, 1.0);
+				gl_Position = View * vec4(aPosition, 1.0);
 				TexCoords = aPosition.xyz;
 				vColor = aColor;
 			}
@@ -80,6 +82,13 @@ public:
 		)";
 
 		m_Shader = Shader::Create(vertexSource, fragmentSource, ShaderSourceType::String);
+		camera_pos[0] = m_SceneCamera.GetPosition().x;
+		camera_pos[1] = m_SceneCamera.GetPosition().y;
+		camera_pos[2] = m_SceneCamera.GetPosition().z;
+
+		camera_rot = m_SceneCamera.GetRotation();
+		camera_size = m_SceneCamera.GetSize();
+		camera_fov = m_SceneCamera.GetFOV();
 	}
 	
 	void OnAttach() override
@@ -132,17 +141,17 @@ public:
 
 	void OnUpdate() override
 	{
-		glClearColor(bg_col[0], bg_col[1], bg_col[2], 1.0);
-		glClear(GL_COLOR_BUFFER_BIT);
+		RenderCommand::ClearColor({ bg_col[0], bg_col[1], bg_col[2], 1.0 });
+		RenderCommand::Clear();
 
+		m_Shader->SetMat4("View", m_SceneCamera.GetViewProjectionMatrix());
 		m_Shader->SetVec3("inColor", rect_col[0], rect_col[1], rect_col[2]);
 		m_Shader->SetBool("showTexCoordColor", showTexCoordColor);
 		m_Shader->SetBool("showVertexColor", showVertexColor);
 		m_Shader->SetBool("showCustomColor", showCustomColor);
 		m_Shader->Bind();
 
-		m_VertexArray->Bind();
-		glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+		RenderCommand::DrawIndexed(m_VertexArray);
 
 		{
 			ImGui::Begin("Debug window");
@@ -185,6 +194,34 @@ public:
 			}
 
 			ImGui::End();
+
+			ImGui::Begin("Camera");
+
+			const char* projectionTypes[] = { "Orthographic", "Perspective" };
+			static int current_projection = 0;
+			if (ImGui::Combo("Projection", &current_projection, projectionTypes, IM_ARRAYSIZE(projectionTypes)))
+			{
+				m_SceneCamera.SetProjectionType(current_projection == 0 ? ProjectionType::Orthographic : ProjectionType::Perspective);
+			}
+
+			ImGui::Text("");
+
+			ImGui::DragFloat3("Camera position", camera_pos, 0.1f);
+			m_SceneCamera.SetPosition({ camera_pos[0], camera_pos[1], camera_pos[2] });
+			if (ImGui::DragFloat("Rotation", &camera_rot, 0.1)) m_SceneCamera.SetRotaion(camera_rot);
+
+			ImGui::Text("");
+
+			if(current_projection == 0)
+			{
+				if (ImGui::DragFloat("Size", &camera_size, 0.1)) m_SceneCamera.SetSize(camera_size);
+			}
+			else
+			{
+				if (ImGui::DragFloat("FOV", &camera_fov, 0.1)) m_SceneCamera.SetFOV(camera_fov);
+			}
+
+			ImGui::End();
 		}
 
 		ImGui::ShowDemoWindow();
@@ -196,8 +233,15 @@ private:
 	Ref<IndexBuffer> m_IndexBuffer;
 	Ref<Shader> m_Shader;
 
+	SceneCamera m_SceneCamera;
+
 	float bg_col[3] = { 0.09f, 0.09f, 0.1f };
 	float rect_col[3] = { 0.8f, 0.3f, 0.3f };
+	float camera_pos[3] = { 0.0f, 0.0f, 0.0f };
+
+	float camera_rot = 0.0f;
+	float camera_size = 0.0f;
+	float camera_fov = 0.0f;
 
 	bool showTexCoordColor = true;
 	bool showVertexColor = false;

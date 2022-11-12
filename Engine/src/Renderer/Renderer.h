@@ -1,30 +1,41 @@
 #pragma once
 
+#include "Core/Core.h"
+#include "Core/Math.h"
+
+#include "Renderer/VertexArray.h"
+
 namespace Cobalt
 {
-	enum class RendererAPI { OpenGL = 0 }; /* For future Vulkan may be supported */
+	enum class GraphicsAPI { OpenGL = 0 }; /* For future Vulkan may be supported */
 
 	class Renderer
 	{
 	public:
-		inline static RendererAPI GetAPI() { return s_RendererApi; }
-		inline static RendererAPI SetAPI(RendererAPI rendererAPI)
+		inline static GraphicsAPI GetAPI() { return s_GraphicsAPI; }
+		inline static GraphicsAPI SetAPI(GraphicsAPI GraphicsAPI)
 		{
-			s_RendererApi = rendererAPI;
-			return s_RendererApi;
+			s_GraphicsAPI = GraphicsAPI;
+			return s_GraphicsAPI;
 		}
 
 		inline static const char* GetAPIString()
 		{
-			switch (s_RendererApi)
+			switch (s_GraphicsAPI)
 			{
-				case Cobalt::RendererAPI::OpenGL: return "OpenGL";
+				case Cobalt::GraphicsAPI::OpenGL: return "OpenGL";
 			}
 
 			return "";
 		}
 
+	public:
+		virtual void ClearColor(const glm::vec4& color) = 0;
+		virtual void Clear() = 0;
+
+		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
+
 	private:
-		static RendererAPI s_RendererApi;
+		static GraphicsAPI s_GraphicsAPI;
 	};
 }

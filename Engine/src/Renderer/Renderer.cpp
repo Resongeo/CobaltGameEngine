@@ -2,5 +2,5 @@
 
 namespace Cobalt
 {
-	RendererAPI Renderer::s_RendererApi = RendererAPI::OpenGL;
+	GraphicsAPI Renderer::s_GraphicsAPI = GraphicsAPI::OpenGL;
 }

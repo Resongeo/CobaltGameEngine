@@ -13,9 +13,9 @@ namespace Cobalt
 	struct ApplicationSpecification
 	{
 		WindowProperties WindowProperties;
-		RendererAPI RendererAPI;
+		GraphicsAPI GraphicsAPI;
 
-		ApplicationSpecification() : WindowProperties(WindowProperties), RendererAPI(RendererAPI::OpenGL) {}
+		ApplicationSpecification() : WindowProperties(WindowProperties), GraphicsAPI(GraphicsAPI::OpenGL) {}
 	};
 
 	class Application

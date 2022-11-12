@@ -9,7 +9,7 @@ namespace Cobalt
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::OpenGL: return  CreateRef<OpenGLIndexBuffer>(indices, count);
+			case GraphicsAPI::OpenGL: return  CreateRef<OpenGLIndexBuffer>(indices, count);
 		}
 		return nullptr;
 	}

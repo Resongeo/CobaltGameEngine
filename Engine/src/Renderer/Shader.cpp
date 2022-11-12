@@ -7,7 +7,7 @@ namespace Cobalt
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::OpenGL: return CreateRef<OpenGLShader>(vertexSrc, fragmentSrc, type);
+			case GraphicsAPI::OpenGL: return CreateRef<OpenGLShader>(vertexSrc, fragmentSrc, type);
 		}
 
 		return nullptr;
