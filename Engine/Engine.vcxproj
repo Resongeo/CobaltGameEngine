@@ -16,6 +16,8 @@
     <ClInclude Include="src\Core\Gui.h" />
     <ClInclude Include="src\Core\Math.h" />
     <ClInclude Include="src\Input\Input.h" />
+    <ClInclude Include="src\Input\KeyCodes.h" />
+    <ClInclude Include="src\Input\MouseButtonCodes.h" />
     <ClInclude Include="src\Layers\LayerStack.h" />
     <ClInclude Include="src\Core\Application.h" />
     <ClInclude Include="src\Cobalt.h" />

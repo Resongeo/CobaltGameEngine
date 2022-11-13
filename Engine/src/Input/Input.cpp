@@ -7,7 +7,7 @@ namespace Cobalt
 {
 	Input* Input::s_Input = nullptr;
 
-	bool Input::IsKeyDownImpl(int keycode)
+	bool Input::GetKeyDownImpl(int keycode)
 	{
 		GLFWwindow* window = Application::Get().GetWindow().GetHandle();
 		auto state = glfwGetKey(window, keycode);
@@ -15,7 +15,7 @@ namespace Cobalt
 		return state == GLFW_PRESS;
 	}
 
-	bool Input::IsMouseButtonDownImpl(int button)
+	bool Input::GetMouseButtonDownImpl(int button)
 	{
 		GLFWwindow* window = Application::Get().GetWindow().GetHandle();
 		auto state = glfwGetMouseButton(window, button);

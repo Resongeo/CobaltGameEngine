@@ -18,6 +18,8 @@
 #include "Events/ApplicationEvent.h"
 
 #include "Input/Input.h"
+#include "Input/KeyCodes.h"
+#include "Input/MouseButtonCodes.h"
 
 #include "Layers/Layer.h"
 

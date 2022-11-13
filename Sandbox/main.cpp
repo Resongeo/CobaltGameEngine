@@ -149,11 +149,11 @@ public:
 		RenderCommand::ClearColor({ bg_col[0], bg_col[1], bg_col[2], 1.0 });
 		RenderCommand::Clear();
 
+		m_Shader->Bind();
 		m_Shader->SetVec3("inColor", rect_col[0], rect_col[1], rect_col[2]);
 		m_Shader->SetBool("showTexCoordColor", showTexCoordColor);
 		m_Shader->SetBool("showVertexColor", showVertexColor);
 		m_Shader->SetBool("showCustomColor", showCustomColor);
-		m_Shader->Bind();
 
 		RenderCommand::DrawIndexed(m_Shader, m_VertexArray);
 
@@ -230,14 +230,14 @@ public:
 
 		ImGui::ShowDemoWindow();
 
-		if (Input::IsKeyDown(GLFW_KEY_A))
+		if (Input::GetKeyDown(KEYCODE_A))
 			camera_pos[0] += 1.0f * deltaTime;
-		else if(Input::IsKeyDown(GLFW_KEY_D))
+		else if(Input::GetKeyDown(KEYCODE_D))
 			camera_pos[0] -= 1.0f * deltaTime;
 
-		if (Input::IsKeyDown(GLFW_KEY_W))
+		if (Input::GetKeyDown(KEYCODE_W))
 			camera_pos[1] -= 1.0f * deltaTime;
-		else if (Input::IsKeyDown(GLFW_KEY_S))
+		else if (Input::GetKeyDown(KEYCODE_S))
 			camera_pos[1] += 1.0f * deltaTime;
 		
 	}
