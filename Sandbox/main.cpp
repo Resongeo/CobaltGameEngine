@@ -89,6 +89,9 @@ public:
 		camera_rot = m_SceneCamera.GetRotation();
 		camera_size = m_SceneCamera.GetSize();
 		camera_fov = m_SceneCamera.GetFOV();
+
+		auto window = Application::Get().GetWindow();
+		window.SetVsync(false);
 	}
 	
 	void OnAttach() override
@@ -139,7 +142,7 @@ public:
 		style->Colors[ImGuiCol_SeparatorHovered] = ImColor(84, 109, 123, 255);
 	}
 
-	void OnUpdate() override
+	void OnUpdate(float deltaTime) override
 	{
 		RenderCommand::BeginScene(m_SceneCamera);
 
@@ -228,14 +231,14 @@ public:
 		ImGui::ShowDemoWindow();
 
 		if (Input::IsKeyDown(GLFW_KEY_A))
-			camera_pos[0] += 0.01f;
+			camera_pos[0] += 1.0f * deltaTime;
 		else if(Input::IsKeyDown(GLFW_KEY_D))
-			camera_pos[0] -= 0.01f;
+			camera_pos[0] -= 1.0f * deltaTime;
 
 		if (Input::IsKeyDown(GLFW_KEY_W))
-			camera_pos[1] -= 0.01f;
+			camera_pos[1] -= 1.0f * deltaTime;
 		else if (Input::IsKeyDown(GLFW_KEY_S))
-			camera_pos[1] += 0.01f;
+			camera_pos[1] += 1.0f * deltaTime;
 		
 	}
 

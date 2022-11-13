@@ -36,12 +36,17 @@ namespace Cobalt
 		static Application& Get() { return *s_Instance; }
 
 	private:
+		bool OnWindowClose(WindowCloseEvent& e);
+
+	private:
 		static Application* s_Instance;
 
 		Scope<Window> m_Window;
 		LayerStack m_LayerStack;
 		bool m_Running = true;
 
-		bool OnWindowClose(WindowCloseEvent& e);
+		float m_Time = 0.0f;
+		float m_DeltaTime = 0.0f;
+		float m_LastFrameTime = 0.0f;
 	};
 }

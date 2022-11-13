@@ -30,11 +30,15 @@ namespace Cobalt
 	{
 		while (m_Running)
 		{
+			m_Time = (float)glfwGetTime();
+			m_DeltaTime = m_Time - m_LastFrameTime;
+			m_LastFrameTime = m_Time;
+
 			Gui::NewFrame();
 
 			for (Layer* layer : m_LayerStack)
 			{
-				layer->OnUpdate();
+				layer->OnUpdate(m_DeltaTime);
 			}
 
 			Gui::Render();
