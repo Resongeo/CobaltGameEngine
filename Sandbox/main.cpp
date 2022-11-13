@@ -141,17 +141,18 @@ public:
 
 	void OnUpdate() override
 	{
+		RenderCommand::BeginScene(m_SceneCamera);
+
 		RenderCommand::ClearColor({ bg_col[0], bg_col[1], bg_col[2], 1.0 });
 		RenderCommand::Clear();
 
-		m_Shader->SetMat4("View", m_SceneCamera.GetViewProjectionMatrix());
 		m_Shader->SetVec3("inColor", rect_col[0], rect_col[1], rect_col[2]);
 		m_Shader->SetBool("showTexCoordColor", showTexCoordColor);
 		m_Shader->SetBool("showVertexColor", showVertexColor);
 		m_Shader->SetBool("showCustomColor", showCustomColor);
 		m_Shader->Bind();
 
-		RenderCommand::DrawIndexed(m_VertexArray);
+		RenderCommand::DrawIndexed(m_Shader, m_VertexArray);
 
 		{
 			ImGui::Begin("Debug window");

@@ -4,6 +4,13 @@
 
 namespace Cobalt
 {
+	Renderer::SceneData* OpenGLRenderer::s_SceneData = new Renderer::SceneData();
+
+	void OpenGLRenderer::BeginScene(Camera& camera)
+	{
+		s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+	}
+
 	void OpenGLRenderer::ClearColor(const glm::vec4& color)
 	{
 		glClearColor(color.r, color.g, color.b, color.a);
@@ -14,9 +21,10 @@ namespace Cobalt
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	void OpenGLRenderer::DrawIndexed(const Ref<VertexArray>& vertexArray)
+	void OpenGLRenderer::DrawIndexed(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray)
 	{
 		vertexArray->Bind();
+		shader->SetMat4("View", s_SceneData->ViewProjectionMatrix);
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 }

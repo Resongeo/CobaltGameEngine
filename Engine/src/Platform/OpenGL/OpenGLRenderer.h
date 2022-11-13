@@ -7,9 +7,14 @@ namespace Cobalt
 	class OpenGLRenderer : public Renderer
 	{
 	public:
+		virtual void BeginScene(Camera& camera) override;
+
 		virtual void ClearColor(const glm::vec4& color) override;
 		virtual void Clear() override;
 
-		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
+		virtual void DrawIndexed(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray) override;
+
+	private:
+		static SceneData* s_SceneData;
 	};
 }
