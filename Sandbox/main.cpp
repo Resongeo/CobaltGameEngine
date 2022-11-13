@@ -254,7 +254,6 @@ class Sandbox : public Application
 public:
 	Sandbox(const ApplicationSpecification& applicationSpecifiacion) : Application(applicationSpecifiacion)
 	{
-		
 		PushLayer(new ExampleLayer());
 	}
 

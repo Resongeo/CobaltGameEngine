@@ -17,6 +17,8 @@
 #include "Events/MouseEvent.h"
 #include "Events/ApplicationEvent.h"
 
+#include "Input/Input.h"
+
 #include "Layers/Layer.h"
 
 #include "Logger/Log.h"

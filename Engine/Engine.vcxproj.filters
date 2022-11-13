@@ -423,6 +423,9 @@
     <ClInclude Include="src\Cameras\SceneCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Input\Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\Log.cpp">
@@ -504,6 +507,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Cameras\SceneCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

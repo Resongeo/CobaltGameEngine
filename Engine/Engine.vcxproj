@@ -15,6 +15,7 @@
     <ClInclude Include="src\Cameras\SceneCamera.h" />
     <ClInclude Include="src\Core\Gui.h" />
     <ClInclude Include="src\Core\Math.h" />
+    <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Layers\LayerStack.h" />
     <ClInclude Include="src\Core\Application.h" />
     <ClInclude Include="src\Cobalt.h" />
@@ -151,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="src\Cameras\SceneCamera.cpp" />
     <ClCompile Include="src\Core\glad.c" />
+    <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\Layers\LayerStack.cpp" />
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Layers\Layer.cpp" />

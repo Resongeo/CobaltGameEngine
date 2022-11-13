@@ -31,6 +31,8 @@ namespace Cobalt
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
+		const Window& GetWindow() const { return *m_Window; }
+
 		static Application& Get() { return *s_Instance; }
 
 	private:
