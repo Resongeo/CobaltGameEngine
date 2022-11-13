@@ -32,6 +32,5 @@
 #include "Renderer/Shader.h"
 
 #include "Platform/Window.h"
-#include "Platform/OpenGL/OpenGLShader.h"
 
 #include "imgui.h"

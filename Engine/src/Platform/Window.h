@@ -8,7 +8,7 @@
 #include "Events/MouseEvent.h"
 #include "Events/ApplicationEvent.h"
 
-#include "Platform/OpenGL/OpenGLContext.h"
+#include "Renderer/GraphicsContext.h"
 
 #define GLFW_INCLUDE_NONE
 #include "GLFW/glfw3.h"

@@ -1,5 +1,7 @@
 #include "Window.h"
 
+#include "glad/glad.h"
+
 namespace Cobalt
 {
 	Window::Window(const WindowProperties& properties)
@@ -36,7 +38,7 @@ namespace Cobalt
 		m_GraphicsContext->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
-		SetVsync(false);
+		SetVsync(true);
 
 		/* Callbacks */
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)

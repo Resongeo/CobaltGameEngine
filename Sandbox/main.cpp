@@ -226,6 +226,17 @@ public:
 		}
 
 		ImGui::ShowDemoWindow();
+
+		if (Input::IsKeyDown(GLFW_KEY_A))
+			camera_pos[0] += 0.01f;
+		else if(Input::IsKeyDown(GLFW_KEY_D))
+			camera_pos[0] -= 0.01f;
+
+		if (Input::IsKeyDown(GLFW_KEY_W))
+			camera_pos[1] -= 0.01f;
+		else if (Input::IsKeyDown(GLFW_KEY_S))
+			camera_pos[1] += 0.01f;
+		
 	}
 
 private:
