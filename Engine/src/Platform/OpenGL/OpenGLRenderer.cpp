@@ -21,10 +21,11 @@ namespace Cobalt
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	void OpenGLRenderer::DrawIndexed(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray)
+	void OpenGLRenderer::DrawIndexed(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& model)
 	{
 		vertexArray->Bind();
 		shader->SetMat4("View", s_SceneData->ViewProjectionMatrix);
+		shader->SetMat4("Model", model);
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 }

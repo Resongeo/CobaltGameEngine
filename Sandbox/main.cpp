@@ -1,17 +1,19 @@
 #include "Cobalt.h"
 using namespace Cobalt;
 
+#include "fonts/FontAwesomeIcons.h"
+
 class ExampleLayer : public Layer
 {
 public:
 	ExampleLayer() : Layer("Example Layer")
 	{
-		float vertices[4 * 6] =
+		float vertices[4 * 8] =
 		{
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.3f, 0.3f,
-			 0.5f, -0.5f, 0.0f, 0.3f, 0.8f, 0.3f,
-			 0.5f,  0.5f, 0.0f, 0.3f, 0.3f, 0.8f,
-			-0.5f,  0.5f, 0.0f, 0.8f, 0.3f, 0.3f
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.3f, 0.3f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 0.3f, 0.8f, 0.3f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 0.3f, 0.3f, 0.8f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.8f, 0.3f, 0.3f, 0.0f, 1.0f
 		};
 
 		unsigned int indices[6] =
@@ -28,6 +30,7 @@ public:
 		{
 			{ ShaderDataType::Float3, "aPosition" },
 			{ ShaderDataType::Float3, "aColor" },
+			{ ShaderDataType::Float2, "aTexCoord" }
 		};
 
 		m_VertexBuffer->SetLayout(layout);
@@ -41,13 +44,14 @@ public:
 			layout(location = 1) in vec3 aColor;
 
 			uniform mat4 View;
+			uniform mat4 Model;
 
 			out vec3 TexCoords;
 			out vec3 vColor;
 
 			void main()
 			{
-				gl_Position = View * vec4(aPosition, 1.0);
+				gl_Position = View * Model * vec4(aPosition, 1.0);
 				TexCoords = aPosition.xyz;
 				vColor = aColor;
 			}
@@ -60,24 +64,10 @@ public:
 			in vec3 vColor;
 
 			uniform vec3 inColor;
-			uniform bool showTexCoordColor;
-			uniform bool showVertexColor;
-			uniform bool showCustomColor;
+
 			void main()	 
 			{
-				if(showTexCoordColor)
-				{
-					FragColor = vec4(TexCoords * 0.5 + 0.5, 1.0);
-				}
-				else if(showVertexColor)
-				{
-					FragColor = vec4(vColor, 1.0);
-				}
-				else if(showCustomColor)
-				{
-					FragColor = vec4(inColor, 1.0);
-				}
-
+				FragColor = vec4(inColor, 1.0);
 			}
 		)";
 
@@ -140,6 +130,19 @@ public:
 		style->Colors[ImGuiCol_Separator] = ImColor(50, 55, 58, 255);
 		style->Colors[ImGuiCol_SeparatorActive] = ImColor(116, 151, 170, 200);
 		style->Colors[ImGuiCol_SeparatorHovered] = ImColor(84, 109, 123, 255);
+
+		ImGuiIO& io = ImGui::GetIO();
+		io.Fonts->AddFontDefault();
+
+		ImFontConfig config;
+		config.MergeMode = true;
+		config.PixelSnapH = true;
+		config.GlyphMaxAdvanceX = 20.0f;
+		static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_16_FA, 0 };
+
+		regularFont = io.Fonts->AddFontFromFileTTF("fonts\\Poppins-Regular.ttf", 20.0f);
+		semiboldFont = io.Fonts->AddFontFromFileTTF("fonts\\Poppins-Semibold.ttf", 20.0f);
+		iconFont = io.Fonts->AddFontFromFileTTF("fonts\\fa-regular-400.ttf", 20.0f, &config, icon_ranges);
 	}
 
 	void OnUpdate(float deltaTime) override
@@ -150,57 +153,78 @@ public:
 		RenderCommand::Clear();
 
 		m_Shader->Bind();
-		m_Shader->SetVec3("inColor", rect_col[0], rect_col[1], rect_col[2]);
-		m_Shader->SetBool("showTexCoordColor", showTexCoordColor);
-		m_Shader->SetBool("showVertexColor", showVertexColor);
-		m_Shader->SetBool("showCustomColor", showCustomColor);
+		m_Shader->SetVec3("inColor", grid_col[0], grid_col[1], grid_col[2]);
 
-		RenderCommand::DrawIndexed(m_Shader, m_VertexArray);
+
+		for (float x = -gridSize; x < gridSize; x += gridGap)
+		{
+			glm::mat4 transform = glm::mat4(1.0f);
+			transform = glm::translate(transform, glm::vec3(x, 0.0f, 0.0f));
+			transform = glm::scale(transform, glm::vec3(gridLineWidth, gridSize * 2.0f, 1.0f));
+
+			RenderCommand::DrawIndexed(m_Shader, m_VertexArray, transform);
+		}
+
+		for (float y = -gridSize; y < gridSize; y += gridGap)
+		{
+			glm::mat4 transform = glm::mat4(1.0f);
+			transform = glm::translate(transform, glm::vec3(0.0f, y, 0.0f));
+			transform = glm::scale(transform, glm::vec3(gridSize * 2.0f, gridLineWidth, 1.0f));
+
+			RenderCommand::DrawIndexed(m_Shader, m_VertexArray, transform);
+		}
 
 		{
 			ImGui::Begin("Debug window");
+			
+			ImGui::PushFont(iconFont);
+			ImGui::Text(ICON_FA_APPLE_WHOLE);
+			ImGui::PopFont();
 
+			ImGui::PushFont(semiboldFont);
 			if (ImGui::Button("Press me!")) LOG_TRACE("You pressed me :)");
+			ImGui::PopFont();
 			ImGui::Text("");
 			ImGui::ColorEdit3("BG color", bg_col);
+			ImGui::PushFont(semiboldFont);
 			if (ImGui::Button("Reset BG color"))
 			{
 				bg_col[0] = 0.09f;
 				bg_col[1] = 0.09f;
 				bg_col[2] = 0.10f;
 			}
+			ImGui::PopFont();
+
 			ImGui::Text("");
-			if (ImGui::Checkbox("Show texcoord colors?", &showTexCoordColor))
+			
+			if (ImGui::CollapsingHeader("Grid", ImGuiTreeNodeFlags_DefaultOpen))
 			{
-				showVertexColor = false;
-				showCustomColor = false;
-			}
-			if (ImGui::Checkbox("Show vertex colors?", &showVertexColor))
-			{
-				showTexCoordColor = false;
-				showCustomColor = false;
-			}
-			if (ImGui::Checkbox("Show custom colors?", &showCustomColor))
-			{
-				showVertexColor = false;
-				showTexCoordColor = false;
-			}
-			if (showCustomColor)
-			{
-				ImGui::Text("");
-				ImGui::ColorEdit3("Rect color", rect_col);
-				if (ImGui::Button("Reset rect color"))
+				ImGui::Spacing();
+				ImGui::ColorEdit3("Grid color", grid_col);
+				ImGui::Spacing();
+
+				ImGui::SliderInt("Grid size", &gridSize, 1, 10);
+				ImGui::SliderFloat("Grid gap", &gridGap, 0.02f, 1.0f);
+				ImGui::SliderFloat("Grid line width", &gridLineWidth, 0.001f, 0.1f);
+
+				ImGui::Spacing();
+
+				ImGui::PushFont(semiboldFont);
+				if (ImGui::Button("Reset grid"))
 				{
-					rect_col[0] = 0.8f;
-					rect_col[1] = 0.3f;
-					rect_col[2] = 0.3f;
+					gridSize = 5;
+					gridGap = 0.1f;
+					gridLineWidth = 0.006f;
+
+					grid_col[0] = 0.17f;
+					grid_col[1] = 0.17f;
+					grid_col[2] = 0.17f;
 				}
+				ImGui::PopFont();
 			}
 
 			ImGui::End();
-
 			ImGui::Begin("Camera");
-
 			const char* projectionTypes[] = { "Orthographic", "Perspective" };
 			static int current_projection = 0;
 			if (ImGui::Combo("Projection", &current_projection, projectionTypes, IM_ARRAYSIZE(projectionTypes)))
@@ -231,14 +255,14 @@ public:
 		ImGui::ShowDemoWindow();
 
 		if (Input::GetKeyDown(KEYCODE_A))
-			camera_pos[0] += 1.0f * deltaTime;
-		else if(Input::GetKeyDown(KEYCODE_D))
 			camera_pos[0] -= 1.0f * deltaTime;
+		else if(Input::GetKeyDown(KEYCODE_D))
+			camera_pos[0] += 1.0f * deltaTime;
 
 		if (Input::GetKeyDown(KEYCODE_W))
-			camera_pos[1] -= 1.0f * deltaTime;
-		else if (Input::GetKeyDown(KEYCODE_S))
 			camera_pos[1] += 1.0f * deltaTime;
+		else if (Input::GetKeyDown(KEYCODE_S))
+			camera_pos[1] -= 1.0f * deltaTime;
 		
 	}
 
@@ -251,16 +275,20 @@ private:
 	SceneCamera m_SceneCamera;
 
 	float bg_col[3] = { 0.09f, 0.09f, 0.1f };
-	float rect_col[3] = { 0.8f, 0.3f, 0.3f };
+	float grid_col[3] = { 0.17f, 0.17f, 0.17f };
 	float camera_pos[3] = { 0.0f, 0.0f, 0.0f };
 
 	float camera_rot = 0.0f;
 	float camera_size = 0.0f;
 	float camera_fov = 0.0f;
 
-	bool showTexCoordColor = true;
-	bool showVertexColor = false;
-	bool showCustomColor = false;
+	int gridSize = 5;
+	float gridGap = 0.1f;
+	float gridLineWidth = 0.006f;
+
+	ImFont* regularFont;
+	ImFont* semiboldFont;
+	ImFont* iconFont;
 };
 
 class Sandbox : public Application

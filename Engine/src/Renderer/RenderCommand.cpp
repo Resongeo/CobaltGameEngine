@@ -21,8 +21,8 @@ namespace Cobalt
 		s_Renderer->Clear();
 	}
 
-	void RenderCommand::DrawIndexed(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray)
+	void RenderCommand::DrawIndexed(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& model)
 	{
-		s_Renderer->DrawIndexed(shader, vertexArray);
+		s_Renderer->DrawIndexed(shader, vertexArray, model);
 	}
 }
