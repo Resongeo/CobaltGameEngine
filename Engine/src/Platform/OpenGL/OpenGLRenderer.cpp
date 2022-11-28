@@ -28,4 +28,9 @@ namespace Cobalt
 		shader->SetMat4("Model", model);
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
+
+	void OpenGLRenderer::SetViewport(int x, int y, int width, int height)
+	{
+		glViewport(x, y, width, height);
+	}
 }

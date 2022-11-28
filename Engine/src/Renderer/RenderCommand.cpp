@@ -25,4 +25,9 @@ namespace Cobalt
 	{
 		s_Renderer->DrawIndexed(shader, vertexArray, model);
 	}
+
+	void RenderCommand::SetViewport(int x, int y, int width, int height)
+	{
+		s_Renderer->SetViewport(x, y, width, height);
+	}
 }

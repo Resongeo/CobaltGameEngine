@@ -2,11 +2,17 @@
 
 #include "Core/Core.h"
 #include "Core/Gui.h"
+
 #include "Events/ApplicationEvent.h"
+
 #include "Layers/LayerStack.h"
+
 #include "Logger/Log.h"
+
 #include "Platform/Window.h"
+
 #include "Renderer/Renderer.h"
+#include "Renderer/RenderCommand.h"
 
 namespace Cobalt
 {
@@ -31,12 +37,13 @@ namespace Cobalt
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
-		const Window& GetWindow() const { return *m_Window; }
+		Window& GetWindow() { return *m_Window; }
 
 		static Application& Get() { return *s_Instance; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 
 	private:
 		static Application* s_Instance;

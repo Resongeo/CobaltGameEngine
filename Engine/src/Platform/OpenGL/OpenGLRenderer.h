@@ -14,6 +14,8 @@ namespace Cobalt
 
 		virtual void DrawIndexed(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& model) override;
 
+		virtual void SetViewport(int x, int y, int width, int height) override;
+
 	private:
 		static SceneData* s_SceneData;
 	};

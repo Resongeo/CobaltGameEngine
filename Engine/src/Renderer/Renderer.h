@@ -40,6 +40,8 @@ namespace Cobalt
 		
 		virtual void DrawIndexed(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& model) = 0;
 
+		virtual void SetViewport(int x, int y, int width, int height) = 0;
+
 	private:
 		static GraphicsAPI s_GraphicsAPI;
 
@@ -48,6 +50,5 @@ namespace Cobalt
 		{
 			glm::mat4 ViewProjectionMatrix;
 		};
-
 	};
 }

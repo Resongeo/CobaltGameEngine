@@ -50,7 +50,7 @@ public:
 		camera_size = m_SceneCamera.GetSize();
 		camera_fov = m_SceneCamera.GetFOV();
 
-		auto window = Application::Get().GetWindow();
+		auto& window = Application::Get().GetWindow();
 		window.SetVsync(false);
 	}
 	
@@ -243,6 +243,15 @@ public:
 		else if (Input::GetKeyDown(KEYCODE_S))
 			camera_pos[1] -= 1.0f * deltaTime;
 		
+	}
+
+	void OnEvent(Event& event) override
+	{
+		if (event.GetEventType() == EventType::WindowResize)
+		{
+			auto& window = Application::Get().GetWindow();
+			m_SceneCamera.SetAspectRatio(window.GetWidth(), window.GetHeight());
+		}
 	}
 
 private:

@@ -22,7 +22,7 @@ namespace Cobalt
 
 		void SetAspectRatio(float width, float height)
 		{
-			m_AspectRatio = width, height;
+			m_AspectRatio = width / height;
 			RecalculateProjection();
 		}
 
