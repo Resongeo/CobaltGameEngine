@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
+    <ClInclude Include="src\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Cameras\Camera.h" />
     <ClInclude Include="src\Cameras\SceneCamera.h" />
     <ClInclude Include="src\Core\Gui.h" />
@@ -162,6 +164,7 @@
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Layers\Layer.cpp" />
     <ClCompile Include="src\Logger\Log.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
@@ -169,6 +172,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\Window.cpp" />
+    <ClCompile Include="src\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRenderer.cpp" />
     <ClCompile Include="src\Renderer\RenderCommand.cpp" />
