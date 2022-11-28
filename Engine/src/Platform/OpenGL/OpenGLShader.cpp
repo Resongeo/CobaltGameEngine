@@ -2,106 +2,139 @@
 
 namespace Cobalt
 {
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc, ShaderSourceType type)
+	static GLenum ShaderTypeFromString(const std::string& type)
 	{
-		m_ProgramID = 0;
+		if (type == "vertex" || type == "vert" || type == "vt" || type == "v")
+			return GL_VERTEX_SHADER;
+		if (type == "fragment" || type == "frag" || type == "fg" || type == "f")
+			return GL_FRAGMENT_SHADER;
 
-		const char* vertShaderCode;
-		const char* fragShaderCode;
+		LOG_ENGINE_ERROR("Unknown shader type!");
+		return 0;
+	}
 
-		if (type == ShaderSourceType::Filepath)
+	OpenGLShader::OpenGLShader(const std::string& filepath)
+	{
+		std::string source = ReadFile(filepath);
+		auto shaderSources = PreProcess(source);
+		CompileSources(shaderSources);
+	}
+
+	std::string OpenGLShader::ReadFile(const std::string& filepath)
+	{
+		std::string result;
+		std::ifstream stream(filepath, std::ios::in, std::ios::binary);
+
+		if (stream)
 		{
-			std::string vertCode;
-			std::string fragCode;
-			std::ifstream vertShaderFile;
-			std::ifstream fragShaderFile;
-
-			vertShaderFile.exceptions(std::fstream::failbit | std::ifstream::badbit);
-			fragShaderFile.exceptions(std::fstream::failbit | std::ifstream::badbit);
-
-			try
-			{
-				vertShaderFile.open(vertexSrc);
-				fragShaderFile.open(fragmentSrc);
-				std::stringstream vertShaderStream, fragShaderStream;
-
-				vertShaderStream << vertShaderFile.rdbuf();
-				fragShaderStream << fragShaderFile.rdbuf();
-
-				vertShaderFile.close();
-				fragShaderFile.close();
-
-				vertCode = vertShaderStream.str();
-				fragCode = fragShaderStream.str();
-			}
-			catch (std::ifstream::failure e)
-			{
-				LOG_ENGINE_ERROR("Failed to open shader files: {0} {1}!", vertexSrc, fragmentSrc);
-			}
-
-			vertShaderCode = vertCode.c_str();
-			fragShaderCode = fragCode.c_str();
-			LOG_ENGINE_FATAL(vertCode.c_str());
-			LOG_ENGINE_FATAL(fragCode.c_str());
+			stream.seekg(0, std::ios::end);
+			result.resize(stream.tellg());
+			stream.seekg(0, std::ios::beg);
+			stream.read(&result[0], result.size());
+			stream.close();
 		}
 		else
 		{
-			vertShaderCode = vertexSrc.c_str();
-			fragShaderCode = fragmentSrc.c_str();
+			LOG_ENGINE_ERROR("Failed to read Shader file: {0}", filepath);
 		}
 
-		uint32_t vertex, fragment;
-		int succes;
-		char infoLog[512];
-
-		vertex = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vertex, 1, &vertShaderCode, NULL);
-		glCompileShader(vertex);
-
-		glGetShaderiv(vertex, GL_COMPILE_STATUS, &succes);
-		if (!succes)
-		{
-			glGetShaderInfoLog(vertex, 512, NULL, infoLog);
-			LOG_ENGINE_ERROR("Failed to compile vertex shader: {0}", infoLog);
-		}
-
-		fragment = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fragment, 1, &fragShaderCode, NULL);
-		glCompileShader(fragment);
-
-		glGetShaderiv(fragment, GL_COMPILE_STATUS, &succes);
-		if (!succes)
-		{
-			glGetShaderInfoLog(fragment, 512, NULL, infoLog);
-			LOG_ENGINE_ERROR("Failed to compile fragment shader: {0}", infoLog);
-		}
-
-		m_ProgramID = glCreateProgram();
-		glAttachShader(m_ProgramID, vertex);
-		glAttachShader(m_ProgramID, fragment);
-		glLinkProgram(m_ProgramID);
-
-		glGetProgramiv(m_ProgramID, GL_LINK_STATUS, &succes);
-		if (!succes)
-		{
-			glGetProgramInfoLog(m_ProgramID, 512, NULL, infoLog);
-			LOG_ENGINE_ERROR("Failed to create shader program!");
-		}
-
-		glDeleteShader(vertex);
-		glDeleteShader(fragment);
-
-		LOG_ENGINE_INFO("Shader loaded!");
+		return result;
 	}
+
+	Dict<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
+	{
+		std::unordered_map<GLenum, std::string> shaderSources;
+
+		const char* typeToken = "#type";
+		size_t typeTokenLength = strlen(typeToken);
+		size_t pos = source.find(typeToken, 0);
+		while (pos != std::string::npos)
+		{
+			size_t eol = source.find_first_of("\r\n", pos);
+			size_t begin = pos + typeTokenLength + 1;
+			std::string type = source.substr(begin, eol - begin);
+
+			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
+			pos = source.find(typeToken, nextLinePos);
+			shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
+		}
+
+		return shaderSources;
+	}
+
+	void OpenGLShader::CompileSources(const std::unordered_map<GLenum, std::string>& shaderSources)
+	{
+		GLuint program = glCreateProgram();
+		std::vector<GLenum> glShaderIDs(shaderSources.size());
+		for (auto& kv : shaderSources)
+		{
+			GLenum type = kv.first;
+			const std::string& source = kv.second;
+
+			GLuint shader = glCreateShader(type);
+
+			const GLchar* sourceCStr = source.c_str();
+			glShaderSource(shader, 1, &sourceCStr, 0);
+
+			glCompileShader(shader);
+
+			GLint isCompiled = 0;
+			glGetShaderiv(shader, GL_COMPILE_STATUS, &isCompiled);
+			if (isCompiled == GL_FALSE)
+			{
+				GLint maxLength = 0;
+				glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
+
+				std::vector<GLchar> infoLog(maxLength);
+				glGetShaderInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
+
+				glDeleteShader(shader);
+
+				LOG_ENGINE_ERROR("{0}", infoLog.data());
+				break;
+			}
+
+			glAttachShader(program, shader);
+			glShaderIDs.push_back(shader);
+		}
+
+		m_RendererID = program;
+
+		glLinkProgram(program);
+
+		GLint isLinked = 0;
+		glGetProgramiv(program, GL_LINK_STATUS, (int*)&isLinked);
+		if (isLinked == GL_FALSE)
+		{
+			GLint maxLength = 0;
+			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
+
+			std::vector<GLchar> infoLog(maxLength);
+			glGetProgramInfoLog(program, maxLength, &maxLength, &infoLog[0]);
+
+			glDeleteProgram(program);
+
+			for (auto id : glShaderIDs)
+				glDeleteShader(id);
+
+			LOG_ENGINE_ERROR("{0}", infoLog.data());
+			return;
+		}
+
+		for (auto id : glShaderIDs)
+			glDetachShader(program, id);
+	}
+
+	/* Uniform setters */
 
 	OpenGLShader::~OpenGLShader()
 	{
-		glDeleteProgram(m_ProgramID);
+		glDeleteProgram(m_RendererID);
 	}
 
 	void OpenGLShader::Bind() const
 	{
-		glUseProgram(m_ProgramID);
+		glUseProgram(m_RendererID);
 	}
 
 	void OpenGLShader::SetBool(const char* name, bool value) const
@@ -160,7 +193,7 @@ namespace Cobalt
 			return m_UniformLocations[name];
 		}
 
-		GLint location = glGetUniformLocation(m_ProgramID, name);
+		GLint location = glGetUniformLocation(m_RendererID, name);
 		m_UniformLocations[name] = location;
 		return location;
 	}

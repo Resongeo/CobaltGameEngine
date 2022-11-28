@@ -14,7 +14,7 @@ namespace Cobalt
 	class OpenGLShader : public Shader
 	{
 	public:
-		OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc, ShaderSourceType type);
+		OpenGLShader(const std::string& filepath);
 		~OpenGLShader();
 
 		virtual void Bind() const;
@@ -31,7 +31,13 @@ namespace Cobalt
 		virtual inline void SetMat4(const char* name, glm::mat4 value) const;
 
 	private:
-		uint32_t m_ProgramID;
+		std::string ReadFile(const std::string& filepath);
+		Dict<GLenum, std::string> PreProcess(const std::string& source);
+		void CompileSources(const std::unordered_map<GLenum, std::string>& shaderSources);
+
+	private:
+		uint32_t m_RendererID;
+
 		mutable Dict<const char*, GLint> m_UniformLocations;
 		GLint GetUniformLocation(const char* name) const;
 	};

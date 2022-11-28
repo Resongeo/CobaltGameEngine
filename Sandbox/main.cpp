@@ -1,9 +1,6 @@
 #include "Cobalt.h"
 using namespace Cobalt;
 
-#include "assets/shaders/TestShader.h"
-#include "assets/shaders/TextureShader.h"
-
 #include "fonts/FontAwesomeIcons.h"
 
 class ExampleLayer : public Layer
@@ -40,9 +37,10 @@ public:
 		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 
-		m_TestShader = Shader::Create(TestShader::Vertex, TestShader::Fragment, ShaderSourceType::String);
-		m_TextureShader = Shader::Create(TextureShader::Vertex, TextureShader::Fragment, ShaderSourceType::String);
-		m_Texture = Texture::Create("assets/textures/uv_grid.png");
+		m_TestShader = Shader::Create("assets\\shaders\\TestShader.glsl");
+		m_TextureShader = Shader::Create("assets\\shaders\\TextureShader.glsl");
+
+		m_Texture = Texture::Create("assets\\textures\\uv_grid.png");
 
 		camera_pos[0] = m_SceneCamera.GetPosition().x;
 		camera_pos[1] = m_SceneCamera.GetPosition().y;

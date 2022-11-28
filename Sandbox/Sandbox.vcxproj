@@ -91,13 +91,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\shaders\Test.frag" />
-    <None Include="assets\shaders\Test.vert" />
+    <None Include="assets\shaders\TestShader.glsl" />
+    <None Include="assets\shaders\TextureShader.glsl" />
     <None Include="imgui.ini" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="assets\shaders\TestShader.h" />
-    <ClInclude Include="assets\shaders\TextureShader.h" />
     <ClInclude Include="fonts\FontAwesomeIcons.h" />
   </ItemGroup>
   <ItemGroup>

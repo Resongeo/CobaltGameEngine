@@ -21,17 +21,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
-    <None Include="assets\shaders\Test.vert" />
-    <None Include="assets\shaders\Test.frag" />
+    <None Include="assets\shaders\TestShader.glsl" />
+    <None Include="assets\shaders\TextureShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fonts\FontAwesomeIcons.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="assets\shaders\TestShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="assets\shaders\TextureShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
