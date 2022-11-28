@@ -21,10 +21,10 @@ namespace Cobalt
 	};
 }
 
-#define LOG_ENGINE_TRACE(...)    ::Cobalt::Log::GetEngineLogger()->trace(__VA_ARGS__)
-#define LOG_ENGINE_INFO(...)     ::Cobalt::Log::GetEngineLogger()->info(__VA_ARGS__)
-#define LOG_ENGINE_WARN(...)     ::Cobalt::Log::GetEngineLogger()->warn(__VA_ARGS__)
-#define LOG_ENGINE_ERROR(...)    ::Cobalt::Log::GetEngineLogger()->error(__VA_ARGS__)
+#define LOG_ENGINE_TRACE(...)   ::Cobalt::Log::GetEngineLogger()->trace(__VA_ARGS__)
+#define LOG_ENGINE_INFO(...)    ::Cobalt::Log::GetEngineLogger()->info(__VA_ARGS__)
+#define LOG_ENGINE_WARN(...)    ::Cobalt::Log::GetEngineLogger()->warn(__VA_ARGS__)
+#define LOG_ENGINE_ERROR(...)	::Cobalt::Log::GetEngineLogger()->error(__VA_ARGS__)
 #define LOG_ENGINE_FATAL(...)	::Cobalt::Log::GetEngineLogger()->critical(__VA_ARGS__)
 
 #define LOG_TRACE(...)			::Cobalt::Log::GetClientLogger()->trace(__VA_ARGS__)

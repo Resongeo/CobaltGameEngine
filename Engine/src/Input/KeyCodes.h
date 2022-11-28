@@ -52,7 +52,6 @@ namespace Cobalt
 	#define KEYCODE_GRAVE_ACCENT       96
 	#define KEYCODE_WORLD_1            161
 	#define KEYCODE_WORLD_2            162
-
 	#define KEYCODE_ESCAPE             256
 	#define KEYCODE_ENTER              257
 	#define KEYCODE_TAB                258
@@ -123,6 +122,5 @@ namespace Cobalt
 	#define KEYCODE_RIGHT_ALT          346
 	#define KEYCODE_RIGHT_SUPER        347
 	#define KEYCODE_MENU               348
-
 	#define KEYCODE_LAST               KEYCODE_MENU
 }

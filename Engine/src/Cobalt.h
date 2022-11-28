@@ -31,6 +31,7 @@
 #include "Renderer/VertexArray.h"
 #include "Renderer/IndexBuffer.h"
 #include "Renderer/Renderer.h"
+#include "Renderer/Texture.h"
 #include "Renderer/Shader.h"
 
 #include "Platform/Window.h"

@@ -41,6 +41,8 @@ namespace Cobalt
 
 			vertShaderCode = vertCode.c_str();
 			fragShaderCode = fragCode.c_str();
+			LOG_ENGINE_FATAL(vertCode.c_str());
+			LOG_ENGINE_FATAL(fragCode.c_str());
 		}
 		else
 		{

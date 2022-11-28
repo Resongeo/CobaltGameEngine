@@ -1,6 +1,9 @@
 #include "Cobalt.h"
 using namespace Cobalt;
 
+#include "assets/shaders/TestShader.h"
+#include "assets/shaders/TextureShader.h"
+
 #include "fonts/FontAwesomeIcons.h"
 
 class ExampleLayer : public Layer
@@ -37,41 +40,10 @@ public:
 		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 
-		std::string vertexSource = R"(
-			#version 460 core
-			
-			layout(location = 0) in vec3 aPosition;
-			layout(location = 1) in vec3 aColor;
+		m_TestShader = Shader::Create(TestShader::Vertex, TestShader::Fragment, ShaderSourceType::String);
+		m_TextureShader = Shader::Create(TextureShader::Vertex, TextureShader::Fragment, ShaderSourceType::String);
+		m_Texture = Texture::Create("assets/textures/uv_grid.png");
 
-			uniform mat4 View;
-			uniform mat4 Model;
-
-			out vec3 TexCoords;
-			out vec3 vColor;
-
-			void main()
-			{
-				gl_Position = View * Model * vec4(aPosition, 1.0);
-				TexCoords = aPosition.xyz;
-				vColor = aColor;
-			}
-		)";
-		std::string fragmentSource = R"(
-			#version 460 core
-			
-			layout(location = 0) out vec4 FragColor;
-			in vec3 TexCoords;
-			in vec3 vColor;
-
-			uniform vec3 inColor;
-
-			void main()	 
-			{
-				FragColor = vec4(inColor, 1.0);
-			}
-		)";
-
-		m_Shader = Shader::Create(vertexSource, fragmentSource, ShaderSourceType::String);
 		camera_pos[0] = m_SceneCamera.GetPosition().x;
 		camera_pos[1] = m_SceneCamera.GetPosition().y;
 		camera_pos[2] = m_SceneCamera.GetPosition().z;
@@ -152,9 +124,8 @@ public:
 		RenderCommand::ClearColor({ bg_col[0], bg_col[1], bg_col[2], 1.0 });
 		RenderCommand::Clear();
 
-		m_Shader->Bind();
-		m_Shader->SetVec3("inColor", grid_col[0], grid_col[1], grid_col[2]);
-
+		m_TestShader->Bind();
+		m_TestShader->SetVec3("inColor", grid_col[0], grid_col[1], grid_col[2]);
 
 		for (float x = -gridSize; x < gridSize; x += gridGap)
 		{
@@ -162,7 +133,7 @@ public:
 			transform = glm::translate(transform, glm::vec3(x, 0.0f, 0.0f));
 			transform = glm::scale(transform, glm::vec3(gridLineWidth, gridSize * 2.0f, 1.0f));
 
-			RenderCommand::DrawIndexed(m_Shader, m_VertexArray, transform);
+			RenderCommand::DrawIndexed(m_TestShader, m_VertexArray, transform);
 		}
 
 		for (float y = -gridSize; y < gridSize; y += gridGap)
@@ -171,8 +142,18 @@ public:
 			transform = glm::translate(transform, glm::vec3(0.0f, y, 0.0f));
 			transform = glm::scale(transform, glm::vec3(gridSize * 2.0f, gridLineWidth, 1.0f));
 
-			RenderCommand::DrawIndexed(m_Shader, m_VertexArray, transform);
+			RenderCommand::DrawIndexed(m_TestShader, m_VertexArray, transform);
 		}
+
+		m_TextureShader->Bind();
+		m_TextureShader->SetInt("inTexture", 0);
+		m_Texture->Bind();
+
+		glm::mat4 imageTransform = glm::mat4(1.0);
+		imageTransform = glm::rotate(imageTransform, glm::radians(imageRotation), glm::vec3(0.0, 0.0, 1.0));
+		imageRotation += deltaTime * 5.0f;
+
+		RenderCommand::DrawIndexed(m_TextureShader, m_VertexArray, imageTransform);
 
 		{
 			ImGui::Begin("Debug window");
@@ -270,7 +251,9 @@ private:
 	Ref<VertexArray> m_VertexArray;
 	Ref<VertexBuffer> m_VertexBuffer;
 	Ref<IndexBuffer> m_IndexBuffer;
-	Ref<Shader> m_Shader;
+	Ref<Shader> m_TestShader;
+	Ref<Shader> m_TextureShader;
+	Ref<Texture> m_Texture;
 
 	SceneCamera m_SceneCamera;
 
@@ -285,6 +268,8 @@ private:
 	int gridSize = 5;
 	float gridGap = 0.1f;
 	float gridLineWidth = 0.006f;
+
+	float imageRotation = 0.0f;
 
 	ImFont* regularFont;
 	ImFont* semiboldFont;
@@ -310,6 +295,7 @@ int main()
 	ApplicationSpecification appSpecs;
 	appSpecs.WindowProperties.Width = 1920;
 	appSpecs.WindowProperties.Height = 1080;
+	appSpecs.WindowProperties.Title = "Cobalt Sandbox App";
 
 	Sandbox* sandbox = new Sandbox(appSpecs);
 	sandbox->Run();
