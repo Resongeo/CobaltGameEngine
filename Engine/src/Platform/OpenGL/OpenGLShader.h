@@ -31,7 +31,7 @@ namespace Cobalt
 		virtual inline void SetMat4(const char* name, glm::mat4 value) const;
 
 	private:
-		unsigned int m_ProgramID;
+		uint32_t m_ProgramID;
 		mutable Dict<const char*, GLint> m_UniformLocations;
 		GLint GetUniformLocation(const char* name) const;
 	};

@@ -50,7 +50,7 @@ namespace Cobalt
 			fragShaderCode = fragmentSrc.c_str();
 		}
 
-		unsigned int vertex, fragment;
+		uint32_t vertex, fragment;
 		int succes;
 		char infoLog[512];
 

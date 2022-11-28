@@ -8,7 +8,7 @@ namespace Cobalt
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
-		OpenGLVertexBuffer(float* vertices, unsigned int size);
+		OpenGLVertexBuffer(float* vertices, uint32_t size);
 		virtual ~OpenGLVertexBuffer();
 
 		virtual void Bind() const override;
@@ -18,7 +18,7 @@ namespace Cobalt
 		virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }	
 
 	private:
-		unsigned int m_RendererID;
+		uint32_t m_RendererID;
 		BufferLayout m_Layout;
 	};
 }

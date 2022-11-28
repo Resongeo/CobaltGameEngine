@@ -41,7 +41,7 @@ namespace Cobalt
 		glBindVertexArray(m_RendererID);
 		vertexBuffer->Bind();
 
-		unsigned int index = 0;
+		uint32_t index = 0;
 		const auto& layout = vertexBuffer->GetLayout();
 		for (const auto& element : layout)
 		{

@@ -8,16 +8,16 @@ namespace Cobalt
 	class OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
-		OpenGLIndexBuffer(unsigned int* indices, unsigned int count);
+		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
 		virtual ~OpenGLIndexBuffer();
 
 		virtual void Bind() const;
 		virtual void Unbind() const;
 
-		virtual unsigned int GetCount() const { return m_Count; }
+		virtual uint32_t GetCount() const { return m_Count; }
 
 	private:
-		unsigned int m_RendererID;
-		unsigned int m_Count;
+		uint32_t m_RendererID;
+		uint32_t m_Count;
 	};
 }

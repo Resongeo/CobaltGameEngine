@@ -19,7 +19,7 @@ public:
 			-0.5f,  0.5f, 0.0f, 0.8f, 0.3f, 0.3f, 0.0f, 1.0f
 		};
 
-		unsigned int indices[6] =
+		uint32_t indices[6] =
 		{
 			0, 1, 3,
 			1, 2, 3
@@ -27,7 +27,7 @@ public:
 
 		m_VertexArray = VertexArray::Create();
 		m_VertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
-		m_IndexBuffer = IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int));
+		m_IndexBuffer = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
 		BufferLayout layout =
 		{
