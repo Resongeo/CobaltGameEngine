@@ -15,7 +15,7 @@ namespace Cobalt
 	{
 	public:
 		OpenGLShader(const std::string& filepath);
-		~OpenGLShader();
+		virtual ~OpenGLShader();
 
 		virtual void Bind() const;
 

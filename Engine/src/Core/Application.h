@@ -39,7 +39,7 @@ namespace Cobalt
 
 		Window& GetWindow() { return *m_Window; }
 
-		static Application& Get() { return *s_Instance; }
+		inline static Application& Get() { return *s_Instance; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);

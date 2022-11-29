@@ -26,6 +26,11 @@ namespace Cobalt
 		glBindVertexArray(m_RendererID);
 	}
 
+	OpenGLVertexArray::~OpenGLVertexArray()
+	{
+		glDeleteBuffers(1, &m_RendererID);
+	}
+
 	void OpenGLVertexArray::Bind() const
 	{
 		glBindVertexArray(m_RendererID);

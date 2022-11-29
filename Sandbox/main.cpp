@@ -6,41 +6,9 @@ using namespace Cobalt;
 class ExampleLayer : public Layer
 {
 public:
-	ExampleLayer() : Layer("Example Layer")
+	ExampleLayer() : Layer("Example Layer"), m_Window(Application::Get().GetWindow())
 	{
-		float vertices[4 * 8] =
-		{
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.3f, 0.3f, 0.0f, 0.0f,
-			 0.5f, -0.5f, 0.0f, 0.3f, 0.8f, 0.3f, 1.0f, 0.0f,
-			 0.5f,  0.5f, 0.0f, 0.3f, 0.3f, 0.8f, 1.0f, 1.0f,
-			-0.5f,  0.5f, 0.0f, 0.8f, 0.3f, 0.3f, 0.0f, 1.0f
-		};
-
-		uint32_t indices[6] =
-		{
-			0, 1, 3,
-			1, 2, 3
-		};
-
-		m_VertexArray = VertexArray::Create();
-		m_VertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
-		m_IndexBuffer = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
-
-		BufferLayout layout =
-		{
-			{ ShaderDataType::Float3, "aPosition" },
-			{ ShaderDataType::Float3, "aColor" },
-			{ ShaderDataType::Float2, "aTexCoord" }
-		};
-
-		m_VertexBuffer->SetLayout(layout);
-		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
-		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
-
-		m_TestShader = Shader::Create("assets\\shaders\\TestShader.glsl");
-		m_TextureShader = Shader::Create("assets\\shaders\\TextureShader.glsl");
-
-		m_Texture = Texture::Create("assets\\textures\\uv_grid.png");
+		m_Window.SetVsync(false);
 
 		camera_pos[0] = m_SceneCamera.GetPosition().x;
 		camera_pos[1] = m_SceneCamera.GetPosition().y;
@@ -49,9 +17,6 @@ public:
 		camera_rot = m_SceneCamera.GetRotation();
 		camera_size = m_SceneCamera.GetSize();
 		camera_fov = m_SceneCamera.GetFOV();
-
-		auto& window = Application::Get().GetWindow();
-		window.SetVsync(false);
 	}
 	
 	void OnAttach() override
@@ -113,11 +78,53 @@ public:
 		regularFont = io.Fonts->AddFontFromFileTTF("fonts\\Poppins-Regular.ttf", 20.0f);
 		semiboldFont = io.Fonts->AddFontFromFileTTF("fonts\\Poppins-Semibold.ttf", 20.0f);
 		iconFont = io.Fonts->AddFontFromFileTTF("fonts\\fa-regular-400.ttf", 20.0f, &config, icon_ranges);
+
+		float vertices[4 * 8] =
+		{
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.3f, 0.3f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 0.3f, 0.8f, 0.3f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 0.3f, 0.3f, 0.8f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.8f, 0.3f, 0.3f, 0.0f, 1.0f
+		};
+
+		uint32_t indices[6] =
+		{
+			0, 1, 3,
+			1, 2, 3
+		};
+
+		m_VertexArray = VertexArray::Create();
+		m_VertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
+		m_IndexBuffer = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+
+		BufferLayout layout =
+		{
+			{ ShaderDataType::Float3, "aPosition" },
+			{ ShaderDataType::Float3, "aColor" },
+			{ ShaderDataType::Float2, "aTexCoord" }
+		};
+
+		m_VertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
+
+		m_TestShader = Shader::Create("assets\\shaders\\TestShader.glsl");
+		m_TextureShader = Shader::Create("assets\\shaders\\TextureShader.glsl");
+
+		m_Texture = Texture::Create("assets\\textures\\uv_grid.png");
+
+		FramebufferSpecification framebufferSpecs;
+		framebufferSpecs.Width = m_Window.GetWidth();
+		framebufferSpecs.Height = m_Window.GetHeight();
+		m_Framebuffer = Framebuffer::Create(framebufferSpecs);
 	}
 
 	void OnUpdate(float deltaTime) override
 	{
 		RenderCommand::BeginScene(m_SceneCamera);
+		RenderCommand::Clear();
+
+		m_Framebuffer->Bind();
 
 		RenderCommand::ClearColor({ bg_col[0], bg_col[1], bg_col[2], 1.0 });
 		RenderCommand::Clear();
@@ -153,83 +160,7 @@ public:
 
 		RenderCommand::DrawIndexed(m_TextureShader, m_VertexArray, imageTransform);
 
-		{
-			ImGui::Begin("Debug window");
-			
-			ImGui::PushFont(iconFont);
-			ImGui::Text(ICON_FA_APPLE_WHOLE);
-			ImGui::PopFont();
-
-			ImGui::PushFont(semiboldFont);
-			if (ImGui::Button("Press me!")) LOG_TRACE("You pressed me :)");
-			ImGui::PopFont();
-			ImGui::Text("");
-			ImGui::ColorEdit3("BG color", bg_col);
-			ImGui::PushFont(semiboldFont);
-			if (ImGui::Button("Reset BG color"))
-			{
-				bg_col[0] = 0.09f;
-				bg_col[1] = 0.09f;
-				bg_col[2] = 0.10f;
-			}
-			ImGui::PopFont();
-
-			ImGui::Text("");
-			
-			if (ImGui::CollapsingHeader("Grid", ImGuiTreeNodeFlags_DefaultOpen))
-			{
-				ImGui::Spacing();
-				ImGui::ColorEdit3("Grid color", grid_col);
-				ImGui::Spacing();
-
-				ImGui::SliderInt("Grid size", &gridSize, 1, 10);
-				ImGui::SliderFloat("Grid gap", &gridGap, 0.02f, 1.0f);
-				ImGui::SliderFloat("Grid line width", &gridLineWidth, 0.001f, 0.1f);
-
-				ImGui::Spacing();
-
-				ImGui::PushFont(semiboldFont);
-				if (ImGui::Button("Reset grid"))
-				{
-					gridSize = 5;
-					gridGap = 0.1f;
-					gridLineWidth = 0.006f;
-
-					grid_col[0] = 0.17f;
-					grid_col[1] = 0.17f;
-					grid_col[2] = 0.17f;
-				}
-				ImGui::PopFont();
-			}
-
-			ImGui::End();
-			ImGui::Begin("Camera");
-			const char* projectionTypes[] = { "Orthographic", "Perspective" };
-			static int current_projection = 0;
-			if (ImGui::Combo("Projection", &current_projection, projectionTypes, IM_ARRAYSIZE(projectionTypes)))
-			{
-				m_SceneCamera.SetProjectionType(current_projection == 0 ? ProjectionType::Orthographic : ProjectionType::Perspective);
-			}
-
-			ImGui::Text("");
-
-			ImGui::DragFloat3("Camera position", camera_pos, 0.1f);
-			m_SceneCamera.SetPosition({ camera_pos[0], camera_pos[1], camera_pos[2] });
-			if (ImGui::DragFloat("Rotation", &camera_rot, 0.1)) m_SceneCamera.SetRotaion(camera_rot);
-
-			ImGui::Text("");
-
-			if(current_projection == 0)
-			{
-				if (ImGui::DragFloat("Size", &camera_size, 0.1)) m_SceneCamera.SetSize(camera_size);
-			}
-			else
-			{
-				if (ImGui::DragFloat("FOV", &camera_fov, 0.1)) m_SceneCamera.SetFOV(camera_fov);
-			}
-
-			ImGui::End();
-		}
+		m_Framebuffer->Unbind();
 
 		ImGui::ShowDemoWindow();
 
@@ -245,21 +176,113 @@ public:
 		
 	}
 
-	void OnEvent(Event& event) override
+	void OnImGuiUpdate(float deltaTime) override
 	{
-		if (event.GetEventType() == EventType::WindowResize)
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
+		ImGui::Begin("Viewport");
+
+		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+		if (m_ViewportSize.x != viewportPanelSize.x || m_ViewportSize.y != viewportPanelSize.y)
 		{
-			auto& window = Application::Get().GetWindow();
-			m_SceneCamera.SetAspectRatio(window.GetWidth(), window.GetHeight());
+			m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+			m_Framebuffer->Resize(m_ViewportSize.x, m_ViewportSize.y);
+			m_SceneCamera.SetAspectRatio(m_ViewportSize.x, m_ViewportSize.y);
+			RenderCommand::SetViewport(0, 0, m_ViewportSize.x, m_ViewportSize.y);
 		}
+		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentID(), m_ViewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+		ImGui::End();
+		ImGui::PopStyleVar();
+
+		ImGui::Begin("Debug window");
+
+		ImGui::PushFont(iconFont);
+		ImGui::Text(ICON_FA_APPLE_WHOLE);
+		ImGui::PopFont();
+
+		ImGui::PushFont(semiboldFont);
+		if (ImGui::Button("Press me!")) LOG_TRACE("You pressed me :)");
+		ImGui::PopFont();
+		ImGui::Text("");
+		ImGui::ColorEdit3("BG color", bg_col);
+		ImGui::PushFont(semiboldFont);
+		if (ImGui::Button("Reset BG color"))
+		{
+			bg_col[0] = 0.09f;
+			bg_col[1] = 0.09f;
+			bg_col[2] = 0.10f;
+		}
+		ImGui::PopFont();
+
+		ImGui::Text("");
+
+		if (ImGui::CollapsingHeader("Grid", ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			ImGui::Spacing();
+			ImGui::ColorEdit3("Grid color", grid_col);
+			ImGui::Spacing();
+
+			ImGui::SliderInt("Grid size", &gridSize, 1, 10);
+			ImGui::SliderFloat("Grid gap", &gridGap, 0.02f, 1.0f);
+			ImGui::SliderFloat("Grid line width", &gridLineWidth, 0.001f, 0.1f);
+
+			ImGui::Spacing();
+
+			ImGui::PushFont(semiboldFont);
+			if (ImGui::Button("Reset grid"))
+			{
+				gridSize = 5;
+				gridGap = 0.1f;
+				gridLineWidth = 0.006f;
+
+				grid_col[0] = 0.17f;
+				grid_col[1] = 0.17f;
+				grid_col[2] = 0.17f;
+			}
+			ImGui::PopFont();
+		}
+
+		ImGui::End();
+		ImGui::Begin("Camera");
+		const char* projectionTypes[] = { "Orthographic", "Perspective" };
+		static int current_projection = 0;
+		if (ImGui::Combo("Projection", &current_projection, projectionTypes, IM_ARRAYSIZE(projectionTypes)))
+		{
+			m_SceneCamera.SetProjectionType(current_projection == 0 ? ProjectionType::Orthographic : ProjectionType::Perspective);
+		}
+
+		ImGui::Text("");
+
+		ImGui::DragFloat3("Camera position", camera_pos, 0.1f);
+		m_SceneCamera.SetPosition({ camera_pos[0], camera_pos[1], camera_pos[2] });
+		if (ImGui::DragFloat("Rotation", &camera_rot, 0.1)) m_SceneCamera.SetRotaion(camera_rot);
+
+		ImGui::Text("");
+
+		if (current_projection == 0)
+		{
+			if (ImGui::DragFloat("Size", &camera_size, 0.1)) m_SceneCamera.SetSize(camera_size);
+		}
+		else
+		{
+			if (ImGui::DragFloat("FOV", &camera_fov, 0.1)) m_SceneCamera.SetFOV(camera_fov);
+		}
+
+		ImGui::End();
 	}
 
 private:
+	Window& m_Window;
+
 	Ref<VertexArray> m_VertexArray;
 	Ref<VertexBuffer> m_VertexBuffer;
 	Ref<IndexBuffer> m_IndexBuffer;
+
+	Ref<Framebuffer> m_Framebuffer;
+
 	Ref<Shader> m_TestShader;
 	Ref<Shader> m_TextureShader;
+	
 	Ref<Texture> m_Texture;
 
 	SceneCamera m_SceneCamera;
@@ -277,6 +300,8 @@ private:
 	float gridLineWidth = 0.006f;
 
 	float imageRotation = 0.0f;
+
+	ImVec2 m_ViewportSize = { 0.0f, 0.0f };
 
 	ImFont* regularFont;
 	ImFont* semiboldFont;

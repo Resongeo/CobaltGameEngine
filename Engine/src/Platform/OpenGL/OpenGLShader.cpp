@@ -15,6 +15,8 @@ namespace Cobalt
 
 	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
+		LOG_ENGINE_INFO("Loading shader: {0}", filepath);
+
 		std::string source = ReadFile(filepath);
 		auto shaderSources = PreProcess(source);
 		CompileSources(shaderSources);

@@ -27,6 +27,11 @@ namespace Cobalt
 		stbi_image_free(data);
 	}
 
+	OpenGLTexture::~OpenGLTexture()
+	{
+		glDeleteTextures(1, &m_RendererID);
+	}
+
 	void OpenGLTexture::Bind()
 	{
 		glActiveTexture(GL_TEXTURE0);

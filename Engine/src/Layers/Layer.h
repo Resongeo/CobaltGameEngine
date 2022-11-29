@@ -14,6 +14,7 @@ namespace Cobalt
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate(float deltaTime) {}
+		virtual void OnImGuiUpdate(float deltaTime) {}
 		virtual void OnEvent(Event& event) {}
 
 		inline const std::string& GetName() const { return m_DebugName; }

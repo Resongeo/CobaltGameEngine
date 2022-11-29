@@ -41,6 +41,11 @@ namespace Cobalt
 				layer->OnUpdate(m_DeltaTime);
 			}
 
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnImGuiUpdate(m_DeltaTime);
+			}
+
 			Gui::Render();
 			m_Window->Update();
 		}
