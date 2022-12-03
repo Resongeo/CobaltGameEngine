@@ -14,6 +14,8 @@ namespace Cobalt
 		camera_rot = m_SceneCamera.GetRotation();
 		camera_size = m_SceneCamera.GetSize();
 		camera_fov = m_SceneCamera.GetFOV();
+
+		m_GridEntity;
 	}
 
 	void EditorLayer::OnAttach()
@@ -75,10 +77,6 @@ namespace Cobalt
 		m_Framebuffer = Framebuffer::Create(framebufferSpecs);
 
 		m_ActiveScene = CreateRef<Scene>();
-
-		m_TestEntity = m_ActiveScene->CreateEntity();
-		m_ActiveScene->Reg().emplace<TransformComponent>(m_TestEntity, glm::mat4(1.0));
-		m_ActiveScene->Reg().emplace<SpriteRendererComponent>(m_TestEntity, m_Texture, glm::vec4(1.0));
 	}
 
 	void EditorLayer::OnUpdate(float deltaTime)
@@ -115,8 +113,6 @@ namespace Cobalt
 		imageTransform = glm::rotate(imageTransform, glm::radians(imageRotation), glm::vec3(0.0, 0.0, 1.0));
 		imageRotation += deltaTime * 5.0f;
 
-		auto& transform = m_ActiveScene->Reg().get<TransformComponent>(m_TestEntity);
-		transform.Transform = imageTransform;
 
 		/*RenderCommand::DrawIndexed(m_TextureShader, m_VertexArray, imageTransform); */
 
@@ -198,6 +194,20 @@ namespace Cobalt
 				grid_col[2] = 0.17f;
 			}
 			ImGui::PopFont();
+
+			ImGui::Text("");
+			ImGui::Text("");
+
+			if (ImGui::Button("Add sprite"))
+			{
+				m_GridEntity = m_ActiveScene->CreateEntity();
+				m_GridEntity.AddComponent<SpriteRendererComponent>(m_Texture, glm::vec4(1.0));
+			}
+
+			if (m_GridEntity)
+			{
+				ImGui::Text(m_GridEntity.GetComponent<TagComponent>().Tag.c_str());
+			}
 		}
 
 		ImGui::End();

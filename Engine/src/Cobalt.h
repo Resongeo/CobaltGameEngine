@@ -36,7 +36,8 @@
 #include "Renderer/Texture.h"
 #include "Renderer/Shader.h"
 
-#include "Scene/Components.h"
+#include "Scene/ECS/Components.h"
+#include "Scene/ECS/Entity.h"
 #include "Scene/Scene.h"
 
 #include "imgui.h"

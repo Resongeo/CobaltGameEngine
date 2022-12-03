@@ -1,12 +1,15 @@
 #pragma once
 
-#include "Scene/Components.h"
+#include "Scene/ECS/Components.h"
+
 #include "Renderer/RenderCommand.h"
 
 #include <entt.hpp>
 
 namespace Cobalt
 {
+	class Entity;
+
 	class Scene
 	{
 	public:
@@ -15,9 +18,11 @@ namespace Cobalt
 		void Update(float deltaTime);
 
 		entt::registry& Reg() { return m_Registry; }
-		entt::entity CreateEntity();
+		Entity CreateEntity(const std::string& name = "Entity");
 
 	private:
 		entt::registry m_Registry;
+
+		friend class Entity;
 	};
 }
