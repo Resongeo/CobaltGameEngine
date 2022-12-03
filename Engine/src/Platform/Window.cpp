@@ -1,6 +1,6 @@
 #include "Window.h"
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 namespace Cobalt
 {

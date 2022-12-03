@@ -1,5 +1,7 @@
 #include "Platform/OpenGL/OpenGLIndexBuffer.h"
 
+#include <glad/glad.h>
+
 namespace Cobalt
 {
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count) : m_Count(count)

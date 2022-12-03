@@ -1,4 +1,5 @@
 #include "Editor/CobaltEditor.h"
+using namespace Cobalt;
 
 int main()
 {

@@ -58,7 +58,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor\ImGui;$(SolutionDir)vendor\GLM\include;$(SolutionDir)vendor\STBIMAGE;$(SolutionDir)..\CobaltEditor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor\ImGui;$(SolutionDir)vendor\GLM\include;$(SolutionDir)vendor\STBIMAGE;$(SolutionDir)..\CobaltEditor;$(SolutionDir)vendor\EnTT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -76,7 +76,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor\ImGui;$(SolutionDir)vendor\GLM\include;$(SolutionDir)vendor\STBIMAGE;$(SolutionDir)..\CobaltEditor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor\ImGui;$(SolutionDir)vendor\GLM\include;$(SolutionDir)vendor\STBIMAGE;$(SolutionDir)..\CobaltEditor;$(SolutionDir)vendor\EnTT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -89,11 +89,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Editor\CobaltEditor.cpp" />
+    <ClCompile Include="Editor\Debug\LogLayer.cpp" />
     <ClCompile Include="Editor\EditorLayer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor\CobaltEditor.h" />
+    <ClInclude Include="Editor\Debug\LogLayer.h" />
     <ClInclude Include="Editor\EditorLayer.h" />
   </ItemGroup>
   <ItemGroup>

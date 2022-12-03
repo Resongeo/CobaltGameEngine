@@ -46,6 +46,8 @@
     <ClInclude Include="src\Renderer\Texture.h" />
     <ClInclude Include="src\Renderer\VertexArray.h" />
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
+    <ClInclude Include="src\Scene\Components.h" />
+    <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="vendor\ImGui\backends\imgui_impl_glfw.h" />
     <ClInclude Include="vendor\ImGui\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="vendor\ImGui\backends\imgui_impl_opengl3_loader.h" />
@@ -182,6 +184,7 @@
     <ClCompile Include="src\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="vendor\ImGui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="vendor\ImGui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="vendor\ImGui\imgui.cpp" />
@@ -237,7 +240,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)src;$(SolutionDir)vendor\ImGui;$(SolutionDir)vendor\GLM\include;$(SolutionDir)vendor\STBIMAGE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)src;$(SolutionDir)vendor\ImGui;$(SolutionDir)vendor\GLM\include;$(SolutionDir)vendor\STBIMAGE;$(SolutionDir)vendor\EnTT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -253,7 +256,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)src;$(SolutionDir)vendor\ImGui;$(SolutionDir)vendor\GLM\include;$(SolutionDir)vendor\STBIMAGE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)src;$(SolutionDir)vendor\ImGui;$(SolutionDir)vendor\GLM\include;$(SolutionDir)vendor\STBIMAGE;$(SolutionDir)vendor\EnTT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>

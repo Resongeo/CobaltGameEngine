@@ -25,9 +25,10 @@
 
 #include "Logger/Log.h"
 
+#include "Platform/Window.h"
+
 #include "Renderer/GraphicsContext.h"
 #include "Renderer/RenderCommand.h"
-#include "Renderer/VertexBuffer.h"
 #include "Renderer/VertexArray.h"
 #include "Renderer/IndexBuffer.h"
 #include "Renderer/Framebuffer.h"
@@ -35,6 +36,7 @@
 #include "Renderer/Texture.h"
 #include "Renderer/Shader.h"
 
-#include "Platform/Window.h"
+#include "Scene/Components.h"
+#include "Scene/Scene.h"
 
 #include "imgui.h"

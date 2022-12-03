@@ -1,5 +1,7 @@
 #include "Platform/OpenGL/OpenGLVertexBuffer.h"
 
+#include <glad/glad.h>
+
 namespace Cobalt
 {
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)

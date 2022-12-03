@@ -19,6 +19,8 @@ namespace Cobalt
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		Gui::Init(m_Window->GetHandle());
+
+		RenderCommand::Init();
 	}
 
 	Application::~Application()

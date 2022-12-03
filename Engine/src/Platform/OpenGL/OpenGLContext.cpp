@@ -1,5 +1,7 @@
 #include "Platform/OpenGL/OpenGLContext.h"
+
 #include <iostream>
+#include <glad/glad.h>
 
 namespace Cobalt
 {

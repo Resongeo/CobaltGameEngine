@@ -24,8 +24,8 @@ namespace Cobalt
 	void OpenGLRenderer::DrawIndexed(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& model)
 	{
 		vertexArray->Bind();
-		shader->SetMat4("View", s_SceneData->ViewProjectionMatrix);
-		shader->SetMat4("Model", model);
+		shader->SetMat4("ViewProjection", s_SceneData->ViewProjectionMatrix);
+		shader->SetMat4("Transform", model);
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Renderer/IndexBuffer.h"
-#include "glad/glad.h"
 
 namespace Cobalt
 {

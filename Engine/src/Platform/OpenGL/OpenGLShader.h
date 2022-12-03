@@ -4,10 +4,10 @@
 #include "Renderer/Shader.h"
 #include "Logger/Log.h"
 
-#include "glad/glad.h"
-
 #include <fstream>
 #include <string>
+
+#include <glad/glad.h>
 
 namespace Cobalt
 {

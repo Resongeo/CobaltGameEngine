@@ -1,5 +1,7 @@
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 
+#include <glad/glad.h>
+
 namespace Cobalt
 {
 	static GLenum ShaderDataTypeToGLenum(ShaderDataType type)
