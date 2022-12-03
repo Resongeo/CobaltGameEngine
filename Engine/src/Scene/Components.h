@@ -9,6 +9,18 @@
 
 namespace Cobalt
 {
+	struct TagComponent
+	{
+		std::string Tag;
+
+		TagComponent() = default;
+		TagComponent(const TagComponent&) = default;
+		TagComponent(const std::string& tag) : Tag(tag) {}
+
+		operator std::string& () { return Tag; }
+		operator const std::string& () const { return Tag; }
+	};
+
 	struct TransformComponent
 	{
 		glm::mat4 Transform;
@@ -29,5 +41,11 @@ namespace Cobalt
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const Ref<Texture>& sprite, const glm::vec4& color): Sprite(sprite), Color(color) {}
+
+		operator Ref<Texture>& () { return Sprite; }
+		operator const Ref<Texture>& () const { return Sprite; }
+
+		operator glm::vec4& () { return Color; }
+		operator const glm::vec4& () const { return Color; }
 	};
 }
