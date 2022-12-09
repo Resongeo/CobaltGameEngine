@@ -91,6 +91,7 @@
     <ClCompile Include="Editor\CobaltEditor.cpp" />
     <ClCompile Include="Editor\Panels\Log\LogPanel.cpp" />
     <ClCompile Include="Editor\EditorLayer.cpp" />
+    <ClCompile Include="Editor\Panels\Scene\SceneHierarchyPanel.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +99,7 @@
     <ClInclude Include="Editor\Panels\EditorPanel.h" />
     <ClInclude Include="Editor\Panels\Log\LogPanel.h" />
     <ClInclude Include="Editor\EditorLayer.h" />
+    <ClInclude Include="Editor\Panels\Scene\SceneHierarchyPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />

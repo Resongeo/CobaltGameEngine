@@ -11,8 +11,6 @@ EditorLayer::EditorLayer() : Layer("Editor Layer"), m_Window(Application::Get().
 	m_GridData.Size = 5;
 	m_GridData.GapSize = 0.1f;
 	m_GridData.LineWidth = 0.005f;
-
-	m_GridEntity;
 }
 
 void EditorLayer::OnAttach()
@@ -65,8 +63,8 @@ void EditorLayer::OnAttach()
 	style->Colors[ImGuiCol_SeparatorHovered] = ImColor(84, 109, 123, 255);
 
 	ImGuiIO& io = ImGui::GetIO();
-	m_RegularFont = io.Fonts->AddFontFromFileTTF("assets\\fonts\\Poppins-Regular.ttf", 20.0f);
-	m_SemiboldFont = io.Fonts->AddFontFromFileTTF("assets\\fonts\\Poppins-Semibold.ttf", 20.0f);
+	m_EditorFonts.Regular = io.Fonts->AddFontFromFileTTF("assets\\fonts\\Poppins-Regular.ttf", 20.0f);
+	m_EditorFonts.SemiBold = io.Fonts->AddFontFromFileTTF("assets\\fonts\\Poppins-Semibold.ttf", 20.0f);
 
 	m_Texture = Texture::Create("assets\\textures\\uv_grid.png");
 
@@ -76,9 +74,10 @@ void EditorLayer::OnAttach()
 	m_Framebuffer = Framebuffer::Create(framebufferSpecs);
 
 	m_ActiveScene = CreateRef<Scene>();
-	m_ActiveScene->CreateEntity();
+	//m_ActiveScene->CreateEntity();
 
 	m_LogPanel = CreateScope<LogPanel>();
+	m_SceneHierarchyPanel = CreateScope<SceneHierarchyPanel>(m_ActiveScene);
 }
 
 void EditorLayer::OnUpdate(float deltaTime)
@@ -126,10 +125,31 @@ void EditorLayer::OnUpdate(float deltaTime)
 	m_SceneCamera.SetPosition(m_SceneCameraData.Position);
 
 	m_LogPanel->Update(deltaTime);
+	m_SceneHierarchyPanel->Update(deltaTime);
 }
+
+// TODO: Move all time related stuff into its own class
+float fpsRefreshInterval = 0.5f;
+float nextTimeToRefreshFPS = 1.0f;
+float fpsCounter = 0.0f;
+
+bool isVsync = true;
+bool showFps = true;
+
+int entity_count = 1;
 
 void EditorLayer::OnImGuiUpdate(float deltaTime)
 {
+	if (fpsRefreshInterval < 0.0f)
+	{
+		fpsCounter = 1.0f / deltaTime;
+		fpsRefreshInterval = nextTimeToRefreshFPS;
+	}
+	else
+	{
+		fpsRefreshInterval -= deltaTime;
+	}
+
 	/* Viewport */
 	{
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
@@ -146,6 +166,19 @@ void EditorLayer::OnImGuiUpdate(float deltaTime)
 		}
 		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentID(), m_ViewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
+		if (showFps)
+		{
+			ImGui::SetCursorPosX(30);
+			ImGui::SetCursorPosY(30);
+
+			if (fpsCounter < 30.f)
+				ImGui::TextColored(ImVec4(0.89f, 0.21f, 0.21f, 1.f), ("FPS: " + std::to_string((int)fpsCounter)).c_str());
+			else if (fpsCounter < 60.f)
+				ImGui::TextColored(ImVec4(0.89f, 0.84f, 0.21f, 1.f), ("FPS: " + std::to_string((int)fpsCounter)).c_str());
+			else
+				ImGui::TextColored(ImVec4(0.41f, 0.89f, 0.21f, 1.f), ("FPS: " + std::to_string((int)fpsCounter)).c_str());
+		}
+
 		ImGui::End();
 		ImGui::PopStyleVar();
 	}
@@ -154,7 +187,7 @@ void EditorLayer::OnImGuiUpdate(float deltaTime)
 	{
 		ImGui::Begin("Test window");
 
-		ImGui::PushFont(m_SemiboldFont);
+		ImGui::PushFont(m_EditorFonts.SemiBold);
 		if (ImGui::Button("Press me!"))
 		{
 			LOG_TRACE("You pressed me :)");
@@ -162,31 +195,36 @@ void EditorLayer::OnImGuiUpdate(float deltaTime)
 		}
 		ImGui::PopFont();
 
-		ImGui::Text("");
+		ImGui::Dummy(ImVec2(0, 30));
 
 		ImGui::ColorEdit4("BG color", glm::value_ptr(m_ClearColor));
 
-		ImGui::PushFont(m_SemiboldFont);
+		ImGui::PushFont(m_EditorFonts.SemiBold);
 		ImGui::Spacing();
 		if (ImGui::Button("Reset BG color", ImVec2(ImGui::GetWindowSize().x * 0.95f, 40.0f)))
 			m_ClearColor = { 0.09f, 0.09f, 0.1f, 1.0f };
 		ImGui::PopFont();
 
-		ImGui::Text("");
-		ImGui::Text("");
+		ImGui::Dummy(ImVec2(0, 30));
 
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.258f, 0.76f, 0.391f, 1.0f));
-		if (ImGui::Button("Add test entity", ImVec2(ImGui::GetWindowSize().x * 0.95f, 0.0f)))
+		if (ImGui::Button("Add UV grid", ImVec2(ImGui::GetWindowSize().x * 0.95f, 0.0f)))
 		{
-			m_GridEntity = m_ActiveScene->CreateEntity();
-			m_GridEntity.AddComponent<SpriteRendererComponent>(m_Texture, glm::vec4(1.0));
+			for (int i = 0; i < 100; i++)
+			{
+				auto entity = m_ActiveScene->CreateEntity();
+				entity.AddComponent<SpriteRendererComponent>(m_Texture, glm::vec4(1.0));
+
+				DEBUG_WARN(fmt::format("{0} entites", entity_count));
+				entity_count++;
+			}
 		}
 		ImGui::PopStyleColor();
 
-		if (m_GridEntity)
-		{
-			ImGui::Text(m_GridEntity.GetComponent<TagComponent>().Tag.c_str());
-		}
+		ImGui::Dummy(ImVec2(0, 30));
+
+		if (ImGui::Checkbox("Vsync", &isVsync)) m_Window.SetVsync(isVsync);
+		ImGui::Checkbox("Show FPS", &showFps);
 
 		ImGui::End();
 	}
@@ -286,7 +324,7 @@ void EditorLayer::OnImGuiUpdate(float deltaTime)
 
 			ImGui::Spacing();
 
-			ImGui::PushFont(m_SemiboldFont);
+			ImGui::PushFont(m_EditorFonts.SemiBold);
 			ImGui::SetCursorPosX(10);
 			if (ImGui::Button("Reset grid", ImVec2(ImGui::GetWindowSize().x * 0.95f, 40.0f)))
 			{

@@ -4,6 +4,13 @@
 using namespace Cobalt;
 
 #include "Editor/Panels/Log/LogPanel.h"
+#include "Editor/Panels/Scene/SceneHierarchyPanel.h"
+
+struct EditorFonts
+{
+	ImFont* Regular;
+	ImFont* SemiBold;
+};
 
 class EditorLayer : public Layer
 {
@@ -16,21 +23,22 @@ public:
 
 	Ref<Scene> GetActiveScene() const { return m_ActiveScene; }
 
+	EditorFonts GetEditoFonts() const { return m_EditorFonts; }
+
 private:
 	Window m_Window;
 
 	Scope<LogPanel> m_LogPanel;
+	Scope<SceneHierarchyPanel> m_SceneHierarchyPanel;
 
 	Ref<Texture> m_Texture;
 	Ref<Framebuffer> m_Framebuffer;
 
 	Ref<Scene> m_ActiveScene;
-	Entity m_GridEntity;
 
 	SceneCamera m_SceneCamera;
-
-	ImFont* m_RegularFont;
-	ImFont* m_SemiboldFont;
+	
+	EditorFonts m_EditorFonts;
 
 	struct SceneCameraData
 	{

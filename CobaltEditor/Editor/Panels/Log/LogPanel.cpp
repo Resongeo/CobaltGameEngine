@@ -6,7 +6,7 @@ LogPanel::LogPanel() : EditorPanel("Log panel")
 {
 	s_Instance = this;
 
-	LOG_INFO("Panel {0} created!", m_PanelName);
+	LOG_TRACE("Panel {0} created!", m_PanelName);
 
 	DEBUG_LOG("Debug Log message!");
 	DEBUG_INFO("Debug Info message!");

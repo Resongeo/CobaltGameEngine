@@ -40,6 +40,17 @@ namespace Cobalt
 
 		operator bool() const { return (uint32_t)m_EntityHandle != 0; }
 
+		operator uint32_t() const { return (uint32_t)m_EntityHandle; }
+
+		bool operator ==(const Entity& otherEntity) const
+		{
+			return m_EntityHandle == otherEntity.m_EntityHandle && m_Scene == otherEntity.m_Scene;
+		}
+		bool operator !=(const Entity& otherEntity) const
+		{
+			return m_EntityHandle != otherEntity.m_EntityHandle || m_Scene != otherEntity.m_Scene;
+		}
+
 	private:
 		entt::entity m_EntityHandle{ 0 };
 		Scene* m_Scene = nullptr;
