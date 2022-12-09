@@ -24,7 +24,7 @@
     <ClCompile Include="Editor\EditorLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Editor\Debug\LogLayer.cpp">
+    <ClCompile Include="Editor\Panels\Log\LogPanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,7 +35,10 @@
     <ClInclude Include="Editor\EditorLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Editor\Debug\LogLayer.h">
+    <ClInclude Include="Editor\Panels\Log\LogPanel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\Panels\EditorPanel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

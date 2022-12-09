@@ -38,7 +38,7 @@ namespace Cobalt
 			m_Scene->Reg().remove<T>(m_EntityHandle);
 		}
 
-		operator bool() const { return m_EntityHandle != (entt::entity)0; }
+		operator bool() const { return (uint32_t)m_EntityHandle != 0; }
 
 	private:
 		entt::entity m_EntityHandle{ 0 };

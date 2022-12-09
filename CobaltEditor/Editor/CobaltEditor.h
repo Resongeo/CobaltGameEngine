@@ -1,24 +1,21 @@
 #pragma once
 
 #include "Cobalt.h"
+using namespace Cobalt;
 
 #include "Editor/EditorLayer.h"
-#include "Editor/Debug/LogLayer.h"
 
-namespace Cobalt
+class CobaltEditor : public Application
 {
-	class CobaltEditor : public Application
-	{
-	public:
-		CobaltEditor(const ApplicationSpecification& applicationSpecification);
-		~CobaltEditor() {}
+public:
+	CobaltEditor(const ApplicationSpecification& applicationSpecification);
+	~CobaltEditor() {}
 
-		inline EditorLayer* GetEditorLayer() const { return m_EditorLayer; }
-		inline static CobaltEditor& Get() { return *s_Instance; }
+	inline EditorLayer* GetEditorLayer() const { return m_EditorLayer; }
+	inline static CobaltEditor& Get() { return *s_Instance; }
 
-	private:
-		static CobaltEditor* s_Instance;
+private:
+	static CobaltEditor* s_Instance;
 
-		EditorLayer* m_EditorLayer;
-	};
-}
+	EditorLayer* m_EditorLayer;
+};
