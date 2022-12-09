@@ -229,12 +229,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>.\lib</OutDir>
-    <IntDir>..\bin-int\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Engine\lib</OutDir>
+    <IntDir>$(SolutionDir)bin-int\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>.\lib</OutDir>
-    <IntDir>..\bin-int\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Engine\lib</OutDir>
+    <IntDir>$(SolutionDir)bin-int\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -242,7 +242,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)src;$(SolutionDir)vendor\ImGui;$(SolutionDir)vendor\GLM\include;$(SolutionDir)vendor\STBIMAGE;$(SolutionDir)vendor\EnTT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\vendor\GLFW\include;$(SolutionDirEngine\)vendor\SPDLOG\include;$(SolutionDir)Engine\vendor\GLAD\include;$(SolutionDirEngine\)src;$(SolutionDir)Engine\vendor\ImGui;$(SolutionDir)Engine\vendor\GLM\include;$(SolutionDir)Engine\vendor\STBIMAGE;$(SolutionDir)Engine\vendor\EnTT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -258,7 +258,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)vendor\GLFW\include;$(SolutionDir)vendor\SPDLOG\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)src;$(SolutionDir)vendor\ImGui;$(SolutionDir)vendor\GLM\include;$(SolutionDir)vendor\STBIMAGE;$(SolutionDir)vendor\EnTT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\vendor\GLFW\include;$(SolutionDirEngine\)vendor\SPDLOG\include;$(SolutionDir)Engine\vendor\GLAD\include;$(SolutionDirEngine\)src;$(SolutionDir)Engine\vendor\ImGui;$(SolutionDir)Engine\vendor\GLM\include;$(SolutionDir)Engine\vendor\STBIMAGE;$(SolutionDir)Engine\vendor\EnTT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
