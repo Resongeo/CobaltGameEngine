@@ -11,11 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Gui\ImGuiImpl.h" />
+    <ClInclude Include="src\Platform\OpenGL\Gui\OpenGLImGuiImpl.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
     <ClInclude Include="src\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Cameras\Camera.h" />
     <ClInclude Include="src\Cameras\SceneCamera.h" />
-    <ClInclude Include="src\Core\Gui.h" />
+    <ClInclude Include="src\Gui\Gui.h" />
     <ClInclude Include="src\Core\Math.h" />
     <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Input\KeyCodes.h" />
@@ -162,11 +164,14 @@
     <ClCompile Include="src\Cameras\SceneCamera.cpp" />
     <ClCompile Include="src\Core\glad.c" />
     <ClCompile Include="src\Core\stb_image.cpp" />
+    <ClCompile Include="src\Gui\Gui.cpp" />
+    <ClCompile Include="src\Gui\ImGuiImpl.cpp" />
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\Layers\LayerStack.cpp" />
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Layers\Layer.cpp" />
     <ClCompile Include="src\Logger\Log.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\Gui\OpenGLImGuiImpl.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />

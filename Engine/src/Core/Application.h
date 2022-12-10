@@ -1,14 +1,11 @@
 #pragma once
 
 #include "Core/Core.h"
-#include "Core/Gui.h"
+#include "Gui/Gui.h"
 
 #include "Events/ApplicationEvent.h"
-
 #include "Layers/LayerStack.h"
-
 #include "Logger/Log.h"
-
 #include "Platform/Window.h"
 
 #include "Renderer/Renderer.h"

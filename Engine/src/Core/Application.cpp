@@ -25,7 +25,7 @@ namespace Cobalt
 
 	Application::~Application()
 	{
-		Gui::Destroy();
+		Gui::ShutDown();
 	}
 
 	void Application::Run()
