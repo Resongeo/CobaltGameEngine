@@ -74,7 +74,6 @@ void EditorLayer::OnAttach()
 	m_Framebuffer = Framebuffer::Create(framebufferSpecs);
 
 	m_ActiveScene = CreateRef<Scene>();
-	//m_ActiveScene->CreateEntity();
 
 	m_LogPanel = CreateScope<LogPanel>();
 	m_SceneHierarchyPanel = CreateScope<SceneHierarchyPanel>(m_ActiveScene);
@@ -135,8 +134,6 @@ float fpsCounter = 0.0f;
 
 bool isVsync = true;
 bool showFps = true;
-
-int entity_count = 1;
 
 void EditorLayer::OnImGuiUpdate(float deltaTime)
 {
@@ -210,14 +207,8 @@ void EditorLayer::OnImGuiUpdate(float deltaTime)
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.258f, 0.76f, 0.391f, 1.0f));
 		if (ImGui::Button("Add UV grid", ImVec2(ImGui::GetWindowSize().x * 0.95f, 0.0f)))
 		{
-			for (int i = 0; i < 100; i++)
-			{
-				auto entity = m_ActiveScene->CreateEntity();
-				entity.AddComponent<SpriteRendererComponent>(m_Texture, glm::vec4(1.0));
-
-				DEBUG_WARN(fmt::format("{0} entites", entity_count));
-				entity_count++;
-			}
+			auto entity = m_ActiveScene->CreateEntity();
+			entity.AddComponent<SpriteRendererComponent>(m_Texture, glm::vec4(1.0));
 		}
 		ImGui::PopStyleColor();
 

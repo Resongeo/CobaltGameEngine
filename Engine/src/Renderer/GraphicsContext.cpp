@@ -11,5 +11,7 @@ namespace Cobalt
 		{
 			case GraphicsAPI::OpenGL: return CreateRef<OpenGLContext>(glfwWindow);
 		}
+
+		return nullptr;
 	}
 }

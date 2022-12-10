@@ -31,10 +31,10 @@ namespace Cobalt
 
 	struct BufferElement
 	{
-		std::string Name;
-		ShaderDataType Type;
-		unsigned int Offset;
-		unsigned int Size;
+		std::string Name = "";
+		ShaderDataType Type = ShaderDataType::None;
+		uint32_t Offset = 0;
+		uint32_t Size = 0;
 
 		BufferElement() {}
 		BufferElement(ShaderDataType type, const std::string& name)
@@ -68,6 +68,7 @@ namespace Cobalt
 		{
 			unsigned int offset = 0;
 			m_Stride = 0;
+
 			for (auto& element : m_Elements)
 			{
 				element.Offset = offset;
@@ -77,7 +78,7 @@ namespace Cobalt
 		}
 
 		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }
-		inline unsigned int GetStride() const { return m_Stride; }
+		inline uint32_t GetStride() const { return m_Stride; }
 
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
 		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
@@ -86,7 +87,7 @@ namespace Cobalt
 
 	private:
 		std::vector<BufferElement> m_Elements;
-		unsigned int m_Stride;
+		uint32_t m_Stride = 0;
 	};
 
 	class VertexBuffer
