@@ -79,7 +79,7 @@ void EditorLayer::OnAttach()
 	m_SceneHierarchyPanel = CreateScope<SceneHierarchyPanel>(m_ActiveScene);
 }
 
-void EditorLayer::OnUpdate(float deltaTime)
+void EditorLayer::OnUpdate()
 {
 	RenderCommand::BeginScene(m_SceneCamera);
 	RenderCommand::Clear();
@@ -107,46 +107,28 @@ void EditorLayer::OnUpdate(float deltaTime)
 		RenderCommand::DrawQuad(transform, m_GridColor);
 	}
 		
-	m_ActiveScene->Update(deltaTime);
+	m_ActiveScene->Update(Time::deltaTime);
 
 	m_Framebuffer->Unbind();
 
 	if (Input::GetKeyDown(KEYCODE_A))
-		m_SceneCameraData.Position.x -= 1.0f * deltaTime;
+		m_SceneCameraData.Position.x -= 1.0f * Time::deltaTime;
 	else if (Input::GetKeyDown(KEYCODE_D))
-		m_SceneCameraData.Position.x += 1.0f * deltaTime;
+		m_SceneCameraData.Position.x += 1.0f * Time::deltaTime;
 
 	if (Input::GetKeyDown(KEYCODE_W))
-		m_SceneCameraData.Position.y += 1.0f * deltaTime;
+		m_SceneCameraData.Position.y += 1.0f * Time::deltaTime;
 	else if (Input::GetKeyDown(KEYCODE_S))
-		m_SceneCameraData.Position.y -= 1.0f * deltaTime;
+		m_SceneCameraData.Position.y -= 1.0f * Time::deltaTime;
 
 	m_SceneCamera.SetPosition(m_SceneCameraData.Position);
 
-	m_LogPanel->Update(deltaTime);
-	m_SceneHierarchyPanel->Update(deltaTime);
+	m_LogPanel->Update(Time::deltaTime);
+	m_SceneHierarchyPanel->Update(Time::deltaTime);
 }
 
-// TODO: Move all time related stuff into its own class
-float fpsRefreshInterval = 0.5f;
-float nextTimeToRefreshFPS = 1.0f;
-float fpsCounter = 0.0f;
-
-bool isVsync = true;
-bool showFps = true;
-
-void EditorLayer::OnImGuiUpdate(float deltaTime)
+void EditorLayer::OnImGuiUpdate()
 {
-	if (fpsRefreshInterval < 0.0f)
-	{
-		fpsCounter = 1.0f / deltaTime;
-		fpsRefreshInterval = nextTimeToRefreshFPS;
-	}
-	else
-	{
-		fpsRefreshInterval -= deltaTime;
-	}
-
 	/* Viewport */
 	{
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
@@ -163,17 +145,17 @@ void EditorLayer::OnImGuiUpdate(float deltaTime)
 		}
 		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentID(), m_ViewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
-		if (showFps)
+		if (m_ShowFps)
 		{
 			ImGui::SetCursorPosX(30);
 			ImGui::SetCursorPosY(30);
 
-			if (fpsCounter < 30.f)
-				ImGui::TextColored(ImVec4(0.89f, 0.21f, 0.21f, 1.f), ("FPS: " + std::to_string((int)fpsCounter)).c_str());
-			else if (fpsCounter < 60.f)
-				ImGui::TextColored(ImVec4(0.89f, 0.84f, 0.21f, 1.f), ("FPS: " + std::to_string((int)fpsCounter)).c_str());
+			if (Time::intervalFrameRate < 30.f)
+				ImGui::TextColored(ImVec4(0.89f, 0.21f, 0.21f, 1.f), ("FPS: " + std::to_string((int)Time::intervalFrameRate)).c_str());
+			else if (Time::intervalFrameRate < 60.f)
+				ImGui::TextColored(ImVec4(0.89f, 0.84f, 0.21f, 1.f), ("FPS: " + std::to_string((int)Time::intervalFrameRate)).c_str());
 			else
-				ImGui::TextColored(ImVec4(0.41f, 0.89f, 0.21f, 1.f), ("FPS: " + std::to_string((int)fpsCounter)).c_str());
+				ImGui::TextColored(ImVec4(0.41f, 0.89f, 0.21f, 1.f), ("FPS: " + std::to_string((int)Time::intervalFrameRate)).c_str());
 		}
 
 		ImGui::End();
@@ -214,8 +196,8 @@ void EditorLayer::OnImGuiUpdate(float deltaTime)
 
 		ImGui::Dummy(ImVec2(0, 30));
 
-		if (ImGui::Checkbox("Vsync", &isVsync)) m_Window.SetVsync(isVsync);
-		ImGui::Checkbox("Show FPS", &showFps);
+		if (ImGui::Checkbox("Vsync", &m_Vsync)) m_Window.SetVsync(m_Vsync);
+		ImGui::Checkbox("Show FPS", &m_ShowFps);
 
 		ImGui::End();
 	}

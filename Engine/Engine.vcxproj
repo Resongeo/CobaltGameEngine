@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\Time.h" />
     <ClInclude Include="src\Gui\ImGuiImpl.h" />
     <ClInclude Include="src\Platform\OpenGL\Gui\OpenGLImGuiImpl.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="src\Cameras\SceneCamera.cpp" />
     <ClCompile Include="src\Core\glad.c" />
     <ClCompile Include="src\Core\stb_image.cpp" />
+    <ClCompile Include="src\Core\Time.cpp" />
     <ClCompile Include="src\Gui\Gui.cpp" />
     <ClCompile Include="src\Gui\ImGuiImpl.cpp" />
     <ClCompile Include="src\Input\Input.cpp" />

@@ -8,6 +8,7 @@
 
 #include "Core/Core.h"
 #include "Core/Math.h"
+#include "Core/Time.h"
 #include "Core/Application.h"
 
 #include "Cameras/SceneCamera.h"

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core/Core.h"
+#include "Core/Time.h"
 #include "Gui/Gui.h"
 
 #include "Events/ApplicationEvent.h"
@@ -48,9 +49,5 @@ namespace Cobalt
 		Scope<Window> m_Window;
 		LayerStack m_LayerStack;
 		bool m_Running = true;
-
-		float m_Time = 0.0f;
-		float m_DeltaTime = 0.0f;
-		float m_LastFrameTime = 0.0f;
 	};
 }

@@ -5,11 +5,11 @@
 
 namespace Cobalt
 {
-	Ref<ImGuiImpl> ImGuiImpl::Create(GLFWwindow* window)
+	Scope<ImGuiImpl> ImGuiImpl::Create(GLFWwindow* window)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case GraphicsAPI::OpenGL: return CreateRef<OpenGLImGuiImpl>(window);
+			case GraphicsAPI::OpenGL: return CreateScope<OpenGLImGuiImpl>(window);
 		}
 
 		return nullptr;

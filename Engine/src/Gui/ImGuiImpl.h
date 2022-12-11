@@ -16,6 +16,6 @@ namespace Cobalt
 		virtual void Render() = 0;
 		virtual void ShutDown() = 0;
 
-		static Ref<ImGuiImpl> Create(GLFWwindow* window);
+		static Scope<ImGuiImpl> Create(GLFWwindow* window);
 	};
 }

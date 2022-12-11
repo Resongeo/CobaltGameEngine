@@ -18,8 +18,8 @@ public:
 	EditorLayer();
 
 	void OnAttach() override;
-	void OnUpdate(float deltaTime) override;
-	void OnImGuiUpdate(float deltaTime) override;
+	void OnUpdate() override;
+	void OnImGuiUpdate() override;
 
 	Ref<Scene> GetActiveScene() const { return m_ActiveScene; }
 
@@ -64,4 +64,7 @@ private:
 
 	bool m_CameraSettingsOpened = false;
 	bool m_GridSettingsOpened = false;
+
+	bool m_Vsync = true;
+	bool m_ShowFps = true;
 };

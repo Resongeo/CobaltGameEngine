@@ -2,7 +2,7 @@
 
 namespace Cobalt
 {
-	Ref<ImGuiImpl> Gui::s_ImGuiImpl = nullptr;
+	Scope<ImGuiImpl> Gui::s_ImGuiImpl = nullptr;
 
 	void Gui::Init(GLFWwindow* window)
 	{
