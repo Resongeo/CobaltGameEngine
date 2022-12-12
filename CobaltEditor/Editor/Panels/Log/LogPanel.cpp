@@ -19,22 +19,22 @@ void LogPanel::Clear()
 	m_Messages.clear();
 }
 
-void LogPanel::Update(float deltaTime)
+void LogPanel::Update()
 {
 	ImGui::Begin("Log");
 
 	if (ImGui::Button("Clear")) Clear();
 	ImGui::SameLine();
-	ImGui::Checkbox("Auto scroll", &LogPanel::Get().m_ScrollToBottom);
+	ImGui::Checkbox("Auto scroll", &m_ScrollToBottom);
 
 	ImGui::Separator();
 
 	ImGui::BeginChild("scroll", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
 
-	for (auto& message : LogPanel::Get().m_Messages)
+	for (auto& message : m_Messages)
 	{
 		ImGui::TextColored(message.Color, message.Message.c_str());
-		if (LogPanel::Get().m_ScrollToBottom && ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
+		if (m_ScrollToBottom && ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
 			ImGui::SetScrollHereY(1.0f);
 		ImGui::Separator();
 	}

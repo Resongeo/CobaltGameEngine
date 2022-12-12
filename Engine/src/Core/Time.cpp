@@ -13,6 +13,7 @@ namespace Cobalt
 	float Time::m_IntervalCounter = 0.0f;
 	float Time::m_TimeBetweenInterval = 0.4f;
 
+
 	void Time::Update()
 	{
 		m_Time = (float)glfwGetTime();

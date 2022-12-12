@@ -12,7 +12,7 @@ SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& scene) : EditorPanel(
 	m_OddNodeColor = ImColor(0, 0, 0, 80);
 }
 
-void SceneHierarchyPanel::Update(float deltaTime)
+void SceneHierarchyPanel::Update()
 {
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 10));
 	ImGui::Begin("Hierarchy");
@@ -59,7 +59,7 @@ void SceneHierarchyPanel::DrawEntityNode(Entity entity, int node_index)
 		}
 	}
 
-	auto editor_font = CobaltEditor::Get().GetEditorLayer()->GetEditoFonts();
+	auto editor_font = CobaltEditor::GetEditorLayer()->GetEditorFonts();
 	if (m_SelectedEntity == entity)
 	{
 		AddRectToDrawList(cursor_pos, content_region_max, line_height, m_SelectedColor);

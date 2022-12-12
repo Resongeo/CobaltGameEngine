@@ -21,7 +21,7 @@ public:
 	inline static LogPanel& Get() { return *s_Instance; }
 	void Clear();
 
-	void Update(float deltaTime) override;
+	void Update() override;
 
 	void AddLog(const std::string& message);
 	void AddInfo(const std::string& message);

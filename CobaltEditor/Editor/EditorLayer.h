@@ -4,6 +4,7 @@
 using namespace Cobalt;
 
 #include "Editor/Panels/Log/LogPanel.h"
+#include "Editor/Panels/Profiler/ProfilerPanel.h"
 #include "Editor/Panels/Scene/SceneHierarchyPanel.h"
 
 struct EditorFonts
@@ -23,12 +24,13 @@ public:
 
 	Ref<Scene> GetActiveScene() const { return m_ActiveScene; }
 
-	EditorFonts GetEditoFonts() const { return m_EditorFonts; }
+	EditorFonts GetEditorFonts() const { return m_EditorFonts; }
 
 private:
 	Window m_Window;
 
 	Scope<LogPanel> m_LogPanel;
+	Scope<ProfilerPanel> m_ProfilerPanel;
 	Scope<SceneHierarchyPanel> m_SceneHierarchyPanel;
 
 	Ref<Texture> m_Texture;

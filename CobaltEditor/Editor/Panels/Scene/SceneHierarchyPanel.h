@@ -13,7 +13,7 @@ public:
 
 	inline void SetScene(const Ref<Scene>& scene) { m_Scene = scene; }
 
-	void Update(float deltaTime) override;
+	void Update() override;
 
 private:
 	void DrawEntityNode(Entity entity, int node_index);

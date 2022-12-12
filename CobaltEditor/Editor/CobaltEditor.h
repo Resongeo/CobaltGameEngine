@@ -11,7 +11,7 @@ public:
 	CobaltEditor(const ApplicationSpecification& applicationSpecification);
 	~CobaltEditor() {}
 
-	inline EditorLayer* GetEditorLayer() const { return m_EditorLayer; }
+	inline static EditorLayer* GetEditorLayer() { return s_Instance->m_EditorLayer; }
 	inline static CobaltEditor& Get() { return *s_Instance; }
 
 private:

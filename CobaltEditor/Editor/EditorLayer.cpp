@@ -76,38 +76,57 @@ void EditorLayer::OnAttach()
 	m_ActiveScene = CreateRef<Scene>();
 
 	m_LogPanel = CreateScope<LogPanel>();
+	m_ProfilerPanel = CreateScope<ProfilerPanel>();
 	m_SceneHierarchyPanel = CreateScope<SceneHierarchyPanel>(m_ActiveScene);
 }
 
 void EditorLayer::OnUpdate()
 {
-	RenderCommand::BeginScene(m_SceneCamera);
-	RenderCommand::Clear();
+	PROFILER_START_HEADER("EditorLayer::OnUpdate");
+
+	{
+		PROFILER_TIMER_SCOPE("BeginScene");
+
+		RenderCommand::BeginScene(m_SceneCamera);
+		RenderCommand::Clear();
+	}
 
 	m_Framebuffer->Bind();
 
-	RenderCommand::ClearColor(m_ClearColor);
-	RenderCommand::Clear();
-
-	for (float x = -m_GridData.Size; x < m_GridData.Size; x += m_GridData.GapSize)
 	{
-		glm::mat4 transform = glm::mat4(1.0f);
-		transform = glm::translate(transform, glm::vec3(x, 0.0f, 0.0f));
-		transform = glm::scale(transform, glm::vec3(m_GridData.LineWidth, m_GridData.Size * 2.0f, 1.0f));
+		PROFILER_TIMER_SCOPE("Clear");
 
-		RenderCommand::DrawQuad(transform, m_GridColor);
+		RenderCommand::ClearColor(m_ClearColor);
+		RenderCommand::Clear();
 	}
 
-	for (float y = -m_GridData.Size; y < m_GridData.Size; y += m_GridData.GapSize)
 	{
-		glm::mat4 transform = glm::mat4(1.0f);
-		transform = glm::translate(transform, glm::vec3(0.0f, y, 0.0f));
-		transform = glm::scale(transform, glm::vec3(m_GridData.Size * 2.0f, m_GridData.LineWidth, 1.0f));
+		PROFILER_TIMER_SCOPE("Grid");
 
-		RenderCommand::DrawQuad(transform, m_GridColor);
+		for (float x = -m_GridData.Size; x < m_GridData.Size; x += m_GridData.GapSize)
+		{
+			glm::mat4 transform = glm::mat4(1.0f);
+			transform = glm::translate(transform, glm::vec3(x, 0.0f, 0.0f));
+			transform = glm::scale(transform, glm::vec3(m_GridData.LineWidth, m_GridData.Size * 2.0f, 1.0f));
+
+			RenderCommand::DrawQuad(transform, m_GridColor);
+		}
+
+		for (float y = -m_GridData.Size; y < m_GridData.Size; y += m_GridData.GapSize)
+		{
+			glm::mat4 transform = glm::mat4(1.0f);
+			transform = glm::translate(transform, glm::vec3(0.0f, y, 0.0f));
+			transform = glm::scale(transform, glm::vec3(m_GridData.Size * 2.0f, m_GridData.LineWidth, 1.0f));
+
+			RenderCommand::DrawQuad(transform, m_GridColor);
+		}
 	}
-		
-	m_ActiveScene->Update(Time::deltaTime);
+	
+	{
+		PROFILER_TIMER_SCOPE("Scene update");
+
+		m_ActiveScene->Update(Time::deltaTime);
+	}
 
 	m_Framebuffer->Unbind();
 
@@ -123,14 +142,25 @@ void EditorLayer::OnUpdate()
 
 	m_SceneCamera.SetPosition(m_SceneCameraData.Position);
 
-	m_LogPanel->Update(Time::deltaTime);
-	m_SceneHierarchyPanel->Update(Time::deltaTime);
+	{
+		PROFILER_TIMER_SCOPE("Panels");
+
+		m_LogPanel->Update();
+		m_ProfilerPanel->Update();
+		m_SceneHierarchyPanel->Update();
+	}
+
+	PROFILER_STOP_HEADER;
 }
 
 void EditorLayer::OnImGuiUpdate()
 {
+	PROFILER_START_HEADER("EditorLayer::OnImGuiUpdate");
+
 	/* Viewport */
 	{
+		PROFILER_TIMER_SCOPE("Viewport");
+
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 
 		ImGui::Begin("Viewport");
@@ -164,6 +194,8 @@ void EditorLayer::OnImGuiUpdate()
 
 	/* Test window */
 	{
+		PROFILER_TIMER_SCOPE("Test window");
+
 		ImGui::Begin("Test window");
 
 		ImGui::PushFont(m_EditorFonts.SemiBold);
@@ -205,6 +237,8 @@ void EditorLayer::OnImGuiUpdate()
 	/* Settings */
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 10));
 	{
+		PROFILER_TIMER_SCOPE("Settings");
+
 		ImGuiStyle* style = &ImGui::GetStyle();
 
 		ImGui::Begin("Settings");
@@ -328,4 +362,6 @@ void EditorLayer::OnImGuiUpdate()
 		style->FrameRounding = 4.0f;
 	}
 	ImGui::PopStyleVar();
+
+	PROFILER_STOP_HEADER;
 }
