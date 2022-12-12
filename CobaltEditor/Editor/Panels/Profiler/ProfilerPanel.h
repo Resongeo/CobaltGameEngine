@@ -4,18 +4,7 @@
 using namespace Cobalt;
 
 #include "Editor/Panels/EditorPanel.h"
-
-class Timer
-{
-public:
-	Timer(const char* name);
-	~Timer();
-
-private:
-	const char* m_Name;
-	std::chrono::time_point<std::chrono::steady_clock> m_StartTime;
-};
-
+#include "Editor/Panels/Profiler/Timer.h"
 
 struct ProfilerResult
 {
@@ -56,5 +45,4 @@ private:
 
 #define PROFILER_START_HEADER(...)	ProfilerPanel::Get().StartProfilerHeader(__VA_ARGS__)
 #define PROFILER_STOP_HEADER		ProfilerPanel::Get().StopProfilerHeader()
-
 #define PROFILER_TIMER_SCOPE(...)	Timer timer(__VA_ARGS__)

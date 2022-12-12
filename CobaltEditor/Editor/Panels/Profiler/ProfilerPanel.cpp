@@ -3,18 +3,7 @@
 
 ProfilerPanel* ProfilerPanel::s_Instance = nullptr;
 
-Timer::Timer(const char* name) : m_Name(name)
-{
-	m_StartTime = std::chrono::high_resolution_clock::now();
-}
 
-Timer::~Timer()
-{
-	auto endTime = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - m_StartTime).count() * 0.001f;
-
-	ProfilerPanel::Get().AddProfilerResult(m_Name, duration);
-}
 
 ProfilerPanel::ProfilerPanel() : EditorPanel("Profiler panel")
 {
@@ -67,5 +56,4 @@ void ProfilerPanel::StartProfilerHeader(const char* name)
 void ProfilerPanel::StopProfilerHeader()
 {
 	m_ProfilerHeaders.push_back(m_ActiveHeader);
-	m_ActiveHeader = nullptr;
 }
