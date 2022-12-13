@@ -6,7 +6,7 @@ LogPanel::LogPanel() : EditorPanel("Log panel")
 {
 	s_Instance = this;
 
-	LOG_TRACE("Panel {0} created!", m_PanelName);
+	LOG_TRACE("{0} created!", m_PanelName);
 
 	DEBUG_LOG("Debug Log message!");
 	DEBUG_INFO("Debug Info message!");
@@ -42,24 +42,4 @@ void LogPanel::Update()
 	ImGui::EndChild();
 
 	ImGui::End();
-}
-
-void LogPanel::AddLog(const std::string& message)
-{
-	m_Messages.push_back(LogMessage(message, ImVec4(0.94f, 0.94f, 0.94f, 1.0f)));
-}
-
-void LogPanel::AddInfo(const std::string& message)
-{
-	m_Messages.push_back(LogMessage(message, ImVec4(0.40f, 0.85f, 0.40f, 1.0f)));
-}
-
-void LogPanel::AddWarn(const std::string& message)
-{
-	m_Messages.push_back(LogMessage(message, ImVec4(0.85f, 0.85f, 0.21f, 1.0f)));
-}
-
-void LogPanel::AddError(const std::string& message)
-{
-	m_Messages.push_back(LogMessage(message, ImVec4(0.85f, 0.32f, 0.32f, 1.0f)));
 }

@@ -3,10 +3,10 @@
 
 ProfilerPanel* ProfilerPanel::s_Instance = nullptr;
 
-
-
 ProfilerPanel::ProfilerPanel() : EditorPanel("Profiler panel")
 {
+	LOG_TRACE("{0} created!", m_PanelName);
+
 	s_Instance = this;
 	m_ActiveHeader = nullptr;
 }

@@ -4,7 +4,7 @@
 
 SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& scene) : EditorPanel("Scene hierarchy panel"), m_Scene(scene)
 {
-	LOG_TRACE("Panel {0} created!", m_PanelName);
+	LOG_TRACE("{0} created!", m_PanelName);
 
 	m_HoveredColor = ImColor(27, 48, 69);
 	m_SelectedColor = ImColor(38, 74, 99);

@@ -198,16 +198,6 @@ void EditorLayer::OnImGuiUpdate()
 
 		ImGui::Begin("Test window");
 
-		ImGui::PushFont(m_EditorFonts.SemiBold);
-		if (ImGui::Button("Press me!"))
-		{
-			LOG_TRACE("You pressed me :)");
-			DEBUG_LOG("You pressed me :)");
-		}
-		ImGui::PopFont();
-
-		ImGui::Dummy(ImVec2(0, 30));
-
 		ImGui::ColorEdit4("BG color", glm::value_ptr(m_ClearColor));
 
 		ImGui::PushFont(m_EditorFonts.SemiBold);
