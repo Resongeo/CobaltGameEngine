@@ -23,7 +23,7 @@ namespace Cobalt
 		template<typename T>
 		bool HasComponent()
 		{
-			return m_Scene->Reg().has<T>(m_EntityHandle);
+			return m_Scene->Reg().all_of<T>(m_EntityHandle);
 		}
 
 		template<typename T>
@@ -38,7 +38,7 @@ namespace Cobalt
 			m_Scene->Reg().remove<T>(m_EntityHandle);
 		}
 
-		operator bool() const { return (uint32_t)m_EntityHandle != 0; }
+		operator bool() const { return (uint32_t)m_EntityHandle != entt::null; }
 
 		operator uint32_t() const { return (uint32_t)m_EntityHandle; }
 
@@ -52,7 +52,7 @@ namespace Cobalt
 		}
 
 	private:
-		entt::entity m_EntityHandle{ 0 };
+		entt::entity m_EntityHandle{ entt::null };
 		Scene* m_Scene = nullptr;
 	};
 }

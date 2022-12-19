@@ -9,8 +9,8 @@ namespace Cobalt
 	struct RendererData
 	{
 		Ref<VertexArray> QuadVertexArray;
-		Ref<Shader> ColoredQuadShader;
 		Ref<Shader> TexturedQuadShader;
+		Ref<Texture> WhiteTexture;
 	};
 
 	static RendererData s_RendererData;
@@ -45,18 +45,22 @@ namespace Cobalt
 		s_RendererData.QuadVertexArray->AddVertexBuffer(vertexBuffer);
 		s_RendererData.QuadVertexArray->SetIndexBuffer(indexBuffer);
 
-		s_RendererData.ColoredQuadShader = Shader::Create("assets\\shaders\\ColorShader.glsl");
 		s_RendererData.TexturedQuadShader = Shader::Create("assets\\shaders\\TextureShader.glsl");
+		s_RendererData.WhiteTexture = Texture::Create("assets\\textures\\white_texture.png");
 	}
 
 	void RenderCommand::BeginScene(Camera& camera)
 	{
 		s_Renderer->BeginScene(camera);
+
+		s_RendererData.TexturedQuadShader->Bind();
+		s_RendererData.TexturedQuadShader->SetInt("u_Texture", 0);
 	}
 
 	void RenderCommand::ClearColor(const glm::vec4& color)
 	{
 		s_Renderer->ClearColor(color);
+
 	}
 
 	void RenderCommand::Clear()
@@ -66,19 +70,15 @@ namespace Cobalt
 
 	void RenderCommand::DrawQuad(const glm::mat4& transform, const glm::vec4& color)
 	{
-		s_RendererData.ColoredQuadShader->Bind();
-		s_RendererData.ColoredQuadShader->SetVec4("u_Color", color);
-		s_Renderer->DrawIndexed(s_RendererData.ColoredQuadShader, s_RendererData.QuadVertexArray, transform);
+		s_RendererData.TexturedQuadShader->SetVec4("u_Color", color);
+		s_RendererData.WhiteTexture->Bind();
+		s_Renderer->DrawIndexed(s_RendererData.TexturedQuadShader, s_RendererData.QuadVertexArray, transform);
 	}
 
 	void RenderCommand::DrawQuad(const glm::mat4& transform, const glm::vec4& color, const Ref<Texture>& texture)
 	{
-		s_RendererData.TexturedQuadShader->Bind();
 		s_RendererData.TexturedQuadShader->SetVec4("u_Color", color);
-
 		texture->Bind();
-		s_RendererData.TexturedQuadShader->SetInt("u_Texture", 0);
-
 		s_Renderer->DrawIndexed(s_RendererData.TexturedQuadShader, s_RendererData.QuadVertexArray, transform);
 	}
 

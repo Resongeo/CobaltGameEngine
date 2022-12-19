@@ -89,6 +89,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Editor\CobaltEditor.cpp" />
+    <ClCompile Include="Editor\Panels\Components\ComponentsPanel.cpp" />
     <ClCompile Include="Editor\Panels\Log\LogPanel.cpp" />
     <ClCompile Include="Editor\EditorLayer.cpp" />
     <ClCompile Include="Editor\Panels\Profiler\ProfilerPanel.cpp" />
@@ -98,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor\CobaltEditor.h" />
+    <ClInclude Include="Editor\Panels\Components\ComponentsPanel.h" />
     <ClInclude Include="Editor\Panels\EditorPanel.h" />
     <ClInclude Include="Editor\Panels\Log\LogPanel.h" />
     <ClInclude Include="Editor\EditorLayer.h" />

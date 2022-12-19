@@ -77,7 +77,8 @@ void EditorLayer::OnAttach()
 
 	m_LogPanel = CreateScope<LogPanel>();
 	m_ProfilerPanel = CreateScope<ProfilerPanel>();
-	m_SceneHierarchyPanel = CreateScope<SceneHierarchyPanel>(m_ActiveScene);
+	m_SceneHierarchyPanel = CreateScope<SceneHierarchyPanel>(m_ActiveScene); // TODO: remove scene from constructor
+	m_ComponentsPanel = CreateScope<ComponentsPanel>();
 }
 
 void EditorLayer::OnUpdate()
@@ -148,6 +149,7 @@ void EditorLayer::OnUpdate()
 		m_LogPanel->Update();
 		m_ProfilerPanel->Update();
 		m_SceneHierarchyPanel->Update();
+		m_ComponentsPanel->Update();
 	}
 
 	PROFILER_STOP_HEADER;
@@ -205,16 +207,6 @@ void EditorLayer::OnImGuiUpdate()
 		if (ImGui::Button("Reset BG color", ImVec2(ImGui::GetWindowSize().x * 0.95f, 40.0f)))
 			m_ClearColor = { 0.09f, 0.09f, 0.1f, 1.0f };
 		ImGui::PopFont();
-
-		ImGui::Dummy(ImVec2(0, 30));
-
-		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.258f, 0.76f, 0.391f, 1.0f));
-		if (ImGui::Button("Add UV grid", ImVec2(ImGui::GetWindowSize().x * 0.95f, 0.0f)))
-		{
-			auto entity = m_ActiveScene->CreateEntity();
-			entity.AddComponent<SpriteRendererComponent>(m_Texture, glm::vec4(1.0));
-		}
-		ImGui::PopStyleColor();
 
 		ImGui::Dummy(ImVec2(0, 30));
 

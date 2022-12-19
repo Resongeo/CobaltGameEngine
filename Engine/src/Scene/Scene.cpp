@@ -4,9 +4,7 @@
 
 namespace Cobalt
 {
-	Scene::Scene()
-	{
-	}
+	Scene::Scene() { }
 
 	void Scene::Update(float deltaTime)
 	{
@@ -16,7 +14,7 @@ namespace Cobalt
 			auto& transform = group.get<TransformComponent>(entity);
 			auto& spriteRenderer = group.get<SpriteRendererComponent>(entity);
 
-			RenderCommand::DrawQuad(transform, spriteRenderer.Color, spriteRenderer.Sprite);
+			RenderCommand::DrawQuad(transform.GetTransform(), spriteRenderer.Color, spriteRenderer.Sprite);
 		}
 	}
 
@@ -24,7 +22,7 @@ namespace Cobalt
 	{
 		Entity entity = { m_Registry.create(), this };
 		entity.AddComponent<TagComponent>(name);
-		entity.AddComponent<TransformComponent>(glm::mat4(1.0));
+		entity.AddComponent<TransformComponent>();
 		return entity;
 	}
 }
