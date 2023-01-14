@@ -213,6 +213,11 @@ void EditorLayer::OnImGuiUpdate()
 		if (ImGui::Checkbox("Vsync", &m_Vsync)) m_Window.SetVsync(m_Vsync);
 		ImGui::Checkbox("Show FPS", &m_ShowFps);
 
+		if (ImGui::Button("Open File Dialog"))
+			FileSystem::OpenFileDialog("Text files (*.txt)\0*.txt\0");
+		if (ImGui::Button("Save File Dialog"))
+			FileSystem::SaveFileDialog("Text files (*.txt)\0*.txt\0");
+
 		ImGui::End();
 	}
 

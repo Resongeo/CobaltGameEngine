@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="src\Core\Time.h" />
     <ClInclude Include="src\Gui\ImGuiImpl.h" />
+    <ClInclude Include="src\Platform\FileSystem.h" />
     <ClInclude Include="src\Platform\OpenGL\Gui\OpenGLImGuiImpl.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
     <ClInclude Include="src\Renderer\Framebuffer.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\Window.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsFileSystem.cpp" />
     <ClCompile Include="src\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRenderer.cpp" />

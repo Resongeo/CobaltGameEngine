@@ -30,8 +30,6 @@ namespace Cobalt
 
 	void Application::Run()
 	{
-		Time::deltaTime = 0.0f;
-
 		while (m_Running)
 		{
 			Time::Update();

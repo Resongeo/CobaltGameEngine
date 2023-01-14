@@ -27,6 +27,7 @@
 #include "Logger/Log.h"
 
 #include "Platform/Window.h"
+#include "Platform/FileSystem.h"
 
 #include "Renderer/GraphicsContext.h"
 #include "Renderer/RenderCommand.h"
