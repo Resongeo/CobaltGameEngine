@@ -75,9 +75,10 @@ namespace Cobalt
 		s_Renderer->DrawIndexed(s_RendererData.TexturedQuadShader, s_RendererData.QuadVertexArray, transform);
 	}
 
-	void RenderCommand::DrawQuad(const glm::mat4& transform, const glm::vec4& color, const Ref<Texture>& texture)
+	void RenderCommand::DrawQuad(const glm::mat4& transform, const glm::vec4& color, const glm::vec2& tiling, const Ref<Texture>& texture)
 	{
 		s_RendererData.TexturedQuadShader->SetVec4("u_Color", color);
+		s_RendererData.TexturedQuadShader->SetVec2("u_Tiling", tiling);
 		texture->Bind();
 		s_Renderer->DrawIndexed(s_RendererData.TexturedQuadShader, s_RendererData.QuadVertexArray, transform);
 	}

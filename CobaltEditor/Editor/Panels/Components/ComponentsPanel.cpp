@@ -72,8 +72,16 @@ void ComponentsPanel::DrawComponents(Entity entity)
 			ImGui::PushFont(regularfont);
 
 			auto& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
+
+			ImGui::Text(spriteRenderer.Sprite->GetPath().c_str());
+			ImGui::SameLine();
 			ImGui::Image((ImTextureID)spriteRenderer.Sprite->GetID(), ImVec2(100, 100), { 0, 1 }, { 1, 0 });
-			ImGui::ColorEdit4("Sprite Color", glm::value_ptr(spriteRenderer.Color));
+
+			ImGuiColorEditFlags colorEditFlags{};
+			colorEditFlags |= ImGuiColorEditFlags_NoSmallPreview;
+			ImGui::ColorPicker4("Preview", glm::value_ptr(spriteRenderer.Color), colorEditFlags);
+
+			DrawVector2("Tiling", spriteRenderer.Tiling, 1.0f, 90.0f);
 
 			ImGui::PopFont();
 			ImGui::TreePop();
@@ -84,13 +92,13 @@ void ComponentsPanel::DrawComponents(Entity entity)
 	ImGui::PopStyleVar();
 }
 
-void ComponentsPanel::DrawVector3(const std::string& label, glm::vec3& values, float resetValue, float item_width, float speed)
+void ComponentsPanel::DrawVector3(const char* label, glm::vec3& values, float resetValue, float item_width, float speed)
 {
-	ImGui::PushID(label.c_str());
+	ImGui::PushID(label);
 	ImGui::Columns(2);
 	
 	ImGui::SetColumnWidth(0, 100.f);
-	ImGui::Text(label.c_str());
+	ImGui::Text(label);
 
 	ImGui::NextColumn();
 
@@ -124,6 +132,40 @@ void ComponentsPanel::DrawVector3(const std::string& label, glm::vec3& values, f
 		values.z = resetValue;
 	else if (ImGui::IsItemClicked(1))
 		values.z = resetValue;
+
+	ImGui::Columns(1);
+	ImGui::PopID();
+}
+
+void ComponentsPanel::DrawVector2(const char* label, glm::vec2& values, float resetValue, float item_width, float speed)
+{
+	ImGui::PushID(label);
+	ImGui::Columns(2);
+
+	ImGui::SetColumnWidth(0, 100.f);
+	ImGui::Text(label);
+
+	ImGui::NextColumn();
+
+	ImGui::SetNextItemWidth(item_width);
+	const char* xLabel = Input::GetKeyDown(KEYCODE_LEFT_SHIFT) ? "##multiEdit" : "##X";
+
+	ImGui::DragFloat(xLabel, &values.x, speed);
+	if (ImGui::IsItemActive() && Input::GetMouseButtonDown(1))
+		values.x = resetValue;
+	else if (ImGui::IsItemClicked(1))
+		values.x = resetValue;
+
+	ImGui::SameLine();
+
+	ImGui::SetNextItemWidth(item_width);
+	const char* yLabel = Input::GetKeyDown(KEYCODE_LEFT_SHIFT) ? "##multiEdit" : "##Y";
+
+	ImGui::DragFloat(yLabel, &values.y, speed);
+	if (ImGui::IsItemActive() && Input::GetMouseButtonDown(1))
+		values.y = resetValue;
+	else if (ImGui::IsItemClicked(1))
+		values.y = resetValue;
 
 	ImGui::Columns(1);
 	ImGui::PopID();

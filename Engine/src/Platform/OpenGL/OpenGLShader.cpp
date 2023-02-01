@@ -182,7 +182,7 @@ namespace Cobalt
 
 	void OpenGLShader::SetVec4(const char* name, glm::vec4 value) const
 	{
-		glUniform4f(GetUniformLocation(name), value.x, value.y, value.y, value.w);
+		glUniform4f(GetUniformLocation(name), value.x, value.y, value.z, value.w);
 	}
 
 	void OpenGLShader::SetMat4(const char* name, glm::mat4 value) const

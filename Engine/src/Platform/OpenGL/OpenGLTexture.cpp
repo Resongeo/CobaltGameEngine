@@ -5,7 +5,7 @@
 
 namespace Cobalt
 {
-	OpenGLTexture::OpenGLTexture(const std::string& path)
+	OpenGLTexture::OpenGLTexture(const std::string& path) : m_Path(path)
 	{
 		int width, height, channels;
 

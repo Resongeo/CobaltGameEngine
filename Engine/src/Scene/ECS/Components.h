@@ -48,16 +48,20 @@ namespace Cobalt
 	{
 		Ref<Texture> Sprite = Texture::Create("assets\\textures\\white_texture.png");
 		glm::vec4 Color = glm::vec4(1.0);
+		glm::vec2 Tiling = glm::vec2(1.0);
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const glm::vec4& color) : Color(color) {}
-		SpriteRendererComponent(const Ref<Texture>& sprite, const glm::vec4& color) : Sprite(sprite), Color(color) {}
+		SpriteRendererComponent(const Ref<Texture>& sprite, const glm::vec4& color, const glm::vec2& tiling) : Sprite(sprite), Color(color), Tiling(tiling) {}
 
 		operator Ref<Texture>& () { return Sprite; }
 		operator const Ref<Texture>& () const { return Sprite; }
 
 		operator glm::vec4& () { return Color; }
 		operator const glm::vec4& () const { return Color; }
+
+		operator glm::vec2& () { return Tiling; }
+		operator const glm::vec2& () const { return Tiling; }
 	};
 }

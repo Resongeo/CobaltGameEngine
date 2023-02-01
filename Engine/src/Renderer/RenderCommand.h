@@ -14,7 +14,7 @@ namespace Cobalt
 		static void Clear();
 
 		static void DrawQuad(const glm::mat4& transform, const glm::vec4& color);
-		static void DrawQuad(const glm::mat4& transform, const glm::vec4& color, const Ref<Texture>& texture);
+		static void DrawQuad(const glm::mat4& transform, const glm::vec4& color, const glm::vec2& tiling, const Ref<Texture>& texture);
 
 		static void SetViewport(int x, int y, int width, int height);
 
