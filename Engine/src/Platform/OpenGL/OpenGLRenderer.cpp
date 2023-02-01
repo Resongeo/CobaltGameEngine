@@ -6,6 +6,12 @@ namespace Cobalt
 {
 	Renderer::SceneData* OpenGLRenderer::s_SceneData = new Renderer::SceneData();
 
+	void OpenGLRenderer::Init()
+	{
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+
 	void OpenGLRenderer::BeginScene(Camera& camera)
 	{
 		s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();

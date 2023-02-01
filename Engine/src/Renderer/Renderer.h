@@ -36,6 +36,8 @@ namespace Cobalt
 		static Renderer* Create();
 
 	public:
+		virtual void Init() = 0;
+
 		virtual void BeginScene(Camera& camera) = 0;
 
 		virtual void ClearColor(const glm::vec4& color) = 0;

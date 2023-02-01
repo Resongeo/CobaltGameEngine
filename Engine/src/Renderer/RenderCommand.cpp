@@ -29,6 +29,8 @@ namespace Cobalt
 			1, 2, 3
 		};
 
+		s_Renderer->Init();
+
 		s_RendererData.QuadVertexArray = VertexArray::Create();
 		Ref<VertexBuffer> vertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
 		Ref<IndexBuffer> indexBuffer = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));

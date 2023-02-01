@@ -1,6 +1,7 @@
 #ifdef _WIN32
 
 #include "Platform/Window.h"
+#include "Renderer/Renderer.h"
 
 #include <dwmapi.h>
 
@@ -31,9 +32,17 @@ namespace Cobalt
 		}
 		LOG_ENGINE_INFO("GLFW initialized");
 
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, COBALT_OPENGL_VERSION_MAJOR);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, COBALT_OPENGL_VERSION_MINOR);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, COBALT_OPENGL_PROFILE);
+		switch (Renderer::GetAPI())
+		{
+			case GraphicsAPI::OpenGL:
+			{
+				glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, COBALT_OPENGL_VERSION_MAJOR);
+				glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, COBALT_OPENGL_VERSION_MINOR);
+				glfwWindowHint(GLFW_OPENGL_PROFILE, COBALT_OPENGL_PROFILE);
+
+				break;
+			}
+		}
 
 		m_Window = glfwCreateWindow(m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str(), nullptr, nullptr);
 		if (m_Window == nullptr)
@@ -49,7 +58,6 @@ namespace Cobalt
 		HWND hWnd = glfwGetWin32Window(m_Window);
 		BOOL value = TRUE;
 		DwmSetWindowAttribute(hWnd, DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
-
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVsync(true);
@@ -78,24 +86,24 @@ namespace Cobalt
 
 			switch (action)
 			{
-			case GLFW_PRESS:
-			{
-				KeyPressedEvent event(key, 0);
-				data.EventCallback(event);
-				break;
-			}
-			case GLFW_RELEASE:
-			{
-				KeyReleasedEvent event(key);
-				data.EventCallback(event);
-				break;
-			}
-			case GLFW_REPEAT:
-			{
-				KeyPressedEvent event(key, 1);
-				data.EventCallback(event);
-				break;
-			}
+				case GLFW_PRESS:
+				{
+					KeyPressedEvent event(key, 0);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					KeyReleasedEvent event(key);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_REPEAT:
+				{
+					KeyPressedEvent event(key, 1);
+					data.EventCallback(event);
+					break;
+				}
 			}
 		});
 
