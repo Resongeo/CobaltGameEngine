@@ -3,6 +3,7 @@
 
 EditorLayer::EditorLayer() : Layer("Editor Layer"), m_Window(Application::Get().GetWindow())
 {
+	// TODO: Temporary
 	m_SceneCameraData.Position = m_SceneCamera.GetPosition();
 	m_SceneCameraData.Rotation = m_SceneCamera.GetRotation();
 	m_SceneCameraData.Size = m_SceneCamera.GetSize();
@@ -16,6 +17,8 @@ EditorLayer::EditorLayer() : Layer("Editor Layer"), m_Window(Application::Get().
 void EditorLayer::OnAttach()
 {
 	LOG_WARN("Layer: {0} attached!", m_DebugName);
+
+	// TODO: Move this to a style editor
 	ImGuiStyle* style = &ImGui::GetStyle();
 
 	style->WindowTitleAlign = ImVec2(0.5, 0.5);
@@ -54,8 +57,8 @@ void EditorLayer::OnAttach()
 	style->Colors[ImGuiCol_ButtonHovered] = ImColor(100, 150, 200, 180);
 	style->Colors[ImGuiCol_ButtonActive] = ImColor(95, 134, 170, 80);
 
-	style->Colors[ImGuiCol_Header] = ImColor(26, 26, 26, 255);
-	style->Colors[ImGuiCol_HeaderHovered] = ImColor(26, 26, 26, 255);
+	style->Colors[ImGuiCol_Header] = ImColor(37, 37, 37, 255);
+	style->Colors[ImGuiCol_HeaderHovered] = ImColor(48, 48, 48, 255);
 	style->Colors[ImGuiCol_HeaderActive] = ImColor(26, 26, 26, 255);
 
 	style->Colors[ImGuiCol_Separator] = ImColor(50, 55, 58, 255);
@@ -143,23 +146,14 @@ void EditorLayer::OnUpdate()
 
 	m_SceneCamera.SetPosition(m_SceneCameraData.Position);
 
-	{
-		PROFILER_TIMER_SCOPE("Panels");
-
-		m_LogPanel->Update();
-		m_ProfilerPanel->Update();
-		m_SceneHierarchyPanel->Update();
-		m_ComponentsPanel->Update();
-	}
-
 	PROFILER_STOP_HEADER;
 }
 
+// TODO: Move these to their own classes
 void EditorLayer::OnImGuiUpdate()
 {
 	PROFILER_START_HEADER("EditorLayer::OnImGuiUpdate");
 
-	/* Viewport */
 	{
 		PROFILER_TIMER_SCOPE("Viewport");
 
@@ -194,7 +188,6 @@ void EditorLayer::OnImGuiUpdate()
 		ImGui::PopStyleVar();
 	}
 
-	/* Test window */
 	{
 		PROFILER_TIMER_SCOPE("Test window");
 
@@ -221,134 +214,29 @@ void EditorLayer::OnImGuiUpdate()
 		ImGui::End();
 	}
 
-	/* Settings */
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 10));
+	PROFILER_STOP_HEADER;
+
+	PROFILER_START_HEADER("Panels");
+
 	{
-		PROFILER_TIMER_SCOPE("Settings");
-
-		ImGuiStyle* style = &ImGui::GetStyle();
-
-		ImGui::Begin("Settings");
-
-		style->FrameRounding = 0.0f;
-		if (m_CameraSettingsOpened)
-		{
-			style->Colors[ImGuiCol_Header] = ImColor(0, 0, 0, 100);
-			style->Colors[ImGuiCol_HeaderActive] = ImColor(0, 0, 0, 100);
-			style->Colors[ImGuiCol_HeaderHovered] = ImColor(0, 0, 0, 100);
-		}
-
-		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(4, 8));
-		if (ImGui::CollapsingHeader("Camera"))
-		{
-			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(4, 3));
-			style->FrameRounding = 4.0f;
-
-			const char* projectionTypes[] = { "Orthographic", "Perspective" };
-			static int current_projection = 0;
-			ImGui::SetCursorPosX(10);
-			if (ImGui::Combo("Projection", &current_projection, projectionTypes, IM_ARRAYSIZE(projectionTypes)))
-			{
-				m_SceneCamera.SetProjectionType(current_projection == 0 ? ProjectionType::Orthographic : ProjectionType::Perspective);
-			}
-
-			ImGui::Text("");
-
-			ImGui::SetCursorPosX(10);
-			ImGui::DragFloat3("Camera position", glm::value_ptr(m_SceneCameraData.Position), 0.1f);
-			if (ImGui::DragFloat("Rotation", &m_SceneCameraData.Rotation, 0.1)) m_SceneCamera.SetRotaion(m_SceneCameraData.Rotation);
-
-			ImGui::Text("");
-
-			if (current_projection == 0)
-			{
-				ImGui::SetCursorPosX(10);
-				if (ImGui::DragFloat("Size", &m_SceneCameraData.Size, 0.1)) m_SceneCamera.SetSize(m_SceneCameraData.Size);
-			}
-			else
-			{
-				ImGui::SetCursorPosX(10);
-				if (ImGui::DragFloat("FOV", &m_SceneCameraData.FOV, 0.1)) m_SceneCamera.SetFOV(m_SceneCameraData.FOV);
-			}
-
-			m_CameraSettingsOpened = true;
-
-			ImGui::PopStyleVar();
-		}
-		else
-		{
-			m_CameraSettingsOpened = false;
-		}
-		ImGui::PopStyleVar();
-
-		style->Colors[ImGuiCol_Header] = ImColor(26, 26, 26, 255);
-		style->Colors[ImGuiCol_HeaderActive] = ImColor(26, 26, 26, 255);
-		style->Colors[ImGuiCol_HeaderHovered] = ImColor(26, 26, 26, 255);
-
-
-		ImGui::Spacing();
-
-		style->FrameRounding = 0.0f;
-		if (m_GridSettingsOpened)
-		{
-			style->Colors[ImGuiCol_Header] = ImColor(0, 0, 0, 100);
-			style->Colors[ImGuiCol_HeaderActive] = ImColor(0, 0, 0, 100);
-			style->Colors[ImGuiCol_HeaderHovered] = ImColor(0, 0, 0, 100);
-		}
-
-		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(4, 8));
-		if (ImGui::CollapsingHeader("Grid"))
-		{
-			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(4, 3));
-			style->FrameRounding = 4.0f;
-
-			ImGui::Spacing();
-			ImGui::SetCursorPosX(10);
-			ImGui::ColorEdit3("Grid color", glm::value_ptr(m_GridColor));
-			ImGui::Spacing();
-
-			ImGui::SetCursorPosX(10);
-			ImGui::SliderInt("Grid size", &m_GridData.Size, 1, 10);
-				
-			ImGui::SetCursorPosX(10);
-			ImGui::SliderFloat("Grid gap", &m_GridData.GapSize, 0.02f, 1.0f);
-				
-			ImGui::SetCursorPosX(10);
-			ImGui::SliderFloat("Grid line width", &m_GridData.LineWidth, 0.001f, 0.1f);
-
-			ImGui::Spacing();
-
-			ImGui::PushFont(m_EditorFonts.SemiBold);
-			ImGui::SetCursorPosX(10);
-			if (ImGui::Button("Reset grid", ImVec2(ImGui::GetWindowSize().x * 0.95f, 40.0f)))
-			{
-				m_GridData.Size = 5;
-				m_GridData.GapSize = 0.1f;
-				m_GridData.LineWidth = 0.005f;
-
-				m_GridColor = { 0.17f, 0.17f, 0.17f, 1.0f };
-			}
-			ImGui::PopFont();
-				
-			m_GridSettingsOpened = true;
-
-			ImGui::PopStyleVar();
-		}
-		else
-		{
-			m_GridSettingsOpened = false;
-		}
-		ImGui::PopStyleVar();
-
-		style->Colors[ImGuiCol_Header] = ImColor(26, 26, 26, 255);
-		style->Colors[ImGuiCol_HeaderActive] = ImColor(26, 26, 26, 255);
-		style->Colors[ImGuiCol_HeaderHovered] = ImColor(26, 26, 26, 255);
-
-		ImGui::End();
-
-		style->FrameRounding = 4.0f;
+		PROFILER_TIMER_SCOPE("Log panel");
+		m_LogPanel->Update();
 	}
-	ImGui::PopStyleVar();
+	
+	{
+		PROFILER_TIMER_SCOPE("Profiler panel");
+		m_ProfilerPanel->Update();
+	}
+
+	{
+		PROFILER_TIMER_SCOPE("Scene hierarchy panel");
+		m_SceneHierarchyPanel->Update();
+	}
+
+	{
+		PROFILER_TIMER_SCOPE("Components panel");
+		m_ComponentsPanel->Update();
+	}
 
 	PROFILER_STOP_HEADER;
 }

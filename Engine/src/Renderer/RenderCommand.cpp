@@ -1,10 +1,8 @@
 #include "Renderer/RenderCommand.h"
 
-#include "Platform/OpenGL/OpenGLRenderer.h"
-
 namespace Cobalt
 {
-	Renderer* RenderCommand::s_Renderer = new OpenGLRenderer;
+	Renderer* RenderCommand::s_Renderer = Renderer::Create();
 
 	struct RendererData
 	{

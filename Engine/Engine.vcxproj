@@ -182,8 +182,8 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="src\Platform\Window.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsFileSystem.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRenderer.cpp" />
@@ -253,6 +253,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Engine\vendor\GLFW\include;$(SolutionDirEngine\)vendor\SPDLOG\include;$(SolutionDir)Engine\vendor\GLAD\include;$(SolutionDirEngine\)src;$(SolutionDir)Engine\vendor\ImGui;$(SolutionDir)Engine\vendor\GLM\include;$(SolutionDir)Engine\vendor\STBIMAGE;$(SolutionDir)Engine\vendor\EnTT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/wd4028 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -269,6 +270,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Engine\vendor\GLFW\include;$(SolutionDirEngine\)vendor\SPDLOG\include;$(SolutionDir)Engine\vendor\GLAD\include;$(SolutionDirEngine\)src;$(SolutionDir)Engine\vendor\ImGui;$(SolutionDir)Engine\vendor\GLM\include;$(SolutionDir)Engine\vendor\STBIMAGE;$(SolutionDir)Engine\vendor\EnTT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/wd4028 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

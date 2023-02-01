@@ -6,7 +6,7 @@ namespace Cobalt
 {
 	struct FramebufferSpecification
 	{
-		uint32_t Width, Height;
+		uint32_t Width, Height = 1;
 		uint32_t Samples = 1;
 	};
 

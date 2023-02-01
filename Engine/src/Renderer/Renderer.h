@@ -33,6 +33,8 @@ namespace Cobalt
 			return "";
 		}
 
+		static Renderer* Create();
+
 	public:
 		virtual void BeginScene(Camera& camera) = 0;
 

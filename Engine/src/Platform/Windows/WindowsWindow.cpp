@@ -1,6 +1,15 @@
-#include "Window.h"
+#ifdef _WIN32
 
-#include <glad/glad.h>
+#include "Platform/Window.h"
+
+#include <dwmapi.h>
+
+#ifndef DWMWA_USE_IMMERSIVE_DARK_MODE
+#define DWMWA_USE_IMMERSIVE_DARK_MODE 20
+#endif
+
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include <GLFW/glfw3native.h>
 
 namespace Cobalt
 {
@@ -37,6 +46,11 @@ namespace Cobalt
 		m_GraphicsContext = GraphicsContext::Create(m_Window);
 		m_GraphicsContext->Init();
 
+		HWND hWnd = glfwGetWin32Window(m_Window);
+		BOOL value = TRUE;
+		DwmSetWindowAttribute(hWnd, DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
+
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVsync(true);
 
@@ -64,24 +78,24 @@ namespace Cobalt
 
 			switch (action)
 			{
-				case GLFW_PRESS:
-				{
-					KeyPressedEvent event(key, 0);
-					data.EventCallback(event);
-					break;
-				}
-				case GLFW_RELEASE:
-				{
-					KeyReleasedEvent event(key);
-					data.EventCallback(event);
-					break;
-				}
-				case GLFW_REPEAT:
-				{
-					KeyPressedEvent event(key, 1);
-					data.EventCallback(event);
-					break;
-				}
+			case GLFW_PRESS:
+			{
+				KeyPressedEvent event(key, 0);
+				data.EventCallback(event);
+				break;
+			}
+			case GLFW_RELEASE:
+			{
+				KeyReleasedEvent event(key);
+				data.EventCallback(event);
+				break;
+			}
+			case GLFW_REPEAT:
+			{
+				KeyPressedEvent event(key, 1);
+				data.EventCallback(event);
+				break;
+			}
 			}
 		});
 
@@ -91,18 +105,18 @@ namespace Cobalt
 
 			switch (action)
 			{
-				case GLFW_PRESS:
-				{
-					MouseButtonPressedEvent event(button);
-					data.EventCallback(event);
-					break;
-				}
-				case GLFW_RELEASE:
-				{
-					MouseButtonReleasedEvent event(button);
-					data.EventCallback(event);
-					break;
-				}
+			case GLFW_PRESS:
+			{
+				MouseButtonPressedEvent event(button);
+				data.EventCallback(event);
+				break;
+			}
+			case GLFW_RELEASE:
+			{
+				MouseButtonReleasedEvent event(button);
+				data.EventCallback(event);
+				break;
+			}
 			}
 		});
 
@@ -125,7 +139,7 @@ namespace Cobalt
 		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		int sys_width = mode->width;
 		int sys_height = mode->height;
-		glfwSetWindowMonitor(m_Window, nullptr, 
+		glfwSetWindowMonitor(m_Window, nullptr,
 			(sys_width / 2) - (m_Properties.Width / 2),
 			(sys_height / 2) - (m_Properties.Height / 2),
 			m_Properties.Width, m_Properties.Height, GLFW_DONT_CARE);
@@ -137,7 +151,7 @@ namespace Cobalt
 	{
 		int width, height;
 		glfwGetFramebufferSize(m_Window, &width, &height);
-		
+
 		m_Properties.Width = width;
 		m_Properties.Height = height;
 
@@ -148,14 +162,12 @@ namespace Cobalt
 	{
 		m_Properties.Width = width;
 		glfwSetWindowSize(m_Window, m_Properties.Width, m_Properties.Height);
-		glViewport(0, 0, m_Properties.Width, m_Properties.Height);
 	}
 
 	void Window::SetHeight(uint32_t height)
 	{
 		m_Properties.Height = height;
 		glfwSetWindowSize(m_Window, m_Properties.Width, m_Properties.Height);
-		glViewport(0, 0, m_Properties.Width, m_Properties.Height);
 	}
 
 	void Window::SetTitle(const std::string& title)
@@ -187,3 +199,5 @@ namespace Cobalt
 		m_GraphicsContext->SwapBuffers();
 	}
 }
+
+#endif

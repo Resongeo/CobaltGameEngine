@@ -32,7 +32,7 @@ void ProfilerPanel::Update()
 
 			std::string label = fmt::format("%.3f ms", profile.Duration);
 			textWidth = ImGui::CalcTextSize(label.c_str()).x;
-			ImGui::SetCursorPosX((windowWidth - textWidth) - 20);
+			ImGui::SetCursorPosX((windowWidth - textWidth) - 30);
 
 			ImGui::Text("%.3f ms", profile.Duration);
 		}

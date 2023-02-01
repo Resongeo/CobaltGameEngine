@@ -25,15 +25,25 @@ void ComponentsPanel::Update()
 
 void ComponentsPanel::DrawComponents(Entity entity)
 {
-	ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen;
+	ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
+
+	EditorFonts editorfonts = CobaltEditor::Get().GetEditorLayer()->GetEditorFonts();
+	ImFont* boldfont = editorfonts.SemiBold;
+	ImFont* regularfont = editorfonts.Regular;
+
+	ImGui::PushFont(boldfont);
+	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 5, 5 });
 
 	if (ImGui::TreeNodeEx("Tag Component", treeNodeFlags))
 	{
+		ImGui::PushFont(regularfont);
+
 		auto& tag = entity.GetComponent<TagComponent>();
 		ImGui::Text("Tag");
 		ImGui::SameLine();
 		ImGui::InputText("##Tag", tag.Tag.data(), tag.Tag.capacity());
 
+		ImGui::PopFont();
 		ImGui::TreePop();
 	}
 
@@ -41,11 +51,14 @@ void ComponentsPanel::DrawComponents(Entity entity)
 
 	if (ImGui::TreeNodeEx("Transform Component", treeNodeFlags))
 	{
+		ImGui::PushFont(regularfont);
+
 		auto& transform = entity.GetComponent<TransformComponent>();
 		DrawVector3("Position", transform.Position);
 		DrawVector3("Rotation", transform.Rotation);
 		DrawVector3("Scale", transform.Scale, 1.0f);
 
+		ImGui::PopFont();
 		ImGui::TreePop();
 	}
 
@@ -56,13 +69,19 @@ void ComponentsPanel::DrawComponents(Entity entity)
 
 		if (ImGui::TreeNodeEx("Sprite Renderer Component", treeNodeFlags))
 		{
+			ImGui::PushFont(regularfont);
+
 			auto& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
 			ImGui::Image((ImTextureID)spriteRenderer.Sprite->GetID(), ImVec2(100, 100), { 0, 1 }, { 1, 0 });
 			ImGui::ColorEdit4("Sprite Color", glm::value_ptr(spriteRenderer.Color));
 
+			ImGui::PopFont();
 			ImGui::TreePop();
 		}
 	}
+
+	ImGui::PopFont();
+	ImGui::PopStyleVar();
 }
 
 void ComponentsPanel::DrawVector3(const std::string& label, glm::vec3& values, float resetValue, float item_width, float speed)
