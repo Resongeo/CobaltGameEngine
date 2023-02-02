@@ -7,27 +7,20 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CobaltEditor", "CobaltEdito
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{60F0D8F2-9055-4500-900A-9C660B758D22}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.vcxproj", "{313FE701-9869-4531-8A79-3C940CF97E9D}"
-EndProject
-
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{60F0D8F2-9055-4500-900A-9C660B758D22}.Debug|x64.ActiveCfg = Debug|x64
-		{60F0D8F2-9055-4500-900A-9C660B758D22}.Debug|x64.Build.0 = Debug|x64
-		{60F0D8F2-9055-4500-900A-9C660B758D22}.Release|x64.ActiveCfg = Release|x64
-		{60F0D8F2-9055-4500-900A-9C660B758D22}.Release|x64.Build.0 = Release|x64
-		{313FE701-9869-4531-8A79-3C940CF97E9D}.Debug|x64.ActiveCfg = Debug|x64
-		{313FE701-9869-4531-8A79-3C940CF97E9D}.Debug|x64.Build.0 = Debug|x64
-		{313FE701-9869-4531-8A79-3C940CF97E9D}.Release|x64.ActiveCfg = Release|x64
-		{313FE701-9869-4531-8A79-3C940CF97E9D}.Release|x64.Build.0 = Release|x64
 		{0CAD77A4-53C5-4A7E-9715-FC69C2F14173}.Debug|x64.ActiveCfg = Debug|x64
 		{0CAD77A4-53C5-4A7E-9715-FC69C2F14173}.Debug|x64.Build.0 = Debug|x64
 		{0CAD77A4-53C5-4A7E-9715-FC69C2F14173}.Release|x64.ActiveCfg = Release|x64
 		{0CAD77A4-53C5-4A7E-9715-FC69C2F14173}.Release|x64.Build.0 = Release|x64
+		{60F0D8F2-9055-4500-900A-9C660B758D22}.Debug|x64.ActiveCfg = Debug|x64
+		{60F0D8F2-9055-4500-900A-9C660B758D22}.Debug|x64.Build.0 = Debug|x64
+		{60F0D8F2-9055-4500-900A-9C660B758D22}.Release|x64.ActiveCfg = Release|x64
+		{60F0D8F2-9055-4500-900A-9C660B758D22}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
