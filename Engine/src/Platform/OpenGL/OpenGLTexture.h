@@ -18,7 +18,12 @@ namespace Cobalt
 		virtual std::string GetPath() const override  { return m_Path; };
 
 		virtual void SetData(void* data, uint32_t size) override;
-		virtual void Bind() override;
+		virtual void Bind(uint32_t slot) override;
+
+		virtual bool operator == (const Texture& other) const override
+		{
+			return m_RendererID == other.GetID();
+		}
 
 	private:
 		uint32_t m_RendererID;

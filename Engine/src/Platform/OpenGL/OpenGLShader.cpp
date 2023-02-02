@@ -150,6 +150,11 @@ namespace Cobalt
 		glUniform1i(GetUniformLocation(name), value);
 	}
 
+	void OpenGLShader::SetIntArray(const char* name, int* values, uint32_t count) const
+	{
+		glUniform1iv(GetUniformLocation(name), count, values);
+	}
+
 	void OpenGLShader::SetFloat(const char* name, float value) const
 	{
 		glUniform1f(GetUniformLocation(name), value);

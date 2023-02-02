@@ -16,6 +16,7 @@ namespace Cobalt
 
 		virtual inline void SetBool(const char* name, bool value) const = 0;
 		virtual inline void SetInt(const char* name, int value) const = 0;
+		virtual inline void SetIntArray(const char* name, int* values, uint32_t count) const = 0;
 		virtual inline void SetFloat(const char* name, float value) const = 0;
 		virtual inline void SetVec2(const char* name, float x, float y) const = 0;
 		virtual inline void SetVec2(const char* name, glm::vec2 value) const = 0;

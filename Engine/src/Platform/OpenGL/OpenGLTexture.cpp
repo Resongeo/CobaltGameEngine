@@ -56,9 +56,9 @@ namespace Cobalt
 		glTexSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, GL_RGBA, GL_UNSIGNED_BYTE, data);
 	}
 
-	void OpenGLTexture::Bind()
+	void OpenGLTexture::Bind(uint32_t slot)
 	{
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
 }

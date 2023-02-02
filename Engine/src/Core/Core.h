@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <unordered_map>
 #include <vector>
+#include <array>
 #include <functional>
 #include <string>
 #include <sstream>
