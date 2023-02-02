@@ -28,18 +28,22 @@ void ComponentsPanel::DrawComponents(Entity entity)
 	ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
 
 	EditorFonts editorfonts = CobaltEditor::Get().GetEditorLayer()->GetEditorFonts();
-	ImFont* boldfont = editorfonts.SemiBold;
-	ImFont* regularfont = editorfonts.Regular;
+	m_Boldfont = editorfonts.SemiBold;
+	m_Regularfont = editorfonts.Regular;
 
-	ImGui::PushFont(boldfont);
+	ImGui::PushFont(m_Boldfont);
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 5, 5 });
 
 	if (ImGui::TreeNodeEx("Tag Component", treeNodeFlags))
 	{
-		ImGui::PushFont(regularfont);
+		ImGui::PushFont(m_Regularfont);
 
 		auto& tag = entity.GetComponent<TagComponent>();
+
+		ImGui::PushFont(m_Boldfont);
 		ImGui::Text("Tag");
+		ImGui::PopFont();
+		
 		ImGui::SameLine();
 		ImGui::InputText("##Tag", tag.Tag.data(), tag.Tag.capacity());
 
@@ -51,7 +55,7 @@ void ComponentsPanel::DrawComponents(Entity entity)
 
 	if (ImGui::TreeNodeEx("Transform Component", treeNodeFlags))
 	{
-		ImGui::PushFont(regularfont);
+		ImGui::PushFont(m_Regularfont);
 
 		auto& transform = entity.GetComponent<TransformComponent>();
 		DrawVector3("Position", transform.Position);
@@ -69,7 +73,7 @@ void ComponentsPanel::DrawComponents(Entity entity)
 
 		if (ImGui::TreeNodeEx("Sprite Renderer Component", treeNodeFlags))
 		{
-			ImGui::PushFont(regularfont);
+			ImGui::PushFont(m_Regularfont);
 
 			auto& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
 
@@ -77,11 +81,13 @@ void ComponentsPanel::DrawComponents(Entity entity)
 			ImGui::SameLine();
 			ImGui::Image((ImTextureID)spriteRenderer.Sprite->GetID(), ImVec2(100, 100), { 0, 1 }, { 1, 0 });
 
-			ImGuiColorEditFlags colorEditFlags{};
-			colorEditFlags |= ImGuiColorEditFlags_NoSmallPreview;
-			ImGui::ColorPicker4("Preview", glm::value_ptr(spriteRenderer.Color), colorEditFlags);
+			ImGui::Dummy({ 0, 5 });
 
-			DrawVector2("Tiling", spriteRenderer.Tiling, 1.0f, 90.0f);
+			ImGui::ColorPicker4("Preview", glm::value_ptr(spriteRenderer.Color), ImGuiColorEditFlags_NoSmallPreview);
+
+			ImGui::Dummy({ 0, 5 });
+
+			DrawVector2("Tiling", spriteRenderer.Tiling, 1.0f);
 
 			ImGui::PopFont();
 			ImGui::TreePop();
@@ -94,16 +100,36 @@ void ComponentsPanel::DrawComponents(Entity entity)
 
 void ComponentsPanel::DrawVector3(const char* label, glm::vec3& values, float resetValue, float item_width, float speed)
 {
+	const char* xLabel;
+	const char* yLabel;
+	const char* zLabel;
+
+	if (Input::GetKeyDown(KEYCODE_LEFT_SHIFT))
+	{
+		xLabel = "##multiEdit";
+		yLabel = "##multiEdit";
+		zLabel = "##multiEdit";
+
+		speed /= 10.0f;
+	}
+	else
+	{
+		xLabel = "##X";
+		yLabel = "##Y";
+		zLabel = "##Z";
+	}
+
 	ImGui::PushID(label);
 	ImGui::Columns(2);
 	
 	ImGui::SetColumnWidth(0, 100.f);
+	ImGui::PushFont(m_Boldfont);
 	ImGui::Text(label);
+	ImGui::PopFont();
 
 	ImGui::NextColumn();
 
 	ImGui::SetNextItemWidth(item_width);
-	const char* xLabel = Input::GetKeyDown(KEYCODE_LEFT_SHIFT) ? "##multiEdit" : "##X";
 
 	ImGui::DragFloat(xLabel, &values.x, speed);
 	if (ImGui::IsItemActive() && Input::GetMouseButtonDown(1))
@@ -114,7 +140,6 @@ void ComponentsPanel::DrawVector3(const char* label, glm::vec3& values, float re
 	ImGui::SameLine();
 
 	ImGui::SetNextItemWidth(item_width);
-	const char* yLabel = Input::GetKeyDown(KEYCODE_LEFT_SHIFT) ? "##multiEdit" : "##Y";
 
 	ImGui::DragFloat(yLabel, &values.y, speed);
 	if (ImGui::IsItemActive() && Input::GetMouseButtonDown(1))
@@ -125,7 +150,6 @@ void ComponentsPanel::DrawVector3(const char* label, glm::vec3& values, float re
 	ImGui::SameLine();
 
 	ImGui::SetNextItemWidth(item_width);
-	const char* zLabel = Input::GetKeyDown(KEYCODE_LEFT_SHIFT) ? "##multiEdit" : "##Z";
 
 	ImGui::DragFloat(zLabel, &values.z, speed);
 	if (ImGui::IsItemActive() && Input::GetMouseButtonDown(1))
@@ -139,16 +163,33 @@ void ComponentsPanel::DrawVector3(const char* label, glm::vec3& values, float re
 
 void ComponentsPanel::DrawVector2(const char* label, glm::vec2& values, float resetValue, float item_width, float speed)
 {
+	const char* xLabel;
+	const char* yLabel;
+
+	if (Input::GetKeyDown(KEYCODE_LEFT_SHIFT))
+	{
+		xLabel = "##multiEdit";
+		yLabel = "##multiEdit";
+
+		speed /= 10.0f;
+	}
+	else
+	{
+		xLabel = "##X";
+		yLabel = "##Y";
+	}
+
 	ImGui::PushID(label);
 	ImGui::Columns(2);
 
 	ImGui::SetColumnWidth(0, 100.f);
+	ImGui::PushFont(m_Boldfont);
 	ImGui::Text(label);
+	ImGui::PopFont();
 
 	ImGui::NextColumn();
 
 	ImGui::SetNextItemWidth(item_width);
-	const char* xLabel = Input::GetKeyDown(KEYCODE_LEFT_SHIFT) ? "##multiEdit" : "##X";
 
 	ImGui::DragFloat(xLabel, &values.x, speed);
 	if (ImGui::IsItemActive() && Input::GetMouseButtonDown(1))
@@ -159,7 +200,6 @@ void ComponentsPanel::DrawVector2(const char* label, glm::vec2& values, float re
 	ImGui::SameLine();
 
 	ImGui::SetNextItemWidth(item_width);
-	const char* yLabel = Input::GetKeyDown(KEYCODE_LEFT_SHIFT) ? "##multiEdit" : "##Y";
 
 	ImGui::DragFloat(yLabel, &values.y, speed);
 	if (ImGui::IsItemActive() && Input::GetMouseButtonDown(1))
