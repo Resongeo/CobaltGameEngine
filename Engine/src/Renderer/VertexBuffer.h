@@ -9,7 +9,7 @@ namespace Cobalt
 		None = 0, Bool, Int, Int2, Int3, Int4, Float, Float2, Float3, Float4, Mat3, Mat4
 	};
 
-	static unsigned int ShaderDataTypeSize(ShaderDataType type)
+	static uint32_t ShaderDataTypeSize(ShaderDataType type)
 	{
 		switch (type)
 		{
@@ -40,7 +40,7 @@ namespace Cobalt
 		BufferElement(ShaderDataType type, const std::string& name)
 			: Name(name), Type(type), Offset(0), Size(ShaderDataTypeSize(type)) {}
 
-		unsigned int GetElementCount() const
+		uint32_t GetElementCount() const
 		{
 			switch (Type)
 			{
@@ -66,7 +66,7 @@ namespace Cobalt
 		BufferLayout() {}
 		BufferLayout(const std::initializer_list<BufferElement>& elements) : m_Elements(elements)
 		{
-			unsigned int offset = 0;
+			uint32_t offset = 0;
 			m_Stride = 0;
 
 			for (auto& element : m_Elements)
@@ -101,6 +101,9 @@ namespace Cobalt
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 
-		static Ref<VertexBuffer> Create(float* vertices, unsigned int size);
+		virtual void CopyData(const void* data, uint32_t size) = 0;
+
+		static Ref<VertexBuffer> Create(uint32_t size);
+		static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
 	};
 }

@@ -109,20 +109,12 @@ void EditorLayer::OnUpdate()
 
 		for (float x = -m_GridData.Size; x < m_GridData.Size; x += m_GridData.GapSize)
 		{
-			glm::mat4 transform = glm::mat4(1.0f);
-			transform = glm::translate(transform, glm::vec3(x, 0.0f, 0.0f));
-			transform = glm::scale(transform, glm::vec3(m_GridData.LineWidth, m_GridData.Size * 2.0f, 1.0f));
-
-			RenderCommand::DrawQuad(transform, m_GridColor);
+			RenderCommand::DrawQuad({ x, 0.0f, 0.0f }, { m_GridData.LineWidth, m_GridData.Size * 2.0f }, m_GridColor);
 		}
 
 		for (float y = -m_GridData.Size; y < m_GridData.Size; y += m_GridData.GapSize)
 		{
-			glm::mat4 transform = glm::mat4(1.0f);
-			transform = glm::translate(transform, glm::vec3(0.0f, y, 0.0f));
-			transform = glm::scale(transform, glm::vec3(m_GridData.Size * 2.0f, m_GridData.LineWidth, 1.0f));
-
-			RenderCommand::DrawQuad(transform, m_GridColor);
+			RenderCommand::DrawQuad({ 0.0f, y, 0.0f }, { m_GridData.Size * 2.0f, m_GridData.LineWidth }, m_GridColor);
 		}
 	}
 	
@@ -130,6 +122,11 @@ void EditorLayer::OnUpdate()
 		PROFILER_TIMER_SCOPE("Scene update");
 
 		m_ActiveScene->Update(Time::deltaTime);
+	}
+
+	{
+		PROFILER_TIMER_SCOPE("EndScene");
+		RenderCommand::EndScene();
 	}
 
 	m_Framebuffer->Unbind();

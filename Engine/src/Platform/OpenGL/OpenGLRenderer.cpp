@@ -27,12 +27,12 @@ namespace Cobalt
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	void OpenGLRenderer::DrawIndexed(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& model)
+	void OpenGLRenderer::DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount)
 	{
-		vertexArray->Bind();
-		shader->SetMat4("ViewProjection", s_SceneData->ViewProjectionMatrix);
-		shader->SetMat4("Transform", model);
-		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		uint32_t count = indexCount == 0 ? vertexArray->GetIndexBuffer()->GetCount() : indexCount;
+
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	void OpenGLRenderer::SetViewport(int x, int y, int width, int height)

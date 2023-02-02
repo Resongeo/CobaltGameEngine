@@ -14,7 +14,7 @@ namespace Cobalt
 			auto& transform = group.get<TransformComponent>(entity);
 			auto& spriteRenderer = group.get<SpriteRendererComponent>(entity);
 
-			RenderCommand::DrawQuad(transform.GetTransform(), spriteRenderer.Color, spriteRenderer.Tiling, spriteRenderer.Sprite);
+			RenderCommand::DrawQuad(transform.Position, { transform.Scale.x, transform.Scale.y }, spriteRenderer.Color);
 		}
 	}
 
