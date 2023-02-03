@@ -27,6 +27,8 @@ namespace Cobalt
 		std::array<Ref<Texture>, MaxTextureSlots> TextureSlots;
 		uint32_t TextureIndexCount = 1;
 
+		glm::vec4 QuadVertexPositions[4];
+
 		Ref<VertexArray> QuadVertexArray;
 		Ref<VertexBuffer> QuadVertexBuffer;
 		Ref<Shader> TexturedQuadShader;
@@ -86,6 +88,11 @@ namespace Cobalt
 
 		s_RendererData.TextureSlots[0] = s_RendererData.WhiteTexture;
 
+		s_RendererData.QuadVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
+		s_RendererData.QuadVertexPositions[1] = {  0.5f, -0.5f, 0.0f, 1.0f };
+		s_RendererData.QuadVertexPositions[2] = {  0.5f,  0.5f, 0.0f, 1.0f };
+		s_RendererData.QuadVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
+
 		delete[] quadIndices;
 	}
 
@@ -130,41 +137,36 @@ namespace Cobalt
 		s_Renderer->DrawIndexed(s_RendererData.QuadVertexArray, s_RendererData.QuadIndexCount);
 	}
 
-	void RenderCommand::DrawQuad(const glm::vec3 position, const glm::vec2 size, const glm::vec4& color)
+	void RenderCommand::DrawQuad(const glm::vec3& position, const glm::vec3& scale, const glm::vec4& color)
 	{
-		DrawQuad(position, size, { 1.0f, 1.0f }, color);
-	}
-
-	void RenderCommand::DrawQuad(const glm::vec3 position, const glm::vec2 size, const glm::vec2& tiling, const glm::vec4& color)
-	{
-		glm::vec2 offset{ size.x * 0.5f, size.y * 0.5f };
+		glm::vec2 offset{ scale.x * 0.5f, scale.y * 0.5f };
 
 		float textureIndex = 0.0f;
 
 		s_RendererData.QuadVertexBufferPtr->Position = { position.x - offset.x, position.y - offset.y, position.z };
 		s_RendererData.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
-		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
+		s_RendererData.QuadVertexBufferPtr->Tiling = { 1, 1 };
 		s_RendererData.QuadVertexBufferPtr->Color = color;
 		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadVertexBufferPtr->Position = { position.x + offset.x, position.y - offset.y, position.z };
 		s_RendererData.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
-		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
+		s_RendererData.QuadVertexBufferPtr->Tiling = { 1, 1 };
 		s_RendererData.QuadVertexBufferPtr->Color = color;
 		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadVertexBufferPtr->Position = { position.x + offset.x, position.y + offset.y, position.z };
 		s_RendererData.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
-		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
+		s_RendererData.QuadVertexBufferPtr->Tiling = { 1, 1 };
 		s_RendererData.QuadVertexBufferPtr->Color = color;
 		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadVertexBufferPtr->Position = { position.x - offset.x, position.y + offset.y, position.z };
 		s_RendererData.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
-		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
+		s_RendererData.QuadVertexBufferPtr->Tiling = { 1, 1 };
 		s_RendererData.QuadVertexBufferPtr->Color = color;
 		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_RendererData.QuadVertexBufferPtr++;
@@ -172,10 +174,49 @@ namespace Cobalt
 		s_RendererData.QuadIndexCount += 6;
 	}
 
-	void RenderCommand::DrawQuad(const glm::vec3 position, const glm::vec2 size, const glm::vec2& tiling, const glm::vec4& color, const Ref<Texture>& texture)
+	void RenderCommand::DrawQuad(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const glm::vec4& color)
 	{
-		glm::vec2 offset { size.x * 0.5f, size.y * 0.5f };
+		float textureIndex = 0.0f;
 
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), { 1, 0, 0 })
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.y), { 0, 1, 0 })
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.z), { 0, 0, 1 })
+			* glm::scale(glm::mat4(1.0f), scale);
+
+		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[0];
+		s_RendererData.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
+		s_RendererData.QuadVertexBufferPtr->Tiling = { 1, 1 };
+		s_RendererData.QuadVertexBufferPtr->Color = color;
+		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_RendererData.QuadVertexBufferPtr++;
+
+		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[1];
+		s_RendererData.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
+		s_RendererData.QuadVertexBufferPtr->Tiling = { 1, 1 };
+		s_RendererData.QuadVertexBufferPtr->Color = color;
+		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_RendererData.QuadVertexBufferPtr++;
+
+		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[2];
+		s_RendererData.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
+		s_RendererData.QuadVertexBufferPtr->Tiling = { 1, 1 };
+		s_RendererData.QuadVertexBufferPtr->Color = color;
+		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_RendererData.QuadVertexBufferPtr++;
+
+		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[3];
+		s_RendererData.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
+		s_RendererData.QuadVertexBufferPtr->Tiling = { 1, 1 };
+		s_RendererData.QuadVertexBufferPtr->Color = color;
+		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_RendererData.QuadVertexBufferPtr++;
+
+		s_RendererData.QuadIndexCount += 6;
+	}
+
+	void RenderCommand::DrawQuad(const glm::mat4& transform, const glm::vec2& tiling, const glm::vec4& color, const Ref<Texture>& texture)
+	{
 		uint32_t textureIndex = 0;
 		
 		for (uint32_t i = 0; i < s_RendererData.TextureIndexCount; i++)
@@ -195,32 +236,32 @@ namespace Cobalt
 			s_RendererData.TextureIndexCount++;
 		}
 
-		s_RendererData.QuadVertexBufferPtr->Position = { position.x - offset.x, position.y - offset.y, position.z };
+		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[0];
 		s_RendererData.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
 		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
 		s_RendererData.QuadVertexBufferPtr->Color = color;
-		s_RendererData.QuadVertexBufferPtr->TexIndex = (float)textureIndex;
+		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_RendererData.QuadVertexBufferPtr++;
 
-		s_RendererData.QuadVertexBufferPtr->Position = { position.x + offset.x, position.y - offset.y, position.z };
+		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[1];
 		s_RendererData.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
 		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
 		s_RendererData.QuadVertexBufferPtr->Color = color;
-		s_RendererData.QuadVertexBufferPtr->TexIndex = (float)textureIndex;
+		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_RendererData.QuadVertexBufferPtr++;
 
-		s_RendererData.QuadVertexBufferPtr->Position = { position.x + offset.x, position.y + offset.y, position.z };
+		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[2];
 		s_RendererData.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
 		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
 		s_RendererData.QuadVertexBufferPtr->Color = color;
-		s_RendererData.QuadVertexBufferPtr->TexIndex = (float)textureIndex;
+		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_RendererData.QuadVertexBufferPtr++;
 
-		s_RendererData.QuadVertexBufferPtr->Position = { position.x - offset.x, position.y + offset.y, position.z };
+		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[3];
 		s_RendererData.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
 		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
 		s_RendererData.QuadVertexBufferPtr->Color = color;
-		s_RendererData.QuadVertexBufferPtr->TexIndex = (float)textureIndex;
+		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadIndexCount += 6;

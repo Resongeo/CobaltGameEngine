@@ -108,13 +108,17 @@ void EditorLayer::OnUpdate()
 		PROFILER_TIMER_SCOPE("Grid");
 
 		for (float x = -m_GridData.Size; x < m_GridData.Size; x += m_GridData.GapSize)
-		{
-			RenderCommand::DrawQuad({ x, 0.0f, 0.0f }, { m_GridData.LineWidth, m_GridData.Size * 2.0f }, m_GridColor);
-		}
+			RenderCommand::DrawQuad({ x, 0, 0 }, { m_GridData.LineWidth, m_GridData.Size * 2, 0 }, m_GridColor);
 
 		for (float y = -m_GridData.Size; y < m_GridData.Size; y += m_GridData.GapSize)
+			RenderCommand::DrawQuad({ 0, y, 0 }, { m_GridData.Size * 2, m_GridData.LineWidth, 0 }, m_GridColor);
+
+		for (float y = -2.0f; y < 2.0f; y += 0.1f)
 		{
-			RenderCommand::DrawQuad({ 0.0f, y, 0.0f }, { m_GridData.Size * 2.0f, m_GridData.LineWidth }, m_GridColor);
+			for (float x = -2.0f; x < 2.0f; x += 0.1f)
+			{
+				RenderCommand::DrawQuad({ x, y, 0.0f }, glm::vec3(0.085f), {(x + 2.0f) / 4.0f, 0.5f, (y + 2.0f) / 4.0f, 1.0f});
+			}
 		}
 	}
 	
