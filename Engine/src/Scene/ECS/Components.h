@@ -35,25 +35,23 @@ namespace Cobalt
 
 		glm::mat4 GetTransform() const
 		{
-			glm::mat4 rotation =
-				glm::rotate(glm::mat4(1.0f), glm::radians(Rotation.x), { 1, 0, 0 }) *
-				glm::rotate(glm::mat4(1.0f), glm::radians(Rotation.y), { 0, 1, 0 }) *
-				glm::rotate(glm::mat4(1.0f), glm::radians(Rotation.z), { 0, 0, 1 });
+			glm::mat4 rotation = glm::toMat4(glm::quat(Rotation));
 
-			return glm::translate(glm::mat4(1.0f), Position) * rotation * glm::scale(glm::mat4(1.0f), Scale);
+			return glm::translate(glm::mat4(1.0f), Position)
+				* rotation
+				* glm::scale(glm::mat4(1.0f), Scale);
 		}
 	};
 
 	struct SpriteRendererComponent
 	{
-		Ref<Texture> Sprite = Texture::Create("assets\\textures\\white_texture.png");
+		Ref<Texture> Sprite;
 		glm::vec4 Color = glm::vec4(1.0);
 		glm::vec2 Tiling = glm::vec2(1.0);
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
-		SpriteRendererComponent(const glm::vec4& color) : Color(color) {}
-		SpriteRendererComponent(const Ref<Texture>& sprite, const glm::vec4& color, const glm::vec2& tiling) : Sprite(sprite), Color(color), Tiling(tiling) {}
+		SpriteRendererComponent(const Ref<Texture>& sprite) : Sprite(sprite) {}
 
 		operator Ref<Texture>& () { return Sprite; }
 		operator const Ref<Texture>& () const { return Sprite; }

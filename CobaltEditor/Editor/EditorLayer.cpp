@@ -93,6 +93,8 @@ void EditorLayer::OnUpdate()
 
 		RenderCommand::BeginScene(m_SceneCamera);
 		RenderCommand::Clear();
+
+		RenderCommand::ResetStats();
 	}
 
 	m_Framebuffer->Bind();
@@ -108,21 +110,17 @@ void EditorLayer::OnUpdate()
 		PROFILER_TIMER_SCOPE("Grid");
 
 		for (float x = -m_GridData.Size; x < m_GridData.Size; x += m_GridData.GapSize)
-		{
-			glm::mat4 transform = glm::mat4(1.0f);
-			transform = glm::translate(transform, glm::vec3(x, 0.0f, 0.0f));
-			transform = glm::scale(transform, glm::vec3(m_GridData.LineWidth, m_GridData.Size * 2.0f, 1.0f));
-
-			RenderCommand::DrawQuad(transform, m_GridColor);
-		}
+			RenderCommand::DrawQuad({ x, 0, 0 }, { m_GridData.LineWidth, m_GridData.Size * 2, 0 }, m_GridColor);
 
 		for (float y = -m_GridData.Size; y < m_GridData.Size; y += m_GridData.GapSize)
-		{
-			glm::mat4 transform = glm::mat4(1.0f);
-			transform = glm::translate(transform, glm::vec3(0.0f, y, 0.0f));
-			transform = glm::scale(transform, glm::vec3(m_GridData.Size * 2.0f, m_GridData.LineWidth, 1.0f));
+			RenderCommand::DrawQuad({ 0, y, 0 }, { m_GridData.Size * 2, m_GridData.LineWidth, 0 }, m_GridColor);
 
-			RenderCommand::DrawQuad(transform, m_GridColor);
+		for (float y = -2.0f; y < 2.0f; y += 0.1f)
+		{
+			for (float x = -2.0f; x < 2.0f; x += 0.1f)
+			{
+				//RenderCommand::DrawQuad({ x, y, 0.0f }, glm::vec3(0.085f), {(x + 2.0f) / 4.0f, 0.5f, (y + 2.0f) / 4.0f, 1.0f});
+			}
 		}
 	}
 	
@@ -130,6 +128,11 @@ void EditorLayer::OnUpdate()
 		PROFILER_TIMER_SCOPE("Scene update");
 
 		m_ActiveScene->Update(Time::deltaTime);
+	}
+
+	{
+		PROFILER_TIMER_SCOPE("EndScene");
+		RenderCommand::EndScene();
 	}
 
 	m_Framebuffer->Unbind();
@@ -176,12 +179,16 @@ void EditorLayer::OnImGuiUpdate()
 			ImGui::SetCursorPosX(30);
 			ImGui::SetCursorPosY(30);
 
+			ImGui::PushFont(m_EditorFonts.SemiBold);
+
 			if (Time::intervalFrameRate < 30.f)
 				ImGui::TextColored(ImVec4(0.89f, 0.21f, 0.21f, 1.f), ("FPS: " + std::to_string((int)Time::intervalFrameRate)).c_str());
 			else if (Time::intervalFrameRate < 60.f)
 				ImGui::TextColored(ImVec4(0.89f, 0.84f, 0.21f, 1.f), ("FPS: " + std::to_string((int)Time::intervalFrameRate)).c_str());
 			else
 				ImGui::TextColored(ImVec4(0.41f, 0.89f, 0.21f, 1.f), ("FPS: " + std::to_string((int)Time::intervalFrameRate)).c_str());
+
+			ImGui::PopFont();
 		}
 
 		ImGui::End();
@@ -210,6 +217,33 @@ void EditorLayer::OnImGuiUpdate()
 			FileSystem::OpenFileDialog("Text files (*.txt)\0*.txt\0");
 		if (ImGui::Button("Save File Dialog"))
 			FileSystem::SaveFileDialog("Text files (*.txt)\0*.txt\0");
+
+		ImGui::End();
+	}
+
+	{
+		PROFILER_TIMER_SCOPE("Render Statistics");
+
+		ImGui::Begin("Render Statistics");
+
+		auto stats = RenderCommand::GetStats();
+		ImGui::Columns(2);
+
+		ImGui::PushFont(m_EditorFonts.SemiBold);
+		ImGui::Text("Draw calls:");
+		ImGui::Text("Quad count:");
+		ImGui::Text("Vertex count:");
+		ImGui::Text("Index count:");
+		ImGui::PopFont();
+
+		ImGui::NextColumn();
+
+		ImGui::Text("%d", stats.DrawCalls);
+		ImGui::Text("%d", stats.QuadCount);
+		ImGui::Text("%d", stats.GetVertexCount());
+		ImGui::Text("%d", stats.GetIndexCount());
+		
+		ImGui::Columns(1);
 
 		ImGui::End();
 	}

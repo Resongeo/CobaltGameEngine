@@ -77,9 +77,16 @@ void ComponentsPanel::DrawComponents(Entity entity)
 
 			auto& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
 
-			ImGui::Text(spriteRenderer.Sprite->GetPath().c_str());
-			ImGui::SameLine();
-			ImGui::Image((ImTextureID)spriteRenderer.Sprite->GetID(), ImVec2(100, 100), { 0, 1 }, { 1, 0 });
+			if (spriteRenderer.Sprite)
+			{
+				ImGui::Text(spriteRenderer.Sprite->GetPath().c_str());
+				ImGui::SameLine();
+				ImGui::Image((ImTextureID)spriteRenderer.Sprite->GetID(), ImVec2(100, 100), { 0, 1 }, { 1, 0 });
+			}
+			else
+			{
+				ImGui::Text("Default White texture");
+			}
 
 			ImGui::Dummy({ 0, 5 });
 

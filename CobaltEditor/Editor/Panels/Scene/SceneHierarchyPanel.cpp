@@ -34,19 +34,23 @@ void SceneHierarchyPanel::Update()
 
 	if (ImGui::BeginPopupContextWindow())
 	{
-		if (ImGui::MenuItem("Create Empty"))
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, { 10, 10 });
+		ImGui::Text("Create new entity");
+		ImGui::PopStyleVar();
+
+		if (ImGui::MenuItem("Empty entity"))
 			m_Scene->CreateEntity("Entity");
 
-		if (ImGui::MenuItem("Create Sprite"))
+		if (ImGui::MenuItem("Empty Sprite"))
 		{
 			auto entity = m_Scene->CreateEntity("Sprite");
 			entity.AddComponent<SpriteRendererComponent>();
 		}
 
-		if (ImGui::MenuItem("Create UV grid"))
+		if (ImGui::MenuItem("UV grid"))
 		{
 			auto entity = m_Scene->CreateEntity("UV grid");
-			entity.AddComponent<SpriteRendererComponent>(m_Texture, glm::vec4(1.0), glm::vec2(1.0));
+			entity.AddComponent<SpriteRendererComponent>(m_Texture);
 		}
 
 		ImGui::EndPopup();

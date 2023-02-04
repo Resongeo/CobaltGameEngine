@@ -19,16 +19,17 @@ namespace Cobalt
 
 		virtual void Bind() const;
 
-		virtual inline void SetBool(const char* name, bool value) const;
-		virtual inline void SetInt(const char* name, int value) const;
-		virtual inline void SetFloat(const char* name, float value) const;
-		virtual inline void SetVec2(const char* name, float x, float y) const;
-		virtual inline void SetVec2(const char* name, glm::vec2 value) const;
-		virtual inline void SetVec3(const char* name, float x, float y, float z) const;
-		virtual inline void SetVec3(const char* name, glm::vec3 value) const;
-		virtual inline void SetVec4(const char* name, float x, float y, float z, float w) const;
-		virtual inline void SetVec4(const char* name, glm::vec4 value) const;
-		virtual inline void SetMat4(const char* name, glm::mat4 value) const;
+		virtual inline void SetBool(const char* name, bool value) const override;
+		virtual inline void SetInt(const char* name, int value) const override;
+		virtual inline void SetIntArray(const char* name, int* values, uint32_t count) const override;
+		virtual inline void SetFloat(const char* name, float value) const override;
+		virtual inline void SetVec2(const char* name, float x, float y) const override;
+		virtual inline void SetVec2(const char* name, glm::vec2 value) const override;
+		virtual inline void SetVec3(const char* name, float x, float y, float z) const override;
+		virtual inline void SetVec3(const char* name, glm::vec3 value) const override;
+		virtual inline void SetVec4(const char* name, float x, float y, float z, float w) const override;
+		virtual inline void SetVec4(const char* name, glm::vec4 value) const override;
+		virtual inline void SetMat4(const char* name, glm::mat4 value) const override;
 
 	private:
 		std::string ReadFile(const std::string& filepath);

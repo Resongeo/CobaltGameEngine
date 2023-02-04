@@ -16,6 +16,15 @@ namespace Cobalt
 	class Renderer
 	{
 	public:
+		struct Statistics
+		{
+			uint32_t DrawCalls = 0;
+			uint32_t QuadCount = 0;
+			uint32_t GetVertexCount() { return QuadCount * 4; }
+			uint32_t GetIndexCount() { return QuadCount * 6; }
+		};
+
+	public:
 		inline static GraphicsAPI GetAPI() { return s_GraphicsAPI; }
 		inline static GraphicsAPI SetAPI(GraphicsAPI GraphicsAPI)
 		{
@@ -43,7 +52,7 @@ namespace Cobalt
 		virtual void ClearColor(const glm::vec4& color) = 0;
 		virtual void Clear() = 0;
 		
-		virtual void DrawIndexed(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& model) = 0;
+		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount = 0) = 0;
 
 		virtual void SetViewport(int x, int y, int width, int height) = 0;
 

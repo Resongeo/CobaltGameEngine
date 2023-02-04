@@ -5,12 +5,23 @@
 
 namespace Cobalt
 {
-	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, unsigned int size)
+	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
+	{
+		switch (Renderer::GetAPI())
+		{
+			case GraphicsAPI::OpenGL: return CreateRef<OpenGLVertexBuffer>(size);
+		}
+
+		return nullptr;
+	}
+
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case GraphicsAPI::OpenGL: return CreateRef<OpenGLVertexBuffer>(vertices, size);
 		}
+		
 		return nullptr;
 	}
 }

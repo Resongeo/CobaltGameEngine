@@ -5,7 +5,7 @@
 
 namespace Cobalt
 {
-	Ref<IndexBuffer> IndexBuffer::Create(unsigned int* indices, unsigned int count)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
 	{
 		switch (Renderer::GetAPI())
 		{

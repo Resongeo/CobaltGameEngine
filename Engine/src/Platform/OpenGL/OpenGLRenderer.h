@@ -14,7 +14,7 @@ namespace Cobalt
 		virtual void ClearColor(const glm::vec4& color) override;
 		virtual void Clear() override;
 
-		virtual void DrawIndexed(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& model) override;
+		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount = 0) override;
 
 		virtual void SetViewport(int x, int y, int width, int height) override;
 
