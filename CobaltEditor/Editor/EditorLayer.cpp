@@ -93,6 +93,8 @@ void EditorLayer::OnUpdate()
 
 		RenderCommand::BeginScene(m_SceneCamera);
 		RenderCommand::Clear();
+
+		RenderCommand::ResetStats();
 	}
 
 	m_Framebuffer->Bind();
@@ -117,7 +119,7 @@ void EditorLayer::OnUpdate()
 		{
 			for (float x = -2.0f; x < 2.0f; x += 0.1f)
 			{
-				RenderCommand::DrawQuad({ x, y, 0.0f }, glm::vec3(0.085f), {(x + 2.0f) / 4.0f, 0.5f, (y + 2.0f) / 4.0f, 1.0f});
+				//RenderCommand::DrawQuad({ x, y, 0.0f }, glm::vec3(0.085f), {(x + 2.0f) / 4.0f, 0.5f, (y + 2.0f) / 4.0f, 1.0f});
 			}
 		}
 	}
@@ -177,12 +179,16 @@ void EditorLayer::OnImGuiUpdate()
 			ImGui::SetCursorPosX(30);
 			ImGui::SetCursorPosY(30);
 
+			ImGui::PushFont(m_EditorFonts.SemiBold);
+
 			if (Time::intervalFrameRate < 30.f)
 				ImGui::TextColored(ImVec4(0.89f, 0.21f, 0.21f, 1.f), ("FPS: " + std::to_string((int)Time::intervalFrameRate)).c_str());
 			else if (Time::intervalFrameRate < 60.f)
 				ImGui::TextColored(ImVec4(0.89f, 0.84f, 0.21f, 1.f), ("FPS: " + std::to_string((int)Time::intervalFrameRate)).c_str());
 			else
 				ImGui::TextColored(ImVec4(0.41f, 0.89f, 0.21f, 1.f), ("FPS: " + std::to_string((int)Time::intervalFrameRate)).c_str());
+
+			ImGui::PopFont();
 		}
 
 		ImGui::End();
@@ -211,6 +217,33 @@ void EditorLayer::OnImGuiUpdate()
 			FileSystem::OpenFileDialog("Text files (*.txt)\0*.txt\0");
 		if (ImGui::Button("Save File Dialog"))
 			FileSystem::SaveFileDialog("Text files (*.txt)\0*.txt\0");
+
+		ImGui::End();
+	}
+
+	{
+		PROFILER_TIMER_SCOPE("Render Statistics");
+
+		ImGui::Begin("Render Statistics");
+
+		auto stats = RenderCommand::GetStats();
+		ImGui::Columns(2);
+
+		ImGui::PushFont(m_EditorFonts.SemiBold);
+		ImGui::Text("Draw calls:");
+		ImGui::Text("Quad count:");
+		ImGui::Text("Vertex count:");
+		ImGui::Text("Index count:");
+		ImGui::PopFont();
+
+		ImGui::NextColumn();
+
+		ImGui::Text("%d", stats.DrawCalls);
+		ImGui::Text("%d", stats.QuadCount);
+		ImGui::Text("%d", stats.GetVertexCount());
+		ImGui::Text("%d", stats.GetIndexCount());
+		
+		ImGui::Columns(1);
 
 		ImGui::End();
 	}

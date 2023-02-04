@@ -50,7 +50,7 @@ void SceneHierarchyPanel::Update()
 		if (ImGui::MenuItem("UV grid"))
 		{
 			auto entity = m_Scene->CreateEntity("UV grid");
-			entity.AddComponent<SpriteRendererComponent>(m_Texture, glm::vec4(1.0), glm::vec2(1.0));
+			entity.AddComponent<SpriteRendererComponent>(m_Texture);
 		}
 
 		ImGui::EndPopup();

@@ -20,6 +20,6 @@ namespace Cobalt
 		static Ref<Texture> Create(const std::string& path);
 		static Ref<Texture> Create(uint32_t width, uint32_t height);
 
-		virtual bool operator == (const Texture& other) const = 0;
+		virtual bool operator == (const Ref<Texture>& other) const = 0;
 	};
 }

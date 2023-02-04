@@ -16,6 +16,15 @@ namespace Cobalt
 	class Renderer
 	{
 	public:
+		struct Statistics
+		{
+			uint32_t DrawCalls = 0;
+			uint32_t QuadCount = 0;
+			uint32_t GetVertexCount() { return QuadCount * 4; }
+			uint32_t GetIndexCount() { return QuadCount * 6; }
+		};
+
+	public:
 		inline static GraphicsAPI GetAPI() { return s_GraphicsAPI; }
 		inline static GraphicsAPI SetAPI(GraphicsAPI GraphicsAPI)
 		{

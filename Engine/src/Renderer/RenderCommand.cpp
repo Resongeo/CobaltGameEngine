@@ -33,6 +33,8 @@ namespace Cobalt
 		Ref<VertexBuffer> QuadVertexBuffer;
 		Ref<Shader> TexturedQuadShader;
 		Ref<Texture> WhiteTexture;
+
+		Renderer::Statistics Stats;
 	};
 
 	static RendererData s_RendererData;
@@ -103,10 +105,7 @@ namespace Cobalt
 		s_RendererData.TexturedQuadShader->Bind();
 		s_RendererData.TexturedQuadShader->SetMat4("ViewProjection", camera.GetViewProjectionMatrix());
 
-		s_RendererData.QuadIndexCount = 0;
-		s_RendererData.QuadVertexBufferPtr = s_RendererData.QuadVertexBufferBase;
-
-		s_RendererData.TextureIndexCount = 1;
+		StartBatch();
 	}
 
 	void RenderCommand::EndScene()
@@ -135,10 +134,18 @@ namespace Cobalt
 		}
 
 		s_Renderer->DrawIndexed(s_RendererData.QuadVertexArray, s_RendererData.QuadIndexCount);
+
+		s_RendererData.Stats.DrawCalls++;
 	}
 
 	void RenderCommand::DrawQuad(const glm::vec3& position, const glm::vec3& scale, const glm::vec4& color)
 	{
+		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
+		{
+			EndScene();
+			StartBatch();
+		}
+
 		glm::vec2 offset{ scale.x * 0.5f, scale.y * 0.5f };
 
 		float textureIndex = 0.0f;
@@ -172,10 +179,18 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadIndexCount += 6;
+
+		s_RendererData.Stats.QuadCount++;
 	}
 
 	void RenderCommand::DrawQuad(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const glm::vec4& color)
 	{
+		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
+		{
+			EndScene();
+			StartBatch();
+		}
+
 		float textureIndex = 0.0f;
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
@@ -213,28 +228,20 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadIndexCount += 6;
+
+		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawQuad(const glm::mat4& transform, const glm::vec2& tiling, const glm::vec4& color, const Ref<Texture>& texture)
+	void RenderCommand::DrawQuad(const glm::mat4& transform, const glm::vec2& tiling, const glm::vec4& color)
 	{
-		uint32_t textureIndex = 0;
-		
-		for (uint32_t i = 0; i < s_RendererData.TextureIndexCount; i++)
+		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
-			if (*s_RendererData.TextureSlots[i].get() == *texture.get())
-			{
-				textureIndex = i;
-				break;
-			}
+			EndScene();
+			StartBatch();
 		}
-		
-		if (textureIndex == 0)
-		{
-			textureIndex = s_RendererData.TextureIndexCount;
-			s_RendererData.TextureSlots[s_RendererData.TextureIndexCount] = texture;
 
-			s_RendererData.TextureIndexCount++;
-		}
+		uint32_t textureIndex = 0;
+
 
 		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[0];
 		s_RendererData.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
@@ -265,10 +272,102 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadIndexCount += 6;
+
+		s_RendererData.Stats.QuadCount++;
+	}
+
+	void RenderCommand::DrawQuad(const glm::mat4& transform, const glm::vec2& tiling, const glm::vec4& color, const Ref<Texture>& texture)
+	{
+		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
+		{
+			EndScene();
+			StartBatch();
+		}
+
+		uint32_t textureIndex = 0;
+		
+		if (texture != nullptr)
+		{
+			for (uint32_t i = 0; i < s_RendererData.TextureIndexCount; i++)
+			{
+				if (s_RendererData.TextureSlots[i]->GetID() == texture->GetID())
+				{
+					textureIndex = i;
+					break;
+				}
+			}
+
+			if (textureIndex == 0)
+			{
+				textureIndex = s_RendererData.TextureIndexCount;
+				s_RendererData.TextureSlots[s_RendererData.TextureIndexCount] = texture;
+
+				s_RendererData.TextureIndexCount++;
+			}
+		}
+
+
+		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[0];
+		s_RendererData.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
+		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
+		s_RendererData.QuadVertexBufferPtr->Color = color;
+		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_RendererData.QuadVertexBufferPtr++;
+
+		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[1];
+		s_RendererData.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
+		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
+		s_RendererData.QuadVertexBufferPtr->Color = color;
+		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_RendererData.QuadVertexBufferPtr++;
+
+		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[2];
+		s_RendererData.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
+		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
+		s_RendererData.QuadVertexBufferPtr->Color = color;
+		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_RendererData.QuadVertexBufferPtr++;
+
+		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[3];
+		s_RendererData.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
+		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
+		s_RendererData.QuadVertexBufferPtr->Color = color;
+		s_RendererData.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_RendererData.QuadVertexBufferPtr++;
+
+		s_RendererData.QuadIndexCount += 6;
+
+		s_RendererData.Stats.QuadCount++;
+	}
+
+	void RenderCommand::DrawSprite(const glm::mat4& transform, const SpriteRendererComponent& spriteComponent)
+	{
+		if (spriteComponent.Sprite)
+			DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color, spriteComponent.Sprite);
+		else
+			DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color);
 	}
 
 	void RenderCommand::SetViewport(int x, int y, int width, int height)
 	{
 		s_Renderer->SetViewport(x, y, width, height);
+	}
+
+	Renderer::Statistics& RenderCommand::GetStats()
+	{
+		return s_RendererData.Stats;
+	}
+
+	void RenderCommand::ResetStats()
+	{
+		memset(&s_RendererData.Stats, 0, sizeof(Renderer::Statistics));
+	}
+
+	void RenderCommand::StartBatch()
+	{
+		s_RendererData.QuadIndexCount = 0;
+		s_RendererData.QuadVertexBufferPtr = s_RendererData.QuadVertexBufferBase;
+
+		s_RendererData.TextureIndexCount = 1;
 	}
 }
