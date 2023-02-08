@@ -51,7 +51,7 @@ namespace Cobalt
 		EventDispatcher(Event& event) : m_Event(event) { }
 
 		template<typename T>
-		bool Dispatch(EventFn<T> func)
+		bool Dispatch(std::function<bool(T&)> func)
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{

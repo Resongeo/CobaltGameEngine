@@ -25,11 +25,8 @@ constexpr Scope<T> CreateScope(Args&& ... args)
 	return std::make_unique<T>(std::forward<Args>(args)...);
 }
 
-template<typename T>
-using EventFn = std::function<bool(T&)>;
-
-template<typename T, typename Z>
-using Dict = std::unordered_map<T, Z>;
+//template<typename T>
+//using EventFn = std::function<bool(T&)>;
 
 #define BIT(x) (1 << x)
 

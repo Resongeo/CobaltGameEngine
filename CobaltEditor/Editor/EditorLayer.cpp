@@ -109,10 +109,10 @@ void EditorLayer::OnUpdate()
 	{
 		PROFILER_TIMER_SCOPE("Grid");
 
-		for (float x = -m_GridData.Size; x < m_GridData.Size; x += m_GridData.GapSize)
+		for (float x = -(float)m_GridData.Size; x < m_GridData.Size; x += m_GridData.GapSize)
 			RenderCommand::DrawQuad({ x, 0, 0 }, { m_GridData.LineWidth, m_GridData.Size * 2, 0 }, m_GridColor);
 
-		for (float y = -m_GridData.Size; y < m_GridData.Size; y += m_GridData.GapSize)
+		for (float y = -(float)m_GridData.Size; y < m_GridData.Size; y += m_GridData.GapSize)
 			RenderCommand::DrawQuad({ 0, y, 0 }, { m_GridData.Size * 2, m_GridData.LineWidth, 0 }, m_GridColor);
 
 		for (float y = -2.0f; y < 2.0f; y += 0.1f)
@@ -168,11 +168,11 @@ void EditorLayer::OnImGuiUpdate()
 		if (m_ViewportSize.x != viewportPanelSize.x || m_ViewportSize.y != viewportPanelSize.y)
 		{
 			m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
-			m_Framebuffer->Resize(m_ViewportSize.x, m_ViewportSize.y);
+			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 			m_SceneCamera.SetAspectRatio(m_ViewportSize.x, m_ViewportSize.y);
-			RenderCommand::SetViewport(0, 0, m_ViewportSize.x, m_ViewportSize.y);
+			RenderCommand::SetViewport(0, 0, (uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
-		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentID(), m_ViewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		ImGui::Image((void*)(uint64_t)m_Framebuffer->GetColorAttachmentID(), m_ViewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 		if (m_ShowFps)
 		{

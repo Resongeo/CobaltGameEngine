@@ -43,7 +43,7 @@ namespace Cobalt
 		return result;
 	}
 
-	Dict<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
+	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
 

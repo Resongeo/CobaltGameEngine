@@ -33,13 +33,13 @@ namespace Cobalt
 
 	private:
 		std::string ReadFile(const std::string& filepath);
-		Dict<GLenum, std::string> PreProcess(const std::string& source);
+		std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
 		void CompileSources(const std::unordered_map<GLenum, std::string>& shaderSources);
 
 	private:
 		uint32_t m_RendererID;
 
-		mutable Dict<const char*, GLint> m_UniformLocations;
+		mutable std::unordered_map<const char*, GLint> m_UniformLocations;
 		GLint GetUniformLocation(const char* name) const;
 	};
 }
