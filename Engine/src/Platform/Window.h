@@ -31,14 +31,13 @@ namespace Cobalt
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
 
-		Window(const WindowProperties& properties = WindowProperties());
-		bool Create();
+		Window(const WindowProperties& properties);
 
-		GLFWwindow* GetHandle() const { return m_Window; }
 		WindowProperties GetProperties();
+		GLFWwindow* GetHandle() const { return m_Window; }
 
-		inline uint32_t GetWidth() const { return m_Data.Width; }
-		inline uint32_t GetHeight() const { return m_Data.Height; }
+		uint32_t GetWidth() const { return m_Data.Width; }
+		uint32_t GetHeight() const { return m_Data.Height; }
 
 		void SetWidth(uint32_t width);
 		void SetHeight(uint32_t height);
@@ -52,7 +51,9 @@ namespace Cobalt
 		
 		void Update();
 
-		inline void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
+		void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
+
+		static Scope<Window> Create(const WindowProperties& properties = WindowProperties());
 
 	private:
 		GLFWwindow* m_Window;

@@ -21,15 +21,10 @@ namespace Cobalt
 		m_Data.Title = properties.Title;
 		m_Data.Width = properties.Width;
 		m_Data.Height = properties.Height;
-	}
 
-	bool Window::Create()
-	{
 		if (!glfwInit())
-		{
 			LOG_ENGINE_ERROR("Failed to initialize GLFW!");
-			return false;
-		}
+
 		LOG_ENGINE_INFO("GLFW initialized");
 
 		switch (Renderer::GetAPI())
@@ -46,10 +41,8 @@ namespace Cobalt
 
 		m_Window = glfwCreateWindow(m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str(), nullptr, nullptr);
 		if (m_Window == nullptr)
-		{
 			LOG_ENGINE_ERROR("Failed to create window!");
-			return false;
-		}
+		
 		LOG_ENGINE_INFO("Window created: {0}x{1} title: {2}", m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str());
 
 		m_GraphicsContext = GraphicsContext::Create(m_Window);
@@ -113,18 +106,18 @@ namespace Cobalt
 
 			switch (action)
 			{
-			case GLFW_PRESS:
-			{
-				MouseButtonPressedEvent event(button);
-				data.EventCallback(event);
-				break;
-			}
-			case GLFW_RELEASE:
-			{
-				MouseButtonReleasedEvent event(button);
-				data.EventCallback(event);
-				break;
-			}
+				case GLFW_PRESS:
+				{
+					MouseButtonPressedEvent event(button);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					MouseButtonReleasedEvent event(button);
+					data.EventCallback(event);
+					break;
+				}
 			}
 		});
 
@@ -151,8 +144,11 @@ namespace Cobalt
 			(sys_width / 2) - (m_Properties.Width / 2),
 			(sys_height / 2) - (m_Properties.Height / 2),
 			m_Properties.Width, m_Properties.Height, GLFW_DONT_CARE);
+	}
 
-		return true;
+	Scope<Window> Window::Create(const WindowProperties& properties)
+	{
+		return CreateScope<Window>(properties);
 	}
 
 	WindowProperties Window::GetProperties()

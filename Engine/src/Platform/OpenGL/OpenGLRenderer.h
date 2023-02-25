@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Renderer/Renderer.h"
+#include "Renderer/RendererAPI.h"
 
 namespace Cobalt
 {
-	class OpenGLRenderer : public Renderer
+	class OpenGLRenderer : public Renderer, public RendererAPI
 	{
 	public:
 		virtual void Init() override;

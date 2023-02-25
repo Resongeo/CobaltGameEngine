@@ -2,7 +2,7 @@
 
 namespace Cobalt
 {
-	Renderer* RenderCommand::s_Renderer = Renderer::Create();
+	RendererAPI* RenderCommand::s_RendererAPI = RendererAPI::Create();
 
 	struct QuadVertex
 	{
@@ -41,7 +41,7 @@ namespace Cobalt
 
 	void RenderCommand::Init()
 	{
-		s_Renderer->Init();
+		s_RendererAPI->Init();
 
 		uint32_t* quadIndices = new uint32_t[s_RendererData.MaxIndices];
 
@@ -100,7 +100,7 @@ namespace Cobalt
 
 	void RenderCommand::BeginScene(Camera& camera)
 	{
-		s_Renderer->BeginScene(camera);
+		s_RendererAPI->BeginScene(camera);
 
 		s_RendererData.TexturedQuadShader->Bind();
 		s_RendererData.TexturedQuadShader->SetMat4("ViewProjection", camera.GetViewProjectionMatrix());
@@ -118,12 +118,12 @@ namespace Cobalt
 
 	void RenderCommand::ClearColor(const glm::vec4& color)
 	{
-		s_Renderer->ClearColor(color);
+		s_RendererAPI->ClearColor(color);
 	}
 
 	void RenderCommand::Clear()
 	{
-		s_Renderer->Clear();
+		s_RendererAPI->Clear();
 	}
 
 	void RenderCommand::Flush()
@@ -133,7 +133,7 @@ namespace Cobalt
 			s_RendererData.TextureSlots[i]->Bind(i);
 		}
 
-		s_Renderer->DrawIndexed(s_RendererData.QuadVertexArray, s_RendererData.QuadIndexCount);
+		s_RendererAPI->DrawIndexed(s_RendererData.QuadVertexArray, s_RendererData.QuadIndexCount);
 
 		s_RendererData.Stats.DrawCalls++;
 	}
@@ -347,7 +347,7 @@ namespace Cobalt
 
 	void RenderCommand::SetViewport(int x, int y, int width, int height)
 	{
-		s_Renderer->SetViewport(x, y, width, height);
+		s_RendererAPI->SetViewport(x, y, width, height);
 	}
 
 	Renderer::Statistics& RenderCommand::GetStats()

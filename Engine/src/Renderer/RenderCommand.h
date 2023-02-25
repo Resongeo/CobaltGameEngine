@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Renderer/Renderer.h"
+#include "Renderer/RendererAPI.h"
 #include "Scene/ECS/Components.h"
 
 namespace Cobalt
@@ -34,6 +35,6 @@ namespace Cobalt
 		static void StartBatch();
 
 	private:
-		static Renderer* s_Renderer;
+		static RendererAPI* s_RendererAPI;
 	};
 }

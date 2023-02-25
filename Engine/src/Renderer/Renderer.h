@@ -2,12 +2,7 @@
 
 #include "Core/Core.h"
 #include "Core/Math.h"
-
-#include "Cameras/Camera.h"
-
-#include "Renderer/VertexArray.h"
-#include "Renderer/Texture.h"
-#include "Renderer/Shader.h"
+#include "Renderer/RendererAPI.h"
 
 namespace Cobalt
 {
@@ -25,44 +20,18 @@ namespace Cobalt
 		};
 
 	public:
-		inline static GraphicsAPI GetAPI() { return s_GraphicsAPI; }
-		inline static GraphicsAPI SetAPI(GraphicsAPI GraphicsAPI)
-		{
-			s_GraphicsAPI = GraphicsAPI;
-			return s_GraphicsAPI;
-		}
+		static GraphicsAPI GetAPI() { return s_GraphicsAPI; }
+		static GraphicsAPI SetAPI(GraphicsAPI GraphicsAPI);
 
-		inline static const char* GetAPIString()
-		{
-			switch (s_GraphicsAPI)
-			{
-				case Cobalt::GraphicsAPI::OpenGL: return "OpenGL";
-			}
-
-			return "";
-		}
-
-		static Renderer* Create();
-
-	public:
-		virtual void Init() = 0;
-
-		virtual void BeginScene(Camera& camera) = 0;
-
-		virtual void ClearColor(const glm::vec4& color) = 0;
-		virtual void Clear() = 0;
-		
-		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount = 0) = 0;
-
-		virtual void SetViewport(int x, int y, int width, int height) = 0;
-
-	private:
-		static GraphicsAPI s_GraphicsAPI;
+		static const char* GetAPIString();
 
 	protected:
 		struct SceneData
 		{
 			glm::mat4 ViewProjectionMatrix;
 		};
+
+	private:
+		static GraphicsAPI s_GraphicsAPI;
 	};
 }

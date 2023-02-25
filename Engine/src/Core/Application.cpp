@@ -8,18 +8,17 @@ namespace Cobalt
 
 	Application::Application(const ApplicationSpecification& applicationSpecifiacion)
 	{
-		Log::Init();
 		s_Instance = this;
+		
+		Log::Init();
 
 		Renderer::SetAPI(applicationSpecifiacion.GraphicsAPI);
 		LOG_ENGINE_INFO("Renderer API: {0}", Renderer::GetAPIString());
 
-		m_Window = CreateScope<Window>(applicationSpecifiacion.WindowProperties);
-		m_Window->Create();
+		m_Window = Window::Create(applicationSpecifiacion.WindowProperties);
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		Gui::Init(m_Window->GetHandle());
-
 		RenderCommand::Init();
 	}
 

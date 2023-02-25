@@ -5,13 +5,19 @@ namespace Cobalt
 {
 	GraphicsAPI Renderer::s_GraphicsAPI = GraphicsAPI::OpenGL;
 
-	Renderer* Renderer::Create()
+	GraphicsAPI Renderer::SetAPI(GraphicsAPI GraphicsAPI)
 	{
-		switch (Renderer::s_GraphicsAPI)
+		s_GraphicsAPI = GraphicsAPI;
+		return s_GraphicsAPI;
+	}
+	
+	const char* Renderer::GetAPIString()
+	{
+		switch (s_GraphicsAPI)
 		{
-			case GraphicsAPI::OpenGL: return new OpenGLRenderer();
+			case Cobalt::GraphicsAPI::OpenGL: return "OpenGL";
 		}
 
-		return nullptr;
+		return "";
 	}
 }
