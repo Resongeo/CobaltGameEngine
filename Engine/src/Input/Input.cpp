@@ -6,46 +6,47 @@
 namespace Cobalt
 {
 	Input* Input::s_Input = nullptr;
+	GLFWwindow* Input::s_Window = nullptr;
+
+	void Input::Init()
+	{
+		s_Window = Application::GetWindow()->GetHandle();
+	}
 
 	bool Input::GetKeyDownImpl(int keycode)
 	{
-		GLFWwindow* window = Application::Get().GetWindow().GetHandle();
-		auto state = glfwGetKey(window, keycode);
+		auto state = glfwGetKey(s_Window, keycode);
 
 		return state == GLFW_PRESS;
 	}
 
 	bool Input::GetMouseButtonDownImpl(int button)
 	{
-		GLFWwindow* window = Application::Get().GetWindow().GetHandle();
-		auto state = glfwGetMouseButton(window, button);
+		auto state = glfwGetMouseButton(s_Window, button);
 
 		return state == GLFW_PRESS;
 	}
 
 	float Input::GetMouseXImpl()
 	{
-		GLFWwindow* window = Application::Get().GetWindow().GetHandle();
 		double x, y;
-		glfwGetCursorPos(window, &x, &y);
+		glfwGetCursorPos(s_Window, &x, &y);
 
 		return (float)x;
 	}
 
 	float Input::GetMouseYImpl()
 	{
-		GLFWwindow* window = Application::Get().GetWindow().GetHandle();
 		double x, y;
-		glfwGetCursorPos(window, &x, &y);
+		glfwGetCursorPos(s_Window, &x, &y);
 
 		return (float)y;
 	}
 
 	glm::vec2 Input::GetMousePosImpl()
 	{
-		GLFWwindow* window = Application::Get().GetWindow().GetHandle();
 		double x, y;
-		glfwGetCursorPos(window, &x, &y);
+		glfwGetCursorPos(s_Window, &x, &y);
 
 		return glm::vec2((float)x, (float)y);
 	}

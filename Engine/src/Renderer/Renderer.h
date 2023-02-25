@@ -20,18 +20,23 @@ namespace Cobalt
 		};
 
 	public:
+
 		static GraphicsAPI GetAPI() { return s_GraphicsAPI; }
 		static GraphicsAPI SetAPI(GraphicsAPI GraphicsAPI);
 
 		static const char* GetAPIString();
+
+	private:
+		static void Init();
+		friend class Application;
+
+	private:
+		static GraphicsAPI s_GraphicsAPI;
 
 	protected:
 		struct SceneData
 		{
 			glm::mat4 ViewProjectionMatrix;
 		};
-
-	private:
-		static GraphicsAPI s_GraphicsAPI;
 	};
 }

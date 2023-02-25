@@ -18,13 +18,15 @@ namespace Cobalt
 		m_Window = Window::Create(applicationSpecifiacion.WindowProperties);
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
-		Gui::Init(m_Window->GetHandle());
-		RenderCommand::Init();
+		Renderer::Init();
+		Input::Init();
+		Gui::Init();
 	}
 
 	Application::~Application()
 	{
 		Gui::ShutDown();
+		m_Window->Destroy();
 	}
 
 	void Application::Run()

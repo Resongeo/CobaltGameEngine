@@ -9,8 +9,6 @@ namespace Cobalt
 	class RenderCommand
 	{
 	public:
-		static void Init();
-
 		static void BeginScene(Camera& camera);
 		static void EndScene();
 		
@@ -32,7 +30,10 @@ namespace Cobalt
 		static void ResetStats();
 
 	private:
+		static void Init();
 		static void StartBatch();
+
+		friend class Renderer;
 
 	private:
 		static RendererAPI* s_RendererAPI;

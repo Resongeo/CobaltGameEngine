@@ -6,6 +6,7 @@
 
 #include "Events/ApplicationEvent.h"
 #include "Layers/LayerStack.h"
+#include "Input/Input.h"
 #include "Logger/Log.h"
 #include "Platform/Window.h"
 
@@ -35,9 +36,8 @@ namespace Cobalt
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
-		Window& GetWindow() { return *m_Window; }
-
-		inline static Application& Get() { return *s_Instance; }
+		static Application& Get() { return *s_Instance; }
+		static Ref<Window>& GetWindow() { return s_Instance->m_Window; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
@@ -46,7 +46,7 @@ namespace Cobalt
 	private:
 		static Application* s_Instance;
 
-		Scope<Window> m_Window;
+		Ref<Window> m_Window;
 		LayerStack m_LayerStack;
 		bool m_Running = true;
 	};

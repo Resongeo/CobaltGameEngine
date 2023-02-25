@@ -1,7 +1,7 @@
 #include "Editor/EditorLayer.h"
 #include "Editor/CobaltEditor.h"
 
-EditorLayer::EditorLayer() : Layer("Editor Layer"), m_Window(Application::Get().GetWindow())
+EditorLayer::EditorLayer() : Layer("Editor Layer"), m_Window(Application::GetWindow())
 {
 	// TODO: Temporary
 	m_SceneCameraData.Position = m_SceneCamera.GetPosition();
@@ -72,8 +72,8 @@ void EditorLayer::OnAttach()
 	m_Texture = Texture::Create("assets\\textures\\uv_grid.png");
 
 	FramebufferSpecification framebufferSpecs;
-	framebufferSpecs.Width = m_Window.GetWidth();
-	framebufferSpecs.Height = m_Window.GetHeight();
+	framebufferSpecs.Width = m_Window->GetWidth();
+	framebufferSpecs.Height = m_Window->GetHeight();
 	m_Framebuffer = Framebuffer::Create(framebufferSpecs);
 
 	m_ActiveScene = CreateRef<Scene>();
@@ -210,7 +210,7 @@ void EditorLayer::OnImGuiUpdate()
 
 		ImGui::Dummy(ImVec2(0, 30));
 
-		if (ImGui::Checkbox("Vsync", &m_Vsync)) m_Window.SetVsync(m_Vsync);
+		if (ImGui::Checkbox("Vsync", &m_Vsync)) m_Window->SetVsync(m_Vsync);
 		ImGui::Checkbox("Show FPS", &m_ShowFps);
 
 		if (ImGui::Button("Open File Dialog"))

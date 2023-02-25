@@ -28,7 +28,7 @@ public:
 	EditorFonts GetEditorFonts() const { return m_EditorFonts; }
 
 private:
-	Window m_Window;
+	Ref<Window> m_Window;
 
 	Scope<LogPanel> m_LogPanel;
 	Scope<ProfilerPanel> m_ProfilerPanel;

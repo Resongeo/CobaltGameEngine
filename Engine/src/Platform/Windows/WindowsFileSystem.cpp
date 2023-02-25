@@ -20,7 +20,7 @@ namespace Cobalt
 		ZeroMemory(&ofn, sizeof(OPENFILENAME));
 
 		ofn.lStructSize = sizeof(OPENFILENAME);
-		ofn.hwndOwner = glfwGetWin32Window(Application::Get().GetWindow().GetHandle());
+		ofn.hwndOwner = glfwGetWin32Window(Application::GetWindow()->GetHandle());
 		ofn.lpstrFile = szFile;
 		ofn.nMaxFile = sizeof(szFile);
 
@@ -50,7 +50,7 @@ namespace Cobalt
 		ZeroMemory(&ofn, sizeof(OPENFILENAME));
 
 		ofn.lStructSize = sizeof(OPENFILENAME);
-		ofn.hwndOwner = glfwGetWin32Window(Application::Get().GetWindow().GetHandle());
+		ofn.hwndOwner = glfwGetWin32Window(Application::GetWindow()->GetHandle());
 		ofn.lpstrFile = szFile;
 		ofn.nMaxFile = sizeof(szFile);
 

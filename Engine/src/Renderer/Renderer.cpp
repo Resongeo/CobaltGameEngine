@@ -1,9 +1,16 @@
 #include "Renderer/Renderer.h"
+#include "Renderer/RenderCommand.h"
+
 #include "Platform/OpenGL/OpenGLRenderer.h"
 
 namespace Cobalt
 {
 	GraphicsAPI Renderer::s_GraphicsAPI = GraphicsAPI::OpenGL;
+
+	void Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
 
 	GraphicsAPI Renderer::SetAPI(GraphicsAPI GraphicsAPI)
 	{

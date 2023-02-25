@@ -45,15 +45,14 @@ namespace Cobalt
 		void SetTitle(const std::string& title);
 		void SetVsync(bool value);
 		
+		void Update();
 		void Destroy();
 		
 		bool ShouldClose();
-		
-		void Update();
 
 		void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
 
-		static Scope<Window> Create(const WindowProperties& properties = WindowProperties());
+		static Ref<Window> Create(const WindowProperties& properties = WindowProperties());
 
 	private:
 		GLFWwindow* m_Window;

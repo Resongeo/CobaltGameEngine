@@ -7,7 +7,7 @@ namespace Cobalt
 	class Gui
 	{
 	public:
-		static void Init(GLFWwindow* window);
+		static void Init();
 		static void NewFrame();
 		static void Render();
 		static void ShutDown();
