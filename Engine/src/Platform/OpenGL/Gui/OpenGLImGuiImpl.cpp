@@ -4,6 +4,9 @@
 #include <backends/imgui_impl_opengl3.h>
 #include <backends/imgui_impl_opengl3_loader.h>
 
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
+
 namespace Cobalt
 {
 	OpenGLImGuiImpl::OpenGLImGuiImpl(GLFWwindow* window) : m_GLFWWindow(window)

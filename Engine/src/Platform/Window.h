@@ -10,8 +10,7 @@
 
 #include "Renderer/GraphicsContext.h"
 
-#define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
+struct GLFWwindow;
 
 namespace Cobalt
 {
@@ -62,8 +61,8 @@ namespace Cobalt
 		struct WindowData
 		{
 			std::string Title;
-			unsigned int Width;
-			unsigned int Height;
+			uint32_t Width;
+			uint32_t Height;
 			bool Vsync;
 
 			EventCallbackFn EventCallback;

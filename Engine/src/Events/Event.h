@@ -40,7 +40,7 @@ namespace Cobalt
 		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		inline bool IsInCategory(EventCategory category) { return GetCategoryFlags() & category; }
+		bool IsInCategory(EventCategory category) { return GetCategoryFlags() & category; }
 
 	protected:
 	};

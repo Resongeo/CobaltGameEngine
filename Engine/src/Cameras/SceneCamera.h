@@ -9,17 +9,17 @@ namespace Cobalt
 	public:
 		SceneCamera();
 
-		inline void SetFOV(float fov) { m_FOV = fov; RecalculateProjection(); }
-		inline float GetFOV() { return m_FOV; }
+		void SetFOV(float fov) { m_FOV = fov; RecalculateProjection(); }
+		float GetFOV() { return m_FOV; }
 
-		inline void SetNearClip(float nearClip) { m_NearClip = nearClip; RecalculateProjection(); }
-		inline float GetNearClip() { return m_NearClip; }
+		void SetNearClip(float nearClip) { m_NearClip = nearClip; RecalculateProjection(); }
+		float GetNearClip() { return m_NearClip; }
 		
-		inline void SetFarClip(float farClip) { m_FarClip = farClip; RecalculateProjection(); }
-		inline float GetFarClip() { return m_FarClip; }
+		void SetFarClip(float farClip) { m_FarClip = farClip; RecalculateProjection(); }
+		float GetFarClip() { return m_FarClip; }
 		
-		inline void SetSize(float size) { m_Size = size; RecalculateProjection(); }
-		inline float GetSize() { return m_Size; }
+		void SetSize(float size) { m_Size = size; RecalculateProjection(); }
+		float GetSize() { return m_Size; }
 
 		void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
 		const glm::vec3 GetPosition() const { return m_Position; }

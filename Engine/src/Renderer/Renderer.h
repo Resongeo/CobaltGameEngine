@@ -19,8 +19,6 @@ namespace Cobalt
 			uint32_t GetIndexCount() { return QuadCount * 6; }
 		};
 
-	public:
-
 		static GraphicsAPI GetAPI() { return s_GraphicsAPI; }
 		static GraphicsAPI SetAPI(GraphicsAPI GraphicsAPI);
 

@@ -19,17 +19,17 @@ namespace Cobalt
 
 		virtual void Bind() const;
 
-		virtual inline void SetBool(const char* name, bool value) const override;
-		virtual inline void SetInt(const char* name, int value) const override;
-		virtual inline void SetIntArray(const char* name, int* values, uint32_t count) const override;
-		virtual inline void SetFloat(const char* name, float value) const override;
-		virtual inline void SetVec2(const char* name, float x, float y) const override;
-		virtual inline void SetVec2(const char* name, glm::vec2 value) const override;
-		virtual inline void SetVec3(const char* name, float x, float y, float z) const override;
-		virtual inline void SetVec3(const char* name, glm::vec3 value) const override;
-		virtual inline void SetVec4(const char* name, float x, float y, float z, float w) const override;
-		virtual inline void SetVec4(const char* name, glm::vec4 value) const override;
-		virtual inline void SetMat4(const char* name, glm::mat4 value) const override;
+		virtual void SetBool(const char* name, bool value) const override;
+		virtual void SetInt(const char* name, int value) const override;
+		virtual void SetIntArray(const char* name, int* values, uint32_t count) const override;
+		virtual void SetFloat(const char* name, float value) const override;
+		virtual void SetVec2(const char* name, float x, float y) const override;
+		virtual void SetVec2(const char* name, glm::vec2 value) const override;
+		virtual void SetVec3(const char* name, float x, float y, float z) const override;
+		virtual void SetVec3(const char* name, glm::vec3 value) const override;
+		virtual void SetVec4(const char* name, float x, float y, float z, float w) const override;
+		virtual void SetVec4(const char* name, glm::vec4 value) const override;
+		virtual void SetMat4(const char* name, glm::mat4 value) const override;
 
 	private:
 		std::string ReadFile(const std::string& filepath);
@@ -38,7 +38,6 @@ namespace Cobalt
 
 	private:
 		uint32_t m_RendererID;
-
 		mutable std::unordered_map<const char*, GLint> m_UniformLocations;
 		GLint GetUniformLocation(const char* name) const;
 	};

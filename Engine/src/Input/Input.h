@@ -11,7 +11,6 @@ namespace Cobalt
 	{
 	public:
 		static bool GetKeyDown(int keycode) { return s_Input->GetKeyDownImpl(keycode); }
-		
 		static bool GetMouseButtonDown(int button) { return s_Input->GetMouseButtonDownImpl(button); }
 		
 		static float GetMouseX() { return s_Input->GetMouseXImpl(); }
@@ -22,7 +21,6 @@ namespace Cobalt
 		static void Init();
 
 		bool GetKeyDownImpl(int keycode);
-		
 		bool GetMouseButtonDownImpl(int button);
 		
 		float GetMouseXImpl();

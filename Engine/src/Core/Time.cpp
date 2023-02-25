@@ -1,5 +1,8 @@
 #include "Core/Time.h"
 
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
+
 namespace Cobalt
 {
 	float Time::deltaTime = 0.0f;
