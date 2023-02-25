@@ -3,7 +3,7 @@
 #include "Core/Core.h"
 #include "Core/Math.h"
 
-class GLFWwindow;
+struct GLFWwindow;
 
 namespace Cobalt
 {

@@ -78,10 +78,13 @@ void EditorLayer::OnAttach()
 
 	m_ActiveScene = CreateRef<Scene>();
 
+	EditorPanelSystem::Init();
+
 	m_LogPanel = CreateScope<LogPanel>();
 	m_ProfilerPanel = CreateScope<ProfilerPanel>();
-	m_SceneHierarchyPanel = CreateScope<SceneHierarchyPanel>(m_ActiveScene); // TODO: remove scene from constructor
+	m_RenderStatisticsPanel = CreateScope<RenderStatisticsPanel>();
 	m_ComponentsPanel = CreateScope<ComponentsPanel>();
+	m_SceneHierarchyPanel = CreateScope<SceneHierarchyPanel>(m_ActiveScene); // TODO: remove scene from constructor
 }
 
 void EditorLayer::OnUpdate()
@@ -137,6 +140,7 @@ void EditorLayer::OnUpdate()
 
 	m_Framebuffer->Unbind();
 
+	// TODO: New camera
 	if (Input::GetKeyDown(KEYCODE_A))
 		m_SceneCameraData.Position.x -= 1.0f * Time::deltaTime;
 	else if (Input::GetKeyDown(KEYCODE_D))
@@ -221,56 +225,7 @@ void EditorLayer::OnImGuiUpdate()
 		ImGui::End();
 	}
 
-	{
-		PROFILER_TIMER_SCOPE("Render Statistics");
-
-		ImGui::Begin("Render Statistics");
-
-		auto stats = RenderCommand::GetStats();
-		ImGui::Columns(2);
-
-		ImGui::PushFont(m_EditorFonts.SemiBold);
-		ImGui::Text("Draw calls:");
-		ImGui::Text("Quad count:");
-		ImGui::Text("Vertex count:");
-		ImGui::Text("Index count:");
-		ImGui::PopFont();
-
-		ImGui::NextColumn();
-
-		ImGui::Text("%d", stats.DrawCalls);
-		ImGui::Text("%d", stats.QuadCount);
-		ImGui::Text("%d", stats.GetVertexCount());
-		ImGui::Text("%d", stats.GetIndexCount());
-		
-		ImGui::Columns(1);
-
-		ImGui::End();
-	}
-
 	PROFILER_STOP_HEADER;
 
-	PROFILER_START_HEADER("Panels");
-
-	{
-		PROFILER_TIMER_SCOPE("Log panel");
-		m_LogPanel->Update();
-	}
-	
-	{
-		PROFILER_TIMER_SCOPE("Profiler panel");
-		m_ProfilerPanel->Update();
-	}
-
-	{
-		PROFILER_TIMER_SCOPE("Scene hierarchy panel");
-		m_SceneHierarchyPanel->Update();
-	}
-
-	{
-		PROFILER_TIMER_SCOPE("Components panel");
-		m_ComponentsPanel->Update();
-	}
-
-	PROFILER_STOP_HEADER;
+	EditorPanelSystem::Update();
 }

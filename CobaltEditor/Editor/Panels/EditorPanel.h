@@ -1,13 +1,20 @@
 #pragma once
 
+#include "Editor/Panels/EditorPanelSystem.h"
 #include <string>
 
 class EditorPanel
 {
 public:
-	EditorPanel(const std::string& panelName) : m_PanelName(panelName) {}
+	EditorPanel(const char* panelName) : m_PanelName(panelName)
+	{
+		EditorPanelSystem::PushPanel(this);
+	}
+
 	virtual void Update() = 0;
 
+	const char* GetName() const { return m_PanelName; }
+
 protected:
-	std::string m_PanelName;
+	const char* m_PanelName;
 };

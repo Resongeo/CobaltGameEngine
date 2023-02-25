@@ -23,13 +23,13 @@ void SceneHierarchyPanel::Update()
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 10));
 	ImGui::Begin("Hierarchy");
 
-	int node_index = 0;
-	m_Scene->Reg().each([&](auto entityID)
+	int nodeIndex = 0;
+	m_Scene->Registry().each([&](auto entityID)
 	{
 		Entity entity{ entityID, m_Scene.get() };
-		DrawEntityNode(entity, node_index);
+		DrawEntityNode(entity, nodeIndex);
 
-		node_index++;
+		nodeIndex++;
 	});
 
 	if (ImGui::BeginPopupContextWindow())
@@ -69,20 +69,20 @@ void SceneHierarchyPanel::DrawEntityNode(Entity entity, int node_index)
 {
 	auto& tag = entity.GetComponent<TagComponent>();
 
-	ImVec2 cursor_pos = ImGui::GetCursorScreenPos();
-	ImVec2 content_region_max = ImGui::GetContentRegionMax();
+	ImVec2 cursorPos = ImGui::GetCursorScreenPos();
+	ImVec2 contentRegionMax = ImGui::GetContentRegionMax();
 
-	float line_height = ImGui::GetTextLineHeight();
+	float lineHeight = ImGui::GetTextLineHeight();
 
 	if (node_index & 1)
-		AddRectToDrawList(cursor_pos, content_region_max, line_height, m_EvenNodeColor);
+		AddRectToDrawList(cursorPos, contentRegionMax, lineHeight, m_EvenNodeColor);
 	else
-		AddRectToDrawList(cursor_pos, content_region_max, line_height, m_OddNodeColor);
+		AddRectToDrawList(cursorPos, contentRegionMax, lineHeight, m_OddNodeColor);
 
 	ImVec2 mouse_pos = ImGui::GetMousePos();
-	if (mouse_pos.x > cursor_pos.x && mouse_pos.x < cursor_pos.x + content_region_max.x && mouse_pos.y > cursor_pos.y - 4.5f && mouse_pos.y < cursor_pos.y + line_height + 9)
+	if (mouse_pos.x > cursorPos.x && mouse_pos.x < cursorPos.x + contentRegionMax.x && mouse_pos.y > cursorPos.y - 4.5f && mouse_pos.y < cursorPos.y + lineHeight + 9)
 	{
-		AddRectToDrawList(cursor_pos, content_region_max, line_height, m_HoveredColor);
+		AddRectToDrawList(cursorPos, contentRegionMax, lineHeight, m_HoveredColor);
 
 		if (ImGui::IsMouseClicked(0))
 			m_SelectedEntity = entity;
@@ -96,15 +96,15 @@ void SceneHierarchyPanel::DrawEntityNode(Entity entity, int node_index)
 		m_SelectedEntity = {};
 
 
-	auto editor_font = CobaltEditor::GetEditorLayer()->GetEditorFonts();
+	auto editorFont = CobaltEditor::GetEditorLayer()->GetEditorFonts();
 	if (m_SelectedEntity == entity)
 	{
-		AddRectToDrawList(cursor_pos, content_region_max, line_height, m_SelectedColor);
-		ImGui::PushFont(editor_font.SemiBold);
+		AddRectToDrawList(cursorPos, contentRegionMax, lineHeight, m_SelectedColor);
+		ImGui::PushFont(editorFont.SemiBold);
 	}
 	else
 	{
-		ImGui::PushFont(editor_font.Regular);
+		ImGui::PushFont(editorFont.Regular);
 	}
 
 	ImGui::SetCursorPosX(10);
@@ -144,7 +144,7 @@ void SceneHierarchyPanel::DrawRenamePopup(Entity entity)
 
 void SceneHierarchyPanel::AddRectToDrawList(ImVec2 cursor_pos, ImVec2 content_region, float height, ImU32 color)
 {
-	auto* draw_list = ImGui::GetWindowDrawList();
+	auto* drawList = ImGui::GetWindowDrawList();
 	ImVec2 pos = ImVec2(cursor_pos.x, cursor_pos.y - 6);
-	draw_list->AddRectFilled(pos, ImVec2(pos.x + content_region.x, pos.y + height + 12), color);
+	drawList->AddRectFilled(pos, ImVec2(pos.x + content_region.x, pos.y + height + 12), color);
 }

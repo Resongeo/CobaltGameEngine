@@ -17,7 +17,7 @@ namespace Cobalt
 
 		void Update(float deltaTime);
 
-		entt::registry& Reg() { return m_Registry; }
+		entt::registry& Registry() { return m_Registry; }
 		Entity CreateEntity(const std::string& name = "Entity");
 
 	private:

@@ -5,8 +5,11 @@ using namespace Cobalt;
 
 #include "Editor/Panels/Log/LogPanel.h"
 #include "Editor/Panels/Profiler/ProfilerPanel.h"
+#include "Editor/Panels/Profiler/RenderStatisticsPanel.h"
 #include "Editor/Panels/Scene/SceneHierarchyPanel.h"
 #include "Editor/Panels/Components/ComponentsPanel.h"
+
+#include "Editor/Panels/EditorPanelSystem.h"
 
 struct EditorFonts
 {
@@ -32,8 +35,9 @@ private:
 
 	Scope<LogPanel> m_LogPanel;
 	Scope<ProfilerPanel> m_ProfilerPanel;
-	Scope<SceneHierarchyPanel> m_SceneHierarchyPanel;
+	Scope<RenderStatisticsPanel> m_RenderStatisticsPanel;
 	Scope<ComponentsPanel> m_ComponentsPanel;
+	Scope<SceneHierarchyPanel> m_SceneHierarchyPanel;
 
 	Ref<Texture> m_Texture;
 	Ref<Framebuffer> m_Framebuffer;

@@ -39,6 +39,12 @@
     <ClCompile Include="Editor\Panels\Components\ComponentsPanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Editor\Panels\EditorPanelSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\Panels\Profiler\RenderStatisticsPanel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor\CobaltEditor.h">
@@ -63,6 +69,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Editor\Panels\Components\ComponentsPanel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\Panels\EditorPanelSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\Panels\Profiler\RenderStatisticsPanel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -17,25 +17,25 @@ namespace Cobalt
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args)
 		{
-			return m_Scene->Reg().emplace<T>(m_EntityHandle, std::forward<Args>(args)...);
+			return m_Scene->Registry().emplace<T>(m_EntityHandle, std::forward<Args>(args)...);
 		}
 
 		template<typename T>
 		bool HasComponent()
 		{
-			return m_Scene->Reg().all_of<T>(m_EntityHandle);
+			return m_Scene->Registry().all_of<T>(m_EntityHandle);
 		}
 
 		template<typename T>
 		T& GetComponent()
 		{
-			return m_Scene->Reg().get<T>(m_EntityHandle);
+			return m_Scene->Registry().get<T>(m_EntityHandle);
 		}
 
 		template<typename T>
 		void RemoveComponent()
 		{
-			m_Scene->Reg().remove<T>(m_EntityHandle);
+			m_Scene->Registry().remove<T>(m_EntityHandle);
 		}
 
 		operator bool() const { return (uint32_t)m_EntityHandle != entt::null; }
