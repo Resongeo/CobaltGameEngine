@@ -89,11 +89,11 @@ void ComponentsPanel::DrawComponents(Entity entity)
 
 			auto& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
 
-			if (spriteRenderer.Sprite)
+			if (spriteRenderer.Texture)
 			{
-				ImGui::Text(spriteRenderer.Sprite->GetPath().c_str());
+				ImGui::Text(spriteRenderer.Texture->GetPath().c_str());
 				ImGui::SameLine();
-				ImGui::Image((ImTextureID)spriteRenderer.Sprite->GetID(), ImVec2(100, 100), { 0, 1 }, { 1, 0 });
+				ImGui::Image((ImTextureID)spriteRenderer.Texture->GetID(), ImVec2(100, 100), { 0, 1 }, { 1, 0 });
 			}
 			else
 			{

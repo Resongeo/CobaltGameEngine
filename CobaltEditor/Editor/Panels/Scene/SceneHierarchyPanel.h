@@ -28,7 +28,7 @@ private:
 	Ref<Scene> m_Scene;
 	Entity m_SelectedEntity;
 
-	Ref<Texture> m_Texture;
+	Ref<Texture2D> m_Texture;
 
 	ImU32 m_HoveredColor;
 	ImU32 m_SelectedColor;

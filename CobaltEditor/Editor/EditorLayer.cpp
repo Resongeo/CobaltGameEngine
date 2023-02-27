@@ -84,7 +84,7 @@ void EditorLayer::OnAttach()
 	m_EditorFonts.SemiBold = io.Fonts->AddFontFromFileTTF("assets\\fonts\\Poppins-Semibold.ttf", baseFontSize);
 	io.Fonts->AddFontFromFileTTF("assets\\fonts\\forkawesome-webfont.ttf", baseFontSize, &config, icon_ranges);
 
-	m_Texture = Texture::Create("assets\\textures\\uv_grid.png");
+	m_Texture = Texture2D::Create("assets\\textures\\uv_grid.png");
 
 	FramebufferSpecification framebufferSpecs;
 	framebufferSpecs.Width = m_Window->GetWidth();

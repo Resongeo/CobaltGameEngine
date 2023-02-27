@@ -35,7 +35,7 @@
 #include "Renderer/IndexBuffer.h"
 #include "Renderer/Framebuffer.h"
 #include "Renderer/Renderer.h"
-#include "Renderer/Texture.h"
+#include "Renderer/Texture2D.h"
 #include "Renderer/Shader.h"
 
 #include "Scene/ECS/Components.h"

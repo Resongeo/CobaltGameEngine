@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Renderer/Texture.h"
+#include "Renderer/Texture2D.h"
 
 namespace Cobalt
 {
-	class OpenGLTexture : public Texture
+	class OpenGLTexture : public Texture2D
 	{
 	public:
 		OpenGLTexture(const std::string& path);
@@ -20,7 +20,7 @@ namespace Cobalt
 		virtual void SetData(void* data, uint32_t size) override;
 		virtual void Bind(uint32_t slot) override;
 
-		virtual bool operator == (const Ref<Texture>& other) const override
+		virtual bool operator == (const Ref<Texture2D>& other) const override
 		{
 			return m_RendererID == other->GetID();
 		}

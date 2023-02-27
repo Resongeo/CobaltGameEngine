@@ -24,7 +24,7 @@ namespace Cobalt
 		QuadVertex* QuadVertexBufferBase = nullptr;
 		QuadVertex* QuadVertexBufferPtr = nullptr;
 
-		std::array<Ref<Texture>, MaxTextureSlots> TextureSlots;
+		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
 		uint32_t TextureIndexCount = 1;
 
 		glm::vec4 QuadVertexPositions[4];
@@ -32,7 +32,7 @@ namespace Cobalt
 		Ref<VertexArray> QuadVertexArray;
 		Ref<VertexBuffer> QuadVertexBuffer;
 		Ref<Shader> TexturedQuadShader;
-		Ref<Texture> WhiteTexture;
+		Ref<Texture2D> WhiteTexture;
 
 		Renderer::Statistics Stats;
 	};
@@ -78,7 +78,7 @@ namespace Cobalt
 		s_RendererData.QuadVertexArray->AddVertexBuffer(s_RendererData.QuadVertexBuffer);
 		s_RendererData.QuadVertexArray->SetIndexBuffer(indexBuffer);
 
-		s_RendererData.WhiteTexture = Texture::Create("assets\\textures\\white_texture.png");
+		s_RendererData.WhiteTexture = Texture2D::Create("assets\\textures\\white_texture.png");
 		s_RendererData.TexturedQuadShader = Shader::Create("assets\\shaders\\TextureShader.glsl");
 
 		int samplers[s_RendererData.MaxTextureSlots];
@@ -276,7 +276,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawQuad(const glm::mat4& transform, const glm::vec2& tiling, const glm::vec4& color, const Ref<Texture>& texture)
+	void RenderCommand::DrawQuad(const glm::mat4& transform, const glm::vec2& tiling, const glm::vec4& color, const Ref<Texture2D>& texture)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
@@ -339,8 +339,8 @@ namespace Cobalt
 
 	void RenderCommand::DrawSprite(const glm::mat4& transform, const SpriteRendererComponent& spriteComponent)
 	{
-		if (spriteComponent.Sprite)
-			DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color, spriteComponent.Sprite);
+		if (spriteComponent.Texture)
+			DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color, spriteComponent.Texture);
 		else
 			DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color);
 	}

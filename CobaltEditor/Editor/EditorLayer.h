@@ -39,7 +39,7 @@ private:
 	Scope<ComponentsPanel> m_ComponentsPanel;
 	Scope<SceneHierarchyPanel> m_SceneHierarchyPanel;
 
-	Ref<Texture> m_Texture;
+	Ref<Texture2D> m_Texture;
 	Ref<Framebuffer> m_Framebuffer;
 
 	Ref<Scene> m_ActiveScene;

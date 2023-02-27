@@ -5,7 +5,7 @@
 #include "Cameras/Camera.h"
 
 #include "Renderer/VertexArray.h"
-#include "Renderer/Texture.h"
+#include "Renderer/Texture2D.h"
 #include "Renderer/Shader.h"
 
 namespace Cobalt

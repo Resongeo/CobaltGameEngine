@@ -4,7 +4,7 @@
 
 namespace Cobalt
 {
-	class Texture
+	class Texture2D
 	{
 	public:
 		virtual unsigned int GetWidth() = 0;
@@ -17,9 +17,9 @@ namespace Cobalt
 
 		virtual std::string GetPath() const = 0;
 
-		static Ref<Texture> Create(const std::string& path);
-		static Ref<Texture> Create(uint32_t width, uint32_t height);
+		static Ref<Texture2D> Create(const std::string& path);
+		static Ref<Texture2D> Create(uint32_t width, uint32_t height);
 
-		virtual bool operator == (const Ref<Texture>& other) const = 0;
+		virtual bool operator == (const Ref<Texture2D>& other) const = 0;
 	};
 }

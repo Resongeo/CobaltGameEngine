@@ -20,7 +20,7 @@ namespace Cobalt
 		static void DrawQuad(const glm::vec3& position, const glm::vec3& scale, const glm::vec4& color);
 		static void DrawQuad(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const glm::vec4& color);
 		static void DrawQuad(const glm::mat4& transform, const glm::vec2& tiling, const glm::vec4& color);
-		static void DrawQuad(const glm::mat4& transform, const glm::vec2& tiling, const glm::vec4& color, const Ref<Texture>& texture);
+		static void DrawQuad(const glm::mat4& transform, const glm::vec2& tiling, const glm::vec4& color, const Ref<Texture2D>& texture);
 
 		static void DrawSprite(const glm::mat4& transform, const SpriteRendererComponent& spriteComponent);
 

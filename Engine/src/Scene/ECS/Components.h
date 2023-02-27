@@ -4,7 +4,7 @@
 #include "Core/Math.h"
 
 #include "Renderer/VertexArray.h"
-#include "Renderer/Texture.h"
+#include "Renderer/Texture2D.h"
 #include "Renderer/Shader.h"
 
 namespace Cobalt
@@ -45,16 +45,16 @@ namespace Cobalt
 
 	struct SpriteRendererComponent
 	{
-		Ref<Texture> Sprite;
+		Ref<Texture2D> Texture;
 		glm::vec4 Color = glm::vec4(1.0);
 		glm::vec2 Tiling = glm::vec2(1.0);
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
-		SpriteRendererComponent(const Ref<Texture>& sprite) : Sprite(sprite) {}
+		SpriteRendererComponent(const Ref<Texture2D>& sprite) : Texture(sprite) {}
 
-		operator Ref<Texture>& () { return Sprite; }
-		operator const Ref<Texture>& () const { return Sprite; }
+		operator Ref<Texture2D>& () { return Texture; }
+		operator const Ref<Texture2D>& () const { return Texture; }
 
 		operator glm::vec4& () { return Color; }
 		operator const glm::vec4& () const { return Color; }
