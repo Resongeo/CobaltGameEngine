@@ -1,6 +1,8 @@
 #include "Editor/Panels/Profiler/ProfilerPanel.h"
 #include "Editor/CobaltEditor.h"
 
+#include "assets/fonts/FontAwesomeIcons.h"
+
 ProfilerPanel* ProfilerPanel::s_Instance = nullptr;
 
 ProfilerPanel::ProfilerPanel() : EditorPanel("Profiler panel")
@@ -13,7 +15,7 @@ ProfilerPanel::ProfilerPanel() : EditorPanel("Profiler panel")
 
 void ProfilerPanel::Update()
 {
-	ImGui::Begin("Profiler");
+	ImGui::Begin(ICON_FA_CLOCK " Profiler");
 
 	for (auto& header : m_ProfilerHeaders)
 	{

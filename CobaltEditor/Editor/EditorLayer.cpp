@@ -1,6 +1,8 @@
 #include "Editor/EditorLayer.h"
 #include "Editor/CobaltEditor.h"
 
+#include "assets/fonts/FontAwesomeIcons.h"
+
 EditorLayer::EditorLayer() : Layer("Editor Layer"), m_Window(Application::GetWindow())
 {
 	// TODO: Temporary
@@ -65,9 +67,22 @@ void EditorLayer::OnAttach()
 	style->Colors[ImGuiCol_SeparatorActive] = ImColor(116, 151, 170, 200);
 	style->Colors[ImGuiCol_SeparatorHovered] = ImColor(84, 109, 123, 255);
 
+	float baseFontSize = 20.0f;
+	float iconFontSize = baseFontSize * 2.0f / 3.0f;
+
 	ImGuiIO& io = ImGui::GetIO();
-	m_EditorFonts.Regular = io.Fonts->AddFontFromFileTTF("assets\\fonts\\Poppins-Regular.ttf", 20.0f);
-	m_EditorFonts.SemiBold = io.Fonts->AddFontFromFileTTF("assets\\fonts\\Poppins-Semibold.ttf", 20.0f);
+	
+	ImFontConfig config;
+	config.MergeMode = true;
+	config.PixelSnapH = true;
+	config.GlyphMinAdvanceX = iconFontSize;
+	config.GlyphOffset = { 0, 2 };
+	static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
+	
+	m_EditorFonts.Regular = io.Fonts->AddFontFromFileTTF("assets\\fonts\\Poppins-Regular.ttf", baseFontSize);
+	io.Fonts->AddFontFromFileTTF("assets\\fonts\\forkawesome-webfont.ttf", baseFontSize, &config, icon_ranges);
+	m_EditorFonts.SemiBold = io.Fonts->AddFontFromFileTTF("assets\\fonts\\Poppins-Semibold.ttf", baseFontSize);
+	io.Fonts->AddFontFromFileTTF("assets\\fonts\\forkawesome-webfont.ttf", baseFontSize, &config, icon_ranges);
 
 	m_Texture = Texture::Create("assets\\textures\\uv_grid.png");
 
@@ -217,9 +232,9 @@ void EditorLayer::OnImGuiUpdate()
 		if (ImGui::Checkbox("Vsync", &m_Vsync)) m_Window->SetVsync(m_Vsync);
 		ImGui::Checkbox("Show FPS", &m_ShowFps);
 
-		if (ImGui::Button("Open File Dialog"))
+		if (ImGui::Button(ICON_FA_FOLDER_OPEN " Open File Dialog"))
 			FileSystem::OpenFileDialog("Text files (*.txt)\0*.txt\0");
-		if (ImGui::Button("Save File Dialog"))
+		if (ImGui::Button(ICON_FA_SAVE " Save File Dialog"))
 			FileSystem::SaveFileDialog("Text files (*.txt)\0*.txt\0");
 
 		ImGui::End();

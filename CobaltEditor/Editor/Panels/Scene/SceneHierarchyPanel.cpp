@@ -2,6 +2,8 @@
 
 #include "Editor/CobaltEditor.h"
 
+#include "assets/fonts/FontAwesomeIcons.h"
+
 SceneHierarchyPanel* SceneHierarchyPanel::s_Instance = nullptr;
 
 SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& scene) : EditorPanel("Scene hierarchy panel"), m_Scene(scene)
@@ -21,7 +23,7 @@ SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& scene) : EditorPanel(
 void SceneHierarchyPanel::Update()
 {
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 10));
-	ImGui::Begin("Hierarchy");
+	ImGui::Begin(ICON_FA_LIST_UL " Hierarchy");
 
 	int nodeIndex = 0;
 	m_Scene->Registry().each([&](auto entityID)

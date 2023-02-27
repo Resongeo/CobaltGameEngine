@@ -3,6 +3,8 @@
 
 #include "Editor/CobaltEditor.h"
 
+#include "assets/fonts/FontAwesomeIcons.h"
+
 ComponentsPanel::ComponentsPanel() : EditorPanel("Components panel")
 {
 	LOG_TRACE("{0} created!", m_PanelName);
@@ -13,7 +15,7 @@ void ComponentsPanel::Update()
 	Entity selectedEntity = SceneHierarchyPanel::GetSelectedEntity();
 
 
-	ImGui::Begin("Components");
+	ImGui::Begin(ICON_FA_TASKS " Components");
 
 	if (selectedEntity)
 	{
@@ -34,8 +36,10 @@ void ComponentsPanel::DrawComponents(Entity entity)
 	ImGui::PushFont(m_Boldfont);
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 5, 5 });
 
-	if (ImGui::TreeNodeEx("Tag Component", treeNodeFlags))
+	ImGui::PushStyleColor(ImGuiCol_Text, { 0.34, 0.68, 0.96, 1.0 });
+	if (ImGui::TreeNodeEx(ICON_FA_TAG " Tag Component", treeNodeFlags))
 	{
+		ImGui::PushStyleColor(ImGuiCol_Text, { 0.94, 0.94, 0.94, 1.0 });
 		ImGui::PushFont(m_Regularfont);
 
 		auto& tag = entity.GetComponent<TagComponent>();
@@ -49,12 +53,16 @@ void ComponentsPanel::DrawComponents(Entity entity)
 
 		ImGui::PopFont();
 		ImGui::TreePop();
+		ImGui::PopStyleColor();
 	}
+	ImGui::PopStyleColor();
 
 	ImGui::Dummy(ImVec2(0, 10));
 
-	if (ImGui::TreeNodeEx("Transform Component", treeNodeFlags))
+	ImGui::PushStyleColor(ImGuiCol_Text, { 0.96 ,0.65, 0.34, 1.0 });
+	if (ImGui::TreeNodeEx(ICON_FA_TH " Transform Component", treeNodeFlags))
 	{
+		ImGui::PushStyleColor(ImGuiCol_Text, { 0.94, 0.94, 0.94, 1.0 });
 		ImGui::PushFont(m_Regularfont);
 
 		auto& transform = entity.GetComponent<TransformComponent>();
@@ -64,15 +72,19 @@ void ComponentsPanel::DrawComponents(Entity entity)
 
 		ImGui::PopFont();
 		ImGui::TreePop();
+		ImGui::PopStyleColor();
 	}
+	ImGui::PopStyleColor();
 
 
 	if (entity.HasComponent<SpriteRendererComponent>())
 	{
 		ImGui::Dummy(ImVec2(0, 10));
 
-		if (ImGui::TreeNodeEx("Sprite Renderer Component", treeNodeFlags))
+		ImGui::PushStyleColor(ImGuiCol_Text, { 0.97, 0.66, 0.96, 1.0 });
+		if (ImGui::TreeNodeEx(ICON_FA_IMAGE " Sprite Renderer Component", treeNodeFlags))
 		{
+			ImGui::PushStyleColor(ImGuiCol_Text, { 0.94, 0.94, 0.94, 1.0 });
 			ImGui::PushFont(m_Regularfont);
 
 			auto& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
@@ -98,7 +110,9 @@ void ComponentsPanel::DrawComponents(Entity entity)
 
 			ImGui::PopFont();
 			ImGui::TreePop();
+			ImGui::PopStyleColor();
 		}
+		ImGui::PopStyleColor();
 	}
 
 	ImGui::PopFont();

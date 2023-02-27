@@ -1,6 +1,8 @@
 #include "Editor/Panels/Profiler/RenderStatisticsPanel.h"
 #include "Editor/CobaltEditor.h"
 
+#include "assets/fonts/FontAwesomeIcons.h"
+
 RenderStatisticsPanel::RenderStatisticsPanel() : EditorPanel("Renderer Statistics") { }
 
 void RenderStatisticsPanel::Update()
@@ -8,7 +10,7 @@ void RenderStatisticsPanel::Update()
 	auto editorFonts = CobaltEditor::GetEditorLayer()->GetEditorFonts();
 	auto& stats = RenderCommand::GetStats();
 
-	ImGui::Begin("Render Statistics");
+	ImGui::Begin(ICON_FA_CHART_BAR " Render Statistics");
 
 	ImGui::Columns(2);
 

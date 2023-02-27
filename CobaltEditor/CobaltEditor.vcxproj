@@ -102,6 +102,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="assets\fonts\FontAwesomeIcons.h" />
     <ClInclude Include="Editor\CobaltEditor.h" />
     <ClInclude Include="Editor\Panels\Components\ComponentsPanel.h" />
     <ClInclude Include="Editor\Panels\EditorPanel.h" />

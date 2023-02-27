@@ -1,4 +1,5 @@
 #include "Editor/Panels/Log/LogPanel.h"
+#include "assets/fonts/FontAwesomeIcons.h"
 
 LogPanel* LogPanel::s_Instance = nullptr;
 
@@ -21,9 +22,9 @@ void LogPanel::Clear()
 
 void LogPanel::Update()
 {
-	ImGui::Begin("Log");
+	ImGui::Begin(ICON_FA_INFO_CIRCLE " Log");
 
-	if (ImGui::Button("Clear")) Clear();
+	if (ImGui::Button(ICON_FA_TIMES_CIRCLE " Clear")) Clear();
 	ImGui::SameLine();
 	ImGui::Checkbox("Auto scroll", &m_ScrollToBottom);
 
@@ -33,6 +34,8 @@ void LogPanel::Update()
 
 	for (auto& message : m_Messages)
 	{
+		ImGui::TextColored(message.Color, ICON_FA_EXCLAMATION_TRIANGLE);
+		ImGui::SameLine();
 		ImGui::TextColored(message.Color, message.Message.c_str());
 		if (m_ScrollToBottom && ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
 			ImGui::SetScrollHereY(1.0f);
