@@ -100,7 +100,7 @@ namespace Cobalt
 		delete[] quadIndices;
 	}
 
-	void RenderCommand::BeginScene(Camera& camera)
+	void RenderCommand::BeginScene(const Camera& camera)
 	{
 		s_RendererAPI->BeginScene(camera);
 

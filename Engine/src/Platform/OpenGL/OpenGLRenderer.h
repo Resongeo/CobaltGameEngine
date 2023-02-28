@@ -10,7 +10,7 @@ namespace Cobalt
 	public:
 		virtual void Init() override;
 
-		virtual void BeginScene(Camera& camera) override;
+		virtual void BeginScene(const Camera& camera) override;
 
 		virtual void ClearColor(const glm::vec4& color) override;
 		virtual void Clear() override;

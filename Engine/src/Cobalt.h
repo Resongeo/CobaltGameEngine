@@ -11,7 +11,8 @@
 #include "Core/Time.h"
 #include "Core/Application.h"
 
-#include "Cameras/SceneCamera.h"
+#include "Cameras/Camera.h"
+#include "Cameras/EditorCamera.h"
 
 #include "Events/Event.h"
 #include "Events/KeyEvent.h"

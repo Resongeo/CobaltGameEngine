@@ -22,6 +22,7 @@ public:
 	void OnAttach() override;
 	void OnUpdate() override;
 	void OnImGuiUpdate() override;
+	void OnEvent(Event& event) override;
 
 	Ref<Scene> GetActiveScene() const { return m_ActiveScene; }
 
@@ -39,17 +40,10 @@ private:
 
 	Ref<Scene> m_ActiveScene;
 
-	SceneCamera m_SceneCamera;
-	EditorFonts* m_EditorFonts;
+	EditorCamera m_EditorCamera;
+	Camera* m_ActiveCamera;
 
-	struct SceneCameraData
-	{
-		glm::vec3 Position;
-		float Rotation;
-		float Size;
-		float FOV;
-	};
-	SceneCameraData m_SceneCameraData;
+	EditorFonts* m_EditorFonts;
 
 	struct GridData
 	{

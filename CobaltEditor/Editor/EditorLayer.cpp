@@ -5,12 +5,7 @@
 EditorLayer::EditorLayer() : Layer("Editor Layer"), m_Window(Application::GetWindow())
 {
 	m_EditorFonts = StyleManager::GetEditorFonts();
-
-	// TODO: Temporary
-	m_SceneCameraData.Position = m_SceneCamera.GetPosition();
-	m_SceneCameraData.Rotation = m_SceneCamera.GetRotation();
-	m_SceneCameraData.Size = m_SceneCamera.GetSize();
-	m_SceneCameraData.FOV = m_SceneCamera.GetFOV();
+	m_ActiveCamera = &m_EditorCamera;
 
 	m_GridData.Size = 5;
 	m_GridData.GapSize = 0.1f;
@@ -42,7 +37,7 @@ void EditorLayer::OnUpdate()
 	{
 		PROFILER_TIMER_SCOPE("BeginScene");
 
-		RenderCommand::BeginScene(m_SceneCamera);
+		RenderCommand::BeginScene(*m_ActiveCamera);
 		RenderCommand::Clear();
 
 		RenderCommand::ResetStats();
@@ -79,19 +74,6 @@ void EditorLayer::OnUpdate()
 
 	m_Framebuffer->Unbind();
 
-	// TODO: New camera
-	if (Input::GetKeyDown(KEYCODE_A))
-		m_SceneCameraData.Position.x -= 1.0f * Time::deltaTime;
-	else if (Input::GetKeyDown(KEYCODE_D))
-		m_SceneCameraData.Position.x += 1.0f * Time::deltaTime;
-
-	if (Input::GetKeyDown(KEYCODE_W))
-		m_SceneCameraData.Position.y += 1.0f * Time::deltaTime;
-	else if (Input::GetKeyDown(KEYCODE_S))
-		m_SceneCameraData.Position.y -= 1.0f * Time::deltaTime;
-
-	m_SceneCamera.SetPosition(m_SceneCameraData.Position);
-
 	PROFILER_STOP_HEADER;
 }
 
@@ -112,7 +94,7 @@ void EditorLayer::OnImGuiUpdate()
 		{
 			m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-			m_SceneCamera.SetAspectRatio(m_ViewportSize.x, m_ViewportSize.y);
+			m_EditorCamera.SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
 			RenderCommand::SetViewport(0, 0, (uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
 		ImGui::Image((void*)(uint64_t)m_Framebuffer->GetColorAttachmentID(), m_ViewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
@@ -133,6 +115,9 @@ void EditorLayer::OnImGuiUpdate()
 
 			ImGui::PopFont();
 		}
+
+		if (ImGui::IsWindowHovered())
+			m_EditorCamera.Update();
 
 		ImGui::End();
 		ImGui::PopStyleVar();
@@ -161,10 +146,19 @@ void EditorLayer::OnImGuiUpdate()
 		if (ImGui::Button(ICON_SAVE " Save File Dialog"))
 			FileSystem::SaveFileDialog("Text files (*.txt)\0*.txt\0");
 
+		ImGui::Dummy({ 0, 10 });
+
+		ImGui::DragFloat("Mouse pan speed", m_EditorCamera.GetPanSpeed(), 0.1f, 0.1f, 10.0f);
+
 		ImGui::End();
 	}
 
 	PROFILER_STOP_HEADER;
 
 	EditorPanelManager::Update();
+}
+
+void EditorLayer::OnEvent(Event& event)
+{
+	m_EditorCamera.OnEvent(event);
 }

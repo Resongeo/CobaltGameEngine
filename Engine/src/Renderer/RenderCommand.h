@@ -9,7 +9,7 @@ namespace Cobalt
 	class RenderCommand
 	{
 	public:
-		static void BeginScene(Camera& camera);
+		static void BeginScene(const Camera& camera);
 		static void EndScene();
 		
 		static void ClearColor(const glm::vec4& color);

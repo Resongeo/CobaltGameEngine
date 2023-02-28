@@ -25,8 +25,7 @@ constexpr Scope<T> CreateScope(Args&& ... args)
 	return std::make_unique<T>(std::forward<Args>(args)...);
 }
 
-//template<typename T>
-//using EventFn = std::function<bool(T&)>;
+#define CB_BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
 
 #define BIT(x) (1 << x)
 

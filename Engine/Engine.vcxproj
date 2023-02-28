@@ -19,7 +19,7 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
     <ClInclude Include="src\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Cameras\Camera.h" />
-    <ClInclude Include="src\Cameras\SceneCamera.h" />
+    <ClInclude Include="src\Cameras\EditorCamera.h" />
     <ClInclude Include="src\Gui\Gui.h" />
     <ClInclude Include="src\Core\Math.h" />
     <ClInclude Include="src\Input\Input.h" />
@@ -165,7 +165,8 @@
     <ClInclude Include="vendor\SPDLOG\include\spdlog\version.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Cameras\SceneCamera.cpp" />
+    <ClCompile Include="src\Cameras\Camera.cpp" />
+    <ClCompile Include="src\Cameras\EditorCamera.cpp" />
     <ClCompile Include="src\cbpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cbpch.h</PrecompiledHeaderFile>
