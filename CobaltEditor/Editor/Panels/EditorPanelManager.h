@@ -4,7 +4,7 @@
 
 class EditorPanel;
 
-class EditorPanelSystem
+class EditorPanelManager
 {
 public:
 	static void Init();
@@ -15,6 +15,6 @@ private:
 	friend class EditorPanel;
 
 private:
-	static EditorPanelSystem* s_Instance;
+	static EditorPanelManager* s_Instance;
 	std::vector<EditorPanel*> m_Panels;
 };

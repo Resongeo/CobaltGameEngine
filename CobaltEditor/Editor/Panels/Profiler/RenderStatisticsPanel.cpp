@@ -1,20 +1,16 @@
 #include "Editor/Panels/Profiler/RenderStatisticsPanel.h"
-#include "Editor/CobaltEditor.h"
-
-#include "assets/fonts/FontAwesomeIcons.h"
 
 RenderStatisticsPanel::RenderStatisticsPanel() : EditorPanel("Renderer Statistics") { }
 
 void RenderStatisticsPanel::Update()
 {
-	auto editorFonts = CobaltEditor::GetEditorLayer()->GetEditorFonts();
 	auto& stats = RenderCommand::GetStats();
 
-	ImGui::Begin(ICON_FA_CHART_BAR " Render Statistics");
+	ImGui::Begin(ICON_CHART_BAR " Render Statistics");
 
 	ImGui::Columns(2);
 
-	ImGui::PushFont(editorFonts.SemiBold);
+	ImGui::PushFont(p_EditorFonts->SemiBold);
 	ImGui::Text("Draw calls:");
 	ImGui::Text("Quad count:");
 	ImGui::Text("Vertex count:");

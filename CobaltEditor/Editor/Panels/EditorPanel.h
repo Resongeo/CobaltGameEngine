@@ -1,6 +1,9 @@
 #pragma once
 
-#include "Editor/Panels/EditorPanelSystem.h"
+#include "Editor/Panels/EditorPanelManager.h"
+#include "Editor/Style/StyleManager.h"
+#include "Editor/Style/Icons.h"
+
 #include <string>
 
 class EditorPanel
@@ -8,7 +11,8 @@ class EditorPanel
 public:
 	EditorPanel(const char* panelName) : m_PanelName(panelName)
 	{
-		EditorPanelSystem::PushPanel(this);
+		EditorPanelManager::PushPanel(this);
+		p_EditorFonts = StyleManager::GetEditorFonts();
 	}
 
 	virtual void Update() = 0;
@@ -17,4 +21,5 @@ public:
 
 protected:
 	const char* m_PanelName;
+	EditorFonts* p_EditorFonts;
 };

@@ -9,13 +9,10 @@ using namespace Cobalt;
 #include "Editor/Panels/Scene/SceneHierarchyPanel.h"
 #include "Editor/Panels/Components/ComponentsPanel.h"
 
-#include "Editor/Panels/EditorPanelSystem.h"
+#include "Editor/Panels/EditorPanelManager.h"
 
-struct EditorFonts
-{
-	ImFont* Regular;
-	ImFont* SemiBold;
-};
+#include "Editor/Style/StyleManager.h"
+
 
 class EditorLayer : public Layer
 {
@@ -27,8 +24,6 @@ public:
 	void OnImGuiUpdate() override;
 
 	Ref<Scene> GetActiveScene() const { return m_ActiveScene; }
-
-	EditorFonts GetEditorFonts() const { return m_EditorFonts; }
 
 private:
 	Ref<Window> m_Window;
@@ -45,8 +40,7 @@ private:
 	Ref<Scene> m_ActiveScene;
 
 	SceneCamera m_SceneCamera;
-	
-	EditorFonts m_EditorFonts;
+	EditorFonts* m_EditorFonts;
 
 	struct SceneCameraData
 	{
@@ -69,9 +63,6 @@ private:
 	glm::vec4 m_GridColor{ 0.17f, 0.17f, 0.17f, 1.0f };
 
 	ImVec2 m_ViewportSize = { 0.0f, 0.0f };
-
-	bool m_CameraSettingsOpened = false;
-	bool m_GridSettingsOpened = false;
 
 	bool m_Vsync = true;
 	bool m_ShowFps = true;

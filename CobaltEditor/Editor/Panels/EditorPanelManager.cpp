@@ -1,16 +1,16 @@
-#include "Editor/Panels/EditorPanelSystem.h"
+#include "Editor/Panels/EditorPanelManager.h"
 #include "Editor/Panels/EditorPanel.h"
 
 #include "Editor/Panels/Profiler/ProfilerPanel.h"
 
-EditorPanelSystem* EditorPanelSystem::s_Instance = nullptr;
+EditorPanelManager* EditorPanelManager::s_Instance = nullptr;
 
-void EditorPanelSystem::Init()
+void EditorPanelManager::Init()
 {
-	s_Instance = new EditorPanelSystem();
+	s_Instance = new EditorPanelManager();
 }
 
-void EditorPanelSystem::Update()
+void EditorPanelManager::Update()
 {
 	PROFILER_START_HEADER("Panels");
 
@@ -23,7 +23,7 @@ void EditorPanelSystem::Update()
 	PROFILER_STOP_HEADER;
 }
 
-void EditorPanelSystem::PushPanel(EditorPanel* panel)
+void EditorPanelManager::PushPanel(EditorPanel* panel)
 {
 	s_Instance->m_Panels.push_back(panel);
 }

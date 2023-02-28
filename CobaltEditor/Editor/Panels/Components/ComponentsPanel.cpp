@@ -1,26 +1,16 @@
 #include "Editor/Panels/Components/ComponentsPanel.h"
 #include "Editor/Panels/Scene/SceneHierarchyPanel.h"
 
-#include "Editor/CobaltEditor.h"
-
-#include "assets/fonts/FontAwesomeIcons.h"
-
-ComponentsPanel::ComponentsPanel() : EditorPanel("Components panel")
-{
-	LOG_TRACE("{0} created!", m_PanelName);
-}
+ComponentsPanel::ComponentsPanel() : EditorPanel("Components panel") { }
 
 void ComponentsPanel::Update()
 {
 	Entity selectedEntity = SceneHierarchyPanel::GetSelectedEntity();
 
-
-	ImGui::Begin(ICON_FA_TASKS " Components");
+	ImGui::Begin(ICON_TASKS " Components");
 
 	if (selectedEntity)
-	{
 		DrawComponents(selectedEntity);
-	}
 
 	ImGui::End();
 }
@@ -29,22 +19,18 @@ void ComponentsPanel::DrawComponents(Entity entity)
 {
 	ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
 
-	EditorFonts editorfonts = CobaltEditor::Get().GetEditorLayer()->GetEditorFonts();
-	m_Boldfont = editorfonts.SemiBold;
-	m_Regularfont = editorfonts.Regular;
-
-	ImGui::PushFont(m_Boldfont);
+	ImGui::PushFont(p_EditorFonts->SemiBold);
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 5, 5 });
 
 	ImGui::PushStyleColor(ImGuiCol_Text, { 0.34, 0.68, 0.96, 1.0 });
-	if (ImGui::TreeNodeEx(ICON_FA_TAG " Tag Component", treeNodeFlags))
+	if (ImGui::TreeNodeEx(ICON_TAG " Tag Component", treeNodeFlags))
 	{
 		ImGui::PushStyleColor(ImGuiCol_Text, { 0.94, 0.94, 0.94, 1.0 });
-		ImGui::PushFont(m_Regularfont);
+		ImGui::PushFont(p_EditorFonts->Regular);
 
 		auto& tag = entity.GetComponent<TagComponent>();
 
-		ImGui::PushFont(m_Boldfont);
+		ImGui::PushFont(p_EditorFonts->SemiBold);
 		ImGui::Text("Tag");
 		ImGui::PopFont();
 		
@@ -60,10 +46,10 @@ void ComponentsPanel::DrawComponents(Entity entity)
 	ImGui::Dummy(ImVec2(0, 10));
 
 	ImGui::PushStyleColor(ImGuiCol_Text, { 0.96 ,0.65, 0.34, 1.0 });
-	if (ImGui::TreeNodeEx(ICON_FA_TH " Transform Component", treeNodeFlags))
+	if (ImGui::TreeNodeEx(ICON_TH " Transform Component", treeNodeFlags))
 	{
 		ImGui::PushStyleColor(ImGuiCol_Text, { 0.94, 0.94, 0.94, 1.0 });
-		ImGui::PushFont(m_Regularfont);
+		ImGui::PushFont(p_EditorFonts->Regular);
 
 		auto& transform = entity.GetComponent<TransformComponent>();
 		DrawVector3("Position", transform.Position);
@@ -82,10 +68,10 @@ void ComponentsPanel::DrawComponents(Entity entity)
 		ImGui::Dummy(ImVec2(0, 10));
 
 		ImGui::PushStyleColor(ImGuiCol_Text, { 0.97, 0.66, 0.96, 1.0 });
-		if (ImGui::TreeNodeEx(ICON_FA_IMAGE " Sprite Renderer Component", treeNodeFlags))
+		if (ImGui::TreeNodeEx(ICON_IMAGE " Sprite Renderer Component", treeNodeFlags))
 		{
 			ImGui::PushStyleColor(ImGuiCol_Text, { 0.94, 0.94, 0.94, 1.0 });
-			ImGui::PushFont(m_Regularfont);
+			ImGui::PushFont(p_EditorFonts->Regular);
 
 			auto& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
 
@@ -144,7 +130,7 @@ void ComponentsPanel::DrawVector3(const char* label, glm::vec3& values, float re
 	ImGui::Columns(2);
 	
 	ImGui::SetColumnWidth(0, 100.f);
-	ImGui::PushFont(m_Boldfont);
+	ImGui::PushFont(p_EditorFonts->SemiBold);
 	ImGui::Text(label);
 	ImGui::PopFont();
 
@@ -204,7 +190,7 @@ void ComponentsPanel::DrawVector2(const char* label, glm::vec2& values, float re
 	ImGui::Columns(2);
 
 	ImGui::SetColumnWidth(0, 100.f);
-	ImGui::PushFont(m_Boldfont);
+	ImGui::PushFont(p_EditorFonts->SemiBold);
 	ImGui::Text(label);
 	ImGui::PopFont();
 

@@ -1,21 +1,15 @@
 #include "Editor/Panels/Profiler/ProfilerPanel.h"
-#include "Editor/CobaltEditor.h"
-
-#include "assets/fonts/FontAwesomeIcons.h"
 
 ProfilerPanel* ProfilerPanel::s_Instance = nullptr;
-
 ProfilerPanel::ProfilerPanel() : EditorPanel("Profiler panel")
 {
-	LOG_TRACE("{0} created!", m_PanelName);
-
 	s_Instance = this;
 	m_ActiveHeader = nullptr;
 }
 
 void ProfilerPanel::Update()
 {
-	ImGui::Begin(ICON_FA_CLOCK " Profiler");
+	ImGui::Begin(ICON_CLOCK " Profiler");
 
 	for (auto& header : m_ProfilerHeaders)
 	{
@@ -23,7 +17,7 @@ void ProfilerPanel::Update()
 		auto textWidth = ImGui::CalcTextSize(header.Name).x;
 		ImGui::SetCursorPosX((windowWidth - textWidth) * 0.5f);
 
-		ImGui::PushFont(CobaltEditor::GetEditorLayer()->GetEditorFonts().SemiBold);
+		ImGui::PushFont(p_EditorFonts->SemiBold);
 		ImGui::TextColored(ImVec4(0.176, 0.450, 0.705, 1.0), header.Name);
 		ImGui::PopFont();
 

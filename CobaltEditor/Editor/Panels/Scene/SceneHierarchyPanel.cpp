@@ -1,15 +1,8 @@
 #include "Editor/Panels/Scene/SceneHierarchyPanel.h"
 
-#include "Editor/CobaltEditor.h"
-
-#include "assets/fonts/FontAwesomeIcons.h"
-
 SceneHierarchyPanel* SceneHierarchyPanel::s_Instance = nullptr;
-
 SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& scene) : EditorPanel("Scene hierarchy panel"), m_Scene(scene)
 {
-	LOG_TRACE("{0} created!", m_PanelName);
-
 	s_Instance = this;
 
 	m_Texture = Texture2D::Create("assets\\textures\\uv_grid.png"); // TODO: Move custom textures to asset manager
@@ -23,7 +16,7 @@ SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& scene) : EditorPanel(
 void SceneHierarchyPanel::Update()
 {
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 10));
-	ImGui::Begin(ICON_FA_LIST_UL " Hierarchy");
+	ImGui::Begin(ICON_LIST_UL " Hierarchy");
 
 	int nodeIndex = 0;
 	m_Scene->Registry().each([&](auto entityID)
@@ -76,10 +69,7 @@ void SceneHierarchyPanel::DrawEntityNode(Entity entity, int node_index)
 
 	float lineHeight = ImGui::GetTextLineHeight();
 
-	if (node_index & 1)
-		AddRectToDrawList(cursorPos, contentRegionMax, lineHeight, m_EvenNodeColor);
-	else
-		AddRectToDrawList(cursorPos, contentRegionMax, lineHeight, m_OddNodeColor);
+	AddRectToDrawList(cursorPos, contentRegionMax, lineHeight, node_index & 1 ? m_EvenNodeColor : m_OddNodeColor);
 
 	ImVec2 mouse_pos = ImGui::GetMousePos();
 	if (mouse_pos.x > cursorPos.x && mouse_pos.x < cursorPos.x + contentRegionMax.x && mouse_pos.y > cursorPos.y - 4.5f && mouse_pos.y < cursorPos.y + lineHeight + 9)
@@ -90,23 +80,22 @@ void SceneHierarchyPanel::DrawEntityNode(Entity entity, int node_index)
 			m_SelectedEntity = entity;
 
 		if (ImGui::IsMouseDoubleClicked(0) && m_SelectedEntity == entity)
-		{
 			ImGui::OpenPopup("Rename");
-		}
+
 	}
-	else if(ImGui::IsMouseClicked(0) && m_SelectedEntity == entity && ImGui::IsWindowHovered())
+	else if (ImGui::IsMouseClicked(0) && m_SelectedEntity == entity && ImGui::IsWindowHovered())
+	{
 		m_SelectedEntity = {};
+	}
 
-
-	auto editorFont = CobaltEditor::GetEditorLayer()->GetEditorFonts();
 	if (m_SelectedEntity == entity)
 	{
 		AddRectToDrawList(cursorPos, contentRegionMax, lineHeight, m_SelectedColor);
-		ImGui::PushFont(editorFont.SemiBold);
+		ImGui::PushFont(p_EditorFonts->SemiBold);
 	}
 	else
 	{
-		ImGui::PushFont(editorFont.Regular);
+		ImGui::PushFont(p_EditorFonts->Regular);
 	}
 
 	ImGui::SetCursorPosX(10);
@@ -126,8 +115,8 @@ void SceneHierarchyPanel::DrawRenamePopup(Entity entity)
 		auto textWidth = ImGui::CalcTextSize("Rename").x;
 		ImGui::SetCursorPosX((windowWidth - textWidth) * 0.5f);
 		
-		ImGui::PushFont(CobaltEditor::GetEditorLayer()->GetEditorFonts().SemiBold);
-		ImGui::Text("Raname");
+		ImGui::PushFont(p_EditorFonts->SemiBold);
+		ImGui::Text(ICON_TAG " Raname");
 		ImGui::PopFont();
 
 		ImGui::Text("New name");
