@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\cbpch.h" />
     <ClInclude Include="src\Core\Time.h" />
     <ClInclude Include="src\Gui\ImGuiImpl.h" />
     <ClInclude Include="src\Platform\FileSystem.h" />
@@ -165,7 +166,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Cameras\SceneCamera.cpp" />
-    <ClCompile Include="src\Core\glad.c" />
+    <ClCompile Include="src\cbpch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cbpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cbpch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\Core\glad.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="src\Core\stb_image.cpp" />
     <ClCompile Include="src\Core\Time.cpp" />
     <ClCompile Include="src\Gui\Gui.cpp" />
@@ -251,11 +261,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Engine\vendor\GLFW\include;$(SolutionDirEngine\)vendor\SPDLOG\include;$(SolutionDir)Engine\vendor\GLAD\include;$(SolutionDirEngine\)src;$(SolutionDir)Engine\vendor\ImGui;$(SolutionDir)Engine\vendor\GLM\include;$(SolutionDir)Engine\vendor\STBIMAGE;$(SolutionDir)Engine\vendor\EnTT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/wd4028 %(AdditionalOptions)</AdditionalOptions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>cbpch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -268,11 +280,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Engine\vendor\GLFW\include;$(SolutionDirEngine\)vendor\SPDLOG\include;$(SolutionDir)Engine\vendor\GLAD\include;$(SolutionDirEngine\)src;$(SolutionDir)Engine\vendor\ImGui;$(SolutionDir)Engine\vendor\GLM\include;$(SolutionDir)Engine\vendor\STBIMAGE;$(SolutionDir)Engine\vendor\EnTT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/wd4028 %(AdditionalOptions)</AdditionalOptions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>cbpch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

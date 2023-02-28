@@ -1,3 +1,5 @@
+#include "cbpch.h"
+
 #include "Scene/ECS/Entity.h"
 
 namespace Cobalt

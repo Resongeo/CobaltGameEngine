@@ -1,3 +1,5 @@
+#include "cbpch.h"
+
 #include "Log.h"
 
 namespace Cobalt

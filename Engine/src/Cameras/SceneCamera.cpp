@@ -1,3 +1,5 @@
+#include "cbpch.h"
+
 #include "Cameras/SceneCamera.h"
 
 namespace Cobalt

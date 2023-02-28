@@ -1,3 +1,5 @@
+#include "cbpch.h"
+
 #include "Renderer/RenderCommand.h"
 
 namespace Cobalt

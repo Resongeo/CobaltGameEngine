@@ -1,3 +1,5 @@
+#include "cbpch.h"
+
 #include "Application.h"
 
 namespace Cobalt
