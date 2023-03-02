@@ -60,4 +60,5 @@ private:
 
 	bool m_Vsync = true;
 	bool m_ShowFps = true;
+	bool m_ShowGrid = true;
 };

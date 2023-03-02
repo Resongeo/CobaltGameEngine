@@ -54,6 +54,7 @@ private:
 	std::vector<LogMessage> m_Messages;
 };
 
+#define DEBUG_CLEAR			LogPanel::Get().Clear()
 #define DEBUG_LOG(...)		LogPanel::Get().AddLog(__VA_ARGS__)
 #define DEBUG_INFO(...)		LogPanel::Get().AddInfo(__VA_ARGS__)
 #define DEBUG_WARN(...)		LogPanel::Get().AddWarn(__VA_ARGS__)

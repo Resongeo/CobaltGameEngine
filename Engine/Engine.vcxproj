@@ -165,7 +165,6 @@
     <ClInclude Include="vendor\SPDLOG\include\spdlog\version.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Cameras\Camera.cpp" />
     <ClCompile Include="src\Cameras\EditorCamera.cpp" />
     <ClCompile Include="src\cbpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

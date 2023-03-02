@@ -52,6 +52,7 @@ void EditorLayer::OnUpdate()
 		RenderCommand::Clear();
 	}
 
+	if(m_ShowGrid)
 	{
 		PROFILER_TIMER_SCOPE("Grid");
 
@@ -73,6 +74,11 @@ void EditorLayer::OnUpdate()
 	}
 
 	m_Framebuffer->Unbind();
+
+	{
+		PROFILER_TIMER_SCOPE("EditorCamera");
+		m_EditorCamera.Update();
+	}
 
 	PROFILER_STOP_HEADER;
 }
@@ -98,11 +104,13 @@ void EditorLayer::OnImGuiUpdate()
 			RenderCommand::SetViewport(0, 0, (uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
 		ImGui::Image((void*)(uint64_t)m_Framebuffer->GetColorAttachmentID(), m_ViewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		
+		m_EditorCamera.SetMouseOverViewport(ImGui::IsWindowHovered());
 
 		if (m_ShowFps)
 		{
 			ImGui::SetCursorPosX(30);
-			ImGui::SetCursorPosY(30);
+			ImGui::SetCursorPosY(20);
 
 			ImGui::PushFont(m_EditorFonts->SemiBold);
 
@@ -116,8 +124,72 @@ void EditorLayer::OnImGuiUpdate()
 			ImGui::PopFont();
 		}
 
-		if (ImGui::IsWindowHovered())
-			m_EditorCamera.Update();
+		float width = ImGui::GetWindowWidth();
+		ImGui::SetCursorPosX(width - 50.0f);
+		ImGui::SetCursorPosY(10.0f);
+
+		if (ImGui::Button(ICON_VIDEO))
+		{
+			ImGui::SetNextWindowPos({ ImGui::GetMousePos().x + 20, ImGui::GetMousePos().y + 20 }, 0, { 1, 0 });
+
+			ImGui::OpenPopup("EditorCameraSettings");
+		}
+
+		ImGui::SetCursorPosX(width - 90.0f);
+		ImGui::SetCursorPosY(10.0f);
+
+		if (ImGui::Button(ICON_TABLE))
+			m_ShowGrid = !m_ShowGrid;
+
+		if (ImGui::BeginPopup("EditorCameraSettings", ImGuiWindowFlags_NoMove))
+		{
+			ImGui::Spacing();
+
+			auto windowWidth = ImGui::GetWindowSize().x;
+			auto textWidth = ImGui::CalcTextSize(ICON_VIDEO " Settings").x;
+			ImGui::SetCursorPosX((windowWidth - textWidth) * 0.5f);
+
+			ImGui::PushFont(m_EditorFonts->SemiBold);
+			ImGui::TextColored(ImVec4(0.176, 0.450, 0.705, 1.0), ICON_VIDEO " Settings");
+			ImGui::PopFont();
+
+			const char* proj_types[] = { "Orthographic", "Perspective" };
+			static int selected = 0;
+
+			ImGui::Text("Type");
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(200.0f);
+			ImGui::SetCursorPosX(50.0f);
+			if (ImGui::Combo("##type", &selected, proj_types, IM_ARRAYSIZE(proj_types)))
+				m_EditorCamera.SetProjectionType(selected == 0 ? ProjectionType::Orthographic : ProjectionType::Perspective);
+
+			if (selected == 0)
+			{
+				float size = m_EditorCamera.GetSize();
+
+				ImGui::Text("Size");
+				ImGui::SameLine();
+				ImGui::SetNextItemWidth(200.0f);
+				ImGui::SetCursorPosX(50.0f);
+				if (ImGui::DragFloat("##size", &size, 0.01f, 0.01f, 10.0f, "%.2f"))
+					m_EditorCamera.SetSize(size);
+			}
+			else
+			{
+				float fov = m_EditorCamera.GetFOV();
+
+				ImGui::Text("FOV");
+				ImGui::SameLine();
+				ImGui::SetNextItemWidth(200.0f);
+				ImGui::SetCursorPosX(50.0f);
+				if (ImGui::DragFloat("##fov", &fov, 0.1f, 5.0f, 170.0f, "%.2f"))
+					m_EditorCamera.SetFOV(fov);
+			}
+
+			ImGui::Columns(1);
+
+			ImGui::EndPopup();
+		}
 
 		ImGui::End();
 		ImGui::PopStyleVar();

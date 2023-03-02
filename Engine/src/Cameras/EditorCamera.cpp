@@ -16,8 +16,17 @@ namespace Cobalt
 		RecalculateViewMatrix();
 	}
 
+	void EditorCamera::SetProjectionType(ProjectionType type)
+	{
+		m_ProjectionType = type;
+		RecalculateProjection();
+		RecalculateViewMatrix();
+	}
+
 	void EditorCamera::Update()
 	{
+		if (!m_IsMouseOverViewport) return;
+
 		glm::vec2 mousePos = Input::GetMousePos();
 		glm::vec2 delta = (mousePos - m_PrevMousePos) * 0.003f;
 		m_PrevMousePos = mousePos;
@@ -44,6 +53,8 @@ namespace Cobalt
 
 	void EditorCamera::OnEvent(Event& event)
 	{
+		if (!m_IsMouseOverViewport) return;
+
 		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<MouseScrolledEvent>(CB_BIND_EVENT_FN(EditorCamera::OnMouseScroll));
 	}
@@ -52,12 +63,17 @@ namespace Cobalt
 	{
 		float delta = e.GetYOffset() * 0.1f;
 
-		m_Distance -= delta;
+		m_Distance -= delta * CalculateZoomSpeed();;
 
 		if (m_ProjectionType == ProjectionType::Orthographic)
+		{
 			m_Size -= delta;
+			m_Size = std::max(m_Size, 0.01f);
+		}
 		else
+		{
 			m_Position.z = m_Distance;
+		}
 
 		RecalculateProjection();
 		RecalculateViewMatrix();
@@ -89,6 +105,8 @@ namespace Cobalt
 
 	void EditorCamera::RecalculateViewMatrix()
 	{
+		RecalculateProjection();
+
 		glm::mat4 transform = glm::mat4(1.0f);
 		transform = glm::translate(transform, m_Position);
 		transform = glm::rotate(transform, glm::radians(m_Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -103,7 +121,7 @@ namespace Cobalt
 		{
 			case Cobalt::ProjectionType::Perspective:
 			{
-				m_ProjectionMatrix = glm::perspective(m_FOV, m_AspectRatio, m_NearClip, m_FarClip);
+				m_ProjectionMatrix = glm::perspective(glm::radians(m_FOV), m_AspectRatio, m_NearClip, m_FarClip);
 				break;
 			}
 			case Cobalt::ProjectionType::Orthographic:

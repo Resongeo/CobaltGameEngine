@@ -21,7 +21,7 @@ namespace Cobalt
 		const glm::mat4& GetViewProjectionMatrix()	const { return m_ViewProjectionMatrix; }
 
 		const ProjectionType GetProjectionType() const { return m_ProjectionType; }
-		void SetProjectionType(ProjectionType type);
+		virtual void SetProjectionType(ProjectionType type) = 0;
 
 		virtual void Update() { }
 		virtual void SetViewportSize(float width, float height) { }
