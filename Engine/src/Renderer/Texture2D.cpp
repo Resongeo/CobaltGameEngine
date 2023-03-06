@@ -13,6 +13,8 @@ namespace Cobalt
 		{
 			case GraphicsAPI::OpenGL: return CreateRef<OpenGLTexture>(path);
 		}
+
+		return nullptr;
 	}
 
 	Ref<Texture2D> Texture2D::Create(uint32_t width, uint32_t height)
@@ -21,5 +23,7 @@ namespace Cobalt
 		{
 			case GraphicsAPI::OpenGL: return CreateRef<OpenGLTexture>(width, height);
 		}
+
+		return nullptr;
 	}
 }
