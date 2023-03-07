@@ -7,6 +7,7 @@ CobaltEditor::CobaltEditor(const ApplicationSpecification& applicationSpecificat
 	s_Instance = this;
 
 	StyleManager::Init();
+	Controls::Init();
 	EditorPanelManager::Init();
 
 	m_EditorLayer = new EditorLayer();

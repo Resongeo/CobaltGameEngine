@@ -165,25 +165,13 @@ void EditorLayer::OnImGuiUpdate()
 
 			if (selected == 0)
 			{
-				float size = m_EditorCamera.GetSize();
-
-				ImGui::Text("Size");
-				ImGui::SameLine();
-				ImGui::SetNextItemWidth(200.0f);
-				ImGui::SetCursorPosX(50.0f);
-				if (ImGui::DragFloat("##size", &size, 0.01f, 0.01f, 10.0f, "%.2f"))
-					m_EditorCamera.SetSize(size);
+				if (Controls::DrawVector1("Size", m_EditorCamera.GetSizeAdr(), 2.0f, 0.01, 10.0f))
+					m_EditorCamera.UpdateView();
 			}
 			else
 			{
-				float fov = m_EditorCamera.GetFOV();
-
-				ImGui::Text("FOV");
-				ImGui::SameLine();
-				ImGui::SetNextItemWidth(200.0f);
-				ImGui::SetCursorPosX(50.0f);
-				if (ImGui::DragFloat("##fov", &fov, 0.1f, 5.0f, 170.0f, "%.2f"))
-					m_EditorCamera.SetFOV(fov);
+				if (Controls::DrawVector1("Size", m_EditorCamera.GetFovAdr(), 90.0f, 10.0f, 170.0f))
+					m_EditorCamera.UpdateView();
 			}
 
 			ImGui::Columns(1);

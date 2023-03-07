@@ -13,6 +13,8 @@ using namespace Cobalt;
 
 #include "Editor/Style/StyleManager.h"
 
+#include "Editor/Utils/Controls.h"
+
 
 class EditorLayer : public Layer
 {

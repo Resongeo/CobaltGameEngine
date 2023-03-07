@@ -12,15 +12,13 @@ namespace Cobalt
 {
 	EditorCamera::EditorCamera()
 	{
-		RecalculateProjection();
-		RecalculateViewMatrix();
+		UpdateView();
 	}
 
 	void EditorCamera::SetProjectionType(ProjectionType type)
 	{
 		m_ProjectionType = type;
-		RecalculateProjection();
-		RecalculateViewMatrix();
+		UpdateView();
 	}
 
 	void EditorCamera::Update()
@@ -47,8 +45,7 @@ namespace Cobalt
 		m_ViewportWidth = width;
 		m_ViewportHeight = height;
 
-		RecalculateProjection();
-		RecalculateViewMatrix();
+		UpdateView();
 	}
 
 	void EditorCamera::OnEvent(Event& event)
@@ -75,8 +72,7 @@ namespace Cobalt
 			m_Position.z = m_Distance;
 		}
 
-		RecalculateProjection();
-		RecalculateViewMatrix();
+		UpdateView();
 		return false;
 	}
 

@@ -10,17 +10,19 @@ namespace Cobalt
 	public:
 		EditorCamera();
 
-		void SetFOV(float fov) { m_FOV = fov; RecalculateViewMatrix(); }
+		void SetFOV(float fov) { m_FOV = fov; UpdateView(); }
 		float GetFOV() const { return m_FOV; }
+		float& GetFovAdr() { return m_FOV; }
 
-		void SetNearClip(float nearClip) { m_NearClip = nearClip; RecalculateViewMatrix(); }
+		void SetNearClip(float nearClip) { m_NearClip = nearClip; UpdateView(); }
 		float GetNearClip() const { return m_NearClip; }
 		
-		void SetFarClip(float farClip) { m_FarClip = farClip; RecalculateViewMatrix(); }
+		void SetFarClip(float farClip) { m_FarClip = farClip; UpdateView(); }
 		float GetFarClip() const { return m_FarClip; }
 		
-		void SetSize(float size) { m_Size = size; RecalculateViewMatrix(); }
+		void SetSize(float size) { m_Size = size; UpdateView(); }
 		float GetSize() const { return m_Size; }
+		float& GetSizeAdr() { return m_Size; }
 
 		float* GetPanSpeed() { return &m_PanSpeed; }
 
@@ -32,6 +34,12 @@ namespace Cobalt
 		virtual void SetViewportSize(float width, float height) override;
 
 		void OnEvent(Event& event);
+
+		void UpdateView()
+		{
+			RecalculateProjection();
+			RecalculateViewMatrix();
+		}
 
 	private:
 		virtual void RecalculateViewMatrix() override;
