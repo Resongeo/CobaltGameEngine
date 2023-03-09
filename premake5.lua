@@ -25,6 +25,7 @@ IncludeDir["stb_image"] = "Engine/vendor/STBIMAGE"
 IncludeDir["spd_log"] = "Engine/vendor/SPDLOG/include"
 IncludeDir["entt"] = "Engine/vendor/EnTT"
 IncludeDir["src"] = "Engine/src"
+IncludeDir["cobalt"] = "Engine/src/Cobalt"
 
 LibDir = {}
 LibDir["GLFW"] = "Engine/vendor/GLFW/lib-vc2022"
@@ -41,7 +42,7 @@ project "Engine"
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "cbpch.h"
-	pchsource "Engine/src/cbpch.cpp"
+	pchsource "Engine/src/Cobalt/cbpch.cpp"
 
 	files
 	{
@@ -68,7 +69,8 @@ project "Engine"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.spd_log}",
 		"%{IncludeDir.entt}",
-		"%{IncludeDir.src}"
+		"%{IncludeDir.src}",
+		"%{IncludeDir.cobalt}"
 	}
 
     libdirs
@@ -136,6 +138,7 @@ project "CobaltEditor"
 		"%{IncludeDir.spd_log}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.src}",
+		"%{IncludeDir.cobalt}",
 		"CobaltEditor"
 	}
 

@@ -210,6 +210,17 @@ void EditorLayer::OnImGuiUpdate()
 
 		ImGui::DragFloat("Mouse pan speed", m_EditorCamera.GetPanSpeed(), 0.1f, 0.1f, 10.0f);
 
+		ImGui::Dummy({ 0, 10 });
+
+		if(ImGui::Button("Get random number"))
+		{
+			DEBUG_CLEAR;
+			DEBUG_LOG("Random: {0}", Random::RangeInt(0, 10));
+			DEBUG_INFO("Random: {0}", Random::RangeInt(0, 10));
+			DEBUG_WARN("Random: {0}", Random::RangeInt(0, 10));
+			DEBUG_ERROR("Random: {0}", Random::RangeInt(0, 10));
+		}
+
 		ImGui::End();
 	}
 
