@@ -18,7 +18,7 @@ class LogPanel : public EditorPanel
 public:
 	LogPanel();
 
-	inline static LogPanel& Get() { return *s_Instance; }
+	static LogPanel& Get() { return *s_Instance; }
 	void Clear();
 
 	virtual void Update() override;

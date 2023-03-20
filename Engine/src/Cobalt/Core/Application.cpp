@@ -81,8 +81,8 @@ namespace Cobalt
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
-		m_Running = false;
 		return true;
+		m_Running = false;
 	}
 
 	bool Application::OnWindowResize(WindowResizeEvent& e)

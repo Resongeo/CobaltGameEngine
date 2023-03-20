@@ -24,6 +24,7 @@ void EditorLayer::OnAttach()
 	m_ActiveScene = CreateRef<Scene>(); // TODO: Move this to a SceneManager
 
 	m_LogPanel = CreateScope<LogPanel>();
+	m_AssetBrowserPanel = CreateScope<AssetBrowserPanel>();
 	m_ProfilerPanel = CreateScope<ProfilerPanel>();
 	m_RenderStatisticsPanel = CreateScope<RenderStatisticsPanel>();
 	m_ComponentsPanel = CreateScope<ComponentsPanel>();
