@@ -4,7 +4,7 @@
 
 AssetBrowserPanel::AssetBrowserPanel() : EditorPanel("Asset Browser")
 {
-	m_AssetDir = "assets"; // TODO: Get this path from args
+	m_AssetDir = "..\\assets"; // TODO: Get this path from args
 	m_CurrentDir = m_AssetDir;
 }
 

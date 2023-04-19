@@ -12,6 +12,8 @@ void StyleManager::LoadFonts()
 {
 	ImGuiIO& io = ImGui::GetIO();
 
+	io.IniFilename = "..\\imgui.ini";
+
 	float baseFontSize = 20.0f; // TODO: Get values from config
 	float iconFontSize = baseFontSize * 2.0f / 3.0f;
 
@@ -22,11 +24,11 @@ void StyleManager::LoadFonts()
 	config.GlyphOffset = { 0, 2 };
 	static const ImWchar icon_ranges[] = { ICON_MIN, ICON_MAX, 0 };
 
-	m_EditorFonts.Regular = io.Fonts->AddFontFromFileTTF("assets\\fonts\\Poppins-Regular.ttf", baseFontSize);
-	io.Fonts->AddFontFromFileTTF("assets\\fonts\\forkawesome-webfont.ttf", baseFontSize, &config, icon_ranges);
+	m_EditorFonts.Regular = io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\Poppins-Regular.ttf", baseFontSize);
+	io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\forkawesome-webfont.ttf", baseFontSize, &config, icon_ranges);
 
-	m_EditorFonts.SemiBold = io.Fonts->AddFontFromFileTTF("assets\\fonts\\Poppins-Semibold.ttf", baseFontSize);
-	io.Fonts->AddFontFromFileTTF("assets\\fonts\\forkawesome-webfont.ttf", baseFontSize, &config, icon_ranges);
+	m_EditorFonts.SemiBold = io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\Poppins-Semibold.ttf", baseFontSize);
+	io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\forkawesome-webfont.ttf", baseFontSize, &config, icon_ranges);
 }
 
 void StyleManager::SetupStyle() // TODO: Get values from config

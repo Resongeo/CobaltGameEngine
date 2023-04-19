@@ -80,8 +80,8 @@ namespace Cobalt
 		s_RendererData.QuadVertexArray->AddVertexBuffer(s_RendererData.QuadVertexBuffer);
 		s_RendererData.QuadVertexArray->SetIndexBuffer(indexBuffer);
 
-		s_RendererData.WhiteTexture = Texture2D::Create("assets\\textures\\white_texture.png");
-		s_RendererData.TexturedQuadShader = Shader::Create("assets\\shaders\\TextureShader.glsl");
+		s_RendererData.WhiteTexture = Texture2D::Create("..\\assets\\textures\\white_texture.png");
+		s_RendererData.TexturedQuadShader = Shader::Create("..\\assets\\shaders\\TextureShader.glsl");
 
 		int samplers[s_RendererData.MaxTextureSlots];
 		for (int i = 0; i < s_RendererData.MaxTextureSlots; i++)

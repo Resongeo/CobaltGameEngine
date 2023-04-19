@@ -114,6 +114,7 @@ project "Editor"
 	staticruntime "off"
 
 	targetdir ("%{prj.name}/bin/")
+	debugdir ("%{prj.name}/bin/")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	files

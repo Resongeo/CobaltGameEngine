@@ -5,7 +5,7 @@ SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& scene) : EditorPanel(
 {
 	s_Instance = this;
 
-	m_Texture = Texture2D::Create("assets\\textures\\uv_grid.png"); // TODO: Move custom textures to asset manager
+	m_Texture = Texture2D::Create("..\\assets\\textures\\uv_grid.png"); // TODO: Move custom textures to asset manager
 
 	m_HoveredColor = ImColor(27, 48, 69);
 	m_SelectedColor = ImColor(38, 74, 99);
