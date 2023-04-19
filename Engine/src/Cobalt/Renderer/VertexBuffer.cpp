@@ -1,9 +1,8 @@
 #include "cbpch.h"
 
-#include "Cobalt/Renderer/VertexBuffer.h"
-
-#include "Cobalt/Renderer/Renderer.h"
 #include "Cobalt/Platform/OpenGL/OpenGLVertexBuffer.h"
+#include "Cobalt/Renderer/VertexBuffer.h"
+#include "Cobalt/Renderer/Renderer.h"
 
 namespace Cobalt
 {

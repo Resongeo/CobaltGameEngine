@@ -1,9 +1,8 @@
 #include "cbpch.h"
 
-#include "Cobalt/Renderer/IndexBuffer.h"
-
-#include "Cobalt/Renderer/Renderer.h"
 #include "Cobalt/Platform/OpenGL/OpenGLIndexBuffer.h"
+#include "Cobalt/Renderer/IndexBuffer.h"
+#include "Cobalt/Renderer/Renderer.h"
 
 namespace Cobalt
 {
@@ -13,6 +12,7 @@ namespace Cobalt
 		{
 			case GraphicsAPI::OpenGL: return  CreateRef<OpenGLIndexBuffer>(indices, count);
 		}
+
 		return nullptr;
 	}
 }

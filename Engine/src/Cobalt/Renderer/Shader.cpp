@@ -1,8 +1,8 @@
 #include "cbpch.h"
 
+#include "Cobalt/Platform/OpenGL/OpenGLShader.h"
 #include "Cobalt/Renderer/Renderer.h"
 #include "Cobalt/Renderer/Shader.h"
-#include "Cobalt/Platform/OpenGL/OpenGLShader.h"
 
 namespace Cobalt
 {

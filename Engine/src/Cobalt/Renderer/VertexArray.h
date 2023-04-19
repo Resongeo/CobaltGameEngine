@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
-
 #include "Cobalt/Renderer/VertexBuffer.h"
 #include "Cobalt/Renderer/IndexBuffer.h"
 

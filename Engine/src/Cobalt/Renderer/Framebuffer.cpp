@@ -1,9 +1,8 @@
 #include "cbpch.h"
 
-#include "Cobalt/Renderer/Framebuffer.h"
-
-#include "Cobalt/Renderer/Renderer.h"
 #include "Cobalt/Platform/OpenGL/OpenGLFramebuffer.h"
+#include "Cobalt/Renderer/Framebuffer.h"
+#include "Cobalt/Renderer/Renderer.h"
 
 namespace Cobalt
 {

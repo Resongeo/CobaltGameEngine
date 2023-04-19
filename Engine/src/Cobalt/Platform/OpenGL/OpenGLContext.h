@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Cobalt/Renderer/GraphicsContext.h"
 #include "Cobalt/Logger/Log.h"
+#include "Cobalt/Renderer/GraphicsContext.h"
 
 struct GFLWwindow;
 

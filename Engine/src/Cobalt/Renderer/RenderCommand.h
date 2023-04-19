@@ -1,8 +1,8 @@
 #pragma once
 
+#include "Cobalt/Scene/ECS/Components.h"
 #include "Cobalt/Renderer/Renderer.h"
 #include "Cobalt/Renderer/RendererAPI.h"
-#include "Cobalt/Scene/ECS/Components.h"
 
 namespace Cobalt
 {

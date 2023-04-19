@@ -1,9 +1,7 @@
 #pragma once
 
-#include "Cobalt/Core/Math.h"
-
 #include "Cobalt/Cameras/Camera.h"
-
+#include "Cobalt/Core/Math.h"
 #include "Cobalt/Renderer/VertexArray.h"
 #include "Cobalt/Renderer/Texture2D.h"
 #include "Cobalt/Renderer/Shader.h"

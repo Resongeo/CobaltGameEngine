@@ -7,9 +7,8 @@ namespace Cobalt
 	class Texture2D
 	{
 	public:
-		virtual unsigned int GetWidth() = 0;
-		virtual unsigned int GetHeight() = 0;
-
+		virtual uint32_t GetWidth() = 0;
+		virtual uint32_t GetHeight() = 0;
 		virtual uint32_t GetID() const = 0;
 		
 		virtual void SetData(void* data, uint32_t size) = 0;

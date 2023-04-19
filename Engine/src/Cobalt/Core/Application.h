@@ -3,14 +3,12 @@
 #include "Cobalt/Core/Core.h"
 #include "Cobalt/Core/Time.h"
 #include "Cobalt/Core/Random.h"
-#include "Cobalt/Gui/Gui.h"
-
 #include "Cobalt/Events/ApplicationEvent.h"
-#include "Cobalt/Layers/LayerStack.h"
+#include "Cobalt/Gui/Gui.h"
 #include "Cobalt/Input/Input.h"
+#include "Cobalt/Layers/LayerStack.h"
 #include "Cobalt/Logger/Log.h"
 #include "Cobalt/Platform/Window.h"
-
 #include "Cobalt/Renderer/Renderer.h"
 #include "Cobalt/Renderer/RenderCommand.h"
 
@@ -18,16 +16,16 @@ namespace Cobalt
 {
 	struct ApplicationSpecification
 	{
-		WindowProperties WindowProperties;
+		WindowProperties WindowProps;
 		GraphicsAPI GraphicsAPI;
 
-		ApplicationSpecification() : WindowProperties(WindowProperties), GraphicsAPI(GraphicsAPI::OpenGL) {}
+		ApplicationSpecification() : WindowProps(WindowProperties()), GraphicsAPI(GraphicsAPI::OpenGL) {}
 	};
 
 	class Application
 	{
 	public:
-		Application(const ApplicationSpecification& applicationSpecifiacion);
+		Application(const ApplicationSpecification& appSpecs);
 		virtual ~Application();
 
 		void Run();

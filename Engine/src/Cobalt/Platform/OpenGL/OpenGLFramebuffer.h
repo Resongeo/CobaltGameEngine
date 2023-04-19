@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Cobalt/Renderer/Framebuffer.h"
 #include "Cobalt/Logger/Log.h"
+#include "Cobalt/Renderer/Framebuffer.h"
 
 namespace Cobalt
 {

@@ -1,8 +1,8 @@
 #include "cbpch.h"
 
+#include "Cobalt/Core/Application.h"
 #include "Cobalt/Input/Input.h"
 
-#include "Cobalt/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Cobalt

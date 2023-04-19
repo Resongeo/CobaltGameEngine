@@ -1,9 +1,8 @@
 #include "cbpch.h"
 
-#include "Cobalt/Renderer/Texture2D.h"
-
-#include "Cobalt/Renderer/Renderer.h"
 #include "Cobalt/Platform/OpenGL/OpenGLTexture2D.h"
+#include "Cobalt/Renderer/Texture2D.h"
+#include "Cobalt/Renderer/Renderer.h"
 
 namespace Cobalt
 {

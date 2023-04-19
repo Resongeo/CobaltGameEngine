@@ -1,4 +1,5 @@
 #include "cbpch.h"
+
 #include "Cobalt/Core/Random.h"
 
 namespace Cobalt

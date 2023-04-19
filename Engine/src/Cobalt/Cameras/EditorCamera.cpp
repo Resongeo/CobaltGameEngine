@@ -1,10 +1,8 @@
 #include "cbpch.h"
 
+#include "Cobalt/Cameras/EditorCamera.h"
 #include "Cobalt/Core/Core.h"
 #include "Cobalt/Logger/Log.h"
-
-#include "Cobalt/Cameras/EditorCamera.h"
-
 #include "Cobalt/Input/Input.h"
 #include "Cobalt/Input/KeyCodes.h"
 
