@@ -1,24 +1,18 @@
 #pragma once
 
 #include "Editor/Panels/EditorPanel.h"
+#include "Editor/Panels/Log/LogMessage.h"
 
 #include "Cobalt.h"
 using namespace Cobalt;
 
-struct LogMessage
-{
-	std::string Message;
-	ImVec4 Color;
-
-	LogMessage(const std::string& message, const ImVec4& color) : Message(message), Color(color) {}
-};
 
 class LogPanel : public EditorPanel
 {
 public:
 	LogPanel();
 
-	inline static LogPanel& Get() { return *s_Instance; }
+	static LogPanel& Get() { return *s_Instance; }
 	void Clear();
 
 	virtual void Update() override;

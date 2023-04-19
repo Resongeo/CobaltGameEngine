@@ -106,21 +106,21 @@ project "Engine"
         flags {"NoPCH"}
 
 
-project "CobaltEditor"
-	location "CobaltEditor"
+project "Editor"
+	location "Editor"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
 	staticruntime "off"
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	targetdir ("%{prj.name}/bin/")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	files
 	{
-		"%{prj.name}/main.cpp",
-		"%{prj.name}/Editor/**.h",
-		"%{prj.name}/Editor/**.cpp"
+		"%{prj.name}/src/main.cpp",
+		"%{prj.name}/src/Editor/**.h",
+		"%{prj.name}/src/Editor/**.cpp"
 	}
 
 	defines
@@ -139,7 +139,7 @@ project "CobaltEditor"
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.src}",
 		"%{IncludeDir.cobalt}",
-		"CobaltEditor"
+		"Editor/src"
 	}
 
     libdirs

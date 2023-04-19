@@ -4,15 +4,13 @@
 using namespace Cobalt;
 
 #include "Editor/Panels/Log/LogPanel.h"
+#include "Editor/Panels/Assets/AssetBrowserPanel.h"
 #include "Editor/Panels/Profiler/ProfilerPanel.h"
 #include "Editor/Panels/Profiler/RenderStatisticsPanel.h"
 #include "Editor/Panels/Scene/SceneHierarchyPanel.h"
 #include "Editor/Panels/Components/ComponentsPanel.h"
-
 #include "Editor/Panels/EditorPanelManager.h"
-
 #include "Editor/Style/StyleManager.h"
-
 #include "Editor/Utils/Controls.h"
 
 
@@ -32,6 +30,7 @@ private:
 	Ref<Window> m_Window;
 
 	Scope<LogPanel> m_LogPanel;
+	Scope<AssetBrowserPanel> m_AssetBrowserPanel;
 	Scope<ProfilerPanel> m_ProfilerPanel;
 	Scope<RenderStatisticsPanel> m_RenderStatisticsPanel;
 	Scope<ComponentsPanel> m_ComponentsPanel;

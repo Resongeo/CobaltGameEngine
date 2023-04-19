@@ -5,30 +5,14 @@ using namespace Cobalt;
 
 #include "Editor/Panels/EditorPanel.h"
 #include "Editor/Panels/Profiler/Timer.h"
-
-struct ProfilerResult
-{
-	const char* Name;
-	float Duration;
-
-	ProfilerResult(const char* name, float duration) : Name(name), Duration(duration) {}
-};
-
-struct ProfilerHeader
-{
-	const char* Name;
-	std::vector<ProfilerResult> Results;
-
-	ProfilerHeader() = default;
-	ProfilerHeader(const char* name) : Name(name) {}
-};
+#include "Editor/Panels/Profiler/ProfilerData.h"
 
 class ProfilerPanel : public EditorPanel
 {
 public:
 	ProfilerPanel();
 
-	inline static ProfilerPanel& Get() { return *s_Instance; }
+	static ProfilerPanel& Get() { return *s_Instance; }
 
 	virtual void Update() override;
 
