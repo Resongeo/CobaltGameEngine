@@ -1,6 +1,5 @@
 #include "Editor/Panels/Components/ComponentsPanel.h"
 #include "Editor/Panels/Scene/SceneHierarchyPanel.h"
-
 #include "Editor/Utils/Controls.h"
 
 ComponentsPanel::ComponentsPanel() : EditorPanel("Components panel") { }

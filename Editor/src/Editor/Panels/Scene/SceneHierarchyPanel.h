@@ -11,7 +11,7 @@ class SceneHierarchyPanel : public EditorPanel
 public:
 	SceneHierarchyPanel(const Ref<Scene>& scene);
 
-	inline void SetScene(const Ref<Scene>& scene) { m_Scene = scene; }
+	void SetScene(const Ref<Scene>& scene) { m_Scene = scene; }
 	virtual void Update() override;
 
 	static Entity GetSelectedEntity() { return s_Instance->m_SelectedEntity; }

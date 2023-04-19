@@ -4,14 +4,19 @@
 
 AssetBrowserPanel::AssetBrowserPanel() : EditorPanel("Asset Browser")
 {
-	m_CurrentDir = "assets";
+	m_AssetDir = "assets"; // TODO: Get this path from args
+	m_CurrentDir = m_AssetDir;
 }
 
 void AssetBrowserPanel::Update()
 {
 	ImGui::Begin("Asset Browser");
 
-	if (m_CurrentDir != "assets")
+	ImGui::PushFont(p_EditorFonts->SemiBold);
+	ImGui::TextColored(ImVec4(0.8, 0.5, 0.5, 1.0), "%s", "This panel has no functionality yet!");
+	ImGui::PopFont();
+
+	if (m_CurrentDir != m_AssetDir)
 	{
 		if (ImGui::Button("<--"))
 		{

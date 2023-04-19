@@ -13,4 +13,5 @@ public:
 
 private:
 	std::filesystem::path m_CurrentDir;
+	const char* m_AssetDir;
 };

@@ -2,12 +2,7 @@
 
 #include "Cobalt.h"
 #include "Editor/Style/Icons.h"
-
-struct EditorFonts
-{
-	ImFont* Regular;
-	ImFont* SemiBold;
-};
+#include "Editor/Style/Fonts.h"
 
 class StyleManager
 {

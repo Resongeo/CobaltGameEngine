@@ -9,11 +9,8 @@ using namespace Cobalt;
 #include "Editor/Panels/Profiler/RenderStatisticsPanel.h"
 #include "Editor/Panels/Scene/SceneHierarchyPanel.h"
 #include "Editor/Panels/Components/ComponentsPanel.h"
-
 #include "Editor/Panels/EditorPanelManager.h"
-
 #include "Editor/Style/StyleManager.h"
-
 #include "Editor/Utils/Controls.h"
 
 
