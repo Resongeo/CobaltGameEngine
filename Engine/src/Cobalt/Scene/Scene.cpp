@@ -5,7 +5,11 @@
 
 namespace Cobalt
 {
-	Scene::Scene() { }
+	Scene::Scene(const char* name)
+	{
+		m_Name = std::string(name);
+		m_Registry.clear();
+	}
 
 	void Scene::Update(float deltaTime)
 	{
@@ -25,5 +29,13 @@ namespace Cobalt
 		entity.AddComponent<TagComponent>(name);
 		entity.AddComponent<TransformComponent>();
 		return entity;
+	}
+
+	void Scene::ClearEntites()
+	{
+		m_Registry.each([&](auto entityID)
+		{
+			m_Registry.destroy(entityID);
+		});
 	}
 }

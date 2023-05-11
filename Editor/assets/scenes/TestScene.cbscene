@@ -1,0 +1,25 @@
+Name: Test Scene
+Entity:
+  Tag component:
+    Tag:UV grid
+  Transform component:
+    Position:[0,0,0]
+    Rotation:[0,0,0]
+    Scale:[1,1,1]
+  Sprite renderer component:
+    Path:..\assets\textures\uv_grid.png
+    Color:[1,1,1,1]
+    Tiling:[1,1]
+  
+Entity:
+  Tag component:
+    Tag:Sprite
+  Transform component:
+    Position:[0,0,0]
+    Rotation:[0,0,0]
+    Scale:[1,1,1]
+  Sprite renderer component:
+    Path:null
+    Color:[1,1,1,1]
+    Tiling:[1,1]
+  

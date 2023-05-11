@@ -42,6 +42,7 @@
 
 #include "Cobalt/Scene/ECS/Components.h"
 #include "Cobalt/Scene/ECS/Entity.h"
+#include "Cobalt/Scene/Serialization/SceneSerializer.h"
 #include "Cobalt/Scene/Scene.h"
 
 #include <imgui.h>

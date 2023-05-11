@@ -21,7 +21,7 @@ void EditorLayer::OnAttach()
 	framebufferSpecs.Height = m_Window->GetHeight();
 	m_Framebuffer = Framebuffer::Create(framebufferSpecs);
 
-	m_ActiveScene = CreateRef<Scene>(); // TODO: Move this to a SceneManager
+	m_ActiveScene = CreateRef<Scene>("Test Scene"); // TODO: Move this to a SceneManager
 
 	m_LogPanel = CreateScope<LogPanel>();
 	m_AssetBrowserPanel = CreateScope<AssetBrowserPanel>();
@@ -220,6 +220,19 @@ void EditorLayer::OnImGuiUpdate()
 			DEBUG_INFO("Random: {0}", Random::RangeInt(0, 10));
 			DEBUG_WARN("Random: {0}", Random::RangeInt(0, 10));
 			DEBUG_ERROR("Random: {0}", Random::RangeInt(0, 10));
+		}
+
+		const char* filepath = "..\\assets\\scenes\\TestScene.cbscene";
+		if (ImGui::Button("Save scene"))
+		{
+			SceneSerializer serializer;
+			serializer.Serialize(filepath, m_ActiveScene);
+		}
+
+		if (ImGui::Button("Load scene"))
+		{
+			SceneSerializer serializer;
+			serializer.Deserialize(FileSystem::OpenFileDialog("Scene files (*.cbscene)\0*.cbscene\0").c_str(), m_ActiveScene);
 		}
 
 		ImGui::End();
