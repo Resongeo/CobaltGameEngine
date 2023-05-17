@@ -15,6 +15,7 @@ namespace Cobalt
 		
 		static float GetMouseX() { return s_Input->GetMouseXImpl(); }
 		static float GetMouseY() { return s_Input->GetMouseYImpl(); }
+
 		static glm::vec2 GetMousePos() { return s_Input->GetMousePosImpl(); }
 
 	private:
@@ -25,6 +26,7 @@ namespace Cobalt
 		
 		float GetMouseXImpl();
 		float GetMouseYImpl();
+
 		glm::vec2 GetMousePosImpl();
 
 	private:

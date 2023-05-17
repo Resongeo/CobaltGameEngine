@@ -41,6 +41,9 @@ namespace Cobalt
 
 		void SetTitle(const std::string& title);
 		void SetVsync(bool value);
+
+		void SetPosition(const glm::vec2& pos);
+		glm::vec2 GetPosition();
 		
 		void Update();
 		void Destroy();

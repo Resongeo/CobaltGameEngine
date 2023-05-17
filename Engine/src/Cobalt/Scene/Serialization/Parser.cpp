@@ -14,6 +14,15 @@ namespace Cobalt
 
 			while (std::getline(file, line))
 			{
+				if (line.find("ID component:") != std::string::npos)
+				{
+					std::getline(file, line);
+					auto& ic = entity.GetComponent<IDComponent>();
+					ic.UUID = GetUUID(line);
+
+					continue;
+				}
+
 				if (line.find("Tag component:") != std::string::npos)
 				{
 					std::getline(file, line);

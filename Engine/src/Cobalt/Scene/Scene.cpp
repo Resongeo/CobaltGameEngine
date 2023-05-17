@@ -1,5 +1,6 @@
 #include "cbpch.h"
 
+#include "Cobalt/Core/Random.h"
 #include "Cobalt/Scene/Scene.h"
 #include "Cobalt/Scene/ECS/Entity.h"
 
@@ -26,6 +27,16 @@ namespace Cobalt
 	Entity Scene::CreateEntity(const std::string& name)
 	{
 		Entity entity = { m_Registry.create(), this };
+		entity.AddComponent<IDComponent>(Random::ID());
+		entity.AddComponent<TagComponent>(name);
+		entity.AddComponent<TransformComponent>();
+		return entity;
+	}
+
+	Entity Scene::CreateEntity(uint64_t id, const std::string& name)
+	{
+		Entity entity = { m_Registry.create(), this };
+		entity.AddComponent<IDComponent>(id);
 		entity.AddComponent<TagComponent>(name);
 		entity.AddComponent<TransformComponent>();
 		return entity;

@@ -36,6 +36,13 @@ namespace Cobalt
 				return result;
 			}
 
+			inline static uint64_t GetUUID(const std::string& input)
+			{
+				std::string idStr = input.substr(input.find(":") + 1);
+				char* end;
+				return strtoull(idStr.c_str(), &end, 10);
+			}
+
 			inline static std::string ExtractNumbers(const std::string& input)
 			{
 				std::string result = input;

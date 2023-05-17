@@ -26,6 +26,13 @@ namespace Cobalt
 				m_Ss << value << "\n";
 			}
 
+			inline void Add(const char* key, uint64_t value)
+			{
+				m_Ss << std::string(m_IdentationLevel * 2, ' ');
+				m_Ss << key << ":";
+				m_Ss << value << "\n";
+			}
+
 			inline void Add(const char* key, const glm::vec2& value)
 			{
 				m_Ss << std::string(m_IdentationLevel * 2, ' ');

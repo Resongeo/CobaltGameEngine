@@ -220,6 +220,8 @@ void EditorLayer::OnImGuiUpdate()
 			DEBUG_INFO("Random: {0}", Random::RangeInt(0, 10));
 			DEBUG_WARN("Random: {0}", Random::RangeInt(0, 10));
 			DEBUG_ERROR("Random: {0}", Random::RangeInt(0, 10));
+			DEBUG_LOG("");
+			DEBUG_LOG("Random ID: {0}", Random::ID());
 		}
 
 		const char* filepath = "..\\assets\\scenes\\TestScene.cbscene";
@@ -233,6 +235,13 @@ void EditorLayer::OnImGuiUpdate()
 		{
 			SceneSerializer serializer;
 			serializer.Deserialize(FileSystem::OpenFileDialog("Scene files (*.cbscene)\0*.cbscene\0").c_str(), m_ActiveScene);
+		}
+
+		if (ImGui::Button("Log entity UUID"))
+		{
+			auto& entity = SceneHierarchyPanel::GetSelectedEntity();
+			if(entity)
+				DEBUG_INFO("UUID: {0}", entity.GetComponent<IDComponent>().UUID);
 		}
 
 		ImGui::End();

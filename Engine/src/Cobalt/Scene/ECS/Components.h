@@ -8,6 +8,17 @@
 
 namespace Cobalt
 {
+	struct IDComponent
+	{
+		uint64_t UUID;
+
+		IDComponent() = default;
+		IDComponent(const IDComponent&) = default;
+		IDComponent(uint64_t id) : UUID(id) {}
+
+		operator uint64_t () { return UUID; }
+	};
+
 	struct TagComponent
 	{
 		std::string Tag;

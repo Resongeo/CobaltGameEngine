@@ -1,17 +1,17 @@
-Name: Test Scene
+Name:   
 Entity:
+  ID component:
+    UUID:14514284786278117030
   Tag component:
-    Tag:UV grid
+    Tag:Entity
   Transform component:
     Position:[0,0,0]
     Rotation:[0,0,0]
     Scale:[1,1,1]
-  Sprite renderer component:
-    Path:..\assets\textures\uv_grid.png
-    Color:[1,1,1,1]
-    Tiling:[1,1]
   
 Entity:
+  ID component:
+    UUID:4620546740167642908
   Tag component:
     Tag:Sprite
   Transform component:

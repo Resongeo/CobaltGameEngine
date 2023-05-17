@@ -21,8 +21,16 @@ namespace Cobalt
 
 			out << "Entity:\n";
 
-			auto& tag = entity.GetComponent<TagComponent>();
 			out.BeginMap();
+
+			auto& id = entity.GetComponent<IDComponent>();
+			out << "ID component:\n";
+
+			out.BeginMap();
+			out.Add("UUID", id.UUID);
+			out.EndMap();
+
+			auto& tag = entity.GetComponent<TagComponent>();
 			out << "Tag component:\n";
 
 			out.BeginMap();

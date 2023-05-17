@@ -7,10 +7,6 @@
 
 #include <dwmapi.h>
 
-#ifndef DWMWA_USE_IMMERSIVE_DARK_MODE
-#define DWMWA_USE_IMMERSIVE_DARK_MODE 20
-#endif
-
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
@@ -54,8 +50,8 @@ namespace Cobalt
 		m_GraphicsContext->Init();
 
 		HWND hWnd = glfwGetWin32Window(m_Window);
-		BOOL value = TRUE;
-		DwmSetWindowAttribute(hWnd, DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
+		COLORREF CAPTION_COLOR = 0x151414;
+		DwmSetWindowAttribute(hWnd, DWMWINDOWATTRIBUTE::DWMWA_CAPTION_COLOR, &CAPTION_COLOR, sizeof(CAPTION_COLOR));
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVsync(true);
@@ -189,6 +185,20 @@ namespace Cobalt
 	{
 		m_Properties.Vsync = value;
 		glfwSwapInterval((int)value);
+	}
+
+	void Window::SetPosition(const glm::vec2& pos)
+	{
+		glfwSetWindowPos(m_Window, (int)pos.x, (int)pos.y);
+	}
+
+	glm::vec2 Window::GetPosition()
+	{
+		int x;
+		int y;
+		glfwGetWindowPos(m_Window, &x, &y);
+
+		return glm::vec2(x, y);
 	}
 
 	void Window::Destroy()

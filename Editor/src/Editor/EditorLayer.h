@@ -59,6 +59,8 @@ private:
 
 	ImVec2 m_ViewportSize = { 0.0f, 0.0f };
 
+	glm::vec2 m_PrevMousePos{ 0 };
+
 	bool m_Vsync = true;
 	bool m_ShowFps = true;
 	bool m_ShowGrid = true;
