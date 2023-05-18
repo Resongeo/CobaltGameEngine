@@ -63,14 +63,22 @@ void ComponentsPanel::DrawComponents(Entity entity)
 	}
 	ImGui::PopStyleColor();
 
-
 	if (entity.HasComponent<SpriteRendererComponent>())
 	{
+		bool remove = false;
 		ImGui::Dummy(ImVec2(0, 10));
 
 		ImGui::PushStyleColor(ImGuiCol_Text, { 0.97, 0.66, 0.96, 1.0 });
 		if (ImGui::TreeNodeEx(ICON_IMAGE " Sprite Renderer Component", treeNodeFlags))
 		{
+			ImGui::SameLine();
+			ImGui::SetCursorPosX(ImGui::GetWindowContentRegionWidth() - 10);
+			ImGui::PushStyleColor(ImGuiCol_Text, { 1.0, 1.0, 1.0, 1.0 });
+			ImGui::PushStyleColor(ImGuiCol_Button, { 1.0, 1.0, 1.0, 0.0 });
+			if (ImGui::Button(ICON_TIMES_CIRCLE)) remove = true;
+			ImGui::PopStyleColor();
+			ImGui::PopStyleColor();
+
 			ImGui::PushStyleColor(ImGuiCol_Text, { 0.94, 0.94, 0.94, 1.0 });
 			ImGui::PushFont(p_EditorFonts->Regular);
 
@@ -100,6 +108,8 @@ void ComponentsPanel::DrawComponents(Entity entity)
 			ImGui::PopStyleColor();
 		}
 		ImGui::PopStyleColor();
+
+		if (remove) entity.RemoveComponent<SpriteRendererComponent>();
 	}
 
 	ImGui::PopFont();
