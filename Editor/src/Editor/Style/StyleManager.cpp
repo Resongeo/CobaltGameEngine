@@ -75,7 +75,7 @@ void StyleManager::SetupStyle() // TODO: Get values from config
 	style->Colors[ImGuiCol_HeaderHovered] = ImColor(48, 48, 48, 255);
 	style->Colors[ImGuiCol_HeaderActive] = ImColor(26, 26, 26, 255);
 
-	style->Colors[ImGuiCol_Separator] = ImColor(50, 55, 58, 255);
-	style->Colors[ImGuiCol_SeparatorActive] = ImColor(116, 151, 170, 200);
+	style->Colors[ImGuiCol_Separator] = ImColor(30, 33, 35, 255);
 	style->Colors[ImGuiCol_SeparatorHovered] = ImColor(84, 109, 123, 255);
+	style->Colors[ImGuiCol_SeparatorActive] = ImColor(116, 151, 170, 200);
 }
