@@ -42,6 +42,11 @@ namespace Cobalt
 		return entity;
 	}
 
+	void Scene::DestroyEntity(Entity entity)
+	{
+		m_Registry.destroy(entity);
+	}
+
 	void Scene::ClearEntites()
 	{
 		m_Registry.each([&](auto entityID)

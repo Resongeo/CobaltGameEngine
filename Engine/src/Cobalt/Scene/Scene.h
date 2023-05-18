@@ -16,14 +16,16 @@ namespace Cobalt
 
 		void Update(float deltaTime);
 
-		entt::registry& Registry() { return m_Registry; }
 		Entity CreateEntity(const std::string& name = "Entity");
 		Entity CreateEntity(uint64_t id, const std::string& name = "Entity");
+
+		void DestroyEntity(Entity entity);
+		void ClearEntites();
 
 		std::string& GetName() { return m_Name; }
 		void SetName(const char* name) { m_Name = std::string(name); }
 
-		void ClearEntites();
+		entt::registry& Registry() { return m_Registry; }
 
 	private:
 		entt::registry m_Registry;

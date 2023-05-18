@@ -54,6 +54,12 @@ void SceneHierarchyPanel::Update()
 	if (Input::GetKeyDown(KEYCODE_F2) && m_SelectedEntity)
 		ImGui::OpenPopup("Rename");
 
+	if (Input::GetKeyDown(KEYCODE_DELETE) && m_SelectedEntity)
+	{
+		m_Scene->DestroyEntity(m_SelectedEntity);
+		m_SelectedEntity = {};
+	}
+
 	DrawRenamePopup(m_SelectedEntity);
 
 	ImGui::End();
