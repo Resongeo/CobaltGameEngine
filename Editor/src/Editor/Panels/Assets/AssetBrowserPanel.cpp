@@ -41,12 +41,12 @@ void AssetBrowserPanel::Update()
 			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.8, 0.5, 0.5, 1.0));
 			if (ImGui::Button(file.path().stem().string().c_str()))
 			{
-				DEBUG_LOG("{0}", file.path().extension().string());
-
 				if (file.path().extension() == ".cbscene")
 				{
 					SceneSerializer serializer;
 					serializer.Deserialize(path.c_str(), m_Scene);
+
+					DEBUG_LOG("Scene loaded: {0}", file.path().stem().string());
 				}
 			}
 			ImGui::PopStyleColor();
