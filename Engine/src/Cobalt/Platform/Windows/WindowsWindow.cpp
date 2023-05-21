@@ -187,18 +187,18 @@ namespace Cobalt
 		glfwSwapInterval((int)value);
 	}
 
-	void Window::SetPosition(const glm::vec2& pos)
+	void Window::SetPosition(const Vec2& pos)
 	{
 		glfwSetWindowPos(m_Window, (int)pos.x, (int)pos.y);
 	}
 
-	glm::vec2 Window::GetPosition()
+	Vec2 Window::GetPosition()
 	{
 		int x;
 		int y;
 		glfwGetWindowPos(m_Window, &x, &y);
 
-		return glm::vec2(x, y);
+		return Vec2(x, y);
 	}
 
 	void Window::Destroy()

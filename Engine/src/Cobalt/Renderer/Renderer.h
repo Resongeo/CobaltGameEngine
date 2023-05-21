@@ -34,7 +34,7 @@ namespace Cobalt
 	protected:
 		struct SceneData
 		{
-			glm::mat4 ViewProjectionMatrix;
+			Mat4 ViewProjectionMatrix;
 		};
 	};
 }

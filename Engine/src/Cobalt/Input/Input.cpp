@@ -45,11 +45,11 @@ namespace Cobalt
 		return (float)y;
 	}
 
-	glm::vec2 Input::GetMousePosImpl()
+	Vec2 Input::GetMousePosImpl()
 	{
 		double x, y;
 		glfwGetCursorPos(s_Window, &x, &y);
 
-		return glm::vec2((float)x, (float)y);
+		return Vec2((float)x, (float)y);
 	}
 }

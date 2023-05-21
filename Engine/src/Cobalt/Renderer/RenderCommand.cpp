@@ -8,10 +8,10 @@ namespace Cobalt
 
 	struct QuadVertex
 	{
-		glm::vec3 Position;
-		glm::vec2 TexCoord;
-		glm::vec2 Tiling;
-		glm::vec4 Color;
+		Vec3 Position;
+		Vec2 TexCoord;
+		Vec2 Tiling;
+		Vec4 Color;
 		float TexIndex;
 	};
 	
@@ -29,7 +29,7 @@ namespace Cobalt
 		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
 		uint32_t TextureIndexCount = 1;
 
-		glm::vec4 QuadVertexPositions[4];
+		Vec4 QuadVertexPositions[4];
 
 		Ref<VertexArray> QuadVertexArray;
 		Ref<VertexBuffer> QuadVertexBuffer;
@@ -118,7 +118,7 @@ namespace Cobalt
 		Flush();
 	}
 
-	void RenderCommand::ClearColor(const glm::vec4& color)
+	void RenderCommand::ClearColor(const Vec4& color)
 	{
 		s_RendererAPI->ClearColor(color);
 	}
@@ -140,7 +140,7 @@ namespace Cobalt
 		s_RendererData.Stats.DrawCalls++;
 	}
 
-	void RenderCommand::DrawQuad(const glm::vec3& position, const glm::vec3& scale, const glm::vec4& color)
+	void RenderCommand::DrawQuad(const Vec3& position, const Vec3& scale, const Vec4& color)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
@@ -148,7 +148,7 @@ namespace Cobalt
 			StartBatch();
 		}
 
-		glm::vec2 offset{ scale.x * 0.5f, scale.y * 0.5f };
+		Vec2 offset{ scale.x * 0.5f, scale.y * 0.5f };
 
 		float textureIndex = 0.0f;
 
@@ -185,7 +185,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawQuad(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const glm::vec4& color)
+	void RenderCommand::DrawQuad(const Vec3& position, const Vec3& rotation, const Vec3& scale, const Vec4& color)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
@@ -195,11 +195,11 @@ namespace Cobalt
 
 		float textureIndex = 0.0f;
 
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), { 1, 0, 0 })
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.y), { 0, 1, 0 })
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.z), { 0, 0, 1 })
-			* glm::scale(glm::mat4(1.0f), scale);
+		Mat4 transform = glm::translate(Mat4(1.0f), position)
+			* glm::rotate(Mat4(1.0f), glm::radians(rotation.x), { 1, 0, 0 })
+			* glm::rotate(Mat4(1.0f), glm::radians(rotation.y), { 0, 1, 0 })
+			* glm::rotate(Mat4(1.0f), glm::radians(rotation.z), { 0, 0, 1 })
+			* glm::scale(Mat4(1.0f), scale);
 
 		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[0];
 		s_RendererData.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
@@ -234,7 +234,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawQuad(const glm::mat4& transform, const glm::vec2& tiling, const glm::vec4& color)
+	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
@@ -278,7 +278,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawQuad(const glm::mat4& transform, const glm::vec2& tiling, const glm::vec4& color, const Ref<Texture2D>& texture)
+	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color, const Ref<Texture2D>& texture)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
@@ -339,7 +339,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawSprite(const glm::mat4& transform, const SpriteRendererComponent& spriteComponent)
+	void RenderCommand::DrawSprite(const Mat4& transform, const SpriteRendererComponent& spriteComponent)
 	{
 		if (spriteComponent.Texture)
 			DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color, spriteComponent.Texture);

@@ -12,17 +12,17 @@ namespace Cobalt
 		static void BeginScene(const Camera& camera);
 		static void EndScene();
 		
-		static void ClearColor(const glm::vec4& color);
+		static void ClearColor(const Vec4& color);
 		static void Clear();
 
 		static void Flush();
 
-		static void DrawQuad(const glm::vec3& position, const glm::vec3& scale, const glm::vec4& color);
-		static void DrawQuad(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const glm::vec4& color);
-		static void DrawQuad(const glm::mat4& transform, const glm::vec2& tiling, const glm::vec4& color);
-		static void DrawQuad(const glm::mat4& transform, const glm::vec2& tiling, const glm::vec4& color, const Ref<Texture2D>& texture);
+		static void DrawQuad(const Vec3& position, const Vec3& scale, const Vec4& color);
+		static void DrawQuad(const Vec3& position, const Vec3& rotation, const Vec3& scale, const Vec4& color);
+		static void DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color);
+		static void DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color, const Ref<Texture2D>& texture);
 
-		static void DrawSprite(const glm::mat4& transform, const SpriteRendererComponent& spriteComponent);
+		static void DrawSprite(const Mat4& transform, const SpriteRendererComponent& spriteComponent);
 
 		static void SetViewport(int x, int y, int width, int height);
 

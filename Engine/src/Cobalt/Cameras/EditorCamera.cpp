@@ -23,15 +23,15 @@ namespace Cobalt
 	{
 		if (!m_IsMouseOverViewport) return;
 
-		glm::vec2 mousePos = Input::GetMousePos();
-		glm::vec2 delta = (mousePos - m_PrevMousePos) * 0.003f;
+		Vec2 mousePos = Input::GetMousePos();
+		Vec2 delta = (mousePos - m_PrevMousePos) * 0.003f;
 		m_PrevMousePos = mousePos;
 
 		if (Input::GetMouseButtonDown(2))
 		{
 			auto [xSpeed, ySpeed] = CalculatePanSpeed();
-			m_Position -= glm::vec3(1, 0, 0) * delta.x * xSpeed;
-			m_Position += glm::vec3(0, 1, 0) * delta.y * ySpeed;
+			m_Position -= Vec3(1, 0, 0) * delta.x * xSpeed;
+			m_Position += Vec3(0, 1, 0) * delta.y * ySpeed;
 		}
 
 		RecalculateViewMatrix();
@@ -101,9 +101,9 @@ namespace Cobalt
 	{
 		RecalculateProjection();
 
-		glm::mat4 transform = glm::mat4(1.0f);
+		Mat4 transform = Mat4(1.0f);
 		transform = glm::translate(transform, m_Position);
-		transform = glm::rotate(transform, glm::radians(m_Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+		transform = glm::rotate(transform, glm::radians(m_Rotation), Vec3(0.0f, 0.0f, 1.0f));
 
 		m_ViewMatrix = glm::inverse(transform);
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;

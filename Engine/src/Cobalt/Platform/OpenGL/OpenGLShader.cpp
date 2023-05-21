@@ -167,7 +167,7 @@ namespace Cobalt
 		glUniform2f(GetUniformLocation(name), x, y);
 	}
 
-	void OpenGLShader::SetVec2(const char* name, glm::vec2 value) const
+	void OpenGLShader::SetVec2(const char* name, Vec2 value) const
 	{
 		glUniform2f(GetUniformLocation(name), value.x, value.y);
 	}
@@ -177,7 +177,7 @@ namespace Cobalt
 		glUniform3f(GetUniformLocation(name), x, y, z);
 	}
 
-	void OpenGLShader::SetVec3(const char* name, glm::vec3 value) const
+	void OpenGLShader::SetVec3(const char* name, Vec3 value) const
 	{
 		glUniform3f(GetUniformLocation(name), value.x, value.y, value.z);
 	}
@@ -187,12 +187,12 @@ namespace Cobalt
 		glUniform4f(GetUniformLocation(name), x, y, z, w);
 	}
 
-	void OpenGLShader::SetVec4(const char* name, glm::vec4 value) const
+	void OpenGLShader::SetVec4(const char* name, Vec4 value) const
 	{
 		glUniform4f(GetUniformLocation(name), value.x, value.y, value.z, value.w);
 	}
 
-	void OpenGLShader::SetMat4(const char* name, glm::mat4 value) const
+	void OpenGLShader::SetMat4(const char* name, Mat4 value) const
 	{
 		glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value));
 	}
