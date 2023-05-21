@@ -31,13 +31,13 @@ namespace Cobalt
 
 	struct BufferElement
 	{
-		std::string Name = "";
+		const char* Name = "";
 		ShaderDataType Type = ShaderDataType::None;
 		uint32_t Offset = 0;
 		uint32_t Size = 0;
 
 		BufferElement() {}
-		BufferElement(ShaderDataType type, const std::string& name)
+		BufferElement(ShaderDataType type, const char* name)
 			: Name(name), Type(type), Offset(0), Size(ShaderDataTypeSize(type)) {}
 
 		uint32_t GetElementCount() const
@@ -78,7 +78,7 @@ namespace Cobalt
 		}
 
 		const std::vector<BufferElement>& GetElements() const { return m_Elements; }
-		uint32_t GetStride() const { return m_Stride; }
+		const uint32_t GetStride() const { return m_Stride; }
 
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
 		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
