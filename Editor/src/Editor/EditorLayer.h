@@ -54,12 +54,14 @@ private:
 	};
 	GridData m_GridData;
 
-	glm::vec4 m_ClearColor { 0.09f, 0.09f, 0.1f, 1.0f };
-	glm::vec4 m_GridColor{ 0.17f, 0.17f, 0.17f, 1.0f };
+	Vec4 m_ClearColor { 0.09f, 0.09f, 0.1f, 1.0f };
+	Vec4 m_GridColor{ 0.17f, 0.17f, 0.17f, 1.0f };
 
 	ImVec2 m_ViewportSize = { 0.0f, 0.0f };
 
-	glm::vec2 m_PrevMousePos{ 0 };
+	Vec2 m_PrevMousePos{ 0 };
+
+	Vec2 m_ViewportBounds[2];
 
 	bool m_Vsync = true;
 	bool m_ShowFps = true;

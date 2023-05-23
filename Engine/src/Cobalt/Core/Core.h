@@ -32,6 +32,6 @@ constexpr Scope<T> CreateScope(Args&& ... args)
 #define BIT(x) (1 << x)
 
 #define COBALT_OPENGL_VERSION_MAJOR 4
-#define COBALT_OPENGL_VERSION_MINOR 6
-#define COBALT_OPENGL_VERSION_STRING "#version 460"
+#define COBALT_OPENGL_VERSION_MINOR 5
+#define COBALT_OPENGL_VERSION_STRING "#version 450"
 #define COBALT_OPENGL_PROFILE GLFW_OPENGL_CORE_PROFILE

@@ -105,7 +105,7 @@ namespace Cobalt
 		s_RendererAPI->BeginScene(camera);
 
 		s_RendererData.TexturedQuadShader->Bind();
-		s_RendererData.TexturedQuadShader->SetMat4("ViewProjection", camera.GetViewProjectionMatrix());
+		s_RendererData.TexturedQuadShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 
 		StartBatch();
 	}

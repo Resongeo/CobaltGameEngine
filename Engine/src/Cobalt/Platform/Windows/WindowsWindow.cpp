@@ -51,7 +51,9 @@ namespace Cobalt
 
 		HWND hWnd = glfwGetWin32Window(m_Window);
 		COLORREF CAPTION_COLOR = 0x151414;
+		COLORREF BORDER_COLOR = 0x201e1e;
 		DwmSetWindowAttribute(hWnd, DWMWINDOWATTRIBUTE::DWMWA_CAPTION_COLOR, &CAPTION_COLOR, sizeof(CAPTION_COLOR));
+		DwmSetWindowAttribute(hWnd, DWMWINDOWATTRIBUTE::DWMWA_BORDER_COLOR, &BORDER_COLOR, sizeof(BORDER_COLOR));
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVsync(true);

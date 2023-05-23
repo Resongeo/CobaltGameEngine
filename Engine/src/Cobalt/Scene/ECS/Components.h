@@ -34,30 +34,30 @@ namespace Cobalt
 
 	struct TransformComponent
 	{
-		glm::vec3 Position = { 0.0f, 0.0f, 0.0f };
-		glm::vec3 Rotation = { 0.0f, 0.0f, 0.0f };
-		glm::vec3 Scale = { 1.0f, 1.0f, 1.0f };
+		Vec3 Position = { 0.0f, 0.0f, 0.0f };
+		Vec3 Rotation = { 0.0f, 0.0f, 0.0f };
+		Vec3 Scale = { 1.0f, 1.0f, 1.0f };
 
 		TransformComponent() = default;
 		TransformComponent(const TransformComponent&) = default;
-		TransformComponent(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale)
+		TransformComponent(const Vec3& position, const Vec3& rotation, const Vec3& scale)
 			: Position(position), Rotation(rotation), Scale(scale) {}
 
-		glm::mat4 GetTransform() const
+		Mat4 GetTransform() const
 		{
-			glm::mat4 rotation = glm::toMat4(glm::quat(glm::radians(Rotation)));
+			Mat4 rotation = glm::toMat4(glm::quat(glm::radians(Rotation)));
 
-			return glm::translate(glm::mat4(1.0f), Position)
+			return glm::translate(Mat4(1.0f), Position)
 				* rotation
-				* glm::scale(glm::mat4(1.0f), Scale);
+				* glm::scale(Mat4(1.0f), Scale);
 		}
 	};
 
 	struct SpriteRendererComponent
 	{
 		Ref<Texture2D> Texture;
-		glm::vec4 Color = glm::vec4(1.0);
-		glm::vec2 Tiling = glm::vec2(1.0);
+		Vec4 Color = Vec4(1.0);
+		Vec2 Tiling = Vec2(1.0);
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
@@ -66,10 +66,10 @@ namespace Cobalt
 		operator Ref<Texture2D>& () { return Texture; }
 		operator const Ref<Texture2D>& () const { return Texture; }
 
-		operator glm::vec4& () { return Color; }
-		operator const glm::vec4& () const { return Color; }
+		operator Vec4& () { return Color; }
+		operator const Vec4& () const { return Color; }
 
-		operator glm::vec2& () { return Tiling; }
-		operator const glm::vec2& () const { return Tiling; }
+		operator Vec2& () { return Tiling; }
+		operator const Vec2& () const { return Tiling; }
 	};
 }

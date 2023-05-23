@@ -67,6 +67,25 @@ void EditorLayer::OnUpdate()
 	{
 		PROFILER_TIMER_SCOPE("Scene update");
 		m_ActiveScene->Update(Time::deltaTime);
+
+		auto [mx, my] = ImGui::GetMousePos();
+		mx -= m_ViewportBounds[0].x;
+		my -= m_ViewportBounds[0].y;
+		Vec2 viewportSize = m_ViewportBounds[1] - m_ViewportBounds[0];
+
+		my = viewportSize.y - my;
+
+		int mouseX = (int)mx;
+		int mouseY = (int)my;
+
+		if (Input::GetMouseButtonDown(0))
+		{
+			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
+			{
+				int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
+				DEBUG_LOG("Pixel data: {0}", pixelData);
+			}
+		}
 	}
 
 	{
@@ -93,8 +112,8 @@ void EditorLayer::OnImGuiUpdate()
 		PROFILER_TIMER_SCOPE("Viewport");
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
-
 		ImGui::Begin("Viewport");
+		auto viewportOffset = ImGui::GetCursorPos();
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		if (m_ViewportSize.x != viewportPanelSize.x || m_ViewportSize.y != viewportPanelSize.y)
@@ -104,8 +123,17 @@ void EditorLayer::OnImGuiUpdate()
 			m_EditorCamera.SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
 			RenderCommand::SetViewport(0, 0, (uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
-		ImGui::Image((void*)(uint64_t)m_Framebuffer->GetColorAttachmentID(), m_ViewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		ImGui::Image((ImTextureID)m_Framebuffer->GetColorAttachmentID(1), m_ViewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		
+		auto windowSize = ImGui::GetWindowSize();
+		ImVec2 minBound = ImGui::GetWindowPos();
+		minBound.x += viewportOffset.x;
+		minBound.y += viewportOffset.y;
+
+		ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
+		m_ViewportBounds[0] = { minBound.x, minBound.y };
+		m_ViewportBounds[1] = { maxBound.x, maxBound.y };
+
 		m_EditorCamera.SetMouseOverViewport(ImGui::IsWindowHovered());
 
 		if (m_ShowFps)

@@ -15,8 +15,9 @@ namespace Cobalt
 		virtual void Unbind() override;
 
 		virtual void Resize(uint32_t width, uint32_t height) override;
+		virtual int ReadPixel(uint32_t attachmentIndex, int x, int y) override;
 
-		virtual uint32_t GetColorAttachmentID() const override { return m_ColorAttachment; }
+		virtual uint32_t GetColorAttachmentID(uint32_t index) const override { return m_ColorAttachment; }
 
 		virtual const FramebufferSpecification& GetSpecification() const override { return m_Specification; };
 
@@ -27,6 +28,7 @@ namespace Cobalt
 		uint32_t m_RendererID = 0;
 		uint32_t m_ColorAttachment = 0;
 		uint32_t m_DepthAttachment = 0;
+		uint32_t m_EntityAttachment = 0;
 		FramebufferSpecification m_Specification;
 	};
 }
