@@ -2,14 +2,16 @@
 
 #include "Cobalt.h"
 using namespace Cobalt;
+
 #include "Editor/Panels/EditorPanel.h"
+#include "Editor/Panels/Scene/SceneHierarchyPanel.h"
 
 #include <filesystem>
 
 class AssetBrowserPanel : public EditorPanel
 {
 public:
-	AssetBrowserPanel(const Ref<Scene>& scene);
+	AssetBrowserPanel(const Ref<Scene>& scene, const Ref<SceneHierarchyPanel>& sceneHierarchyPanel);
 
 	virtual void Update() override;
 
@@ -18,4 +20,5 @@ private:
 	const char* m_AssetDir;
 
 	Ref<Scene> m_Scene;
+	Ref<SceneHierarchyPanel> m_SceneHierarchyPanel;
 };

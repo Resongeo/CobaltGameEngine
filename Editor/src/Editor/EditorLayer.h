@@ -34,7 +34,7 @@ private:
 	Scope<ProfilerPanel> m_ProfilerPanel;
 	Scope<RenderStatisticsPanel> m_RenderStatisticsPanel;
 	Scope<ComponentsPanel> m_ComponentsPanel;
-	Scope<SceneHierarchyPanel> m_SceneHierarchyPanel;
+	Ref<SceneHierarchyPanel> m_SceneHierarchyPanel;
 
 	Ref<Framebuffer> m_Framebuffer;
 
@@ -42,6 +42,9 @@ private:
 
 	EditorCamera m_EditorCamera;
 	Camera* m_ActiveCamera;
+
+	ImGuizmo::OPERATION m_GizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+	ImGuizmo::MODE m_GizmoMode = ImGuizmo::MODE::LOCAL;
 
 	EditorFonts* m_EditorFonts;
 

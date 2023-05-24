@@ -23,11 +23,11 @@ void EditorLayer::OnAttach()
 	m_ActiveScene = CreateRef<Scene>("Test Scene"); // TODO: Move this to a SceneManager
 
 	m_LogPanel = CreateScope<LogPanel>();
-	m_AssetBrowserPanel = CreateScope<AssetBrowserPanel>(m_ActiveScene); // TODO: remove scene from constructor
+	m_AssetBrowserPanel = CreateScope<AssetBrowserPanel>(m_ActiveScene, m_SceneHierarchyPanel); // TODO: remove scene from constructor
 	m_ProfilerPanel = CreateScope<ProfilerPanel>();
 	m_RenderStatisticsPanel = CreateScope<RenderStatisticsPanel>();
 	m_ComponentsPanel = CreateScope<ComponentsPanel>();
-	m_SceneHierarchyPanel = CreateScope<SceneHierarchyPanel>(m_ActiveScene); // TODO: remove scene from constructor
+	m_SceneHierarchyPanel = CreateRef<SceneHierarchyPanel>(m_ActiveScene); // TODO: remove scene from constructor
 }
 
 void EditorLayer::OnUpdate()
@@ -87,7 +87,7 @@ void EditorLayer::OnUpdate()
 		int mouseX = (int)mx;
 		int mouseY = (int)my;
 
-		if (Input::GetMouseButtonDown(0))
+		if (Input::GetMouseButtonDown(0) && !ImGuizmo::IsOver())
 		{
 			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 			{
@@ -99,10 +99,8 @@ void EditorLayer::OnUpdate()
 				}
 				else
 				{
-					m_SceneHierarchyPanel->DeselectedEntity();
+					m_SceneHierarchyPanel->DeselectEntity();
 				}
-
-				//DEBUG_LOG("{0}", pixelData);
 			}
 		}
 	}
@@ -223,6 +221,65 @@ void EditorLayer::OnImGuiUpdate()
 			ImGui::EndPopup();
 		}
 
+		Entity selectedEntity = m_SceneHierarchyPanel->GetSelectedEntity();
+		if (selectedEntity)
+		{
+			ImGuizmo::SetOrthographic(true);
+			ImGuizmo::SetDrawlist();
+
+			float windowWidth = ImGui::GetWindowWidth();
+			float windowHeight = ImGui::GetWindowHeight();
+
+			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+
+			auto& tc = selectedEntity.GetComponent<TransformComponent>();
+			Mat4 view = m_EditorCamera.GetViewMatrix();
+			Mat4 projection = m_EditorCamera.GetProjectionMatrix();
+			Mat4 transform = tc.GetTransform();
+
+			ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(projection), m_GizmoOperation, m_GizmoMode, glm::value_ptr(transform));
+
+			if (ImGuizmo::IsUsing())
+			{
+				Vec3 scale;
+				Quat rotation;
+				Vec3 translation;
+				Vec3 skew;
+				Vec4 perspective;
+				glm::decompose(transform, scale, rotation, translation, skew, perspective);
+
+				switch (m_GizmoOperation)
+				{
+					case ImGuizmo::OPERATION::TRANSLATE:
+						tc.Position = translation;
+						break;
+					case ImGuizmo::OPERATION::ROTATE:
+						tc.Rotation = glm::degrees(glm::eulerAngles(rotation));
+						break;
+					case ImGuizmo::OPERATION::SCALE:
+						tc.Scale = scale;
+						break;
+				}
+			}
+		}
+
+		if (Input::GetKeyDown(KEYCODE_1))
+			m_GizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+
+		if (Input::GetKeyDown(KEYCODE_2))
+			m_GizmoOperation = ImGuizmo::OPERATION::ROTATE;
+
+		if (Input::GetKeyDown(KEYCODE_3))
+			m_GizmoOperation = ImGuizmo::OPERATION::SCALE;
+
+
+		if (Input::GetKeyDown(KEYCODE_Q))
+			m_GizmoMode = ImGuizmo::MODE::LOCAL;
+
+		if (Input::GetKeyDown(KEYCODE_E))
+			m_GizmoMode = ImGuizmo::MODE::WORLD;
+
+
 		ImGui::End();
 		ImGui::PopStyleVar();
 	}
@@ -283,6 +340,8 @@ void EditorLayer::OnImGuiUpdate()
 
 		if (ImGui::Button("Load scene"))
 		{
+			m_SceneHierarchyPanel->DeselectEntity();
+
 			SceneSerializer serializer;
 			serializer.Deserialize(FileSystem::OpenFileDialog("Scene files (*.cbscene)\0*.cbscene\0").c_str(), m_ActiveScene);
 		}

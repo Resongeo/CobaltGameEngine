@@ -17,7 +17,7 @@ namespace Cobalt
 		virtual ~Camera() = default;
 
 		const Mat4& GetProjectionMatrix()		const { return m_ProjectionMatrix; }
-		const Mat4& GetViewMatrix()			const { return m_ViewMatrix; }
+		const Mat4& GetViewMatrix()				const { return m_ViewMatrix; }
 		const Mat4& GetViewProjectionMatrix()	const { return m_ViewProjectionMatrix; }
 
 		const ProjectionType GetProjectionType() const { return m_ProjectionType; }

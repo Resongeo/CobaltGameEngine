@@ -6,6 +6,8 @@
 #include <backends/imgui_impl_opengl3.h>
 #include <backends/imgui_impl_opengl3_loader.h>
 
+#include <ImGuizmo.h>
+
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
@@ -29,6 +31,7 @@ namespace Cobalt
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+		ImGuizmo::BeginFrame();
 
 		ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 	}

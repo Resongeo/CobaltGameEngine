@@ -20,6 +20,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Engine/vendor/GLFW/include"
 IncludeDir["Glad"] = "Engine/vendor/GLAD/include"
 IncludeDir["ImGui"] = "Engine/vendor/ImGui"
+IncludeDir["ImGuizmo"] = "Engine/vendor/ImGuizmo/include"
 IncludeDir["glm"] = "Engine/vendor/GLM/include"
 IncludeDir["stb_image"] = "Engine/vendor/STBIMAGE"
 IncludeDir["spd_log"] = "Engine/vendor/SPDLOG/include"
@@ -53,6 +54,7 @@ project "Engine"
 		"%{prj.name}/vendor/glm/glm/**.inl",
 		"%{prj.name}/vendor/ImGui/**.h",
 		"%{prj.name}/vendor/ImGui/**.cpp",
+		"%{prj.name}/vendor/ImGuizmo/**.cpp",
 	}
 
 	defines
@@ -65,6 +67,7 @@ project "Engine"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.spd_log}",
@@ -134,6 +137,7 @@ project "Editor"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.spd_log}",

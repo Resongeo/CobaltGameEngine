@@ -16,7 +16,7 @@ public:
 
 	static Entity GetSelectedEntity() { return s_Instance->m_SelectedEntity; }
 	static void SetSelectedEntity(Entity entity) { s_Instance->m_SelectedEntity = entity; }
-	static void DeselectedEntity() { s_Instance->m_SelectedEntity = {}; }
+	static void DeselectEntity() { s_Instance->m_SelectedEntity = {}; }
 
 private:
 	void DrawEntityNode(Entity entity, int node_index);
