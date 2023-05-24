@@ -56,7 +56,7 @@ namespace Cobalt
 
 	bool EditorCamera::OnMouseScroll(MouseScrolledEvent e)
 	{
-		float delta = e.GetYOffset() * 0.1f;
+		float delta = e.GetYOffset() * 0.2f;
 
 		m_Distance -= delta * CalculateZoomSpeed();;
 

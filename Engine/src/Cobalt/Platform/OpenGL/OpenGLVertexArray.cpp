@@ -54,15 +54,35 @@ namespace Cobalt
 		const auto& layout = vertexBuffer->GetLayout();
 		for (const auto& element : layout)
 		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(
-				index,
-				element.GetElementCount(),
-				ShaderDataTypeToGLenum(element.Type),
-				GL_FALSE,
-				layout.GetStride(),
-				(const void*)element.Offset
-			);
+			switch (element.Type)
+			{
+				case ShaderDataType::Int:
+				case ShaderDataType::Int2:
+				case ShaderDataType::Int3:
+				case ShaderDataType::Int4:
+				case ShaderDataType::Bool:
+					glEnableVertexAttribArray(index);
+					glVertexAttribIPointer(
+						index,
+						element.GetElementCount(),
+						ShaderDataTypeToGLenum(element.Type),
+						layout.GetStride(),
+						(const void*)element.Offset
+					);
+					break;
+				default:
+					glEnableVertexAttribArray(index);
+					glVertexAttribPointer(
+						index,
+						element.GetElementCount(),
+						ShaderDataTypeToGLenum(element.Type),
+						GL_FALSE,
+						layout.GetStride(),
+						(const void*)element.Offset
+					);
+					break;
+			}
+			
 			index++;
 		}
 

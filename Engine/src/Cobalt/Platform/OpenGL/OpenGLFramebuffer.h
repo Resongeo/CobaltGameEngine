@@ -17,18 +17,19 @@ namespace Cobalt
 		virtual void Resize(uint32_t width, uint32_t height) override;
 		virtual int ReadPixel(uint32_t attachmentIndex, int x, int y) override;
 
-		virtual uint32_t GetColorAttachmentID(uint32_t index) const override { return m_ColorAttachment; }
+		virtual uint32_t GetColorAttachmentID(int index) const override { if (index <= m_AttachmentIDs.size()) return m_AttachmentIDs[index]; }
+		virtual void ClearAttachment(uint32_t attachmentIndex, int data) override;
 
 		virtual const FramebufferSpecification& GetSpecification() const override { return m_Specification; };
 
 	private:
 		void Invalidate();
+		void Clear();
 
 	private:
 		uint32_t m_RendererID = 0;
-		uint32_t m_ColorAttachment = 0;
-		uint32_t m_DepthAttachment = 0;
-		uint32_t m_EntityAttachment = 0;
+		std::vector<uint32_t> m_AttachmentIDs;
+
 		FramebufferSpecification m_Specification;
 	};
 }

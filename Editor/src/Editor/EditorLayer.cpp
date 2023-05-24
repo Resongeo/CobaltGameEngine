@@ -8,23 +8,22 @@ EditorLayer::EditorLayer() : Layer("Editor Layer"), m_Window(Application::GetWin
 	m_ActiveCamera = &m_EditorCamera;
 
 	m_GridData.Size = 5;
-	m_GridData.GapSize = 0.1f;
-	m_GridData.LineWidth = 0.005f;
+	m_GridData.GapSize = 0.5f;
+	m_GridData.LineWidth = 0.015f;
 }
 
 void EditorLayer::OnAttach()
 {
-	m_Texture = Texture2D::Create("assets\\textures\\uv_grid.png");
-
-	FramebufferSpecification framebufferSpecs;
-	framebufferSpecs.Width = m_Window->GetWidth();
-	framebufferSpecs.Height = m_Window->GetHeight();
-	m_Framebuffer = Framebuffer::Create(framebufferSpecs);
+	FramebufferSpecification fbSpecs;
+	fbSpecs.Attachments = { FramebufferAttachmentType::RGBA8, FramebufferAttachmentType::RGBA8, FramebufferAttachmentType::RGBA8, FramebufferAttachmentType::RED_INTEGER };
+	fbSpecs.Width = m_Window->GetWidth();
+	fbSpecs.Height = m_Window->GetHeight();
+	m_Framebuffer = Framebuffer::Create(fbSpecs);
 
 	m_ActiveScene = CreateRef<Scene>("Test Scene"); // TODO: Move this to a SceneManager
 
 	m_LogPanel = CreateScope<LogPanel>();
-	m_AssetBrowserPanel = CreateScope<AssetBrowserPanel>(m_ActiveScene);
+	m_AssetBrowserPanel = CreateScope<AssetBrowserPanel>(m_ActiveScene); // TODO: remove scene from constructor
 	m_ProfilerPanel = CreateScope<ProfilerPanel>();
 	m_RenderStatisticsPanel = CreateScope<RenderStatisticsPanel>();
 	m_ComponentsPanel = CreateScope<ComponentsPanel>();
@@ -56,17 +55,27 @@ void EditorLayer::OnUpdate()
 	if(m_ShowGrid)
 	{
 		PROFILER_TIMER_SCOPE("Grid");
+		RenderCommand::BeginScene(*m_ActiveCamera);
 
 		for (float x = -(float)m_GridData.Size; x < m_GridData.Size; x += m_GridData.GapSize)
 			RenderCommand::DrawQuad({ x, 0, 0 }, { m_GridData.LineWidth, m_GridData.Size * 2, 0 }, m_GridColor);
 
 		for (float y = -(float)m_GridData.Size; y < m_GridData.Size; y += m_GridData.GapSize)
 			RenderCommand::DrawQuad({ 0, y, 0 }, { m_GridData.Size * 2, m_GridData.LineWidth, 0 }, m_GridColor);
+
+		RenderCommand::EndScene();
 	}
 	
 	{
 		PROFILER_TIMER_SCOPE("Scene update");
+		
 		m_ActiveScene->Update(Time::deltaTime);
+		m_Framebuffer->ClearAttachment(3, -1);
+	}
+
+	{
+		PROFILER_TIMER_SCOPE("EndScene");
+		RenderCommand::EndScene();
 
 		auto [mx, my] = ImGui::GetMousePos();
 		mx -= m_ViewportBounds[0].x;
@@ -82,15 +91,20 @@ void EditorLayer::OnUpdate()
 		{
 			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 			{
-				int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
-				DEBUG_LOG("Pixel data: {0}", pixelData);
+				int pixelData = m_Framebuffer->ReadPixel(3, mouseX, mouseY);
+				if (pixelData >= 0)
+				{
+					Entity entity = {(entt::entity)pixelData, m_ActiveScene.get()};
+					m_SceneHierarchyPanel->SetSelectedEntity(entity);
+				}
+				else
+				{
+					m_SceneHierarchyPanel->DeselectedEntity();
+				}
+
+				//DEBUG_LOG("{0}", pixelData);
 			}
 		}
-	}
-
-	{
-		PROFILER_TIMER_SCOPE("EndScene");
-		RenderCommand::EndScene();
 	}
 
 	m_Framebuffer->Unbind();
@@ -123,7 +137,8 @@ void EditorLayer::OnImGuiUpdate()
 			m_EditorCamera.SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
 			RenderCommand::SetViewport(0, 0, (uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
-		ImGui::Image((ImTextureID)m_Framebuffer->GetColorAttachmentID(1), m_ViewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+		ImGui::Image((ImTextureID)m_Framebuffer->GetColorAttachmentID(m_FBAttachmentID), m_ViewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		
 		auto windowSize = ImGui::GetWindowSize();
 		ImVec2 minBound = ImGui::GetWindowPos();
@@ -194,7 +209,7 @@ void EditorLayer::OnImGuiUpdate()
 
 			if (selected == 0)
 			{
-				if (Controls::DrawVector1("Size", m_EditorCamera.GetSizeAdr(), 2.0f, 0.01, 10.0f))
+				if (Controls::DrawVector1("Size", m_EditorCamera.GetSizeAdr(), 5.0f, 0.01, 10.0f))
 					m_EditorCamera.UpdateView();
 			}
 			else
@@ -230,6 +245,13 @@ void EditorLayer::OnImGuiUpdate()
 		if (ImGui::Checkbox("Vsync", &m_Vsync)) m_Window->SetVsync(m_Vsync);
 		ImGui::Checkbox("Show FPS", &m_ShowFps);
 
+		ImGui::Dummy(ImVec2(0, 30));
+		
+		const char* ids[] = { "Color", "UV", "UV cooler" };
+		ImGui::Combo("##ids", &m_FBAttachmentID, ids, IM_ARRAYSIZE(ids));
+		
+		ImGui::Dummy(ImVec2(0, 30));
+		
 		if (ImGui::Button(ICON_FOLDER_OPEN " Open File Dialog"))
 			FileSystem::OpenFileDialog("Text files (*.txt)\0*.txt\0");
 		if (ImGui::Button(ICON_SAVE " Save File Dialog"))

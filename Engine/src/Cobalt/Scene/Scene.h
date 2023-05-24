@@ -17,7 +17,6 @@ namespace Cobalt
 		void Update(float deltaTime);
 
 		Entity CreateEntity(const std::string& name = "Entity");
-		Entity CreateEntity(uint64_t id, const std::string& name = "Entity");
 
 		void DestroyEntity(Entity entity);
 		void ClearEntites();

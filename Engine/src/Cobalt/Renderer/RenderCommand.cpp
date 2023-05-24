@@ -13,6 +13,7 @@ namespace Cobalt
 		Vec2 Tiling;
 		Vec4 Color;
 		float TexIndex;
+		int EntityID;
 	};
 	
 	struct RendererData
@@ -69,9 +70,10 @@ namespace Cobalt
 		{
 			{ ShaderDataType::Float3, "a_Position" },
 			{ ShaderDataType::Float2, "a_TexCoord" },
-			{ ShaderDataType::Float2, "a_Tiling" },
-			{ ShaderDataType::Float4, "a_Color" },
-			{ ShaderDataType::Float,  "a_TexIndex" }
+			{ ShaderDataType::Float2, "a_Tiling"   },
+			{ ShaderDataType::Float4, "a_Color"    },
+			{ ShaderDataType::Float,  "a_TexIndex" },
+			{ ShaderDataType::Int,    "a_EntityID" }
 		};
 
 		s_RendererData.QuadVertexBufferBase = new QuadVertex[s_RendererData.MaxVertices];
@@ -234,7 +236,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color)
+	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color, uint32_t entityID)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
@@ -250,6 +252,7 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
 		s_RendererData.QuadVertexBufferPtr->Color = color;
 		s_RendererData.QuadVertexBufferPtr->TexIndex = (float)textureIndex;
+		s_RendererData.QuadVertexBufferPtr->EntityID = entityID;
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[1];
@@ -257,6 +260,7 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
 		s_RendererData.QuadVertexBufferPtr->Color = color;
 		s_RendererData.QuadVertexBufferPtr->TexIndex = (float)textureIndex;
+		s_RendererData.QuadVertexBufferPtr->EntityID = entityID;
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[2];
@@ -264,6 +268,7 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
 		s_RendererData.QuadVertexBufferPtr->Color = color;
 		s_RendererData.QuadVertexBufferPtr->TexIndex = (float)textureIndex;
+		s_RendererData.QuadVertexBufferPtr->EntityID = entityID;
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[3];
@@ -271,6 +276,7 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
 		s_RendererData.QuadVertexBufferPtr->Color = color;
 		s_RendererData.QuadVertexBufferPtr->TexIndex = (float)textureIndex;
+		s_RendererData.QuadVertexBufferPtr->EntityID = entityID;
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadIndexCount += 6;
@@ -278,7 +284,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color, const Ref<Texture2D>& texture)
+	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color, const Ref<Texture2D>& texture, uint32_t entityID)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
@@ -311,6 +317,7 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
 		s_RendererData.QuadVertexBufferPtr->Color = color;
 		s_RendererData.QuadVertexBufferPtr->TexIndex = (float)textureIndex;
+		s_RendererData.QuadVertexBufferPtr->EntityID = entityID;
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[1];
@@ -318,6 +325,7 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
 		s_RendererData.QuadVertexBufferPtr->Color = color;
 		s_RendererData.QuadVertexBufferPtr->TexIndex = (float)textureIndex;
+		s_RendererData.QuadVertexBufferPtr->EntityID = entityID;
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[2];
@@ -325,6 +333,7 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
 		s_RendererData.QuadVertexBufferPtr->Color = color;
 		s_RendererData.QuadVertexBufferPtr->TexIndex = (float)textureIndex;
+		s_RendererData.QuadVertexBufferPtr->EntityID = entityID;
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[3];
@@ -332,6 +341,7 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr->Tiling = tiling;
 		s_RendererData.QuadVertexBufferPtr->Color = color;
 		s_RendererData.QuadVertexBufferPtr->TexIndex = (float)textureIndex;
+		s_RendererData.QuadVertexBufferPtr->EntityID = entityID;
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadIndexCount += 6;
@@ -339,12 +349,12 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawSprite(const Mat4& transform, const SpriteRendererComponent& spriteComponent)
+	void RenderCommand::DrawEntity(const Mat4& transform, const SpriteRendererComponent& spriteComponent, uint32_t entityID)
 	{
 		if (spriteComponent.Texture)
-			DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color, spriteComponent.Texture);
+			DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color, spriteComponent.Texture, entityID);
 		else
-			DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color);
+			DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color, entityID);
 	}
 
 	void RenderCommand::SetViewport(int x, int y, int width, int height)

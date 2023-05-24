@@ -19,10 +19,10 @@ namespace Cobalt
 
 		static void DrawQuad(const Vec3& position, const Vec3& scale, const Vec4& color);
 		static void DrawQuad(const Vec3& position, const Vec3& rotation, const Vec3& scale, const Vec4& color);
-		static void DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color);
-		static void DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color, const Ref<Texture2D>& texture);
+		static void DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color, uint32_t entityID);
+		static void DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color, const Ref<Texture2D>& texture, uint32_t entityID);
 
-		static void DrawSprite(const Mat4& transform, const SpriteRendererComponent& spriteComponent);
+		static void DrawEntity(const Mat4& transform, const SpriteRendererComponent& spriteComponent, uint32_t entityID);
 
 		static void SetViewport(int x, int y, int width, int height);
 

@@ -4,6 +4,8 @@
 #include "Cobalt/Scene/Scene.h"
 #include "Cobalt/Scene/ECS/Entity.h"
 
+#include "Cobalt/Logger/Log.h"
+
 namespace Cobalt
 {
 	Scene::Scene(const char* name)
@@ -15,12 +17,14 @@ namespace Cobalt
 	void Scene::Update(float deltaTime)
 	{
 		auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
-		for (auto entity : group)
+		for (auto entityID : group)
 		{
-			auto& transform = group.get<TransformComponent>(entity);
-			auto& spriteRenderer = group.get<SpriteRendererComponent>(entity);
+			Entity entity = { entityID, this };
 
-			RenderCommand::DrawSprite(transform.GetTransform(), spriteRenderer);
+			auto& transform = entity.GetComponent<TransformComponent>();
+			auto& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
+
+			RenderCommand::DrawEntity(transform.GetTransform(), spriteRenderer, entity);
 		}
 	}
 
@@ -30,15 +34,7 @@ namespace Cobalt
 		entity.AddComponent<IDComponent>(Random::ID());
 		entity.AddComponent<TagComponent>(name);
 		entity.AddComponent<TransformComponent>();
-		return entity;
-	}
 
-	Entity Scene::CreateEntity(uint64_t id, const std::string& name)
-	{
-		Entity entity = { m_Registry.create(), this };
-		entity.AddComponent<IDComponent>(id);
-		entity.AddComponent<TagComponent>(name);
-		entity.AddComponent<TransformComponent>();
 		return entity;
 	}
 

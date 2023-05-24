@@ -36,7 +36,6 @@ private:
 	Scope<ComponentsPanel> m_ComponentsPanel;
 	Scope<SceneHierarchyPanel> m_SceneHierarchyPanel;
 
-	Ref<Texture2D> m_Texture;
 	Ref<Framebuffer> m_Framebuffer;
 
 	Ref<Scene> m_ActiveScene;
@@ -62,6 +61,8 @@ private:
 	Vec2 m_PrevMousePos{ 0 };
 
 	Vec2 m_ViewportBounds[2];
+
+	int m_FBAttachmentID = 0;
 
 	bool m_Vsync = true;
 	bool m_ShowFps = true;

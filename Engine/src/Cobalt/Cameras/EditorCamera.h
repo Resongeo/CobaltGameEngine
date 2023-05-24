@@ -54,13 +54,13 @@ namespace Cobalt
 		float m_FOV = 90.0f;
 		float m_NearClip = 0.01f;
 		float m_FarClip = 1000.0f;
-		float m_Size = 2.0f;
+		float m_Size = 5.0f;
 
 		Vec3 m_Position { 0.0f, 0.0f, 1.0f };
 		Vec2 m_PrevMousePos { 0.0f };
 
 		float m_Rotation = 0.0f;
-		float m_PanSpeed = 5.0f;
+		float m_PanSpeed = 12.0f;
 		float m_Distance = 1.0f;
 
 		bool m_IsMouseOverViewport = false;
