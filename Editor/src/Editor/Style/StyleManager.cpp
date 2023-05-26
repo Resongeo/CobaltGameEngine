@@ -78,4 +78,6 @@ void StyleManager::SetupStyle() // TODO: Get values from config
 	style->Colors[ImGuiCol_Separator] = ImColor(30, 30, 32, 255);
 	style->Colors[ImGuiCol_SeparatorHovered] = ImColor(84, 109, 123, 200);
 	style->Colors[ImGuiCol_SeparatorActive] = ImColor(116, 151, 170, 200);
+
+	style->Colors[ImGuiCol_MenuBarBg] = ImColor(20, 20, 21);
 }

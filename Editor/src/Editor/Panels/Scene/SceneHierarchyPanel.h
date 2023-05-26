@@ -22,8 +22,6 @@ private:
 	void DrawEntityNode(Entity entity, int node_index);
 	void DrawRenamePopup(Entity entity);
 
-	void AddRectToDrawList(ImVec2 cursor_pos, ImVec2 content_region, float height, ImU32 color);
-
 private:
 	static SceneHierarchyPanel* s_Instance;
 

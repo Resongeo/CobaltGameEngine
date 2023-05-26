@@ -14,7 +14,7 @@ public:
 
 	static ProfilerPanel& Get() { return *s_Instance; }
 
-	virtual void Update() override;
+	virtual void ImGuiUpdate() override;
 
 	void StartProfilerHeader(const char* name);
 	void StopProfilerHeader();

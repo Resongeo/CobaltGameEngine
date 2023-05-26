@@ -351,10 +351,7 @@ namespace Cobalt
 
 	void RenderCommand::DrawEntity(const Mat4& transform, const SpriteRendererComponent& spriteComponent, uint32_t entityID)
 	{
-		if (spriteComponent.Texture)
-			DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color, spriteComponent.Texture, entityID);
-		else
-			DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color, entityID);
+		DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color, spriteComponent.Texture, entityID);
 	}
 
 	void RenderCommand::SetViewport(int x, int y, int width, int height)

@@ -8,7 +8,7 @@ void Controls::Init()
 	s_Instance->m_EditorFonts = StyleManager::GetEditorFonts();
 }
 
-void Controls::DrawVector3(const char* label, glm::vec3& values, float resetValue, float item_width, float speed)
+void Controls::DrawVector3(const char* label, glm::vec3& values, const ImVec2& offset, float resetValue, float item_width, float speed)
 {
 	const char* xLabel;
 	const char* yLabel;
@@ -32,9 +32,9 @@ void Controls::DrawVector3(const char* label, glm::vec3& values, float resetValu
 	ImGui::PushID(label);
 	ImGui::Columns(2);
 
-	ImGui::SetColumnWidth(0, 100.f);
+	ImGui::SetColumnWidth(0, 100.f + offset.x);
 	ImGui::PushFont(s_Instance->m_EditorFonts->SemiBold);
-	ImGui::Text(label);
+	SetOffset(offset); ImGui::Text(label);
 	ImGui::PopFont();
 
 	ImGui::NextColumn();
@@ -71,7 +71,7 @@ void Controls::DrawVector3(const char* label, glm::vec3& values, float resetValu
 	ImGui::PopID();
 }
 
-void Controls::DrawVector2(const char* label, glm::vec2& values, float resetValue, float item_width, float speed)
+void Controls::DrawVector2(const char* label, glm::vec2& values, const ImVec2& offset, float resetValue, float item_width, float speed)
 {
 	const char* xLabel;
 	const char* yLabel;
@@ -92,9 +92,9 @@ void Controls::DrawVector2(const char* label, glm::vec2& values, float resetValu
 	ImGui::PushID(label);
 	ImGui::Columns(2);
 
-	ImGui::SetColumnWidth(0, 100.f);
+	ImGui::SetColumnWidth(0, 100.f + offset.x);
 	ImGui::PushFont(s_Instance->m_EditorFonts->SemiBold);
-	ImGui::Text(label);
+	SetOffset(offset); ImGui::Text(label);
 	ImGui::PopFont();
 
 	ImGui::NextColumn();
@@ -121,14 +121,14 @@ void Controls::DrawVector2(const char* label, glm::vec2& values, float resetValu
 	ImGui::PopID();
 }
 
-bool Controls::DrawVector1(const char* label, float& value, float resetValue, float min, float max, float item_width, float label_width, float speed)
+bool Controls::DrawVector1(const char* label, float& value, const ImVec2& offset, float resetValue, float min, float max, float item_width, float label_width, float speed)
 {
 	ImGui::PushID(label);
 	ImGui::Columns(2);
 
-	ImGui::SetColumnWidth(0, label_width);
+	ImGui::SetColumnWidth(0, label_width + offset.x);
 	ImGui::PushFont(s_Instance->m_EditorFonts->SemiBold);
-	ImGui::Text(label);
+	SetOffset(offset); ImGui::Text(label);
 	ImGui::PopFont();
 
 	ImGui::NextColumn();
@@ -151,4 +151,29 @@ bool Controls::DrawVector1(const char* label, float& value, float resetValue, fl
 	ImGui::PopID();
 
 	return interact;
+}
+
+void Controls::DrawRect(ImVec2 cursor_pos, ImVec2 content_region, float height, ImU32 color, float radius)
+{
+	auto* drawList = ImGui::GetWindowDrawList();
+	ImVec2 pos = ImVec2(cursor_pos.x, cursor_pos.y - 6);
+	drawList->AddRectFilled(pos, ImVec2(pos.x + content_region.x, pos.y + height + 12), color, radius);
+}
+
+void Controls::DrawRectOutlined(ImVec2 cursor_pos, ImVec2 content_region, float height, ImU32 color, float outlineWidth, ImU32 outlineColor, float radius)
+{
+	auto* drawList = ImGui::GetWindowDrawList();
+	ImVec2 pos = ImVec2(cursor_pos.x, cursor_pos.y - 6);
+	drawList->AddRectFilled(pos, ImVec2(pos.x + content_region.x, pos.y + height + 12), outlineColor, radius);
+	pos.x += outlineWidth;
+	pos.y += outlineWidth;
+	content_region.x -= outlineWidth * 2;
+	height -= outlineWidth * 2;
+	drawList->AddRectFilled(pos, ImVec2(pos.x + content_region.x, pos.y + height + 12), color, radius);
+}
+
+void Controls::DrawImageRounded(ImTextureID textureID, const ImVec2& posMin, const ImVec2& posMax, const ImVec2& uvMin, const ImVec2& uvMax, float radius)
+{
+	auto* drawList = ImGui::GetWindowDrawList();
+	drawList->AddImageRounded(textureID, posMin, posMax, uvMin, uvMax, ImColor(255, 255, 255), radius);
 }

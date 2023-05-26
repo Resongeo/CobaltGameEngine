@@ -3,7 +3,7 @@
 
 #include <filesystem>
 
-AssetBrowserPanel::AssetBrowserPanel(const Ref<Scene>& scene, const Ref<SceneHierarchyPanel>& sceneHierarchyPanel) : m_Scene(scene), m_SceneHierarchyPanel(sceneHierarchyPanel), EditorPanel("Asset Browser")
+AssetBrowserPanel::AssetBrowserPanel(const Ref<Scene>& scene) : m_Scene(scene), EditorPanel("Asset Browser")
 {
 	m_AssetDir = "..\\assets"; // TODO: Get this path from args
 	m_CurrentDir = m_AssetDir;
@@ -12,10 +12,6 @@ AssetBrowserPanel::AssetBrowserPanel(const Ref<Scene>& scene, const Ref<SceneHie
 void AssetBrowserPanel::Update()
 {
 	ImGui::Begin("Asset Browser");
-
-	ImGui::PushFont(p_EditorFonts->SemiBold);
-	ImGui::TextColored(ImVec4(0.8, 0.5, 0.5, 1.0), "%s", "This panel has no functionality yet!");
-	ImGui::PopFont();
 
 	if (m_CurrentDir != m_AssetDir)
 	{
@@ -43,7 +39,7 @@ void AssetBrowserPanel::Update()
 			{
 				if (file.path().extension() == ".cbscene")
 				{
-					m_SceneHierarchyPanel->DeselectEntity();
+					SceneHierarchyPanel::DeselectEntity();
 
 					SceneSerializer serializer;
 					serializer.Deserialize(path.c_str(), m_Scene);

@@ -1,4 +1,5 @@
 #include "Editor/Panels/Scene/SceneHierarchyPanel.h"
+#include "Editor/Utils/Controls.h"
 
 SceneHierarchyPanel* SceneHierarchyPanel::s_Instance = nullptr;
 SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& scene) : EditorPanel("Scene hierarchy panel"), m_Scene(scene)
@@ -75,12 +76,12 @@ void SceneHierarchyPanel::DrawEntityNode(Entity entity, int node_index)
 
 	float lineHeight = ImGui::GetTextLineHeight();
 
-	AddRectToDrawList(cursorPos, contentRegionMax, lineHeight, node_index & 1 ? m_EvenNodeColor : m_OddNodeColor);
+	Controls::DrawRect(cursorPos, contentRegionMax, lineHeight, node_index & 1 ? m_EvenNodeColor : m_OddNodeColor);
 
 	ImVec2 mouse_pos = ImGui::GetMousePos();
 	if (mouse_pos.x > cursorPos.x && mouse_pos.x < cursorPos.x + contentRegionMax.x && mouse_pos.y > cursorPos.y - 4.5f && mouse_pos.y < cursorPos.y + lineHeight + 9)
 	{
-		AddRectToDrawList(cursorPos, contentRegionMax, lineHeight, m_HoveredColor);
+		Controls::DrawRect(cursorPos, contentRegionMax, lineHeight, m_HoveredColor);
 
 		if (ImGui::IsMouseClicked(0))
 			m_SelectedEntity = entity;
@@ -96,7 +97,7 @@ void SceneHierarchyPanel::DrawEntityNode(Entity entity, int node_index)
 
 	if (m_SelectedEntity == entity)
 	{
-		AddRectToDrawList(cursorPos, contentRegionMax, lineHeight, m_SelectedColor);
+		Controls::DrawRect(cursorPos, contentRegionMax, lineHeight, m_SelectedColor);
 		ImGui::PushFont(p_EditorFonts->SemiBold);
 	}
 	else
@@ -137,11 +138,4 @@ void SceneHierarchyPanel::DrawRenamePopup(Entity entity)
 
 		ImGui::EndPopup();
 	}
-}
-
-void SceneHierarchyPanel::AddRectToDrawList(ImVec2 cursor_pos, ImVec2 content_region, float height, ImU32 color)
-{
-	auto* drawList = ImGui::GetWindowDrawList();
-	ImVec2 pos = ImVec2(cursor_pos.x, cursor_pos.y - 6);
-	drawList->AddRectFilled(pos, ImVec2(pos.x + content_region.x, pos.y + height + 12), color);
 }

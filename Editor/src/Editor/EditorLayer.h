@@ -10,6 +10,7 @@ using namespace Cobalt;
 #include "Editor/Panels/Scene/SceneHierarchyPanel.h"
 #include "Editor/Panels/Components/ComponentsPanel.h"
 #include "Editor/Panels/EditorPanelManager.h"
+#include "Editor/Panels/Viewport/ViewportPanel.h"
 #include "Editor/Style/StyleManager.h"
 #include "Editor/Utils/Controls.h"
 
@@ -28,23 +29,19 @@ public:
 
 private:
 	Ref<Window> m_Window;
+	Ref<Framebuffer> m_Framebuffer;
+	Ref<Scene> m_ActiveScene;
 
 	Scope<LogPanel> m_LogPanel;
 	Scope<AssetBrowserPanel> m_AssetBrowserPanel;
 	Scope<ProfilerPanel> m_ProfilerPanel;
 	Scope<RenderStatisticsPanel> m_RenderStatisticsPanel;
 	Scope<ComponentsPanel> m_ComponentsPanel;
+	Scope<ViewportPanel> m_ViewportPanel;
 	Ref<SceneHierarchyPanel> m_SceneHierarchyPanel;
-
-	Ref<Framebuffer> m_Framebuffer;
-
-	Ref<Scene> m_ActiveScene;
 
 	EditorCamera m_EditorCamera;
 	Camera* m_ActiveCamera;
-
-	ImGuizmo::OPERATION m_GizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
-	ImGuizmo::MODE m_GizmoMode = ImGuizmo::MODE::LOCAL;
 
 	EditorFonts* m_EditorFonts;
 
@@ -58,16 +55,4 @@ private:
 
 	Vec4 m_ClearColor { 0.09f, 0.09f, 0.1f, 1.0f };
 	Vec4 m_GridColor{ 0.17f, 0.17f, 0.17f, 1.0f };
-
-	ImVec2 m_ViewportSize = { 0.0f, 0.0f };
-
-	Vec2 m_PrevMousePos{ 0 };
-
-	Vec2 m_ViewportBounds[2];
-
-	int m_FBAttachmentID = 0;
-
-	bool m_Vsync = true;
-	bool m_ShowFps = true;
-	bool m_ShowGrid = true;
 };

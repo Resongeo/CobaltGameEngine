@@ -9,17 +9,19 @@
 class EditorPanel
 {
 public:
+	EditorPanel() = default;
 	EditorPanel(const char* panelName) : m_PanelName(panelName)
 	{
 		EditorPanelManager::PushPanel(this);
 		p_EditorFonts = StyleManager::GetEditorFonts();
 	}
 
-	virtual void Update() = 0;
+	virtual void Update() { }
+	virtual void ImGuiUpdate() { }
 
 	const char* GetName() const { return m_PanelName; }
 
 protected:
-	const char* m_PanelName;
-	EditorFonts* p_EditorFonts;
+	const char* m_PanelName = "Panel";
+	EditorFonts* p_EditorFonts = nullptr;
 };

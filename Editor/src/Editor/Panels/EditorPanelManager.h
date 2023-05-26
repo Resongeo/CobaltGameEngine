@@ -9,6 +9,7 @@ class EditorPanelManager
 public:
 	static void Init();
 	static void Update();
+	static void ImGuiUpdate();
 
 private:
 	static void PushPanel(EditorPanel* panel);

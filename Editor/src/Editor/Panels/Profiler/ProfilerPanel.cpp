@@ -7,7 +7,7 @@ ProfilerPanel::ProfilerPanel() : EditorPanel("Profiler panel")
 	m_ActiveHeader = nullptr;
 }
 
-void ProfilerPanel::Update()
+void ProfilerPanel::ImGuiUpdate()
 {
 	ImGui::Begin(ICON_CLOCK " Profiler");
 

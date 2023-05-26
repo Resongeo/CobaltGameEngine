@@ -46,6 +46,9 @@ private:
 
 	bool m_ScrollToBottom = true;
 	std::vector<LogMessage> m_Messages;
+
+	ImU32 m_OddColor;
+	ImU32 m_EvenColor;
 };
 
 #define DEBUG_CLEAR			LogPanel::Get().Clear()

@@ -33,7 +33,7 @@ namespace Cobalt
 		stbi_image_free(data);
 	}
 
-	OpenGLTexture::OpenGLTexture(uint32_t width, uint32_t height) : m_Width(width), m_Height(height)
+	OpenGLTexture::OpenGLTexture(uint32_t width, uint32_t height) : m_Width(width), m_Height(height), m_Path("Default Texture")
 	{
 		std::vector<unsigned char> tempBuffer;
 		tempBuffer.resize(m_Width * m_Height * 4, 255);

@@ -11,8 +11,8 @@ namespace Cobalt
 		OpenGLTexture(uint32_t width, uint32_t height);
 		virtual ~OpenGLTexture();
 
-		virtual uint32_t GetWidth() override { return m_Width; }
-		virtual uint32_t GetHeight() override { return m_Height; }
+		virtual uint32_t GetWidth() const override { return m_Width; }
+		virtual uint32_t GetHeight() const override { return m_Height; }
 		virtual uint32_t GetID() const override { return m_RendererID; };
 
 		virtual std::string GetPath() const override { return m_Path; };

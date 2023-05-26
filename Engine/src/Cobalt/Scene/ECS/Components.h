@@ -55,13 +55,13 @@ namespace Cobalt
 
 	struct SpriteRendererComponent
 	{
-		Ref<Texture2D> Texture;
+		Ref<Texture2D> Texture = Texture2D::Create(1, 1);
 		Vec4 Color = Vec4(1.0);
 		Vec2 Tiling = Vec2(1.0);
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
-		SpriteRendererComponent(const Ref<Texture2D>& sprite) : Texture(sprite) {}
+		SpriteRendererComponent(const Ref<Texture2D>& texture) : Texture(texture) {}
 
 		operator Ref<Texture2D>& () { return Texture; }
 		operator const Ref<Texture2D>& () const { return Texture; }
