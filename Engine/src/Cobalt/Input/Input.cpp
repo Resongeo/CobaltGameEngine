@@ -5,6 +5,8 @@
 
 #include <GLFW/glfw3.h>
 
+#include <imgui.h>
+
 namespace Cobalt
 {
 	Input* Input::s_Input = nullptr;
@@ -27,6 +29,16 @@ namespace Cobalt
 		auto state = glfwGetMouseButton(s_Window, button);
 
 		return state == GLFW_PRESS;
+	}
+
+	bool Input::GetMouseButtonClickedImpl(int button)
+	{
+		return ImGui::IsMouseClicked(button);
+	}
+
+	bool Input::GetMouseButtonReleasedImpl(int button)
+	{
+		return ImGui::IsMouseReleased(button);
 	}
 
 	float Input::GetMouseXImpl()

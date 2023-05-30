@@ -22,7 +22,7 @@ void ViewportPanel::Update()
 	int mouseX = (int)mx;
 	int mouseY = (int)my;
 
-	if (Input::GetMouseButtonDown(0) && !ImGuizmo::IsOver())
+	if (Input::GetMouseButtonClicked(MOUSE_BUTTON_LEFT) && !ImGuizmo::IsOver())
 	{
 		if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 		{
@@ -40,7 +40,7 @@ void ViewportPanel::Update()
 		}
 	}
 
-	m_SelectedEntity = SceneHierarchyPanel::GetSelectedEntity(); // TODO: Have a singleton access to SceneHierarchyPanel
+	m_SelectedEntity = SceneHierarchyPanel::GetSelectedEntity();
 
 	if (Input::GetKeyDown(KEYCODE_1))
 		m_GizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
