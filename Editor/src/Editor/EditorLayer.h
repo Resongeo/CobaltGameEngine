@@ -26,6 +26,7 @@ public:
 	void OnEvent(Event& event) override;
 
 	Ref<Scene> GetActiveScene() const { return m_ActiveScene; }
+	SceneState SceneState = SceneState::Edit;
 
 private:
 	Ref<Window> m_Window;
@@ -39,6 +40,7 @@ private:
 	Scope<ComponentsPanel> m_ComponentsPanel;
 	Scope<ViewportPanel> m_ViewportPanel;
 	Ref<SceneHierarchyPanel> m_SceneHierarchyPanel;
+
 
 	EditorCamera m_EditorCamera;
 	Camera* m_ActiveCamera;

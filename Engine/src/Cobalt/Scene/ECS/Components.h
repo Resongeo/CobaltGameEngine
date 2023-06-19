@@ -6,6 +6,10 @@
 #include "Cobalt/Renderer/Texture2D.h"
 #include "Cobalt/Renderer/Shader.h"
 
+#include "Cobalt/Scene/ECS/LuaEntity.h"
+
+#include <sol.hpp>
+
 namespace Cobalt
 {
 	struct IDComponent
@@ -71,5 +75,17 @@ namespace Cobalt
 
 		operator Vec2& () { return Tiling; }
 		operator const Vec2& () const { return Tiling; }
+	};
+
+	struct LuaScriptComponent
+	{
+		LuaEntity ScriptEntity;
+		sol::state LuaState;
+		std::string Source;
+		bool HasScriptLoaded = false;
+
+		LuaScriptComponent() = default;
+		LuaScriptComponent(const LuaScriptComponent&) = default;
+		LuaScriptComponent(const std::string& source) : Source(source) {}
 	};
 }

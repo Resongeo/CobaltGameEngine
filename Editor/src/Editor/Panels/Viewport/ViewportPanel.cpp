@@ -1,7 +1,7 @@
 #include "Editor/Panels/Viewport/ViewportPanel.h"
-
 #include "Editor/Utils/Controls.h"
 
+#include "Editor/CobaltEditor.h"
 
 ViewportPanel* ViewportPanel::s_Instance = nullptr;
 ViewportPanel::ViewportPanel(const Ref<Framebuffer>& framebuffer, EditorCamera* editorCamera, const Ref<Scene>& activeScene)
@@ -12,6 +12,8 @@ ViewportPanel::ViewportPanel(const Ref<Framebuffer>& framebuffer, EditorCamera* 
 
 void ViewportPanel::Update()
 {
+	if (CobaltEditor::GetEditorLayer()->SceneState == SceneState::Play) return;
+
 	auto [mx, my] = ImGui::GetMousePos();
 	mx -= m_ViewportBounds[0].x;
 	my -= m_ViewportBounds[0].y;
@@ -158,7 +160,7 @@ void ViewportPanel::ImGuiUpdate()
 		ImGui::EndPopup();
 	}
 
-	if (m_SelectedEntity)
+	if (m_SelectedEntity && CobaltEditor::GetEditorLayer()->SceneState == SceneState::Edit)
 	{
 		ImGuizmo::SetOrthographic(true);
 		ImGuizmo::SetDrawlist();

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Cobalt/Scene/SceneState.h"
 #include "Cobalt/Scene/ECS/Components.h"
 #include "Cobalt/Renderer/RenderCommand.h"
 
@@ -14,7 +15,10 @@ namespace Cobalt
 	public:
 		Scene(const char* name = "Scene");
 
-		void Update(float deltaTime);
+		void RuntimeStart();
+
+		void EditorUpdate();
+		void RuntimeUpdate();
 
 		Entity CreateEntity(const std::string& name = "Entity");
 

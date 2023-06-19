@@ -6,6 +6,7 @@ namespace Cobalt
 	{
 	public:
 		static float deltaTime;
+		static float time;
 
 		static float currentFrameRate;
 		static float intervalFrameRate;

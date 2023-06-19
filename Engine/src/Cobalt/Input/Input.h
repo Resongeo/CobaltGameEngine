@@ -14,6 +14,7 @@ namespace Cobalt
 		static bool GetMouseButtonDown(int button) { return s_Input->GetMouseButtonDownImpl(button); }
 		static bool GetMouseButtonClicked(int button) { return s_Input->GetMouseButtonClickedImpl(button); }
 		static bool GetMouseButtonReleased(int button) { return s_Input->GetMouseButtonReleasedImpl(button); }
+		static bool GetMouseButtonDoubleClicked(int button) { return s_Input->GetMouseButtonDoubleClickedImpl(button); }
 		
 		static float GetMouseX() { return s_Input->GetMouseXImpl(); }
 		static float GetMouseY() { return s_Input->GetMouseYImpl(); }
@@ -27,6 +28,7 @@ namespace Cobalt
 		bool GetMouseButtonDownImpl(int button);
 		bool GetMouseButtonClickedImpl(int button);
 		bool GetMouseButtonReleasedImpl(int button);
+		bool GetMouseButtonDoubleClickedImpl(int button);
 		
 		float GetMouseXImpl();
 		float GetMouseYImpl();

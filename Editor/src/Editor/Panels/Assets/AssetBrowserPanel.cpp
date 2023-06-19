@@ -47,6 +47,17 @@ void AssetBrowserPanel::Update()
 					DEBUG_LOG("Scene loaded: {0}", file.path().stem().string());
 				}
 			}
+
+			if (file.path().extension() == ".lua")
+			{
+				if (ImGui::BeginDragDropSource())
+				{
+					std::string scriptSrc = file.path().string();
+					ImGui::SetDragDropPayload("LUA_SCRIPT_SOURCE", scriptSrc.c_str(), (scriptSrc.size() + 1) * sizeof(char), ImGuiCond_Once);
+					ImGui::EndDragDropSource();
+				}
+			}
+
 			ImGui::PopStyleColor();
 		}
 	}

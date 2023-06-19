@@ -157,6 +157,27 @@ void ComponentsPanel::DrawComponents(Entity entity)
 		ImGui::Dummy({ 0, 15 });
 
 		Controls::DrawVector2("Tiling", component.Tiling, offset, 1.0f);
+
+		ImGui::Dummy({ 0, 15 });
+	});
+
+	DrawComponent<LuaScriptComponent>(ICON_TH " Lua Script Component", entity, m_LuaScriptOpened, m_LuaScriptPrimaryColor, 70, p_EditorFonts, [](auto& component, EditorFonts* editorFonts)
+	{
+		ImVec2 offset = { 20, 0 };
+		ImGui::Dummy({ 0, 5 });
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 20);
+		ImGui::Text(component.Source.c_str());
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("LUA_SCRIPT_SOURCE"))
+			{
+				const char* scriptSrc = (const char*)payload->Data;
+				component.Source = std::string(scriptSrc);
+			}
+
+			ImGui::EndDragDropTarget();
+		}
+		ImGui::Dummy({ 0, 15 });
 	});
 
 	ImGui::PopFont();

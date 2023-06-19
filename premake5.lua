@@ -25,11 +25,14 @@ IncludeDir["glm"] = "Engine/vendor/GLM/include"
 IncludeDir["stb_image"] = "Engine/vendor/STBIMAGE"
 IncludeDir["spd_log"] = "Engine/vendor/SPDLOG/include"
 IncludeDir["entt"] = "Engine/vendor/EnTT"
+IncludeDir["lua"] = "Engine/vendor/Lua/include"
+IncludeDir["sol2"] = "Engine/vendor/Sol2/include"
 IncludeDir["src"] = "Engine/src"
 IncludeDir["cobalt"] = "Engine/src/Cobalt"
 
 LibDir = {}
 LibDir["GLFW"] = "Engine/vendor/GLFW/lib-vc2022"
+LibDir["Lua"] = "Engine/vendor/Lua"
 
 
 project "Engine"
@@ -72,6 +75,8 @@ project "Engine"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.spd_log}",
 		"%{IncludeDir.entt}",
+		"%{IncludeDir.lua}",
+		"%{IncludeDir.sol2}",
 		"%{IncludeDir.src}",
 		"%{IncludeDir.cobalt}"
 	}
@@ -79,12 +84,14 @@ project "Engine"
     libdirs
     {
         "%{LibDir.GLFW}",
+        "%{LibDir.Lua}",
     }
 
 	links 
 	{ 
 		"glfw3.lib",
 		"opengl32.lib",
+		"lua54.lib",
 	}
 
 	filter "system:windows"
@@ -142,6 +149,8 @@ project "Editor"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.spd_log}",
 		"%{IncludeDir.entt}",
+		"%{IncludeDir.lua}",
+		"%{IncludeDir.sol2}",
 		"%{IncludeDir.src}",
 		"%{IncludeDir.cobalt}",
 		"Editor/src"
@@ -150,6 +159,7 @@ project "Editor"
     libdirs
     {
         "%{LibDir.GLFW}",
+        "%{LibDir.Lua}",
 		"Engine/lib"
     }
 
@@ -158,7 +168,8 @@ project "Editor"
 		"Engine.lib",
 		"glfw3.lib",
 		"opengl32.lib",
-		"dwmapi.lib"
+		"dwmapi.lib",
+		"lua54.lib",
 	}
 
 	filter "system:windows"

@@ -8,6 +8,7 @@
 namespace Cobalt
 {
 	float Time::deltaTime = 0.0f;
+	float Time::time = 0.0f;
 
 	float Time::currentFrameRate = 0.0f;
 	float Time::intervalFrameRate = 0.0f;
@@ -36,6 +37,8 @@ namespace Cobalt
 		{
 			m_IntervalCounter -= deltaTime;
 		}
+
+		time = m_Time;
 	}
 
 	void Time::SetTimeBetweenInterval(float time)

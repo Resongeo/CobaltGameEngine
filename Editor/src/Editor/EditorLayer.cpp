@@ -63,7 +63,18 @@ void EditorLayer::OnUpdate()
 	{
 		PROFILER_TIMER_SCOPE("Scene update");
 		
-		m_ActiveScene->Update(Time::deltaTime);
+		switch (SceneState)
+		{
+			case Cobalt::SceneState::Edit:
+				m_ActiveScene->EditorUpdate();
+				break;
+			case Cobalt::SceneState::Play:
+				m_ActiveScene->RuntimeUpdate();
+				break;
+			case Cobalt::SceneState::Simulate:
+				break;
+		}
+
 		m_Framebuffer->ClearAttachment(3, -1);
 	}
 
@@ -139,6 +150,29 @@ void EditorLayer::OnImGuiUpdate()
 	PROFILER_STOP_HEADER;
 
 	ImGui::Begin("Test");
+
+	if (ImGui::Button("Run scene"))
+	{
+		if (SceneState == SceneState::Edit)
+		{
+			m_ActiveScene->RuntimeStart();
+			SceneState = SceneState::Play;
+		}
+		else if (SceneState == SceneState::Play)
+		{
+			SceneState = SceneState::Edit;
+		}
+	}
+
+	switch (SceneState)
+	{
+		case Cobalt::SceneState::Edit:
+			ImGui::Text("Editing...");
+			break;
+		case Cobalt::SceneState::Play:
+			ImGui::Text("Playing...");
+			break;
+	}
 
 	if (ImGui::Button("LOG"))
 	{

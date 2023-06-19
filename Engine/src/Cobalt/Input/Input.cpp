@@ -41,6 +41,11 @@ namespace Cobalt
 		return ImGui::IsMouseReleased(button);
 	}
 
+	bool Input::GetMouseButtonDoubleClickedImpl(int button)
+	{
+		return ImGui::IsMouseDoubleClicked(button);
+	}
+
 	float Input::GetMouseXImpl()
 	{
 		double x, y;

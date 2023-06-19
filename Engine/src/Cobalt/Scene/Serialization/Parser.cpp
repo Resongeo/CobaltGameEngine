@@ -16,8 +16,9 @@ namespace Cobalt
 			{
 				if (line.find("ID component:") != std::string::npos)
 				{
-					std::getline(file, line);
 					auto& ic = entity.GetComponent<IDComponent>();
+					
+					std::getline(file, line);
 					ic.UUID = GetUUID(line);
 
 					continue;
@@ -25,8 +26,9 @@ namespace Cobalt
 
 				if (line.find("Tag component:") != std::string::npos)
 				{
-					std::getline(file, line);
 					auto& tc = entity.GetComponent<TagComponent>();
+
+					std::getline(file, line);
 					tc.Tag = GetString(line);
 
 					continue;
@@ -60,6 +62,16 @@ namespace Cobalt
 
 					std::getline(file, line);
 					src.Tiling = GetVec<2>(ExtractNumbers(line));
+
+					continue;
+				}
+				
+				if (line.find("Lua Script component:") != std::string::npos)
+				{
+					auto& lsc = entity.AddComponent<LuaScriptComponent>();
+
+					std::getline(file, line);
+					lsc.Source = GetString(line);
 
 					continue;
 				}

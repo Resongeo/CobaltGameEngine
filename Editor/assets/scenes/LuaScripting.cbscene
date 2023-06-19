@@ -1,0 +1,17 @@
+Name: Test Scene
+Entity:
+  ID component:
+    UUID:14514284786278117030
+  Tag component:
+    Tag:Red Square
+  Transform component:
+    Position:[0,0,0]
+    Rotation:[0,0,0]
+    Scale:[1,1,1]
+  Sprite renderer component:
+    Path:Default Texture
+    Color:[0.8,0.3,0.3,1]
+    Tiling:[1,1]
+  Lua Script component:
+    Source:..\assets\scripts\TestScript.lua
+  

@@ -6,6 +6,8 @@
 
 #include "Cobalt/Logger/Log.h"
 
+#include "Cobalt/Scripting/ScriptEngine.h"
+
 namespace Cobalt
 {
 	Scene::Scene(const char* name)
@@ -14,7 +16,12 @@ namespace Cobalt
 		m_Registry.clear();
 	}
 
-	void Scene::Update(float deltaTime)
+	void Scene::RuntimeStart()
+	{
+		ScriptEngine::RuntimeStart(this);
+	}
+
+	void Scene::EditorUpdate()
 	{
 		auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
 		for (auto entityID : group)
@@ -26,6 +33,22 @@ namespace Cobalt
 
 			RenderCommand::DrawEntity(transform.GetTransform(), spriteRenderer, entity);
 		}
+	}
+
+	void Scene::RuntimeUpdate()
+	{
+		auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+		for (auto entityID : group)
+		{
+			Entity entity = { entityID, this };
+
+			auto& transform = entity.GetComponent<TransformComponent>();
+			auto& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
+
+			RenderCommand::DrawEntity(transform.GetTransform(), spriteRenderer, entity);
+		}
+
+		ScriptEngine::UpdateScripts(this);
 	}
 
 	Entity Scene::CreateEntity(const std::string& name)
