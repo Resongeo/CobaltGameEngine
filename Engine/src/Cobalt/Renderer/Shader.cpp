@@ -6,11 +6,11 @@
 
 namespace Cobalt
 {
-	Ref<Shader> Shader::Create(const std::string& filepath)
+	Ref<Shader> Shader::Create(const std::string& source, ShaderSourceType sourceType)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case GraphicsAPI::OpenGL: return CreateRef<OpenGLShader>(filepath);
+			case GraphicsAPI::OpenGL: return CreateRef<OpenGLShader>(source, sourceType);
 		}
 
 		return nullptr;

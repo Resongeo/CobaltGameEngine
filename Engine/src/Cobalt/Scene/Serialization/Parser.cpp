@@ -72,6 +72,7 @@ namespace Cobalt
 
 					std::getline(file, line);
 					lsc.Source = GetString(line);
+					lsc.SourceType = LuaScriptSourceType::Filepath;
 
 					continue;
 				}

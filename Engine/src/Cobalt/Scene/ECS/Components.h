@@ -77,15 +77,21 @@ namespace Cobalt
 		operator const Vec2& () const { return Tiling; }
 	};
 
+	enum class LuaScriptSourceType
+	{
+		Filepath, String
+	};
+
 	struct LuaScriptComponent
 	{
 		LuaEntity ScriptEntity;
 		sol::state LuaState;
 		std::string Source;
+		LuaScriptSourceType SourceType;
 		bool HasScriptLoaded = false;
 
 		LuaScriptComponent() = default;
 		LuaScriptComponent(const LuaScriptComponent&) = default;
-		LuaScriptComponent(const std::string& source) : Source(source) {}
+		LuaScriptComponent(const std::string& source, LuaScriptSourceType sourceType) : Source(source), SourceType(sourceType) {}
 	};
 }

@@ -22,6 +22,8 @@ namespace Cobalt
 
 		virtual void SetViewport(int x, int y, int width, int height) = 0;
 
+		virtual std::string GetDefaultShader() = 0;
+
 		static RendererAPI* Create();
 	};
 }

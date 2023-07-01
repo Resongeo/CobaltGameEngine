@@ -19,6 +19,8 @@ namespace Cobalt
 
 		virtual void SetViewport(int x, int y, int width, int height) override;
 
+		virtual std::string GetDefaultShader() override;
+
 	private:
 		static SceneData* s_SceneData;
 	};

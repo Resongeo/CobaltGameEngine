@@ -7,6 +7,11 @@
 
 namespace Cobalt
 {
+	enum class ShaderSourceType
+	{
+		Filepath, String
+	};
+
 	class Shader
 	{
 	public:
@@ -26,6 +31,6 @@ namespace Cobalt
 		virtual void SetVec4(const char* name, Vec4 value) const = 0;
 		virtual void SetMat4(const char* name, Mat4 value) const = 0;
 
-		static Ref<Shader> Create(const std::string& filepath);
+		static Ref<Shader> Create(const std::string& source, ShaderSourceType sourceType);
 	};
 }

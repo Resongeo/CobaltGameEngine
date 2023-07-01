@@ -14,13 +14,13 @@ namespace Cobalt
 {
 	struct WindowProperties
 	{
-		std::string Title;
-		uint32_t Width;
-		uint32_t Height;
-		bool Vsync;
+		std::string Title = "Cobalt Engine";
+		uint32_t Width = 1280;
+		uint32_t Height = 720;
+		bool Vsync = true;
+		bool Resizeable = true;
 
-		WindowProperties(const std::string& title = "Cobalt Engine", uint32_t width = 1280, uint32_t height = 720, bool vsync = true)
-			: Title(title), Width(width), Height(height), Vsync(vsync) {}
+		WindowProperties() = default;
 	};
 
 	class Window

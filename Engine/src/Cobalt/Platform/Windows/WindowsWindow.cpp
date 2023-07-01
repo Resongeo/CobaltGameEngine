@@ -40,6 +40,11 @@ namespace Cobalt
 			}
 		}
 
+		if (!m_Properties.Resizeable)
+		{
+			glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+		}
+
 		m_Window = glfwCreateWindow(m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str(), nullptr, nullptr);
 		if (m_Window == nullptr)
 			LOG_ENGINE_ERROR("Failed to create window!");

@@ -17,7 +17,13 @@ namespace Cobalt
 
 			scriptComponent.LuaState.set_exception_handler(&ScriptEngine::ExceptionHandler);
 
-			auto result = scriptComponent.LuaState.safe_script_file(scriptComponent.Source);
+			sol::protected_function_result result;
+
+			if (scriptComponent.SourceType == LuaScriptSourceType::Filepath)
+				result = scriptComponent.LuaState.safe_script_file(scriptComponent.Source);
+			else
+				result = scriptComponent.LuaState.safe_script(scriptComponent.Source);
+
 			if (result.valid())
 				scriptComponent.HasScriptLoaded = true;
 			else continue;
