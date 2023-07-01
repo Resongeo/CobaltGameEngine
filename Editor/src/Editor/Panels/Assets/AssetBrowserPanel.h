@@ -20,4 +20,11 @@ private:
 	const char* m_AssetDir;
 
 	Ref<Scene> m_Scene;
+
+	Ref<Texture2D> m_DirectoryIcon;
+	Ref<Texture2D> m_FontIcon;
+	Ref<Texture2D> m_SceneIcon;
+	Ref<Texture2D> m_ScriptIcon;
+
+	std::unordered_map<std::string, Vec3> m_DirectoryColors;
 };

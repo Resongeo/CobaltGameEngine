@@ -16,6 +16,11 @@ public:
 		return ImVec4(color.r / 255.f, color.g / 255.f, color.b / 255.f, color.a / 255.f);
 	}
 
+	static inline Vec3 RGBtoVec3(float r, float g, float b)
+	{
+		return Vec3(r / 255.f, g / 255.f, b / 255.f);
+	}
+
 	static inline ImU32 RGBAtoImU32(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255)
 	{
 		return ImColor(r, g, b, a);

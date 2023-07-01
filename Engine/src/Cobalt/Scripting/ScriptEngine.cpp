@@ -24,6 +24,9 @@ namespace Cobalt
 
 			scriptComponent.ScriptEntity.SetTransformComponent(&entity.GetComponent<TransformComponent>());
 
+			if(entity.HasComponent<SpriteRendererComponent>())
+				scriptComponent.ScriptEntity.SetSpriteRendererComponent(&entity.GetComponent<SpriteRendererComponent>());
+
 			scriptComponent.LuaState.open_libraries(sol::lib::base);
 			scriptComponent.LuaState.open_libraries(sol::lib::math);
 			scriptComponent.LuaState.open_libraries(sol::lib::string);
@@ -56,6 +59,10 @@ namespace Cobalt
 			auto inputTable = scriptComponent.LuaState["Input"].get_or_create<sol::table>();
 			inputTable.set_function("IsMouseButtonClicked", &LuaEntity::IsMouseButtonClicked, &scriptComponent.ScriptEntity);
 			inputTable.set_function("IsKeyDown", &LuaEntity::IsKeyDown, &scriptComponent.ScriptEntity);
+
+			auto spriteTable = scriptComponent.LuaState["SpriteRenderer"].get_or_create<sol::table>();
+			spriteTable.set_function("SetColor", &LuaEntity::SetColor, &scriptComponent.ScriptEntity);
+			spriteTable.set_function("SetColorHSV", &LuaEntity::SetColorHSV, &scriptComponent.ScriptEntity);
 
 			scriptComponent.LuaState["Start"]();
 		}

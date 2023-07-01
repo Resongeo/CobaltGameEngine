@@ -5,6 +5,7 @@
 namespace Cobalt
 {
 	struct TransformComponent;
+	struct SpriteRendererComponent;
 
 	class LuaEntity
 	{
@@ -29,6 +30,9 @@ namespace Cobalt
 		void RotateY(float value);
 		void RotateZ(float value);
 
+		void SetColor(float r, float g, float b, float a);
+		void SetColorHSV(float H, float S, float V);
+
 		void Log(const char* message);
 		void Info(const char* message);
 		void Warn(const char* message);
@@ -39,9 +43,11 @@ namespace Cobalt
 		bool IsKeyDown(int key);
 
 		void SetTransformComponent(TransformComponent* transform) { m_Transform = transform; }
+		void SetSpriteRendererComponent(SpriteRendererComponent* sprite) { m_Sprite = sprite; }
 
 	private:
 		const char* Name = "Entity name here";
 		TransformComponent* m_Transform = nullptr;
+		SpriteRendererComponent* m_Sprite = nullptr;
 	};
 }
