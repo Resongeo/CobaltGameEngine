@@ -15,7 +15,7 @@ EditorLayer::EditorLayer() : Layer("Editor Layer"), m_Window(Application::GetWin
 void EditorLayer::OnAttach()
 {
 	FramebufferSpecification fbSpecs;
-	fbSpecs.Attachments = { FramebufferAttachmentType::RGBA8, FramebufferAttachmentType::RGBA8, FramebufferAttachmentType::RGBA8, FramebufferAttachmentType::RED_INTEGER };
+	fbSpecs.Attachments = { FramebufferAttachmentType::RGBA8, FramebufferAttachmentType::RED_INTEGER };
 	fbSpecs.Width = m_Window->GetWidth();
 	fbSpecs.Height = m_Window->GetHeight();
 	fbSpecs.Samples = 1;
@@ -75,7 +75,7 @@ void EditorLayer::OnUpdate()
 				break;
 		}
 
-		m_Framebuffer->ClearAttachment(3, -1);
+		m_Framebuffer->ClearAttachment(1, -1);
 	}
 
 	{
@@ -190,4 +190,34 @@ void EditorLayer::OnImGuiUpdate()
 void EditorLayer::OnEvent(Event& event)
 {
 	m_EditorCamera.OnEvent(event);
+
+	EventDispatcher dispatcher(event);
+	dispatcher.Dispatch<LogTraceEvent>(CB_BIND_EVENT_FN(EditorLayer::OnEngineTraceLog));
+	dispatcher.Dispatch<LogInfoEvent>(CB_BIND_EVENT_FN(EditorLayer::OnEngineInfoLog));
+	dispatcher.Dispatch<LogWarnEvent>(CB_BIND_EVENT_FN(EditorLayer::OnEngineWarnLog));
+	dispatcher.Dispatch<LogErrorEvent>(CB_BIND_EVENT_FN(EditorLayer::OnEngineErrorLog));
+}
+
+bool EditorLayer::OnEngineTraceLog(LogTraceEvent& event)
+{
+	DEBUG_LOG("{}", event.GetLogMessage());
+	return false;
+}
+
+bool EditorLayer::OnEngineInfoLog(LogInfoEvent& event)
+{
+	DEBUG_INFO("{}", event.GetLogMessage());
+	return false;
+}
+
+bool EditorLayer::OnEngineWarnLog(LogWarnEvent& event)
+{
+	DEBUG_WARN("{}", event.GetLogMessage());
+	return false;
+}
+
+bool EditorLayer::OnEngineErrorLog(LogErrorEvent& event)
+{
+	DEBUG_ERROR("{}", event.GetLogMessage());
+	return false;
 }

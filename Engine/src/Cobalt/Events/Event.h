@@ -10,7 +10,8 @@ namespace Cobalt
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMove,
 		AppTick, AppUpdate, AppRender,
 		KeyPress, KeyRelease,
-		MouseButtonPress, MouseButtonRelease, MouseMove, MouseScroll
+		MouseButtonPress, MouseButtonRelease, MouseMove, MouseScroll,
+		LogTrace, LogInfo, LogWarn, LogError
 	};
 
 	enum EventCategory
@@ -20,7 +21,8 @@ namespace Cobalt
 		EventCategoryInput		 = BIT(1),
 		EventCategoryKeyboard	 = BIT(2),
 		EventCategoryMouse		 = BIT(3),
-		EventCategoryMouseButton = BIT(4)
+		EventCategoryMouseButton = BIT(4),
+		EventCategoryLog		 = BIT(5),
 	};
 
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\

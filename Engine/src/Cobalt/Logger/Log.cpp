@@ -7,6 +7,8 @@ namespace Cobalt
 	Ref<spdlog::logger> Log::s_EngineLogger;
 	Ref<spdlog::logger> Log::s_ClientLogger;
 
+	EventCallbackFn Log::s_EventCallback;
+
 	void Log::Init()
 	{
 		spdlog::set_pattern("%^[%T] %n: %v%$");
@@ -16,5 +18,10 @@ namespace Cobalt
 
 		s_ClientLogger = spdlog::stderr_color_mt("Client");
 		s_ClientLogger->set_level(spdlog::level::trace);
+	}
+
+	void Log::SetEventCallback(const EventCallbackFn& callback)
+	{
+		s_EventCallback = callback;
 	}
 }

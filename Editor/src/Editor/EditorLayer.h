@@ -25,6 +25,11 @@ public:
 	void OnImGuiUpdate() override;
 	void OnEvent(Event& event) override;
 
+	bool OnEngineTraceLog(LogTraceEvent& event);
+	bool OnEngineInfoLog(LogInfoEvent& event);
+	bool OnEngineWarnLog(LogWarnEvent& event);
+	bool OnEngineErrorLog(LogErrorEvent& event);
+
 	Ref<Scene> GetActiveScene() const { return m_ActiveScene; }
 	SceneState SceneState = SceneState::Edit;
 

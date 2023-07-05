@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
+#include "Cobalt/Events/Event.h"
+#include "Cobalt/Events/LogEvent.h"
 
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -15,20 +17,49 @@ namespace Cobalt
 		static Ref<spdlog::logger>& GetEngineLogger() { return s_EngineLogger; }
 		static Ref<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
 
+		static void SetEventCallback(const EventCallbackFn& callback);
+
+		template<typename ...Args>
+		static void DispatchLogTraceEvent(const char* format, Args&& ...args)
+		{
+			LogTraceEvent event(fmt::format(format, std::forward<Args>(args)...));
+			s_EventCallback(event);
+		}
+		template<typename ...Args>
+		static void DispatchLogInfoEvent(const char* format, Args&& ...args)
+		{
+			LogInfoEvent event(fmt::format(format, std::forward<Args>(args)...));
+			s_EventCallback(event);
+		}
+		template<typename ...Args>
+		static void DispatchLogWarnEvent(const char* format, Args&& ...args)
+		{
+			LogWarnEvent event(fmt::format(format, std::forward<Args>(args)...));
+			s_EventCallback(event);
+		}
+		template<typename ...Args>
+		static void DispatchLogErrorEvent(const char* format, Args&& ...args)
+		{
+			LogErrorEvent event(fmt::format(format, std::forward<Args>(args)...));
+			s_EventCallback(event);
+		}
+
 	private:
 		static Ref<spdlog::logger> s_EngineLogger;
 		static Ref<spdlog::logger> s_ClientLogger;
+
+		static EventCallbackFn s_EventCallback;
 	};
 }
 
-#define LOG_ENGINE_TRACE(...)   ::Cobalt::Log::GetEngineLogger()->trace(__VA_ARGS__)
-#define LOG_ENGINE_INFO(...)    ::Cobalt::Log::GetEngineLogger()->info(__VA_ARGS__)
-#define LOG_ENGINE_WARN(...)    ::Cobalt::Log::GetEngineLogger()->warn(__VA_ARGS__)
-#define LOG_ENGINE_ERROR(...)	::Cobalt::Log::GetEngineLogger()->error(__VA_ARGS__)
-#define LOG_ENGINE_FATAL(...)	::Cobalt::Log::GetEngineLogger()->critical(__VA_ARGS__)
+#define COBALT_TRACE(...)	::Cobalt::Log::GetEngineLogger()->trace(__VA_ARGS__);	::Cobalt::Log::DispatchLogTraceEvent(__VA_ARGS__)
+#define COBALT_INFO(...)	::Cobalt::Log::GetEngineLogger()->info(__VA_ARGS__);	::Cobalt::Log::DispatchLogInfoEvent(__VA_ARGS__)
+#define COBALT_WARN(...)    ::Cobalt::Log::GetEngineLogger()->warn(__VA_ARGS__);	::Cobalt::Log::DispatchLogWarnEvent(__VA_ARGS__)
+#define COBALT_ERROR(...)	::Cobalt::Log::GetEngineLogger()->error(__VA_ARGS__);	::Cobalt::Log::DispatchLogErrorEvent(__VA_ARGS__)
+#define COBALT_FATAL(...)	::Cobalt::Log::GetEngineLogger()->critical(__VA_ARGS__)
 
-#define LOG_TRACE(...)			::Cobalt::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define LOG_INFO(...)			::Cobalt::Log::GetClientLogger()->info(__VA_ARGS__)
-#define LOG_WARN(...)			::Cobalt::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define LOG_ERROR(...)			::Cobalt::Log::GetClientLogger()->error(__VA_ARGS__)
-#define LOG_FATAL(...)			::Cobalt::Log::GetClientLogger()->critical(__VA_ARGS__)
+#define CLIENT_TRACE(...)	::Cobalt::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define CLIENT_INFO(...)	::Cobalt::Log::GetClientLogger()->info(__VA_ARGS__)
+#define CLIENT_WARN(...)	::Cobalt::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define CLIENT_ERROR(...)	::Cobalt::Log::GetClientLogger()->error(__VA_ARGS__)
+#define CLIENT_FATAL(...)	::Cobalt::Log::GetClientLogger()->critical(__VA_ARGS__)

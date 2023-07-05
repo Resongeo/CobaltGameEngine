@@ -4,18 +4,10 @@
 #include "Editor/Utils/Controls.h"
 #include "Editor/Utils/Colors.h"
 
-LogPanel* LogPanel::s_Instance = nullptr;
 LogPanel::LogPanel() : EditorPanel("Log panel")
 {
-	s_Instance = this;
-
 	m_OddColor = ImColor(0, 0, 0, 20);
 	m_EvenColor = ImColor(0, 0, 0, 40);
-}
-
-void LogPanel::Clear()
-{
-	m_Messages.clear();
 }
 
 void LogPanel::Update()
@@ -25,7 +17,7 @@ void LogPanel::Update()
 
 	ImGui::SetCursorPosX(10);
 	ImGui::PushStyleColor(ImGuiCol_Button, Colors::RGBAtoImVec4(60, 100, 140));
-	if (ImGui::Button(ICON_TIMES_CIRCLE " Clear")) Clear();
+	if (ImGui::Button(ICON_TIMES_CIRCLE " Clear")) Logs::Get().Clear();
 	ImGui::PopStyleColor();
 	ImGui::SameLine();
 	ImGui::Checkbox("Auto scroll", &m_ScrollToBottom);
@@ -34,7 +26,7 @@ void LogPanel::Update()
 	ImGui::Dummy(ImVec2(0, 5));
 
 	int logIndex = 0;
-	for (auto& message : m_Messages)
+	for (auto& message : Logs::Get().GetMessages())
 	{
 		Controls::DrawRect(ImGui::GetCursorScreenPos(), ImGui::GetContentRegionMax(), ImGui::GetTextLineHeight(), logIndex & 1 ? m_OddColor : m_EvenColor);
 

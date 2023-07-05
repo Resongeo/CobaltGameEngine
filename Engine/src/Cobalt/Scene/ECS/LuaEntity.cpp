@@ -102,10 +102,10 @@ namespace Cobalt
 		m_Sprite->Color = Vec4(r, g, b, 1.0);
 	}
 
-	void LuaEntity::Log(const char* message)   { LOG_ENGINE_TRACE(message); }
-	void LuaEntity::Info(const char* message)  { LOG_ENGINE_INFO(message); }
-	void LuaEntity::Warn(const char* message)  { LOG_ENGINE_WARN(message); }
-	void LuaEntity::Error(const char* message) { LOG_ENGINE_ERROR(message); }
+	void LuaEntity::Log(const char* message)   { COBALT_TRACE(message); }
+	void LuaEntity::Info(const char* message)  { COBALT_INFO(message); }
+	void LuaEntity::Warn(const char* message)  { COBALT_WARN(message); }
+	void LuaEntity::Error(const char* message) { COBALT_ERROR(message); }
 
 	bool LuaEntity::IsMouseButtonClicked(int button) { return Input::GetMouseButtonClicked(button); }
 

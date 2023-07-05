@@ -1,7 +1,9 @@
 #include "cbpch.h"
 
 #include "Cobalt/Platform/OpenGL/OpenGLTexture2D.h"
+#include "Cobalt/Logger/Log.h"
 
+#include <filesystem>
 #include <stb_image.h>
 #include <glad/glad.h>
 
@@ -9,6 +11,12 @@ namespace Cobalt
 {
 	OpenGLTexture::OpenGLTexture(const std::string& path) : m_Path(path)
 	{
+		if (!std::filesystem::exists(path))
+		{
+			COBALT_ERROR("Failed to load texture: {0}", path);
+			OpenGLTexture(1, 1);
+		}
+
 		int width, height, channels;
 
 		stbi_set_flip_vertically_on_load(true);

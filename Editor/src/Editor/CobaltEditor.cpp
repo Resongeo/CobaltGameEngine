@@ -6,6 +6,7 @@ CobaltEditor::CobaltEditor(const ApplicationSpecification& applicationSpecificat
 {
 	s_Instance = this;
 
+	Logs::Init();
 	StyleManager::Init();
 	Controls::Init();
 	EditorPanelManager::Init();

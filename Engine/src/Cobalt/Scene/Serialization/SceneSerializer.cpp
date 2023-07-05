@@ -74,7 +74,7 @@ namespace Cobalt
 		});
 
 		out.Write();
-		LOG_ENGINE_INFO("Scene saved: {}", filepath);
+		COBALT_INFO("Scene saved: {}", filepath);
 	}
 
 	void SceneSerializer::Deserialize(const char* filepath, const Ref<Scene>& scene)

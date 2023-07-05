@@ -77,9 +77,7 @@ namespace Cobalt
 			#version 450 core
 			
 			layout(location = 0) out vec4 FragColor;
-			layout(location = 1) out vec4 Color2;
-			layout(location = 2) out vec4 Color3;
-			layout(location = 3) out int EntityID;
+			layout(location = 1) out int EntityID;
 
 			in vec2 v_TexCoord;
 			in vec2 v_Tiling;
@@ -96,8 +94,6 @@ namespace Cobalt
 				if (FragColor.a == 0.0)
 					discard;
 
-				Color2 = vec4(v_TexCoord, 0.0, 1.0);
-				Color3 = vec4(vec3(v_TexCoord, 1.0) * 0.5 + 0.5, 1.0);
 				EntityID = v_EntityID;
 			}
 		)");

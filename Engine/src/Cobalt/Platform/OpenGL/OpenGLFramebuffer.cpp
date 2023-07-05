@@ -114,7 +114,10 @@ namespace Cobalt
 			glDrawBuffers(m_AttachmentIDs.size(), buffers);
 		}
 
-		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) LOG_ENGINE_ERROR("Framebuffer is not complete!");
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		{
+			COBALT_ERROR("Framebuffer is not complete!");
+		}
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
