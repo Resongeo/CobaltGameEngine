@@ -26,8 +26,6 @@ namespace Cobalt
 	class Window
 	{
 	public:
-		using EventCallbackFn = std::function<void(Event&)>;
-
 		Window(const WindowProperties& properties);
 
 		WindowProperties GetProperties();

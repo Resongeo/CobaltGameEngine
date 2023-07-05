@@ -18,7 +18,7 @@ void ProfilerPanel::ImGuiUpdate()
 		ImGui::SetCursorPosX((windowWidth - textWidth) * 0.5f);
 
 		ImGui::PushFont(p_EditorFonts->SemiBold);
-		ImGui::TextColored(ImVec4(0.176, 0.450, 0.705, 1.0), header.Name);
+		ImGui::TextColored(ImVec4(0.176f, 0.450f, 0.705f, 1.0f), header.Name);
 		ImGui::PopFont();
 
 		for (auto& profile : header.Results)

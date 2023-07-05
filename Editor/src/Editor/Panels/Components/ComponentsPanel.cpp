@@ -63,7 +63,7 @@ static void DrawComponent(const char* title, Entity entity, bool& opened, const 
 
 		if (opened)
 		{
-			ImGui::PushStyleColor(ImGuiCol_Text, { 0.94, 0.94, 0.94, 1.0 });
+			ImGui::PushStyleColor(ImGuiCol_Text, { 0.94f, 0.94f, 0.94f, 1.0f });
 			ImGui::PushFont(editorFonts->Regular);
 
 			auto& component = entity.GetComponent<T>();
@@ -87,7 +87,7 @@ void ComponentsPanel::DrawComponents(Entity entity)
 
 	ImGui::PushFont(p_EditorFonts->SemiBold);
 
-	DrawComponent<TagComponent>(ICON_TAG " Tag Component", entity, m_TagOpened, m_TagPrimaryColor, 65, p_EditorFonts, [](auto& component, EditorFonts* editorFonts)
+	DrawComponent<TagComponent>(ICON_TAG " Tag Component", entity, m_TagOpened, m_TagPrimaryColor, 65.0f, p_EditorFonts, [](auto& component, EditorFonts* editorFonts)
 	{
 		ImGui::Dummy({ 0, 5 });
 		ImGui::PushFont(editorFonts->SemiBold);
@@ -99,7 +99,7 @@ void ComponentsPanel::DrawComponents(Entity entity)
 		ImGui::InputText("##Tag", component.Tag.data(), component.Tag.capacity());
 	});
 
-	DrawComponent<TransformComponent>(ICON_TH " Transform Component", entity, m_TransformOpened, m_TransformPrimaryColor, 125, p_EditorFonts, [](auto& component, EditorFonts* editorFonts)
+	DrawComponent<TransformComponent>(ICON_TH " Transform Component", entity, m_TransformOpened, m_TransformPrimaryColor, 125.0f, p_EditorFonts, [](auto& component, EditorFonts* editorFonts)
 	{
 		ImVec2 offset = { 20, 0 };
 		ImGui::Dummy({ 0, 5 });
@@ -108,7 +108,7 @@ void ComponentsPanel::DrawComponents(Entity entity)
 		Controls::DrawVector3("Scale", component.Scale, offset, 1.0f);
 	});
 
-	DrawComponent<SpriteRendererComponent>(ICON_IMAGE " Sprite Renderer Component", entity, m_SpriteOpened, m_SpritePrimaryColor, 480, p_EditorFonts, [](auto& component, EditorFonts* editorFonts)
+	DrawComponent<SpriteRendererComponent>(ICON_IMAGE " Sprite Renderer Component", entity, m_SpriteOpened, m_SpritePrimaryColor, 480.0f, p_EditorFonts, [](auto& component, EditorFonts* editorFonts)
 	{
 		ImVec2 offset = { 20, 0 };
 
@@ -161,7 +161,7 @@ void ComponentsPanel::DrawComponents(Entity entity)
 		ImGui::Dummy({ 0, 15 });
 	});
 
-	DrawComponent<LuaScriptComponent>(ICON_TH " Lua Script Component", entity, m_LuaScriptOpened, m_LuaScriptPrimaryColor, 70, p_EditorFonts, [](auto& component, EditorFonts* editorFonts)
+	DrawComponent<LuaScriptComponent>(ICON_TH " Lua Script Component", entity, m_LuaScriptOpened, m_LuaScriptPrimaryColor, 70.0f, p_EditorFonts, [](auto& component, EditorFonts* editorFonts)
 	{
 		ImVec2 offset = { 20, 0 };
 		ImGui::Dummy({ 0, 5 });

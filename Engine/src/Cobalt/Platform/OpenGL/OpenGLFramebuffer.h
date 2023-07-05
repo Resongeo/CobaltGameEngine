@@ -17,7 +17,7 @@ namespace Cobalt
 		virtual void Resize(uint32_t width, uint32_t height) override;
 		virtual int ReadPixel(uint32_t attachmentIndex, int x, int y) override;
 
-		virtual uint32_t GetColorAttachmentID(int index) const override { if (index <= m_AttachmentIDs.size()) return m_AttachmentIDs[index]; }
+		virtual uint32_t GetColorAttachmentID(int index) const override { if (index <= m_AttachmentIDs.size()) return m_AttachmentIDs[index]; return -1; }
 		virtual void ClearAttachment(uint32_t attachmentIndex, int data) override;
 
 		virtual const FramebufferSpecification& GetSpecification() const override { return m_Specification; };

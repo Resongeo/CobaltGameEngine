@@ -29,7 +29,7 @@ void AssetBrowserPanel::Update()
 	}
 
 	static float padding = 12.0f;
-	static float thumbnailSize = 128.0f;
+	static float thumbnailSize = 110.0f;
 	float cellSize = thumbnailSize + padding;
 	float panelWidth = ImGui::GetContentRegionAvail().x;
 	int columnCount = (int)(panelWidth / cellSize);
@@ -115,9 +115,6 @@ void AssetBrowserPanel::Update()
 		ImGui::NextColumn();
 		ImGui::PopID();
 	}
-
-	ImGui::DragFloat("Padding", &padding);
-	ImGui::DragFloat("Thumbnail", &thumbnailSize);
 
 	ImGui::Columns(1);
 	ImGui::End();

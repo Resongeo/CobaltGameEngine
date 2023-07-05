@@ -132,7 +132,7 @@ void ViewportPanel::ImGuiUpdate()
 		ImGui::SetCursorPosX((windowWidth - textWidth) * 0.5f);
 
 		ImGui::PushFont(p_EditorFonts->SemiBold);
-		ImGui::TextColored(ImVec4(0.176, 0.450, 0.705, 1.0), ICON_VIDEO " Settings");
+		ImGui::TextColored(ImVec4(0.176f, 0.450f, 0.705f, 1.0f), ICON_VIDEO " Settings");
 		ImGui::PopFont();
 
 		const char* proj_types[] = { "Orthographic", "Perspective" };
@@ -147,7 +147,7 @@ void ViewportPanel::ImGuiUpdate()
 
 		if (selected == 0)
 		{
-			if (Controls::DrawVector1("Size", m_EditorCamera->GetSizeAdr(), { 0, 0 }, 5.0f, 0.01, 10.0f))
+			if (Controls::DrawVector1("Size", m_EditorCamera->GetSizeAdr(), { 0, 0 }, 5.0f, 0.01f, 10.0f))
 				m_EditorCamera->UpdateView();
 		}
 		else

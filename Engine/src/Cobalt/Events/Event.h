@@ -68,4 +68,6 @@ namespace Cobalt
 	{
 		return os << e.ToString();
 	}
+
+	using EventCallbackFn = std::function<void(Event&)>;
 }

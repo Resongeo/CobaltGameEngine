@@ -96,6 +96,7 @@ project "Engine"
 
 	filter "system:windows"
 		systemversion "latest"
+		buildoptions { "/wd4312", "/wd4267", "/wd4244" }
 
 	filter "configurations:Debug"
 		defines "CB_DEBUG"
@@ -174,6 +175,8 @@ project "Editor"
 
 	filter "system:windows"
 		systemversion "latest"
+		buildoptions { "/wd4312", "/wd4267", "/wd4244" }
+		ignoredefaultlibraries { "LIBCMT", "MSVCRT" }
 		
 	filter "configurations:Debug"
 		defines "CB_DEBUG"
