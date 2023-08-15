@@ -2,21 +2,20 @@
 #include "Editor/Panels/Log/LogPanel.h"
 
 #include "Editor/Utils/Controls.h"
-#include "Editor/Utils/Colors.h"
 
-LogPanel::LogPanel() : EditorPanel("Log panel")
+LogPanel::LogPanel() : EditorPanel(ICON_INFO_CIRCLE " Log")
 {
-	m_OddColor = ImColor(0, 0, 0, 20);
-	m_EvenColor = ImColor(0, 0, 0, 40);
+	m_OddColor = Color(0, 0, 0, 20);
+	m_EvenColor = Color(0, 0, 0, 40);
 }
 
-void LogPanel::Update()
+void LogPanel::ImGuiUpdate()
 {
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 10));
-	ImGui::Begin(ICON_INFO_CIRCLE " Log");
+	ImGui::Begin(GetName(), &p_Opened);
 
 	ImGui::SetCursorPosX(10);
-	ImGui::PushStyleColor(ImGuiCol_Button, Colors::RGBAtoImVec4(60, 100, 140));
+	ImGui::PushStyleColor(ImGuiCol_Button, (ImU32)Color(60, 100, 140));
 	if (ImGui::Button(ICON_TIMES_CIRCLE " Clear")) Logs::Get().Clear();
 	ImGui::PopStyleColor();
 	ImGui::SameLine();
@@ -31,9 +30,9 @@ void LogPanel::Update()
 		Controls::DrawRect(ImGui::GetCursorScreenPos(), ImGui::GetContentRegionMax(), ImGui::GetTextLineHeight(), logIndex & 1 ? m_OddColor : m_EvenColor);
 
 		ImGui::SetCursorPosX(8);
-		ImGui::TextColored(message.Color, ICON_EXCLAMATION_TRIANGLE);
+		ImGui::TextColored(message.TextColor, ICON_EXCLAMATION_TRIANGLE);
 		ImGui::SameLine();
-		ImGui::TextColored(message.Color, message.Message.c_str());
+		ImGui::TextColored(message.TextColor, message.Message.c_str());
 
 		if (m_ScrollToBottom && ImGui::GetScrollY() >= ImGui::GetScrollMaxY() - 10.0)
 			ImGui::SetScrollHereY(1.0f);

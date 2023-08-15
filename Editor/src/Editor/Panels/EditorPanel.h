@@ -19,9 +19,14 @@ public:
 	virtual void Update() { }
 	virtual void ImGuiUpdate() { }
 
+	void ClosePanel() { p_Opened = false; }
+	void OpenPanel() { p_Opened = true; }
+
 	const char* GetName() const { return m_PanelName; }
+	inline bool IsOpened() const { return p_Opened; }
 
 protected:
 	const char* m_PanelName = "Panel";
 	EditorFonts* p_EditorFonts = nullptr;
+	bool p_Opened = true;
 };

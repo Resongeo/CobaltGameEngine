@@ -11,7 +11,7 @@ namespace Cobalt
 		class Parser
 		{
 		public:
-			static void GetEntity(std::ifstream& file, const Ref<Scene>& scene);
+			static void CreateEntity(std::ifstream& file, const Ref<Scene>& scene);
 
 			inline static std::string GetString(const std::string& input)
 			{

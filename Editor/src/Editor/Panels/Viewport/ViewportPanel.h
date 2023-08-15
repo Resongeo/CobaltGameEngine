@@ -11,8 +11,8 @@ class ViewportPanel : public EditorPanel
 public:
 	ViewportPanel(const Ref<Framebuffer>& framebuffer, EditorCamera* editorCamera, const Ref<Scene>& activeScene);
 
-	virtual void Update() override;
-	virtual void ImGuiUpdate() override;
+	void Update() override;
+	void ImGuiUpdate() override;
 
 	static bool IsGridShown() { return s_Instance->m_ShowGrid; }
 

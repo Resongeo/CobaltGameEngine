@@ -52,7 +52,7 @@ namespace Cobalt
 				out.BeginMap();
 
 				out.Add("Path", sprite.Texture ? sprite.Texture->GetPath() : "null");
-				out.Add("Color", sprite.Color);
+				out.Add("Color", (Vec4)sprite.Tint);
 				out.Add("Tiling", sprite.Tiling);
 
 				out.EndMap();
@@ -91,7 +91,7 @@ namespace Cobalt
 		{
 			if (line.find("Entity") != std::string::npos)
 			{
-				CBS::Parser::GetEntity(file, scene);
+				CBS::Parser::CreateEntity(file, scene);
 			}
 		}
 	}

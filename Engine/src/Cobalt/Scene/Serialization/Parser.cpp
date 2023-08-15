@@ -7,7 +7,7 @@ namespace Cobalt
 {
 	namespace CBS
 	{
-		void Parser::GetEntity(std::ifstream& file, const Ref<Scene>& scene)
+		void Parser::CreateEntity(std::ifstream& file, const Ref<Scene>& scene)
 		{
 			Entity entity = scene->CreateEntity();
 			std::string line;
@@ -58,7 +58,7 @@ namespace Cobalt
 					// TODO: Load textures from asset manager with UUID, for now it gets a default white texture
 
 					std::getline(file, line);
-					src.Color = GetVec<4>(ExtractNumbers(line));
+					src.Tint = GetVec<4>(ExtractNumbers(line));
 
 					std::getline(file, line);
 					src.Tiling = GetVec<2>(ExtractNumbers(line));

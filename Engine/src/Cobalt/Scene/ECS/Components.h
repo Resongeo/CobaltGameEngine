@@ -2,13 +2,11 @@
 
 #include "Cobalt/Core/Core.h"
 #include "Cobalt/Core/Math.h"
+#include "Cobalt/Core/Color.h"
 #include "Cobalt/Renderer/VertexArray.h"
 #include "Cobalt/Renderer/Texture2D.h"
 #include "Cobalt/Renderer/Shader.h"
-
 #include "Cobalt/Scene/ECS/LuaEntity.h"
-
-#include <sol.hpp>
 
 namespace Cobalt
 {
@@ -20,7 +18,7 @@ namespace Cobalt
 		IDComponent(const IDComponent&) = default;
 		IDComponent(uint64_t id) : UUID(id) {}
 
-		operator uint64_t () { return UUID; }
+		operator uint64_t() { return UUID; }
 	};
 
 	struct TagComponent
@@ -31,9 +29,9 @@ namespace Cobalt
 		TagComponent(const TagComponent&) = default;
 		TagComponent(const std::string& tag) : Tag(tag) {}
 
-		operator std::string& () { return Tag; }
-		operator const std::string& () const { return Tag; }
-		operator const char* () { return Tag.c_str(); }
+		operator std::string&() { return Tag; }
+		operator const std::string&() const { return Tag; }
+		operator const char*() { return Tag.c_str(); }
 	};
 
 	struct TransformComponent
@@ -60,26 +58,23 @@ namespace Cobalt
 	struct SpriteRendererComponent
 	{
 		Ref<Texture2D> Texture = Texture2D::Create(1, 1);
-		Vec4 Color = Vec4(1.0);
+		Color Tint = Color(1.0);
 		Vec2 Tiling = Vec2(1.0);
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const Ref<Texture2D>& texture) : Texture(texture) {}
 
-		operator Ref<Texture2D>& () { return Texture; }
-		operator const Ref<Texture2D>& () const { return Texture; }
-
-		operator Vec4& () { return Color; }
-		operator const Vec4& () const { return Color; }
-
-		operator Vec2& () { return Tiling; }
-		operator const Vec2& () const { return Tiling; }
+		operator Ref<Texture2D>&() { return Texture; }
+		operator const Ref<Texture2D>&() const { return Texture; }
+		operator const Color() const { return Tint; }
+		operator const Vec4&() const { return Tint; }
+		operator const Vec2&() const { return Tiling; }
 	};
 
 	enum class LuaScriptSourceType
 	{
-		Filepath, String
+		None = 0, Filepath, String
 	};
 
 	struct LuaScriptComponent
@@ -87,7 +82,7 @@ namespace Cobalt
 		LuaEntity ScriptEntity;
 		sol::state LuaState;
 		std::string Source;
-		LuaScriptSourceType SourceType;
+		LuaScriptSourceType SourceType = LuaScriptSourceType::None;
 		bool HasScriptLoaded = false;
 
 		LuaScriptComponent() = default;

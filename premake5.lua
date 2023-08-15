@@ -124,6 +124,8 @@ project "Editor"
 	cppdialect "C++17"
 	staticruntime "off"
 
+	dependson { "Engine" }
+
 	targetdir ("%{prj.name}/bin/")
 	debugdir ("%{prj.name}/bin/")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")

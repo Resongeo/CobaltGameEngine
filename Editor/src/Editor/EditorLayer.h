@@ -46,11 +46,12 @@ private:
 	Scope<ViewportPanel> m_ViewportPanel;
 	Ref<SceneHierarchyPanel> m_SceneHierarchyPanel;
 
-
 	EditorCamera m_EditorCamera;
 	Camera* m_ActiveCamera;
 
 	EditorFonts* m_EditorFonts;
+
+	bool m_Vsync = true;
 
 	struct GridData
 	{
@@ -60,6 +61,11 @@ private:
 	};
 	GridData m_GridData;
 
-	Vec4 m_ClearColor { 0.09f, 0.09f, 0.1f, 1.0f };
-	Vec4 m_GridColor{ 0.17f, 0.17f, 0.17f, 1.0f };
+	Color m_ClearColor = Color(23, 23, 25);
+	Color m_GridColor = Color(43, 43, 43);
+	Color m_BarColor = Color(20, 20, 21);
+
+	float m_TopBarHeight = 50.0f;
+	float m_SideBarWidth = 40.0f;
+	float m_BottomBarHeight = 10.0f;
 };

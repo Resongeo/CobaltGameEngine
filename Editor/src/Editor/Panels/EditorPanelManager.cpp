@@ -30,6 +30,9 @@ void EditorPanelManager::ImGuiUpdate()
 	for (auto* panel : s_Instance->m_Panels)
 	{
 		PROFILER_TIMER_SCOPE(panel->GetName());
+
+		if (!panel->IsOpened()) continue;
+
 		panel->ImGuiUpdate();
 	}
 

@@ -10,10 +10,10 @@ class LogPanel : public EditorPanel
 {
 public:
 	LogPanel();
-	virtual void Update() override;
+	virtual void ImGuiUpdate() override;
 
 private:
 	bool m_ScrollToBottom = true;
-	ImU32 m_OddColor;
-	ImU32 m_EvenColor;
+	Color m_OddColor;
+	Color m_EvenColor;
 };

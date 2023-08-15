@@ -64,7 +64,7 @@ void ViewportPanel::Update()
 void ViewportPanel::ImGuiUpdate()
 {
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
-	ImGui::Begin("Viewport");
+	ImGui::Begin("Viewport", nullptr, 0);
 	auto viewportOffset = ImGui::GetCursorPos();
 
 	ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
@@ -188,15 +188,15 @@ void ViewportPanel::ImGuiUpdate()
 
 			switch (m_GizmoOperation)
 			{
-			case ImGuizmo::OPERATION::TRANSLATE:
-				tc.Position = translation;
-				break;
-			case ImGuizmo::OPERATION::ROTATE:
-				tc.Rotation = glm::degrees(glm::eulerAngles(rotation));
-				break;
-			case ImGuizmo::OPERATION::SCALE:
-				tc.Scale = scale;
-				break;
+				case ImGuizmo::OPERATION::TRANSLATE:
+					tc.Position = translation;
+					break;
+				case ImGuizmo::OPERATION::ROTATE:
+					tc.Rotation = glm::degrees(glm::eulerAngles(rotation));
+					break;
+				case ImGuizmo::OPERATION::SCALE:
+					tc.Scale = scale;
+					break;
 			}
 		}
 	}

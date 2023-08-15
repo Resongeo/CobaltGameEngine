@@ -1,7 +1,7 @@
 #include "Editor/Panels/Profiler/ProfilerPanel.h"
 
 ProfilerPanel* ProfilerPanel::s_Instance = nullptr;
-ProfilerPanel::ProfilerPanel() : EditorPanel("Profiler panel")
+ProfilerPanel::ProfilerPanel() : EditorPanel(ICON_CLOCK " Profiler")
 {
 	s_Instance = this;
 	m_ActiveHeader = nullptr;
@@ -9,7 +9,7 @@ ProfilerPanel::ProfilerPanel() : EditorPanel("Profiler panel")
 
 void ProfilerPanel::ImGuiUpdate()
 {
-	ImGui::Begin(ICON_CLOCK " Profiler");
+	ImGui::Begin(GetName());
 
 	for (auto& header : m_ProfilerHeaders)
 	{

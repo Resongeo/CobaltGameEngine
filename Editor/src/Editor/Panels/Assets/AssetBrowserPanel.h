@@ -13,7 +13,7 @@ class AssetBrowserPanel : public EditorPanel
 public:
 	AssetBrowserPanel(const Ref<Scene>& scene);
 
-	virtual void Update() override;
+	void ImGuiUpdate() override;
 
 private:
 	std::filesystem::path m_CurrentDir;
@@ -26,5 +26,5 @@ private:
 	Ref<Texture2D> m_SceneIcon;
 	Ref<Texture2D> m_ScriptIcon;
 
-	std::unordered_map<std::string, Vec3> m_DirectoryColors;
+	std::unordered_map<std::string, Color> m_DirectoryColors;
 };

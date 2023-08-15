@@ -1,12 +1,12 @@
 #include "Editor/Panels/Profiler/RenderStatisticsPanel.h"
 
-RenderStatisticsPanel::RenderStatisticsPanel() : EditorPanel("Renderer Statistics") { }
+RenderStatisticsPanel::RenderStatisticsPanel() : EditorPanel(ICON_CHART_BAR " Render Statistics") { }
 
-void RenderStatisticsPanel::Update()
+void RenderStatisticsPanel::ImGuiUpdate()
 {
 	auto& stats = RenderCommand::GetStats();
 
-	ImGui::Begin(ICON_CHART_BAR " Render Statistics");
+	ImGui::Begin(GetName());
 
 	ImGui::Columns(2);
 

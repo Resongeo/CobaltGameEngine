@@ -142,7 +142,7 @@ namespace Cobalt
 		s_RendererData.Stats.DrawCalls++;
 	}
 
-	void RenderCommand::DrawQuad(const Vec3& position, const Vec3& scale, const Vec4& color)
+	void RenderCommand::DrawQuad(const Vec3& position, const Vec3& scale, const Color& color)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
@@ -187,7 +187,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawQuad(const Vec3& position, const Vec3& rotation, const Vec3& scale, const Vec4& color)
+	void RenderCommand::DrawQuad(const Vec3& position, const Vec3& rotation, const Vec3& scale, const Color& color)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
@@ -236,7 +236,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color, uint32_t entityID)
+	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, uint32_t entityID)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
@@ -284,7 +284,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Vec4& color, const Ref<Texture2D>& texture, uint32_t entityID)
+	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, const Ref<Texture2D>& texture, uint32_t entityID)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
@@ -351,7 +351,7 @@ namespace Cobalt
 
 	void RenderCommand::DrawEntity(const Mat4& transform, const SpriteRendererComponent& spriteComponent, uint32_t entityID)
 	{
-		DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Color, spriteComponent.Texture, entityID);
+		DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Tint, spriteComponent.Texture, entityID);
 	}
 
 	void RenderCommand::SetViewport(int x, int y, int width, int height)

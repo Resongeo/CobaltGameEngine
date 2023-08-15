@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
+#include "Cobalt/Core/Color.h"
 #include "Cobalt/Events/Event.h"
 #include "Cobalt/Events/KeyEvent.h"
 #include "Cobalt/Events/MouseEvent.h"
@@ -19,6 +20,7 @@ namespace Cobalt
 		uint32_t Height = 720;
 		bool Vsync = true;
 		bool Resizeable = true;
+		Color CaptionColor = Color(20, 20, 21);
 
 		WindowProperties() = default;
 	};

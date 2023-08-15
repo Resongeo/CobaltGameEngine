@@ -12,7 +12,7 @@ public:
 	SceneHierarchyPanel(const Ref<Scene>& scene);
 
 	void SetScene(const Ref<Scene>& scene) { m_Scene = scene; }
-	virtual void Update() override;
+	virtual void ImGuiUpdate() override;
 
 	static Entity GetSelectedEntity() { return s_Instance->m_SelectedEntity; }
 	static void SetSelectedEntity(Entity entity) { s_Instance->m_SelectedEntity = entity; }
@@ -30,8 +30,8 @@ private:
 
 	Ref<Texture2D> m_Texture;
 
-	ImU32 m_HoveredColor;
-	ImU32 m_SelectedColor;
-	ImU32 m_EvenNodeColor;
-	ImU32 m_OddNodeColor;
+	Color m_HoveredColor;
+	Color m_SelectedColor;
+	Color m_EvenNodeColor;
+	Color m_OddNodeColor;
 };

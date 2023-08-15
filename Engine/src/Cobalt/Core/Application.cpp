@@ -35,6 +35,8 @@ namespace Cobalt
 
 	void Application::Run()
 	{
+		COBALT_INFO("Yay, others depends on me!");
+
 		while (m_Running)
 		{
 			Time::Update();
@@ -89,6 +91,6 @@ namespace Cobalt
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
 		RenderCommand::SetViewport(0, 0, e.GetWidth(), e.GetHeight());
-		return false;
+		return true;
 	}
 }

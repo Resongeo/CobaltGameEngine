@@ -1,10 +1,8 @@
 #include "Editor/Panels/Components/ComponentsPanel.h"
 #include "Editor/Panels/Scene/SceneHierarchyPanel.h"
-
 #include "Editor/Utils/Controls.h"
-#include "Editor/Utils/Colors.h"
 
-ComponentsPanel::ComponentsPanel() : EditorPanel("Components panel") { }
+ComponentsPanel::ComponentsPanel() : EditorPanel(ICON_TASKS " Components") { }
 
 void ComponentsPanel::Update()
 {
@@ -14,7 +12,7 @@ void ComponentsPanel::Update()
 void ComponentsPanel::ImGuiUpdate()
 {
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 5, 10 });
-	ImGui::Begin(ICON_TASKS " Components");
+	ImGui::Begin(GetName());
 
 	if (m_SelectedEntity)
 		DrawComponents(m_SelectedEntity);
@@ -24,38 +22,39 @@ void ComponentsPanel::ImGuiUpdate()
 }
 
 template<typename T, typename ComponentSettings>
-static void DrawComponent(const char* title, Entity entity, bool& opened, const Vec4& primaryColor, float height, EditorFonts* editorFonts, ComponentSettings componentSettings)
+static void DrawComponent(const char* title, Entity entity, bool& opened, const Color& primaryColor, float height, EditorFonts* editorFonts, ComponentSettings componentSettings)
 {
 	if (entity.HasComponent<T>())
 	{
 		ImVec2 cursorPos = ImGui::GetCursorScreenPos();
 		ImVec2 contentMax = ImGui::GetContentRegionAvail();
 
-		ImU32 pColor = Colors::RGBAtoImU32(primaryColor);
+		Color bgCol(28, 28, 28);
+		Color inactiveCol(150, 150, 150, 180);
 
 		if (!opened)
 		{
-			Controls::DrawRectOutlined(cursorPos, contentMax, 25, Colors::RGBAtoImU32(28, 28, 28), 1, pColor, 6.0f);
+			Controls::DrawRectOutlined(cursorPos, contentMax, 25, bgCol, 1, inactiveCol, 6.0f);
 		}
 		else
 		{
-			Controls::DrawRectOutlined(cursorPos, contentMax, height, Colors::RGBAtoImU32(28, 28, 28), 1, pColor, 6.0f);
+			Controls::DrawRectOutlined(cursorPos, contentMax, height, bgCol, 1, primaryColor, 6.0f);
 		}
 
-		ImGui::PushStyleColor(ImGuiCol_Text, Colors::RGBAtoImVec4(primaryColor));
-		ImGui::PushStyleColor(ImGuiCol_Button, { 0, 0, 0, 0 });
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0, 0, 0, 0 });
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0, 0, 0, 0 });
+		ImGui::PushStyleColor(ImGuiCol_Text, opened ? (ImU32)primaryColor : (ImU32)inactiveCol);
+		ImGui::PushStyleColor(ImGuiCol_Button, (ImU32)Color(0.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImU32)Color(0.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImU32)Color(0.0f));
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10);
 		ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 2);
 		ImGui::SetNextItemWidth(contentMax.x - 20);
 		ImGui::Text(title);
 		ImGui::PopStyleColor(4);
 
-		ImVec2 mouse_pos = ImGui::GetMousePos();
+		ImVec2 mousePos = ImGui::GetMousePos();
 		if (ImGui::IsMouseClicked(0))
 		{
-			if (mouse_pos.x > cursorPos.x && mouse_pos.x < cursorPos.x + contentMax.x && mouse_pos.y > cursorPos.y - 4.5f && mouse_pos.y < cursorPos.y + 25)
+			if (mousePos.x > cursorPos.x && mousePos.x < cursorPos.x + contentMax.x && mousePos.y > cursorPos.y - 4.5f && mousePos.y < cursorPos.y + 25)
 			{
 				opened = !opened;
 			}
@@ -119,7 +118,7 @@ void ComponentsPanel::DrawComponents(Entity entity)
 		ImVec2 contentMax = ImGui::GetContentRegionAvail();
 		contentMax.x -= 20;
 
-		Controls::DrawRect(cursorPos, contentMax, 76, Colors::RGBAtoImU32(255, 255, 255, 10), 6.0f);
+		Controls::DrawRect(cursorPos, contentMax, 76, Color(255, 255, 255, 10), 6.0f);
 
 		cursorPos.x += 8;
 		cursorPos.y += 3;
@@ -152,7 +151,7 @@ void ComponentsPanel::DrawComponents(Entity entity)
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15.0f);
 		}
 
-		ImGui::ColorPicker4("Preview", glm::value_ptr(component.Color), ImGuiColorEditFlags_NoSmallPreview | ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoLabel);
+		ImGui::ColorPicker4("Preview", component.Tint, ImGuiColorEditFlags_NoSmallPreview | ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoLabel);
 
 		ImGui::Dummy({ 0, 15 });
 

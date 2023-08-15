@@ -1,4 +1,4 @@
-Name:  Test Scene
+Name:   Test Scene
 Entity:
   ID component:
     UUID:14514284786278117030
@@ -13,5 +13,5 @@ Entity:
     Color:[0.8,0.3,0.3,1]
     Tiling:[1,1]
   Lua Script component:
-    Source:..\assets\scripts\Shake.lua
+    Source:..\assets\scripts\InputTest.lua
   

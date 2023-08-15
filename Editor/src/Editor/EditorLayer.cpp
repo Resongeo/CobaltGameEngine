@@ -65,13 +65,13 @@ void EditorLayer::OnUpdate()
 		
 		switch (SceneState)
 		{
-			case Cobalt::SceneState::Edit:
+			case SceneState::Edit:
 				m_ActiveScene->EditorUpdate();
 				break;
-			case Cobalt::SceneState::Play:
+			case SceneState::Play:
 				m_ActiveScene->RuntimeUpdate();
 				break;
-			case Cobalt::SceneState::Simulate:
+			case SceneState::Simulate:
 				break;
 		}
 
@@ -97,91 +97,96 @@ void EditorLayer::OnUpdate()
 
 void EditorLayer::OnImGuiUpdate()
 {
-	PROFILER_START_HEADER("EditorLayer::OnImGuiUpdate");
+	ImGuiViewport* viewport = ImGui::GetMainViewport();
+	Vec2 windowPos = m_Window->GetPosition();
 
-	{
-		PROFILER_TIMER_SCOPE("Main Menu Bar");
+	ImGui::SetNextWindowPos({ viewport->WorkPos.x + m_SideBarWidth, viewport->WorkPos.y + m_TopBarHeight });
+	ImGui::SetNextWindowSize({ viewport->WorkSize.x - m_SideBarWidth, viewport->WorkSize.y - m_TopBarHeight - m_BottomBarHeight });
+	ImGui::SetNextWindowViewport(viewport->ID);
 
-		if (ImGui::BeginMainMenuBar())
-		{
-			if (ImGui::BeginMenu("File"))
-			{
-				if (ImGui::MenuItem(ICON_SAVE "  Save Scene"))
-				{
-					auto filepath = FileSystem::SaveFileDialog("Cobalt Scene (*.cbscene)\0*.cbscene\0");
-					if (!filepath.empty())
-					{
-						SceneSerializer serializer;
-						serializer.Serialize(filepath.c_str(), m_ActiveScene);
-					}
-				}
+	ImGuiWindowFlags host_window_flags = 0;
+	host_window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoDocking;
+	host_window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+	if (0 & ImGuiDockNodeFlags_PassthruCentralNode)
+		host_window_flags |= ImGuiWindowFlags_NoBackground;
 
-				if (ImGui::MenuItem(ICON_FOLDER_OPEN "  Load Scene"))
-				{
-					auto filepath = FileSystem::OpenFileDialog("Cobalt Scene (*.cbscene)\0*.cbscene\0");
-					if (!filepath.empty())
-					{
-						SceneHierarchyPanel::DeselectEntity();
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::Begin("MainDockSpaceViewport", NULL, host_window_flags);
+	ImGui::PopStyleVar(3);
 
-						SceneSerializer serializer;
-						serializer.Deserialize(filepath.c_str(), m_ActiveScene);
-					}
-				}
+	ImGuiID dockspace_id = ImGui::GetID("DockSpace");
+	ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f));
+	ImGui::End();
 
-				ImGui::EndMenu();
-			}
-			if (ImGui::BeginMenu("Settings"))
-			{
-				ImGui::EndMenu();
-			}
-			if (ImGui::BeginMenu("Project"))
-			{
-				ImGui::EndMenu();
-			}
-			if (ImGui::BeginMenu("Preferences"))
-			{
-				ImGui::EndMenu();
-			}
+	ImGuiWindowFlags barFlags = ImGuiWindowFlags_NoSavedSettings;
+	barFlags |= ImGuiWindowFlags_NoMove;
+	barFlags |= ImGuiWindowFlags_NoDecoration;
 
-			ImGui::EndMainMenuBar();
-		}
-	}
 
-	PROFILER_STOP_HEADER;
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, { 255, 0, 0, 0 });
+
+	
+	ImGui::SetNextWindowPos({ viewport->WorkPos.x, viewport->WorkPos.y});
+	ImGui::SetNextWindowSize({ viewport->WorkSize.x, m_TopBarHeight });
+
+	ImGui::Begin("##TopBar", nullptr, barFlags);
+	ImGui::SetWindowFocus();
+	ImGui::End();
+
+
+	ImGui::SetNextWindowPos({ viewport->WorkPos.x, viewport->WorkPos.y });
+	ImGui::SetNextWindowSize({ m_SideBarWidth, viewport->WorkSize.y });
+
+	ImGui::Begin("##SideBar", nullptr, barFlags);
+	ImGui::End();
+
+
+	ImGui::PopStyleColor();
 
 	ImGui::Begin("Test");
-
-	if (ImGui::Button("Run scene"))
 	{
-		if (SceneState == SceneState::Edit)
+		if (ImGui::Button("Run scene"))
 		{
-			m_ActiveScene->RuntimeStart();
-			SceneState = SceneState::Play;
+			if (SceneState == SceneState::Edit)
+			{
+				m_ActiveScene->RuntimeStart();
+				SceneState = SceneState::Play;
+			}
+			else if (SceneState == SceneState::Play)
+			{
+				SceneState = SceneState::Edit;
+			}
 		}
-		else if (SceneState == SceneState::Play)
-		{
-			SceneState = SceneState::Edit;
-		}
-	}
 
-	switch (SceneState)
-	{
+		switch (SceneState)
+		{
 		case Cobalt::SceneState::Edit:
 			ImGui::Text("Editing...");
 			break;
 		case Cobalt::SceneState::Play:
 			ImGui::Text("Playing...");
 			break;
-	}
+		}
 
-	if (ImGui::Button("LOG"))
-	{
-		DEBUG_LOG("Debug: Log message");
-		DEBUG_INFO("Debug: Info message");
-		DEBUG_WARN("Debug: Warn message");
-		DEBUG_ERROR("Debug: Error message");
-	}
+		if (ImGui::Button("LOG"))
+		{
+			DEBUG_LOG("Debug: Log message");
+			DEBUG_INFO("Debug: Info message");
+			DEBUG_WARN("Debug: Warn message");
+			DEBUG_ERROR("Debug: Error message");
+		}
 
+		if (ImGui::Checkbox("Vsync", &m_Vsync))
+		{
+			m_Window->SetVsync(m_Vsync);
+		}
+
+		ImGui::SliderFloat("Top bar", &m_TopBarHeight, 0.0f, 100.0f);
+		ImGui::SliderFloat("Side bar", &m_SideBarWidth, 0.0f, 100.0f);
+		ImGui::SliderFloat("Bottom bar", &m_BottomBarHeight, 0.0f, 100.0f);
+	}
 	ImGui::End();
 
 	EditorPanelManager::ImGuiUpdate();

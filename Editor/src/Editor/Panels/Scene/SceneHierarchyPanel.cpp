@@ -2,22 +2,22 @@
 #include "Editor/Utils/Controls.h"
 
 SceneHierarchyPanel* SceneHierarchyPanel::s_Instance = nullptr;
-SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& scene) : EditorPanel("Scene hierarchy panel"), m_Scene(scene)
+SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& scene) : EditorPanel(ICON_LIST_UL " Hierarchy"), m_Scene(scene)
 {
 	s_Instance = this;
 
 	m_Texture = Texture2D::Create("..\\assets\\textures\\uv_grid.png"); // TODO: Move custom textures to asset manager
 
-	m_HoveredColor = ImColor(27, 48, 69);
-	m_SelectedColor = ImColor(38, 74, 99);
-	m_EvenNodeColor = ImColor(0, 0, 0, 40);
-	m_OddNodeColor = ImColor(0, 0, 0, 80);
+	m_HoveredColor = Color(27, 48, 69);
+	m_SelectedColor = Color(38, 74, 99);
+	m_EvenNodeColor = Color(0, 0, 0, 40);
+	m_OddNodeColor = Color(0, 0, 0, 80);
 }
 
-void SceneHierarchyPanel::Update()
+void SceneHierarchyPanel::ImGuiUpdate()
 {
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 10));
-	ImGui::Begin(ICON_LIST_UL " Hierarchy");
+	ImGui::Begin(GetName());
 
 	int nodeIndex = 0;
 	m_Scene->Registry().each([&](auto entityID)

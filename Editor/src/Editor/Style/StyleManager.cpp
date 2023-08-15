@@ -24,10 +24,10 @@ void StyleManager::LoadFonts()
 	config.GlyphOffset = { 0, 2 };
 	static const ImWchar icon_ranges[] = { ICON_MIN, ICON_MAX, 0 };
 
-	m_EditorFonts.Regular = io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\Poppins-Regular.ttf", baseFontSize);
+	m_EditorFonts.Regular = io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\JetBrainsMono-Regular.ttf", baseFontSize);
 	io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\forkawesome-webfont.ttf", baseFontSize, &config, icon_ranges);
 
-	m_EditorFonts.SemiBold = io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\Poppins-Semibold.ttf", baseFontSize);
+	m_EditorFonts.SemiBold = io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\JetBrainsMono-Bold.ttf", baseFontSize);
 	io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\forkawesome-webfont.ttf", baseFontSize, &config, icon_ranges);
 }
 

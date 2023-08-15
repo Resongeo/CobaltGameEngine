@@ -1,16 +1,24 @@
 #pragma once
 
 #include "Cobalt/Logger/Log.h"
+#include "Cobalt/Scene/ECS/Fwd.h"
+
+#include <sol.hpp>
 
 namespace Cobalt
 {
-	struct TransformComponent;
-	struct SpriteRendererComponent;
-
 	class LuaEntity
 	{
 	public:
 		LuaEntity() = default;
+
+		void OpenLibraries();
+
+		void SetupKeyCodesTable();
+		void SetupTransformTable();
+		void SetupDebugTable();
+		void SetupInputTable();
+		void SetupSpriteRendererTable();
 
 		float GetPositionX();
 		float GetPositionY();
@@ -42,11 +50,16 @@ namespace Cobalt
 
 		bool IsKeyDown(int key);
 
+		void SetLuaState(sol::state* state) { m_LuaState = state; }
+
 		void SetTransformComponent(TransformComponent* transform) { m_Transform = transform; }
 		void SetSpriteRendererComponent(SpriteRendererComponent* sprite) { m_Sprite = sprite; }
 
 	private:
 		const char* Name = "Entity name here";
+
+		sol::state* m_LuaState = nullptr;
+
 		TransformComponent* m_Transform = nullptr;
 		SpriteRendererComponent* m_Sprite = nullptr;
 	};

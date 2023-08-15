@@ -19,25 +19,25 @@ public:
 	template<typename ...Args>
 	constexpr void AddLog(const char* format, Args&& ...args)
 	{
-		m_Messages.push_back(LogMessage(fmt::format(format, std::forward<Args>(args)...), ImVec4(0.94f, 0.94f, 0.94f, 1.0f)));
+		m_Messages.push_back(LogMessage(fmt::format(format, std::forward<Args>(args)...), Color(240, 240, 240)));
 	}
 
 	template<typename ...Args>
 	constexpr void AddInfo(const char* format, Args&& ...args)
 	{
-		m_Messages.push_back(LogMessage(fmt::format(format, std::forward<Args>(args)...), ImVec4(0.40f, 0.85f, 0.40f, 1.0f)));
+		m_Messages.push_back(LogMessage(fmt::format(format, std::forward<Args>(args)...), Color(102, 216, 102)));
 	}
 
 	template<typename ...Args>
 	constexpr void AddWarn(const char* format, Args&& ...args)
 	{
-		m_Messages.push_back(LogMessage(fmt::format(format, std::forward<Args>(args)...), ImVec4(0.85f, 0.85f, 0.21f, 1.0f)));
+		m_Messages.push_back(LogMessage(fmt::format(format, std::forward<Args>(args)...), Color(216, 216, 54)));
 	}
 
 	template<typename ...Args>
 	constexpr void AddError(const char* format, Args&& ...args)
 	{
-		m_Messages.push_back(LogMessage(fmt::format(format, std::forward<Args>(args)...), ImVec4(0.85f, 0.32f, 0.32f, 1.0f)));
+		m_Messages.push_back(LogMessage(fmt::format(format, std::forward<Args>(args)...), Color(216, 81, 81)));
 	}
 
 private:

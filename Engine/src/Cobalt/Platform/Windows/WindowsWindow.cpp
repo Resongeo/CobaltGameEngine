@@ -55,8 +55,14 @@ namespace Cobalt
 		m_GraphicsContext->Init();
 
 		HWND hWnd = glfwGetWin32Window(m_Window);
-		COLORREF CAPTION_COLOR = 0x151414;
+		
+		uint8_t r = static_cast<uint8_t>(m_Properties.CaptionColor.r * 255.0f);
+		uint8_t g = static_cast<uint8_t>(m_Properties.CaptionColor.g * 255.0f);
+		uint8_t b = static_cast<uint8_t>(m_Properties.CaptionColor.b * 255.0f);
+
+		COLORREF CAPTION_COLOR = (b << 16) | (g << 8) | r;
 		COLORREF BORDER_COLOR = 0x201e1e;
+
 		DwmSetWindowAttribute(hWnd, DWMWINDOWATTRIBUTE::DWMWA_CAPTION_COLOR, &CAPTION_COLOR, sizeof(CAPTION_COLOR));
 		DwmSetWindowAttribute(hWnd, DWMWINDOWATTRIBUTE::DWMWA_BORDER_COLOR, &BORDER_COLOR, sizeof(BORDER_COLOR));
 

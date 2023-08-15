@@ -1,8 +1,6 @@
 #include "Editor/Panels/Assets/AssetBrowserPanel.h"
 #include "Editor/Panels/Log/LogPanel.h"
 
-#include "Editor/Utils/Colors.h"
-
 #include <filesystem>
 
 AssetBrowserPanel::AssetBrowserPanel(const Ref<Scene>& scene) : m_Scene(scene), EditorPanel("Asset Browser")
@@ -16,9 +14,9 @@ AssetBrowserPanel::AssetBrowserPanel(const Ref<Scene>& scene) : m_Scene(scene), 
 	m_ScriptIcon = Texture2D::Create("..\\assets\\icons\\asset_browser\\script.png");
 }
 
-void AssetBrowserPanel::Update()
+void AssetBrowserPanel::ImGuiUpdate()
 {
-	ImGui::Begin("Asset Browser");
+	ImGui::Begin(GetName());
 
 	if (m_CurrentDir != m_AssetDir)
 	{
@@ -46,7 +44,7 @@ void AssetBrowserPanel::Update()
 		ImGui::PushStyleColor(ImGuiCol_Button, { 0, 0, 0, 0 });
 		if (file.is_directory())
 		{
-			Vec3 dirColor = Colors::RGBtoVec3(232, 183, 60);
+			Color dirColor(232, 183, 60);
 			const char* dirPath = path.c_str();
 
 			if (m_DirectoryColors.find(path) == m_DirectoryColors.end())
@@ -54,7 +52,7 @@ void AssetBrowserPanel::Update()
 			else
 				dirColor = m_DirectoryColors[path];
 
-			if (ImGui::ImageButton((ImTextureID)m_DirectoryIcon->GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }, -1, { 0, 0, 0, 0 }, { dirColor.x, dirColor.y, dirColor.z, 1.0 }))
+			if (ImGui::ImageButton((ImTextureID)m_DirectoryIcon->GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }, -1, Color(0, 0, 0, 0), dirColor))
 			{
 				m_CurrentDir /= file.path().filename();
 			}
@@ -67,7 +65,7 @@ void AssetBrowserPanel::Update()
 			if (ImGui::BeginPopup("DIRECTORY_EDIT_POPUP"))
 			{
 				ImGui::Text(dirPath);
-				ImGui::ColorEdit3("##dircol", glm::value_ptr(m_DirectoryColors[path]));
+				ImGui::ColorEdit3("##dircol", m_DirectoryColors[path]);
 				ImGui::EndPopup();
 			}
 
@@ -92,11 +90,31 @@ void AssetBrowserPanel::Update()
 				if (extension == ".cbscene")
 				{
 					SceneHierarchyPanel::DeselectEntity();
+				}
+			}
+
+			if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
+			{
+				if (extension == ".cbscene")
+				{
+					SceneHierarchyPanel::DeselectEntity();
 
 					SceneSerializer serializer;
 					serializer.Deserialize(path.c_str(), m_Scene);
 				}
 			}
+			/*
+			if (ImGui::ImageButton((ImTextureID)icon->GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }))
+			{
+				if (extension == ".cbscene")
+				{
+					SceneHierarchyPanel::DeselectEntity();
+
+					SceneSerializer serializer;
+					serializer.Deserialize(path.c_str(), m_Scene);
+				}
+			}
+			*/
 
 			if (extension == ".lua")
 			{

@@ -9,5 +9,5 @@ class RenderStatisticsPanel : public EditorPanel
 {
 public:
 	RenderStatisticsPanel();
-	virtual void Update() override;
+	void ImGuiUpdate() override;
 };

@@ -153,14 +153,14 @@ bool Controls::DrawVector1(const char* label, float& value, const ImVec2& offset
 	return interact;
 }
 
-void Controls::DrawRect(ImVec2 cursor_pos, ImVec2 content_region, float height, ImU32 color, float radius)
+void Controls::DrawRect(ImVec2 cursor_pos, ImVec2 content_region, float height, const Color& color, float radius)
 {
 	auto* drawList = ImGui::GetWindowDrawList();
 	ImVec2 pos = ImVec2(cursor_pos.x, cursor_pos.y - 6);
 	drawList->AddRectFilled(pos, ImVec2(pos.x + content_region.x, pos.y + height + 12), color, radius);
 }
 
-void Controls::DrawRectOutlined(ImVec2 cursor_pos, ImVec2 content_region, float height, ImU32 color, float outlineWidth, ImU32 outlineColor, float radius)
+void Controls::DrawRectOutlined(ImVec2 cursor_pos, ImVec2 content_region, float height, const Color& color, float outlineWidth, const Color& outlineColor, float radius)
 {
 	auto* drawList = ImGui::GetWindowDrawList();
 	ImVec2 pos = ImVec2(cursor_pos.x, cursor_pos.y - 6);

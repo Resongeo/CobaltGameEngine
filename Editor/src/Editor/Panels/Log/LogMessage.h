@@ -8,7 +8,7 @@ using namespace Cobalt;
 struct LogMessage
 {
 	std::string Message;
-	ImVec4 Color;
+	Color TextColor;
 
-	LogMessage(const std::string& message, const ImVec4& color) : Message(message), Color(color) {}
+	LogMessage(const std::string& message, const Color& textColor) : Message(message), TextColor(textColor) { }
 };
