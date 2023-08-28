@@ -100,49 +100,90 @@ void EditorLayer::OnImGuiUpdate()
 	ImGuiViewport* viewport = ImGui::GetMainViewport();
 	Vec2 windowPos = m_Window->GetPosition();
 
-	ImGui::SetNextWindowPos({ viewport->WorkPos.x + m_SideBarWidth, viewport->WorkPos.y + m_TopBarHeight });
-	ImGui::SetNextWindowSize({ viewport->WorkSize.x - m_SideBarWidth, viewport->WorkSize.y - m_TopBarHeight - m_BottomBarHeight });
+	float toolbarHeight = 40.0f;
+	float toolbarPadding = 5.0f;
+
+	ImGui::SetNextWindowPos({ viewport->Pos.x, viewport->Pos.y + (toolbarHeight - 10.f)});
+	ImGui::SetNextWindowSize({ viewport->Size.x, viewport->Size.y - toolbarHeight + 10.f});
 	ImGui::SetNextWindowViewport(viewport->ID);
+	ImGuiWindowFlags dockspaceFlags = 0
+		| ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking
+		| ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse
+		| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
+		| ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
 
-	ImGuiWindowFlags host_window_flags = 0;
-	host_window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoDocking;
-	host_window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
-	if (0 & ImGuiDockNodeFlags_PassthruCentralNode)
-		host_window_flags |= ImGuiWindowFlags_NoBackground;
-
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-	ImGui::Begin("MainDockSpaceViewport", NULL, host_window_flags);
+	ImGui::Begin("Master DockSpace", NULL, dockspaceFlags);
+	ImGuiID dockMain = ImGui::GetID("MyDockspace");
+
+	ImGui::DockSpace(dockMain);
+	ImGui::End();
 	ImGui::PopStyleVar(3);
 
-	ImGuiID dockspace_id = ImGui::GetID("DockSpace");
-	ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f));
-	ImGui::End();
+	ImGui::SetNextWindowPos(viewport->Pos);
+	ImGui::SetNextWindowSize({ viewport->Size.x, toolbarHeight + 10.f });
+	ImGui::SetNextWindowViewport(viewport->ID);
 
-	ImGuiWindowFlags barFlags = ImGuiWindowFlags_NoSavedSettings;
-	barFlags |= ImGuiWindowFlags_NoMove;
-	barFlags |= ImGuiWindowFlags_NoDecoration;
+	ImGuiWindowFlags toolbarFlags = 0
+		| ImGuiWindowFlags_NoDocking
+		| ImGuiWindowFlags_NoTitleBar
+		| ImGuiWindowFlags_NoResize
+		| ImGuiWindowFlags_NoMove
+		| ImGuiWindowFlags_NoScrollbar
+		| ImGuiWindowFlags_NoSavedSettings;
 
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, (ImU32)Color(23, 23, 23));
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { toolbarPadding, 0 });
+	ImGui::Begin("TOOLBAR", NULL, toolbarFlags);
 
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, { 255, 0, 0, 0 });
+	auto* drawList = ImGui::GetWindowDrawList();
+	auto cursor_pos = ImGui::GetCursorScreenPos();
+	drawList->AddRectFilled({cursor_pos.x, cursor_pos.y + toolbarPadding}, {cursor_pos.x + 260.f, cursor_pos.y + toolbarPadding + toolbarHeight}, (ImU32)Color(32, 32, 32), 5.f);
 
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImU32)Color(45, 45, 45));
+	ImGui::PushStyleColor(ImGuiCol_Button, (ImU32)Color(0, 0, 0, 0));
+	ImGui::PushStyleColor(ImGuiCol_Text, (ImU32)Color(49, 124, 181));
+
+	float buttonSize = toolbarHeight * 0.7;
+
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + toolbarPadding);
+	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 11.f);
+	ImGui::Button(ICON_ARROW_CIRCLE_LEFT, ImVec2(buttonSize, buttonSize));
+
+	ImGui::SameLine();
+	ImGui::Button(ICON_ARROW_CIRCLE_RIGHT, ImVec2(buttonSize, buttonSize));
+	ImGui::SameLine();
 	
-	ImGui::SetNextWindowPos({ viewport->WorkPos.x, viewport->WorkPos.y});
-	ImGui::SetNextWindowSize({ viewport->WorkSize.x, m_TopBarHeight });
+	ImGui::PopStyleColor();
 
-	ImGui::Begin("##TopBar", nullptr, barFlags);
-	ImGui::SetWindowFocus();
+	cursor_pos = ImGui::GetCursorScreenPos();
+	cursor_pos.x += toolbarPadding;
+
+	drawList->AddLine(cursor_pos, { cursor_pos.x, cursor_pos.y + buttonSize }, (ImU32)Color(42, 42, 42));
+
+	ImGui::PushStyleColor(ImGuiCol_Text, (ImU32)Color(217, 170, 59));
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + toolbarPadding * 4);
+	ImGui::Button(ICON_SAVE, ImVec2(buttonSize, buttonSize));
+	ImGui::PopStyleColor();
+
+	ImGui::SameLine();
+
+	cursor_pos = ImGui::GetCursorScreenPos();
+	cursor_pos.x += toolbarPadding;
+
+	drawList->AddLine(cursor_pos, { cursor_pos.x, cursor_pos.y + buttonSize }, (ImU32)Color(42, 42, 42));
+
+	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + toolbarPadding * 4);
+	ImGui::Button("+ Entity", ImVec2(ImGui::CalcTextSize(ICON_PLUS " Entity").x + 10, buttonSize));
+
+	ImGui::PopStyleColor(2);
+
 	ImGui::End();
-
-
-	ImGui::SetNextWindowPos({ viewport->WorkPos.x, viewport->WorkPos.y });
-	ImGui::SetNextWindowSize({ m_SideBarWidth, viewport->WorkSize.y });
-
-	ImGui::Begin("##SideBar", nullptr, barFlags);
-	ImGui::End();
-
-
+	ImGui::PopStyleVar(3);
 	ImGui::PopStyleColor();
 
 	ImGui::Begin("Test");
@@ -182,14 +223,12 @@ void EditorLayer::OnImGuiUpdate()
 		{
 			m_Window->SetVsync(m_Vsync);
 		}
-
-		ImGui::SliderFloat("Top bar", &m_TopBarHeight, 0.0f, 100.0f);
-		ImGui::SliderFloat("Side bar", &m_SideBarWidth, 0.0f, 100.0f);
-		ImGui::SliderFloat("Bottom bar", &m_BottomBarHeight, 0.0f, 100.0f);
 	}
 	ImGui::End();
 
 	EditorPanelManager::ImGuiUpdate();
+
+	ImGui::ShowMetricsWindow();
 }
 
 void EditorLayer::OnEvent(Event& event)

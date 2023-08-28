@@ -15,7 +15,6 @@ namespace Cobalt
 		static void Init();
 
 		static Ref<spdlog::logger>& GetEngineLogger() { return s_EngineLogger; }
-		static Ref<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
 
 		static void SetEventCallback(const EventCallbackFn& callback);
 
@@ -46,7 +45,6 @@ namespace Cobalt
 
 	private:
 		static Ref<spdlog::logger> s_EngineLogger;
-		static Ref<spdlog::logger> s_ClientLogger;
 
 		static EventCallbackFn s_EventCallback;
 	};
@@ -57,9 +55,3 @@ namespace Cobalt
 #define COBALT_WARN(...)    ::Cobalt::Log::GetEngineLogger()->warn(__VA_ARGS__);	::Cobalt::Log::DispatchLogWarnEvent(__VA_ARGS__)
 #define COBALT_ERROR(...)	::Cobalt::Log::GetEngineLogger()->error(__VA_ARGS__);	::Cobalt::Log::DispatchLogErrorEvent(__VA_ARGS__)
 #define COBALT_FATAL(...)	::Cobalt::Log::GetEngineLogger()->critical(__VA_ARGS__)
-
-#define CLIENT_TRACE(...)	::Cobalt::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define CLIENT_INFO(...)	::Cobalt::Log::GetClientLogger()->info(__VA_ARGS__)
-#define CLIENT_WARN(...)	::Cobalt::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define CLIENT_ERROR(...)	::Cobalt::Log::GetClientLogger()->error(__VA_ARGS__)
-#define CLIENT_FATAL(...)	::Cobalt::Log::GetClientLogger()->critical(__VA_ARGS__)

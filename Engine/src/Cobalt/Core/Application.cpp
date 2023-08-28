@@ -35,8 +35,6 @@ namespace Cobalt
 
 	void Application::Run()
 	{
-		COBALT_INFO("Yay, others depends on me!");
-
 		while (m_Running)
 		{
 			Time::Update();

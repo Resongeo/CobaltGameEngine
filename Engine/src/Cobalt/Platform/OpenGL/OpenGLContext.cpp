@@ -17,7 +17,7 @@ namespace Cobalt
 		glfwMakeContextCurrent(m_Window);
 		if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) < 1)
 		{
-			COBALT_ERROR("Failed to load GLAD!");
+			COBALT_ERROR("Failed to load GLAD! {}");
 			return;
 		}
 		COBALT_INFO("GLAD loaded OpenGL headers!");

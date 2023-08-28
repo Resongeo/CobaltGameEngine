@@ -1,0 +1,3 @@
+[submodule "Engine/vendor/EnTT"]
+	path = Engine/vendor/EnTT
+	url = https://github.com/skypjack/entt
