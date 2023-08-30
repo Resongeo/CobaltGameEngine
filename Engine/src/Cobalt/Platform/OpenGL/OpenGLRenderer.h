@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Cobalt/Renderer/Renderer.h"
-#include "Cobalt/Renderer/RendererAPI.h"
+#include "Cobalt/Rendering/Renderer.h"
+#include "Cobalt/Rendering/RendererAPI.h"
 
 namespace Cobalt
 {

@@ -1,6 +1,7 @@
 #include "cbpch.h"
 
 #include "Cobalt/Platform/OpenGL/OpenGLShader.h"
+#include "Cobalt/Logger/Log.h"
 
 namespace Cobalt
 {

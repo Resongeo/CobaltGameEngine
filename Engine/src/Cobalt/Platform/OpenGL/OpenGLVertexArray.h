@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cobalt/Renderer/VertexArray.h"
+#include "Cobalt/Graphics/VertexArray.h"
 
 namespace Cobalt
 {

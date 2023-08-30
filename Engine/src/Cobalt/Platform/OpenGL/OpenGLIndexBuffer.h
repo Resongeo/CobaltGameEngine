@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cobalt/Renderer/IndexBuffer.h"
+#include "Cobalt/Graphics/IndexBuffer.h"
 
 namespace Cobalt
 {

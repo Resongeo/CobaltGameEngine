@@ -32,14 +32,15 @@
 #include "Cobalt/Platform/Window.h"
 #include "Cobalt/Platform/FileSystem.h"
 
-#include "Cobalt/Renderer/GraphicsContext.h"
-#include "Cobalt/Renderer/RenderCommand.h"
-#include "Cobalt/Renderer/VertexArray.h"
-#include "Cobalt/Renderer/IndexBuffer.h"
-#include "Cobalt/Renderer/Framebuffer.h"
-#include "Cobalt/Renderer/Renderer.h"
-#include "Cobalt/Renderer/Texture2D.h"
-#include "Cobalt/Renderer/Shader.h"
+#include "Cobalt/Graphics/GraphicsContext.h"
+#include "Cobalt/Graphics/VertexArray.h"
+#include "Cobalt/Graphics/IndexBuffer.h"
+#include "Cobalt/Graphics/Framebuffer.h"
+#include "Cobalt/Graphics/Texture2D.h"
+#include "Cobalt/Graphics/Shader.h"
+
+#include "Cobalt/Rendering/RenderCommand.h"
+#include "Cobalt/Rendering/Renderer.h"
 
 #include "Cobalt/Scene/ECS/Components.h"
 #include "Cobalt/Scene/ECS/Entity.h"

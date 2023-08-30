@@ -3,7 +3,8 @@
 #ifdef _WIN32
 
 #include "Cobalt/Platform/Window.h"
-#include "Cobalt/Renderer/Renderer.h"
+#include "Cobalt/Rendering/Renderer.h"
+#include "Cobalt/Logger/Log.h"
 
 #include <dwmapi.h>
 

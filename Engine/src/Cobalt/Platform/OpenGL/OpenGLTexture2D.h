@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cobalt/Renderer/Texture2D.h"
+#include "Cobalt/Graphics/Texture2D.h"
 
 namespace Cobalt
 {

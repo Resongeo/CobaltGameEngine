@@ -1,8 +1,8 @@
 #pragma once
 
+#include "Cobalt/Rendering/RenderCommand.h"
 #include "Cobalt/Scene/SceneState.h"
 #include "Cobalt/Scene/ECS/Components.h"
-#include "Cobalt/Renderer/RenderCommand.h"
 
 #include <entt.hpp>
 

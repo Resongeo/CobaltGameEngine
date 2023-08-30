@@ -1,12 +1,10 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
-#include "Cobalt/Renderer/Shader.h"
-#include "Cobalt/Logger/Log.h"
+#include "Cobalt/Graphics/Shader.h"
 
 #include <fstream>
 #include <string>
-
 #include <glad/glad.h>
 
 namespace Cobalt

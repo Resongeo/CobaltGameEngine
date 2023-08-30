@@ -9,8 +9,8 @@
 #include "Cobalt/Layers/LayerStack.h"
 #include "Cobalt/Logger/Log.h"
 #include "Cobalt/Platform/Window.h"
-#include "Cobalt/Renderer/Renderer.h"
-#include "Cobalt/Renderer/RenderCommand.h"
+#include "Cobalt/Rendering/Renderer.h"
+#include "Cobalt/Rendering/RenderCommand.h"
 
 namespace Cobalt
 {

@@ -6,8 +6,7 @@
 #include "Cobalt/Events/KeyEvent.h"
 #include "Cobalt/Events/MouseEvent.h"
 #include "Cobalt/Events/ApplicationEvent.h"
-#include "Cobalt/Logger/Log.h"
-#include "Cobalt/Renderer/GraphicsContext.h"
+#include "Cobalt/Graphics/GraphicsContext.h"
 
 struct GLFWwindow;
 

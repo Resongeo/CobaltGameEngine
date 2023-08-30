@@ -3,9 +3,9 @@
 #include "Cobalt/Core/Core.h"
 #include "Cobalt/Core/Math.h"
 #include "Cobalt/Core/Color.h"
-#include "Cobalt/Renderer/VertexArray.h"
-#include "Cobalt/Renderer/Texture2D.h"
-#include "Cobalt/Renderer/Shader.h"
+#include "Cobalt/Graphics/VertexArray.h"
+#include "Cobalt/Graphics/Texture2D.h"
+#include "Cobalt/Graphics/Shader.h"
 #include "Cobalt/Scene/ECS/LuaEntity.h"
 
 namespace Cobalt
@@ -36,9 +36,9 @@ namespace Cobalt
 
 	struct TransformComponent
 	{
-		Vec3 Position = { 0.0f, 0.0f, 0.0f };
-		Vec3 Rotation = { 0.0f, 0.0f, 0.0f };
-		Vec3 Scale = { 1.0f, 1.0f, 1.0f };
+		Vec3 Position = Vec3(0.0f);
+		Vec3 Rotation = Vec3(0.0f);
+		Vec3 Scale = Vec3(1.0f);
 
 		TransformComponent() = default;
 		TransformComponent(const TransformComponent&) = default;
@@ -58,8 +58,8 @@ namespace Cobalt
 	struct SpriteRendererComponent
 	{
 		Ref<Texture2D> Texture = Texture2D::Create(1, 1);
-		Color Tint = Color(1.0);
-		Vec2 Tiling = Vec2(1.0);
+		Color Tint = Color(255);
+		Vec2 Tiling = Vec2(1.0f);
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;

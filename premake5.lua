@@ -18,10 +18,6 @@ workspace "CobaltGameEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-LibDir = {}
-LibDir["GLFW"] = "Engine/vendor/GLFW/lib-vc2022"
-LibDir["Lua"] = "Engine/vendor/Lua"
-
 
 project "Engine"
 	location "Engine"

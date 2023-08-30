@@ -1,6 +1,7 @@
 #include "cbpch.h"
 
 #include "Cobalt/Platform/OpenGL/OpenGLContext.h"
+#include "Cobalt/Logger/Log.h"
 
 #include <iostream>
 #include <glad/glad.h>

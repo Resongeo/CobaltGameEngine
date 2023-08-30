@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cobalt/Renderer/VertexBuffer.h"
+#include "Cobalt/Graphics/VertexBuffer.h"
 
 namespace Cobalt
 {

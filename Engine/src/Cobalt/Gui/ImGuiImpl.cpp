@@ -1,8 +1,8 @@
 #include "cbpch.h"
 
 #include "Cobalt/Gui/ImGuiImpl.h"
+#include "Cobalt/Rendering/Renderer.h"
 #include "Cobalt/Platform/OpenGL/Gui/OpenGLImGuiImpl.h"
-#include "Cobalt/Renderer/Renderer.h"
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
