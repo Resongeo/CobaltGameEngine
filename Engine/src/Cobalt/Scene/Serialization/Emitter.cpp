@@ -19,7 +19,7 @@ namespace Cobalt
 			if (file.is_open())
 				file << m_Ss.str();
 			else
-				COBALT_TRACE("Failed to open file: {}", m_Filepath.c_str());
+				LOG_TRACE("Failed to open file: {}", m_Filepath.c_str());
 		}
 	}
 }

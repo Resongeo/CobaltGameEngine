@@ -4,20 +4,15 @@
 
 namespace Cobalt
 {
-	Ref<spdlog::logger> Log::s_EngineLogger;
-
-	EventCallbackFn Log::s_EventCallback;
+	Log* Log::s_Instance = nullptr;
 
 	void Log::Init()
 	{
-		spdlog::set_pattern("%^[%T] %n: %v%$");
-
-		s_EngineLogger = spdlog::stderr_color_mt("Engine");
-		s_EngineLogger->set_level(spdlog::level::trace);
+		s_Instance = new Log();
 	}
 
 	void Log::SetEventCallback(const EventCallbackFn& callback)
 	{
-		s_EventCallback = callback;
+		s_Instance->m_EventCallback = callback;
 	}
 }

@@ -17,27 +17,27 @@ public:
 	std::vector<LogMessage> GetMessages() { return m_Messages; }
 
 	template<typename ...Args>
-	constexpr void AddLog(const char* format, Args&& ...args)
+	constexpr void AddLog(std::format_string<Args...> fmt, Args&& ...args)
 	{
-		m_Messages.push_back(LogMessage(fmt::format(format, std::forward<Args>(args)...), Color(240, 240, 240)));
+		m_Messages.push_back(LogMessage(std::format(fmt, std::forward<Args>(args)...), Color(240, 240, 240)));
 	}
 
 	template<typename ...Args>
-	constexpr void AddInfo(const char* format, Args&& ...args)
+	constexpr void AddInfo(std::format_string<Args...> fmt, Args&& ...args)
 	{
-		m_Messages.push_back(LogMessage(fmt::format(format, std::forward<Args>(args)...), Color(102, 216, 102)));
+		m_Messages.push_back(LogMessage(std::format(fmt, std::forward<Args>(args)...), Color(102, 216, 102)));
 	}
 
 	template<typename ...Args>
-	constexpr void AddWarn(const char* format, Args&& ...args)
+	constexpr void AddWarn(std::format_string<Args...> fmt, Args&& ...args)
 	{
-		m_Messages.push_back(LogMessage(fmt::format(format, std::forward<Args>(args)...), Color(216, 216, 54)));
+		m_Messages.push_back(LogMessage(std::format(fmt, std::forward<Args>(args)...), Color(216, 216, 54)));
 	}
 
 	template<typename ...Args>
-	constexpr void AddError(const char* format, Args&& ...args)
+	constexpr void AddError(std::format_string<Args...> fmt, Args&& ...args)
 	{
-		m_Messages.push_back(LogMessage(fmt::format(format, std::forward<Args>(args)...), Color(216, 81, 81)));
+		m_Messages.push_back(LogMessage(std::format(fmt, std::forward<Args>(args)...), Color(216, 81, 81)));
 	}
 
 private:

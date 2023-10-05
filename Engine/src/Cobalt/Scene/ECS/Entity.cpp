@@ -9,6 +9,6 @@ namespace Cobalt
 
 	void Entity::Test()
 	{
-		COBALT_WARN("Entity ID: {0}", (uint32_t)m_EntityHandle);
+		LOG_WARN("Entity ID: {0}", (uint32_t)m_EntityHandle);
 	}
 }

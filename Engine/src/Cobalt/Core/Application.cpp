@@ -17,7 +17,7 @@ namespace Cobalt
 		Random::Init();
 
 		Renderer::SetAPI(appSpecs.GraphicsAPI);
-		COBALT_INFO("Renderer API: {0}", Renderer::GetAPIString());
+		LOG_INFO("Renderer API: {}", Renderer::GetAPIString());
 
 		m_Window = Window::Create(appSpecs.WindowProps);
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));

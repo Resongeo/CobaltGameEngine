@@ -255,6 +255,14 @@ void EditorLayer::OnImGuiUpdate()
 
 		ImGui::InputInt("Max particles", (int*)&m_ParticleSystem->GetSpecs().MaxParticles);
 		ImGui::SliderInt("Emit rate", (int*)m_ParticleSystem->GetEmitRatePtr(), 1, 10);
+
+		if (ImGui::Button("LOG"))
+		{
+			LOG_TRACE("Trace message");
+			LOG_INFO("Info message");
+			LOG_WARN("Warn message");
+			LOG_ERROR("Error message");
+		}
 	}
 	ImGui::End();
 

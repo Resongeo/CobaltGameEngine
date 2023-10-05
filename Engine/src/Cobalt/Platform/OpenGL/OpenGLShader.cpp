@@ -12,7 +12,7 @@ namespace Cobalt
 		if (type == "fragment" || type == "frag" || type == "fg" || type == "f")
 			return GL_FRAGMENT_SHADER;
 
-		COBALT_ERROR("Unknown shader type!");
+		LOG_ERROR("Unknown shader type!");
 		return 0;
 	}
 
@@ -38,7 +38,7 @@ namespace Cobalt
 		}
 		else
 		{
-			COBALT_ERROR("Failed to read Shader file: {0}", filepath);
+			LOG_ERROR("Failed to read Shader file: {0}", filepath);
 		}
 
 		return result;
@@ -94,7 +94,7 @@ namespace Cobalt
 
 				glDeleteShader(shader);
 
-				COBALT_ERROR("{0}", infoLog.data());
+				LOG_ERROR("{0}", infoLog.data());
 				break;
 			}
 
@@ -121,7 +121,7 @@ namespace Cobalt
 			for (auto id : glShaderIDs)
 				glDeleteShader(id);
 
-			COBALT_ERROR("{0}", infoLog.data());
+			LOG_ERROR("{0}", infoLog.data());
 			return;
 		}
 

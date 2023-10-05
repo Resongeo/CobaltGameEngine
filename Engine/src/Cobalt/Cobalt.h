@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <format>
 
 #include "Cobalt/Core/Core.h"
 #include "Cobalt/Core/Math.h"

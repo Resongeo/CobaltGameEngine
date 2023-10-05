@@ -23,7 +23,7 @@ project "Engine"
 	location "Engine"
 	kind "StaticLib"
 	language "C++"
-	cppdialect "C++17"
+	cppdialect "C++20"
 	staticruntime "off"
 
 	targetdir ("Engine/lib/")
@@ -57,7 +57,6 @@ project "Engine"
 		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.spd_log}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.lua}",
 		"%{IncludeDir.sol2}",
@@ -105,7 +104,7 @@ project "Editor"
 	location "Editor"
 	kind "ConsoleApp"
 	language "C++"
-	cppdialect "C++17"
+	cppdialect "C++20"
 	staticruntime "off"
 
 	dependson { "Engine" }
@@ -134,7 +133,6 @@ project "Editor"
 		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.spd_log}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.lua}",
 		"%{IncludeDir.sol2}",

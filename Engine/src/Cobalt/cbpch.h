@@ -1,13 +1,11 @@
 #pragma once
 
-/* Utility */
 #include <iostream>
 #include <memory>
 #include <utility>
 #include <algorithm>
 #include <functional>
 
-/* Data structures */
 #include <string>
 #include <sstream>
 #include <array>
@@ -15,7 +13,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
-/* Core header files */
-#include "Core/Core.h"
-#include "Core/Math.h"
-#include "Core/Time.h"
+#include "Cobalt/Core/Core.h"
+#include "Cobalt/Core/Math.h"
+#include "Cobalt/Core/Time.h"
+
+#include "Cobalt/Logger/Log.h"

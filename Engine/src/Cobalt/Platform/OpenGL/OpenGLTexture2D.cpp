@@ -13,7 +13,7 @@ namespace Cobalt
 	{
 		if (!std::filesystem::exists(path))
 		{
-			COBALT_ERROR("Failed to load texture: {0}", path);
+			LOG_ERROR("Failed to load texture: {0}", path);
 			OpenGLTexture(1, 1);
 		}
 

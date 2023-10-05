@@ -1,7 +1,6 @@
 #include "cbpch.h"
 
 #include "Cobalt/Platform/OpenGL/OpenGLContext.h"
-#include "Cobalt/Logger/Log.h"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -18,13 +17,14 @@ namespace Cobalt
 		glfwMakeContextCurrent(m_Window);
 		if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) < 1)
 		{
-			COBALT_ERROR("Failed to load GLAD! {}");
+			LOG_ERROR("Failed to load GLAD!");
 			return;
 		}
-		COBALT_INFO("GLAD loaded OpenGL headers!");
-		std::cout << "OpenGL Vendor: " << glGetString(GL_VENDOR) << std::endl;
-		std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
-		std::cout << "OpenGL Renderer: " << glGetString(GL_RENDERER) << std::endl;
+		LOG_INFO("GLAD loaded OpenGL headers!");
+		LOG_INFO("OpenGL version: {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
+		LOG_INFO("OpenGL vendor: {}", reinterpret_cast<const char*>(glGetString(GL_VENDOR)));
+		LOG_INFO("OpenGL GLSL version: {}", reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION)));
+		LOG_INFO("OpenGL renderer: {}", reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
 	}
 
 	void OpenGLContext::SwapBuffers()

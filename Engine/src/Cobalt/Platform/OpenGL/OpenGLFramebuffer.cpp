@@ -117,7 +117,7 @@ namespace Cobalt
 
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		{
-			COBALT_ERROR("Framebuffer is not complete!");
+			LOG_ERROR("Framebuffer is not complete!");
 		}
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
