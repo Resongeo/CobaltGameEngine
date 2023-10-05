@@ -29,6 +29,11 @@
 
 #include "Cobalt/Logger/Log.h"
 
+#include "Cobalt/Particles/ParticleSystem.h"
+#include "Cobalt/Particles/Generators/BoxPositionGenerator.h"
+#include "Cobalt/Particles/Generators/VelocityGenerator.h"
+#include "Cobalt/Particles/Generators/LifetimeGenerator.h"
+
 #include "Cobalt/Platform/Window.h"
 #include "Cobalt/Platform/FileSystem.h"
 

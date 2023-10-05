@@ -11,7 +11,7 @@ namespace Cobalt
 	public:
 		virtual void Init() = 0;
 
-		virtual void BeginScene(const Camera& camera) = 0;
+		virtual void BeginScene(const Ref<Camera>& camera) = 0;
 
 		virtual void ClearColor(const Vec4& color) = 0;
 		virtual void Clear() = 0;

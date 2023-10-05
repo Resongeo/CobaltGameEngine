@@ -23,7 +23,7 @@ namespace Cobalt
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
-		ImGui_ImplOpenGL3_Init(COBALT_OPENGL_VERSION_STRING);
+		ImGui_ImplOpenGL3_Init(OPENGL_VERSION_STRING);
 	}
 
 	void OpenGLImGuiImpl::NewFrame()

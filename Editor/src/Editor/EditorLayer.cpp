@@ -5,7 +5,8 @@
 EditorLayer::EditorLayer() : Layer("Editor Layer"), m_Window(Application::GetWindow())
 {
 	m_EditorFonts = StyleManager::GetEditorFonts();
-	m_ActiveCamera = &m_EditorCamera;
+	m_EditorCamera = CreateRef<EditorCamera>();
+	m_ActiveCamera = m_EditorCamera;
 
 	m_GridData.Size = 5;
 	m_GridData.GapSize = 0.5f;
@@ -29,7 +30,13 @@ void EditorLayer::OnAttach()
 	m_RenderStatisticsPanel = CreateScope<RenderStatisticsPanel>();
 	m_ComponentsPanel = CreateScope<ComponentsPanel>();
 	m_SceneHierarchyPanel = CreateRef<SceneHierarchyPanel>(m_ActiveScene); // TODO: remove scene from constructor
-	m_ViewportPanel = CreateScope<ViewportPanel>(m_Framebuffer, &m_EditorCamera, m_ActiveScene);
+	m_ViewportPanel = CreateScope<ViewportPanel>(m_Framebuffer, m_EditorCamera, m_ActiveScene);
+
+	m_ParticleSystem = CreateRef<ParticleSystem>();
+	m_ParticleSystem->AddGenerator(ParticleGenerator::Create<LifetimeGenerator>());
+	m_ParticleSystem->AddGenerator(ParticleGenerator::Create<BoxPositionGenerator>());
+	m_ParticleSystem->AddGenerator(ParticleGenerator::Create<VelocityGenerator>());
+	m_ParticleEditorPanel = CreateScope<ParticleEditorPanel>(m_ParticleSystem);
 }
 
 void EditorLayer::OnUpdate()
@@ -41,7 +48,7 @@ void EditorLayer::OnUpdate()
 	{
 		PROFILER_TIMER_SCOPE("Begin scene");
 
-		RenderCommand::BeginScene(*m_ActiveCamera);
+		RenderCommand::BeginScene(m_ActiveCamera);
 		RenderCommand::ClearColor(m_ClearColor);
 		RenderCommand::Clear();
 		RenderCommand::ResetStats();
@@ -79,6 +86,11 @@ void EditorLayer::OnUpdate()
 	}
 
 	{
+		PROFILER_TIMER_SCOPE("Particle System");
+		m_ParticleSystem->Update();
+	}
+
+	{
 		PROFILER_TIMER_SCOPE("End scene");
 		RenderCommand::EndScene();
 	}
@@ -87,8 +99,9 @@ void EditorLayer::OnUpdate()
 
 	{
 		PROFILER_TIMER_SCOPE("Editor Camera");
-		m_EditorCamera.Update();
+		m_EditorCamera->Update();
 	}
+
 
 	m_Framebuffer->Unbind();
 
@@ -211,35 +224,52 @@ void EditorLayer::OnImGuiUpdate()
 			break;
 		}
 
-		if (ImGui::Button("LOG"))
-		{
-			DEBUG_LOG("Debug: Log message");
-			DEBUG_INFO("Debug: Info message");
-			DEBUG_WARN("Debug: Warn message");
-			DEBUG_ERROR("Debug: Error message");
-		}
-
 		if (ImGui::Checkbox("Vsync", &m_Vsync))
 		{
 			m_Window->SetVsync(m_Vsync);
 		}
+
+		switch (m_ParticleSystem->GetState())
+		{
+			case ParticleSystemState::None:
+			{
+				if (ImGui::Button("Start")) { m_ParticleSystem->Start(); }
+				break;
+			}
+			case ParticleSystemState::Updating:
+			{
+				if (ImGui::Button("Pause")) { m_ParticleSystem->Pause(); }
+				break;
+			}
+			case ParticleSystemState::Stopped:
+			{
+				if (ImGui::Button("Resume")) { m_ParticleSystem->Resume(); }
+				break;
+			}
+		}
+
+		if (m_ParticleSystem->GetState() != ParticleSystemState::None)
+		{
+			if (ImGui::Button("Reset")) m_ParticleSystem->Reset();
+		}
+
+		ImGui::InputInt("Max particles", (int*)&m_ParticleSystem->GetSpecs().MaxParticles);
+		ImGui::SliderInt("Emit rate", (int*)m_ParticleSystem->GetEmitRatePtr(), 1, 10);
 	}
 	ImGui::End();
 
 	EditorPanelManager::ImGuiUpdate();
-
-	ImGui::ShowMetricsWindow();
 }
 
 void EditorLayer::OnEvent(Event& event)
 {
-	m_EditorCamera.OnEvent(event);
+	m_EditorCamera->OnEvent(event);
 
 	EventDispatcher dispatcher(event);
-	dispatcher.Dispatch<LogTraceEvent>(CB_BIND_EVENT_FN(EditorLayer::OnEngineTraceLog));
-	dispatcher.Dispatch<LogInfoEvent>(CB_BIND_EVENT_FN(EditorLayer::OnEngineInfoLog));
-	dispatcher.Dispatch<LogWarnEvent>(CB_BIND_EVENT_FN(EditorLayer::OnEngineWarnLog));
-	dispatcher.Dispatch<LogErrorEvent>(CB_BIND_EVENT_FN(EditorLayer::OnEngineErrorLog));
+	dispatcher.Dispatch<LogTraceEvent>(BIND_EVENT_FN(EditorLayer::OnEngineTraceLog));
+	dispatcher.Dispatch<LogInfoEvent>(BIND_EVENT_FN(EditorLayer::OnEngineInfoLog));
+	dispatcher.Dispatch<LogWarnEvent>(BIND_EVENT_FN(EditorLayer::OnEngineWarnLog));
+	dispatcher.Dispatch<LogErrorEvent>(BIND_EVENT_FN(EditorLayer::OnEngineErrorLog));
 }
 
 bool EditorLayer::OnEngineTraceLog(LogTraceEvent& event)

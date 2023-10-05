@@ -51,7 +51,7 @@ namespace Cobalt
 		if (!m_IsMouseOverViewport) return;
 
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<MouseScrolledEvent>(CB_BIND_EVENT_FN(EditorCamera::OnMouseScroll));
+		dispatcher.Dispatch<MouseScrolledEvent>(BIND_EVENT_FN(EditorCamera::OnMouseScroll));
 	}
 
 	bool EditorCamera::OnMouseScroll(MouseScrolledEvent e)

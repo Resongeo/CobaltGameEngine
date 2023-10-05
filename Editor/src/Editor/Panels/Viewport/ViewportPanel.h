@@ -9,7 +9,7 @@ using namespace Cobalt;
 class ViewportPanel : public EditorPanel
 {
 public:
-	ViewportPanel(const Ref<Framebuffer>& framebuffer, EditorCamera* editorCamera, const Ref<Scene>& activeScene);
+	ViewportPanel(const Ref<Framebuffer>& framebuffer, const Ref<EditorCamera>& editorCamera, const Ref<Scene>& activeScene);
 
 	void Update() override;
 	void ImGuiUpdate() override;
@@ -22,7 +22,7 @@ private:
 	Ref<Framebuffer> m_Framebuffer;
 	Ref<Scene> m_ActiveScene;
 
-	EditorCamera* m_EditorCamera;
+	Ref<EditorCamera> m_EditorCamera;
 	ImVec2 m_ViewportSize;
 	Vec2 m_ViewportBounds[2] = {};
 	Entity m_SelectedEntity;

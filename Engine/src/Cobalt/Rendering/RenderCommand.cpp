@@ -102,12 +102,12 @@ namespace Cobalt
 		delete[] quadIndices;
 	}
 
-	void RenderCommand::BeginScene(const Camera& camera)
+	void RenderCommand::BeginScene(const Ref<Camera>& camera)
 	{
 		s_RendererAPI->BeginScene(camera);
 
 		s_RendererData.TexturedQuadShader->Bind();
-		s_RendererData.TexturedQuadShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+		s_RendererData.TexturedQuadShader->SetMat4("u_ViewProjection", camera->GetViewProjectionMatrix());
 
 		StartBatch();
 	}

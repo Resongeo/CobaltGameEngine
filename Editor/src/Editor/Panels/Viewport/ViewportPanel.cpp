@@ -4,7 +4,7 @@
 #include "Editor/CobaltEditor.h"
 
 ViewportPanel* ViewportPanel::s_Instance = nullptr;
-ViewportPanel::ViewportPanel(const Ref<Framebuffer>& framebuffer, EditorCamera* editorCamera, const Ref<Scene>& activeScene)
+ViewportPanel::ViewportPanel(const Ref<Framebuffer>& framebuffer, const Ref<EditorCamera>& editorCamera, const Ref<Scene>& activeScene)
 	: m_Framebuffer(framebuffer), m_EditorCamera(editorCamera), m_ActiveScene(activeScene), EditorPanel("Viewport")
 {
 	s_Instance = this;

@@ -11,6 +11,8 @@ using namespace Cobalt;
 #include "Editor/Panels/Components/ComponentsPanel.h"
 #include "Editor/Panels/EditorPanelManager.h"
 #include "Editor/Panels/Viewport/ViewportPanel.h"
+#include "Editor/Panels/Particles/ParticleEditorPanel.h"
+
 #include "Editor/Style/StyleManager.h"
 #include "Editor/Utils/Controls.h"
 
@@ -44,12 +46,15 @@ private:
 	Scope<RenderStatisticsPanel> m_RenderStatisticsPanel;
 	Scope<ComponentsPanel> m_ComponentsPanel;
 	Scope<ViewportPanel> m_ViewportPanel;
+	Scope<ParticleEditorPanel> m_ParticleEditorPanel;
 	Ref<SceneHierarchyPanel> m_SceneHierarchyPanel;
 
-	EditorCamera m_EditorCamera;
-	Camera* m_ActiveCamera;
+	Ref<EditorCamera> m_EditorCamera;
+	Ref<Camera> m_ActiveCamera;
 
 	EditorFonts* m_EditorFonts;
+
+	Ref<ParticleSystem> m_ParticleSystem;
 
 	bool m_Vsync = true;
 

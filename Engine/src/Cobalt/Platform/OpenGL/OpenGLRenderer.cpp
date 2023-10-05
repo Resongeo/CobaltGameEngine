@@ -14,9 +14,9 @@ namespace Cobalt
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
-	void OpenGLRenderer::BeginScene(const Camera& camera)
+	void OpenGLRenderer::BeginScene(const Ref<Camera>& camera)
 	{
-		s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+		s_SceneData->ViewProjectionMatrix = camera->GetViewProjectionMatrix();
 	}
 
 	void OpenGLRenderer::ClearColor(const Vec4& color)
