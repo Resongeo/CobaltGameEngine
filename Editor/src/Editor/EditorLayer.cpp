@@ -36,7 +36,7 @@ void EditorLayer::OnAttach()
 	m_ParticleSystem->AddGenerator(ParticleGenerator::Create<LifetimeGenerator>());
 	m_ParticleSystem->AddGenerator(ParticleGenerator::Create<BoxPositionGenerator>());
 	m_ParticleSystem->AddGenerator(ParticleGenerator::Create<VelocityGenerator>());
-	m_ParticleEditorPanel = CreateScope<ParticleEditorPanel>(m_ParticleSystem);
+	//m_ParticleEditorPanel = CreateScope<ParticleEditorPanel>(m_ParticleSystem);
 }
 
 void EditorLayer::OnUpdate()

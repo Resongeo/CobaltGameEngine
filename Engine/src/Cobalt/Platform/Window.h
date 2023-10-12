@@ -20,6 +20,7 @@ namespace Cobalt
 		bool Vsync = true;
 		bool Resizeable = true;
 		Color CaptionColor = Color(20, 20, 21);
+		Color BorderColor = Color(30, 30, 32);
 
 		WindowProperties() = default;
 	};

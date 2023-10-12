@@ -14,14 +14,13 @@ namespace Cobalt
 		
 		Log::Init();
 		Log::SetEventCallback(BIND_EVENT_FN(OnEvent));
-		Random::Init();
 
-		Renderer::SetAPI(appSpecs.GraphicsAPI);
-		LOG_INFO("Renderer API: {}", Renderer::GetAPIString());
+		Random::Init();
 
 		m_Window = Window::Create(appSpecs.WindowProps);
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
+		Renderer::SetAPI(appSpecs.GraphicsAPI);
 		Renderer::Init();
 		Input::Init();
 		Gui::Init();

@@ -4,8 +4,8 @@ using namespace Cobalt;
 int main()
 {
 	ApplicationSpecification appSpecs;
-	appSpecs.WindowProps.Width = 1920;
-	appSpecs.WindowProps.Height = 1080;
+	appSpecs.WindowProps.Width = 1600;
+	appSpecs.WindowProps.Height = 900;
 	appSpecs.WindowProps.Title = "Cobalt Editor";
 	appSpecs.WindowProps.CaptionColor = Color(23, 23, 23);
 
