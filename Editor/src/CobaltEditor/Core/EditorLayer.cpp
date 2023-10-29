@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "CobaltEditor/Core/EditorLayer.h"
 #include "CobaltEditor/Components/DockSpace.h"
 #include "CobaltEditor/Managers/EditorPanelManager.h"

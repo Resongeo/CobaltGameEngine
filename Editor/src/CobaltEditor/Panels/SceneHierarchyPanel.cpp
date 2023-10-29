@@ -1,7 +1,6 @@
+#include "pch.h"
 #include "CobaltEditor/Managers/EditorPanelManager.h"
 #include "CobaltEditor/Panels/SceneHierarchyPanel.h"
-
-#include "CobaltEditor/Components/ScopedUtils.h"
 
 namespace CobaltEditor
 {
@@ -20,10 +19,12 @@ namespace CobaltEditor
 			ScopedStyleVar _(ImGuiStyleVar_WindowPadding, { 0, 0 });
 			ImGui::Begin("Scene Hierarchy");
 
+			m_NodeCounter = 0;
 			m_Scene->Registry().each([&](auto entityID)
 			{
 				Entity entity{ entityID, m_Scene.get() };
 				DrawEntityNode(entity);
+				m_NodeCounter++;
 			});
 
 			ImGui::End();
@@ -72,7 +73,7 @@ namespace CobaltEditor
 			}
 			else
 			{
-				nodeBgColor = m_IsEven ? m_EvenColor : m_OddColor;
+				nodeBgColor = m_NodeCounter & 1 ? m_OddColor : m_EvenColor;
 			}
 		}
 
@@ -82,8 +83,6 @@ namespace CobaltEditor
 		ImGui::Text(tag.c_str());
 
 		ImGui::Dummy({ 0, m_BottomMargin });
-
-		m_IsEven = !m_IsEven;
 	}
 
 	inline bool SceneHierarchyPanel::MouseOverNode(const ImVec2& min, const ImVec2& max)

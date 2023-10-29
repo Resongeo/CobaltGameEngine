@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "CobaltEditor/Components/DockSpace.h"
 
 namespace CobaltEditor

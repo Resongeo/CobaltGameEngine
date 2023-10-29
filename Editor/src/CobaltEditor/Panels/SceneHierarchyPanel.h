@@ -35,6 +35,6 @@ namespace CobaltEditor
 		Color m_SelectHoverColor = Color(90, 110, 140);
 		Vec2 m_Padding = Vec2(15.0f, 9.0f);
 		float m_BottomMargin = 1.9f;
-		bool m_IsEven = true;
+		uint32_t m_NodeCounter = 0;
 	};
 }

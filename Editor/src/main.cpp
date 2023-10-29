@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "CobaltEditor/Core/CobaltEditorApplication.h"
 using namespace CobaltEditor;
 

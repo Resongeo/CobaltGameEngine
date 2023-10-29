@@ -16,6 +16,12 @@ namespace CobaltEditor
 		static Ref<MainViewportPanel> Create(const Ref<Scene>& scene);
 
 	private:
+		inline void ResizeViewport();
+		inline void UpdateBounds();
+		inline void DrawGizmo();
+		inline void MousePick();
+
+	private:
 		Ref<Scene> m_Scene;
 		Ref<Viewport> m_Viewport;
 		Ref<EditorCamera> m_EditorCamera;

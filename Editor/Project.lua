@@ -11,6 +11,9 @@ project "Editor"
 	debugdir ("%{wks.location}/%{prj.name}/bin/")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "pch.h"
+	pchsource "%{wks.location}/Editor/src/CobaltEditor/Core/pch.cpp"
+
 	files
 	{
 		"%{wks.location}/%{prj.name}/src/main.cpp",
