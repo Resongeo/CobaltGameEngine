@@ -22,5 +22,10 @@ namespace CobaltEditor
 
 		Vec2 m_ViewportBounds[2] = {};
 		ImVec2 m_ViewportSize;
+
+		Entity m_SelectedEntity;
+
+		ImGuizmo::OPERATION m_GizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+		ImGuizmo::MODE m_GizmoMode = ImGuizmo::MODE::LOCAL;
 	};
 }

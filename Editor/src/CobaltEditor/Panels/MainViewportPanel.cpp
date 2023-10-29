@@ -65,6 +65,15 @@ namespace CobaltEditor
 		m_Viewport->End();
 
 		m_EditorCamera->Update();
+
+		m_SelectedEntity = SceneHierarchyPanel::GetSelectedEntity();
+
+		if (Input::GetKeyDown(KEYCODE_1)) m_GizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+		if (Input::GetKeyDown(KEYCODE_2)) m_GizmoOperation = ImGuizmo::OPERATION::ROTATE;
+		if (Input::GetKeyDown(KEYCODE_3)) m_GizmoOperation = ImGuizmo::OPERATION::SCALE;
+
+		if (Input::GetKeyDown(KEYCODE_Q)) m_GizmoMode = ImGuizmo::MODE::LOCAL;
+		if (Input::GetKeyDown(KEYCODE_E)) m_GizmoMode = ImGuizmo::MODE::WORLD;
 	}
 
 	void MainViewportPanel::UIRender()
@@ -96,6 +105,48 @@ namespace CobaltEditor
 
 			m_EditorCamera->SetMouseOverViewport(ImGui::IsWindowHovered());
 		}
+
+		if (m_SelectedEntity)
+		{
+			ImGuizmo::SetOrthographic(true);
+			ImGuizmo::SetDrawlist();
+
+			float windowWidth = ImGui::GetWindowWidth();
+			float windowHeight = ImGui::GetWindowHeight();
+
+			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+
+			auto& tc = m_SelectedEntity.GetComponent<TransformComponent>();
+			Mat4 view = m_EditorCamera->GetViewMatrix();
+			Mat4 projection = m_EditorCamera->GetProjectionMatrix();
+			Mat4 transform = tc.GetTransform();
+
+			ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(projection), m_GizmoOperation, m_GizmoMode, glm::value_ptr(transform));
+
+			if (ImGuizmo::IsUsing())
+			{
+				Vec3 scale;
+				Quat rotation;
+				Vec3 translation;
+				Vec3 skew;
+				Vec4 perspective;
+				glm::decompose(transform, scale, rotation, translation, skew, perspective);
+
+				switch (m_GizmoOperation)
+				{
+				case ImGuizmo::OPERATION::TRANSLATE:
+					tc.Position = translation;
+					break;
+				case ImGuizmo::OPERATION::ROTATE:
+					tc.Rotation = glm::degrees(glm::eulerAngles(rotation));
+					break;
+				case ImGuizmo::OPERATION::SCALE:
+					tc.Scale = scale;
+					break;
+				}
+			}
+		}
+
 		ImGui::End();
 		ImGui::PopStyleVar();
 	}
