@@ -71,9 +71,10 @@ project "Engine"
     }
 
 	links 
-	{ 
+	{
 		"glfw3.lib",
 		"opengl32.lib",
+		"dwmapi.lib",
 		"lua54.lib",
 	}
 
@@ -116,8 +117,8 @@ project "Editor"
 	files
 	{
 		"%{prj.name}/src/main.cpp",
-		"%{prj.name}/src/Editor/**.h",
-		"%{prj.name}/src/Editor/**.cpp"
+		"%{prj.name}/src/CobaltEditor/**.h",
+		"%{prj.name}/src/CobaltEditor/**.cpp"
 	}
 
 	defines
@@ -127,12 +128,9 @@ project "Editor"
 
 	includedirs
 	{
-		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.lua}",
 		"%{IncludeDir.sol2}",
@@ -143,18 +141,12 @@ project "Editor"
 
     libdirs
     {
-        "%{LibDir.GLFW}",
-        "%{LibDir.Lua}",
 		"Engine/lib"
     }
 
 	links 
 	{ 
 		"Engine.lib",
-		"glfw3.lib",
-		"opengl32.lib",
-		"dwmapi.lib",
-		"lua54.lib",
 	}
 
 	filter "system:windows"
