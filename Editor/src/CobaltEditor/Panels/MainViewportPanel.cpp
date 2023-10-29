@@ -1,36 +1,37 @@
 #include "CobaltEditor/Panels/MainViewportPanel.h"
+#include "CobaltEditor/Panels/SceneHierarchyPanel.h"
 
 #include "CobaltEditor/Managers/EditorPanelManager.h"
 
 namespace CobaltEditor
 {
-	MainViewportPanel::MainViewportPanel(const Ref<Cobalt::Scene>& scene) : m_Scene(scene)
+	MainViewportPanel::MainViewportPanel(const Ref<Scene>& scene) : m_Scene(scene)
 	{
-		Cobalt::FramebufferSpecification framebufferSpecs;
+		FramebufferSpecification framebufferSpecs;
 		framebufferSpecs.Attachments =
 		{
-			Cobalt::FramebufferAttachmentType::RGBA8,
-			Cobalt::FramebufferAttachmentType::RED_INTEGER
+			FramebufferAttachmentType::RGBA8,
+			FramebufferAttachmentType::RED_INTEGER
 		};
 		framebufferSpecs.Samples = 1;
 		
 		m_Viewport = Viewport::Create({ 100, 100 }, framebufferSpecs);
-		m_EditorCamera = CreateRef<Cobalt::EditorCamera>();
+		m_EditorCamera = CreateRef<EditorCamera>();
 	}
 
 	void MainViewportPanel::Update()
 	{
 		m_Viewport->Begin();
 		{
-			Cobalt::RenderCommand::BeginScene(m_EditorCamera);
+			RenderCommand::BeginScene(m_EditorCamera);
 
-			Cobalt::RenderCommand::ClearColor(Cobalt::Color(21, 21, 23));
-			Cobalt::RenderCommand::Clear();
+			RenderCommand::ClearColor(Color(21, 21, 23));
+			RenderCommand::Clear();
 
 			m_Scene->EditorUpdate();
 			m_Viewport->GetFramebuffer()->ClearAttachment(1, -1);
 
-			Cobalt::RenderCommand::EndScene();
+			RenderCommand::EndScene();
 
 			auto [mx, my] = ImGui::GetMousePos();
 			mx -= m_ViewportBounds[0].x;
@@ -42,7 +43,7 @@ namespace CobaltEditor
 			int mouseX = (int)mx;
 			int mouseY = (int)my;
 
-			if (Cobalt::Input::GetMouseButtonClicked(MOUSE_BUTTON_LEFT) && !ImGuizmo::IsOver())
+			if (Input::GetMouseButtonClicked(MOUSE_BUTTON_LEFT) && !ImGuizmo::IsOver())
 			{
 				if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 				{
@@ -50,10 +51,15 @@ namespace CobaltEditor
 
 					if (pixelData >= 0)
 					{
-						Cobalt::Entity entity = { (entt::entity)pixelData, m_Scene.get() };
-						Cobalt::LOG_TRACE("Entity name: {}", entity.GetComponent<Cobalt::TagComponent>().Tag);
+						Entity entity = { (entt::entity)pixelData, m_Scene.get() };
+						SceneHierarchyPanel::SetSelectedEntity(entity);
+					}
+					else
+					{
+						SceneHierarchyPanel::DeselectEntity();
 					}
 				}
+
 			}
 		}
 		m_Viewport->End();
@@ -74,7 +80,7 @@ namespace CobaltEditor
 				m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 				m_Viewport->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 				m_EditorCamera->SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
-				Cobalt::RenderCommand::SetViewport(0, 0, (uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+				RenderCommand::SetViewport(0, 0, (uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 			}
 
 			m_Viewport->Draw(0);
@@ -94,7 +100,7 @@ namespace CobaltEditor
 		ImGui::PopStyleVar();
 	}
 
-	Ref<MainViewportPanel> MainViewportPanel::Create(const Ref<Cobalt::Scene>& scene)
+	Ref<MainViewportPanel> MainViewportPanel::Create(const Ref<Scene>& scene)
 	{
 		auto panel = CreateRef<MainViewportPanel>(scene);
 		EditorPanelManager::PushPanel(panel);

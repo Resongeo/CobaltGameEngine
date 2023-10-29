@@ -8,17 +8,17 @@ namespace CobaltEditor
 	class MainViewportPanel : public EditorPanel
 	{
 	public:
-		MainViewportPanel(const Ref<Cobalt::Scene>& scene);
+		MainViewportPanel(const Ref<Scene>& scene);
 
 		void Update() override;
 		void UIRender() override;
 
-		static Ref<MainViewportPanel> Create(const Ref<Cobalt::Scene>& scene);
+		static Ref<MainViewportPanel> Create(const Ref<Scene>& scene);
 
 	private:
-		Ref<Cobalt::Scene> m_Scene;
+		Ref<Scene> m_Scene;
 		Ref<Viewport> m_Viewport;
-		Ref<Cobalt::EditorCamera> m_EditorCamera;
+		Ref<EditorCamera> m_EditorCamera;
 
 		Vec2 m_ViewportBounds[2] = {};
 		ImVec2 m_ViewportSize;

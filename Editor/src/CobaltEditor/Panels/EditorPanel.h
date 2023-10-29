@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Cobalt.h"
+using namespace Cobalt;
+
 namespace CobaltEditor
 {
 	class EditorPanel

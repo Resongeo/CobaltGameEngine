@@ -4,17 +4,17 @@ namespace CobaltEditor
 {
 	Viewport::Viewport(const Vec2& defaultSize) : m_Size(defaultSize)
 	{
-		Cobalt::FramebufferSpecification framebufferSpecs;
-		framebufferSpecs.Attachments = { Cobalt::FramebufferAttachmentType::RGBA8 };
+		FramebufferSpecification framebufferSpecs;
+		framebufferSpecs.Attachments = { FramebufferAttachmentType::RGBA8 };
 		framebufferSpecs.Size = m_Size;
 		framebufferSpecs.Samples = 1;
-		m_Framebuffer = Cobalt::Framebuffer::Create(framebufferSpecs);
+		m_Framebuffer = Framebuffer::Create(framebufferSpecs);
 	}
 
-	Viewport::Viewport(const Vec2& defaultSize, Cobalt::FramebufferSpecification framebufferSpecs) : m_Size(defaultSize)
+	Viewport::Viewport(const Vec2& defaultSize, FramebufferSpecification framebufferSpecs) : m_Size(defaultSize)
 	{
 		framebufferSpecs.Size = m_Size;
-		m_Framebuffer = Cobalt::Framebuffer::Create(framebufferSpecs);
+		m_Framebuffer = Framebuffer::Create(framebufferSpecs);
 	}
 
 	void Viewport::Begin()
@@ -47,7 +47,7 @@ namespace CobaltEditor
 	{
 		return CreateRef<Viewport>(defaultSize);
 	}
-	Ref<Viewport> Viewport::Create(const Vec2& defaultSize, Cobalt::FramebufferSpecification framebufferSpecs)
+	Ref<Viewport> Viewport::Create(const Vec2& defaultSize, FramebufferSpecification framebufferSpecs)
 	{
 		return CreateRef<Viewport>(defaultSize, framebufferSpecs);
 	}
