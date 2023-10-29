@@ -1,17 +1,16 @@
-#include "Editor/CobaltEditor.h"
-using namespace Cobalt;
+#include "CobaltEditor/Core/CobaltEditorApplication.h"
+using namespace CobaltEditor;
 
 int main()
 {
-	ApplicationSpecification appSpecs;
+	Cobalt::ApplicationSpecification appSpecs;
+	appSpecs.WindowProps.Title = "Cobalt Engine Editor";
 	appSpecs.WindowProps.Width = 1600;
 	appSpecs.WindowProps.Height = 900;
-	appSpecs.WindowProps.Title = "Cobalt Editor";
-	appSpecs.WindowProps.CaptionColor = Color(23, 23, 23);
 
-	CobaltEditor* editor = new CobaltEditor(appSpecs);
-	editor->Run();
-	delete editor;
+	CobaltEditorApplication* application = new CobaltEditorApplication(appSpecs);
+	application->Run();
+	delete application;
 
 	return 0;
 }

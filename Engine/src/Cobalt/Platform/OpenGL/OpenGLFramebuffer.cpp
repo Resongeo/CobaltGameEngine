@@ -45,11 +45,11 @@ namespace Cobalt
 
 			if (multisampled)
 			{
-				glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, fbSpec.Samples, internalFormat, fbSpec.Width, fbSpec.Height, GL_FALSE);
+				glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, fbSpec.Samples, internalFormat, fbSpec.Size.x, fbSpec.Size.y, GL_FALSE);
 			}
 			else
 			{
-				glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, fbSpec.Width, fbSpec.Height, 0, format, GL_UNSIGNED_BYTE, nullptr);
+				glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, fbSpec.Size.x, fbSpec.Size.y, 0, format, GL_UNSIGNED_BYTE, nullptr);
 
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -131,7 +131,7 @@ namespace Cobalt
 	void OpenGLFramebuffer::Bind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
-		glViewport(0, 0, m_Specification.Width, m_Specification.Height);
+		glViewport(0, 0, m_Specification.Size.x, m_Specification.Size.y);
 	}
 
 	void OpenGLFramebuffer::Unbind()
@@ -141,8 +141,8 @@ namespace Cobalt
 
 	void OpenGLFramebuffer::Resize(uint32_t width, uint32_t height)
 	{
-		m_Specification.Width = width;
-		m_Specification.Height = height;
+		m_Specification.Size.x = width;
+		m_Specification.Size.y = height;
 		Invalidate();
 	}
 

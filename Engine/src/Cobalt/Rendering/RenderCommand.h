@@ -13,7 +13,7 @@ namespace Cobalt
 		static void BeginScene(const Ref<Camera>& camera);
 		static void EndScene();
 		
-		static void ClearColor(const Vec4& color);
+		static void ClearColor(const Color& color);
 		static void Clear();
 
 		static void Flush();

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Cobalt/Cameras/Camera.h"
+#include "Cobalt/Core/Color.h"
 #include "Cobalt/Core/Math.h"
 #include "Cobalt/Graphics/VertexArray.h"
 
@@ -13,7 +14,7 @@ namespace Cobalt
 
 		virtual void BeginScene(const Ref<Camera>& camera) = 0;
 
-		virtual void ClearColor(const Vec4& color) = 0;
+		virtual void ClearColor(const Color& color) = 0;
 		virtual void Clear() = 0;
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount = 0) = 0;

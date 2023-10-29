@@ -120,7 +120,7 @@ namespace Cobalt
 		Flush();
 	}
 
-	void RenderCommand::ClearColor(const Vec4& color)
+	void RenderCommand::ClearColor(const Color& color)
 	{
 		s_RendererAPI->ClearColor(color);
 	}

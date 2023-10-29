@@ -28,6 +28,11 @@ namespace Cobalt
 
 	Application::~Application()
 	{
+		for (Layer* layer : m_LayerStack)
+		{
+			layer->OnDetach();
+		}
+
 		Gui::ShutDown();
 		m_Window->Destroy();
 	}
@@ -71,6 +76,8 @@ namespace Cobalt
 	{
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
+
+		LOG_INFO("{} attached!", layer->GetName());
 	}
 
 	void Application::PushOverlay(Layer* overlay)

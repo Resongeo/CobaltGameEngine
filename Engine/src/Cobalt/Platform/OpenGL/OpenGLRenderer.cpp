@@ -19,7 +19,7 @@ namespace Cobalt
 		s_SceneData->ViewProjectionMatrix = camera->GetViewProjectionMatrix();
 	}
 
-	void OpenGLRenderer::ClearColor(const Vec4& color)
+	void OpenGLRenderer::ClearColor(const Color& color)
 	{
 		glClearColor(color.r, color.g, color.b, color.a);
 	}

@@ -12,7 +12,7 @@ namespace Cobalt
 
 		virtual void BeginScene(const Ref<Camera>& camera) override;
 
-		virtual void ClearColor(const Vec4& color) override;
+		virtual void ClearColor(const Color& color) override;
 		virtual void Clear() override;
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount = 0) override;

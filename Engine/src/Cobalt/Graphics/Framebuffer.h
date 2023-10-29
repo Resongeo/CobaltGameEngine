@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
+#include "Cobalt/Core/Math.h"
 
 namespace Cobalt
 {
@@ -23,7 +24,7 @@ namespace Cobalt
 	struct FramebufferSpecification
 	{
 		FramebufferAttachmentSpecification Attachments;
-		uint32_t Width, Height = 1;
+		Vec2 Size = Vec2(1);
 		uint32_t Samples = 1;
 	};
 
