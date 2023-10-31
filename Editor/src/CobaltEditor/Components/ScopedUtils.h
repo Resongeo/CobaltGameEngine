@@ -51,4 +51,48 @@ namespace CobaltEditor
 			ImGui::PopStyleVar();
 		}
 	};
+
+	struct StyleVar
+	{
+		ImGuiStyleVar Idx;
+		
+		union
+		{
+			float floatValue;
+			ImVec2 imVec2Value;
+		};
+
+		bool SingleValue;
+
+		StyleVar(ImGuiStyleVar idx, float value) : Idx(idx), floatValue(value), SingleValue(true) { }
+		StyleVar(ImGuiStyleVar idx, const ImVec2& value) : Idx(idx), imVec2Value(value), SingleValue(false) { }
+	};
+
+	class ScopedStyleVars
+	{
+	public:
+		ScopedStyleVars(std::initializer_list<StyleVar> styleVars) : m_StyleVars(styleVars)
+		{
+			for (auto& style : m_StyleVars)
+			{
+				switch (style.SingleValue)
+				{
+					case true:
+						ImGui::PushStyleVar(style.Idx, style.floatValue);
+						break;
+					case false:
+						ImGui::PushStyleVar(style.Idx, style.imVec2Value);
+						break;
+				}
+			}
+		}
+
+		~ScopedStyleVars()
+		{
+			ImGui::PopStyleVar(m_StyleVars.size());
+		}
+
+	private:
+		std::vector<StyleVar> m_StyleVars;
+	};
 }

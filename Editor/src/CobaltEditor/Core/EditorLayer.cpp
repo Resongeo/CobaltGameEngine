@@ -2,7 +2,6 @@
 #include "CobaltEditor/Core/EditorLayer.h"
 #include "CobaltEditor/Components/DockSpace.h"
 #include "CobaltEditor/Managers/EditorPanelManager.h"
-
 #include "CobaltEditor/Panels/MainViewportPanel.h"
 #include "CobaltEditor/Panels/SceneHierarchyPanel.h"
 

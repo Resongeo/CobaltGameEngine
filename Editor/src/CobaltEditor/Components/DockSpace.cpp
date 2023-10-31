@@ -19,14 +19,17 @@ namespace CobaltEditor
 			| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
 			| ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
 
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-		ImGui::Begin("Master DockSpace", NULL, dockspaceFlags);
-		ImGuiID dockMain = ImGui::GetID("MyDockspace");
+		ScopedStyleVars _
+		({
+			{ ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f) },
+			{ ImGuiStyleVar_WindowRounding, 0.0f },
+			{ ImGuiStyleVar_WindowBorderSize, 0.0f },
+		});
 
-		ImGui::DockSpace(dockMain);
+		ImGui::Begin("Master DockSpace", NULL, dockspaceFlags);
+		{
+			ImGui::DockSpace(ImGui::GetID("MyDockspace"));
+		}
 		ImGui::End();
-		ImGui::PopStyleVar(3);
 	}
 }

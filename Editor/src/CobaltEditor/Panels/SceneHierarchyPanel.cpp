@@ -11,14 +11,12 @@ namespace CobaltEditor
 		s_Instance = this;
 	}
 
-	void SceneHierarchyPanel::Update() { }
-
 	void SceneHierarchyPanel::UIRender()
 	{
-		{
-			ScopedStyleVar _(ImGuiStyleVar_WindowPadding, { 0, 0 });
-			ImGui::Begin("Scene Hierarchy");
+		ScopedStyleVar _(ImGuiStyleVar_WindowPadding, { 0, 0 });
 
+		ImGui::Begin("Scene Hierarchy");
+		{
 			m_NodeCounter = 0;
 			m_Scene->Registry().each([&](auto entityID)
 			{
@@ -26,9 +24,8 @@ namespace CobaltEditor
 				DrawEntityNode(entity);
 				m_NodeCounter++;
 			});
-
-			ImGui::End();
 		}
+		ImGui::End();
 	}
 
 	Ref<SceneHierarchyPanel> SceneHierarchyPanel::Create(const Ref<Scene>& scene)

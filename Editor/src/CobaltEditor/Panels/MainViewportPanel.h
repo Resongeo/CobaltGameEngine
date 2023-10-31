@@ -27,6 +27,7 @@ namespace CobaltEditor
 		Ref<EditorCamera> m_EditorCamera;
 
 		Vec2 m_ViewportBounds[2] = {};
+		ImVec2 m_ViewportOffset;
 		ImVec2 m_ViewportSize;
 
 		Entity m_SelectedEntity;

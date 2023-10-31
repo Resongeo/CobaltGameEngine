@@ -56,18 +56,19 @@ namespace CobaltEditor
 
 		ImGui::Begin("Main Viewport", nullptr, ImGuiWindowFlags_NoDecoration);
 		{
+			m_ViewportOffset = ImGui::GetCursorPos();
+
 			ResizeViewport();
 			m_Viewport->Draw(0);
 			UpdateBounds();
-		}
 
-		if (m_SelectedEntity)
-		{
-			DrawGizmo();
-		}
+			if (m_SelectedEntity)
+			{
+				DrawGizmo();
+			}
 		
-		m_EditorCamera->SetMouseOverViewport(ImGui::IsWindowHovered());
-
+			m_EditorCamera->SetMouseOverViewport(ImGui::IsWindowHovered());
+		}
 		ImGui::End();
 	}
 
@@ -93,12 +94,10 @@ namespace CobaltEditor
 
 	inline void MainViewportPanel::UpdateBounds()
 	{
-		auto viewportOffset = ImGui::GetCursorPos();
-
 		auto windowSize = ImGui::GetWindowSize();
 		ImVec2 minBound = ImGui::GetWindowPos();
-		minBound.x += viewportOffset.x;
-		minBound.y += viewportOffset.y;
+		minBound.x += m_ViewportOffset.x;
+		minBound.y += m_ViewportOffset.y;
 
 		ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
 		m_ViewportBounds[0] = { minBound.x, minBound.y };

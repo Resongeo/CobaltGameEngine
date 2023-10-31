@@ -9,7 +9,7 @@ namespace CobaltEditor
 	public:
 		SceneHierarchyPanel(const Ref<Scene>& scene);
 
-		void Update() override;
+		void Update() override { }
 		void UIRender() override;
 
 		static void DeselectEntity() { s_Instance->m_SelectedEntity = {}; }
