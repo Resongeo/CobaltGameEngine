@@ -9,7 +9,7 @@ namespace Cobalt
 	class SceneSerializer
 	{
 	public:
-		void Serialize(const char* filepath, const Ref<Scene>& scene);
-		void Deserialize(const char* filepath, const Ref<Scene>& scene);
+		void Serialize(const std::string& filepath, const Ref<Scene>& scene);
+		void Deserialize(const std::string& filepath, const Ref<Scene>& scene);
 	};
 }

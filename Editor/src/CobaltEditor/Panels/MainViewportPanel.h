@@ -8,12 +8,12 @@ namespace CobaltEditor
 	class MainViewportPanel : public EditorPanel
 	{
 	public:
-		MainViewportPanel(const Ref<Scene>& scene);
+		MainViewportPanel();
 
 		void Update() override;
 		void UIRender() override;
 
-		static Ref<MainViewportPanel> Create(const Ref<Scene>& scene);
+		static Ref<MainViewportPanel> Create();
 
 	private:
 		inline void ResizeViewport();

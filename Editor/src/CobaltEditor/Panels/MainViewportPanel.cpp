@@ -6,7 +6,7 @@
 
 namespace CobaltEditor
 {
-	MainViewportPanel::MainViewportPanel(const Ref<Scene>& scene) : m_Scene(scene)
+	MainViewportPanel::MainViewportPanel()
 	{
 		FramebufferSpecification framebufferSpecs;
 		framebufferSpecs.Attachments =
@@ -22,6 +22,8 @@ namespace CobaltEditor
 
 	void MainViewportPanel::Update()
 	{
+		m_Scene = SceneManager::GetActiveScene();
+
 		m_Viewport->Begin();
 		{
 			RenderCommand::BeginScene(m_EditorCamera);
@@ -72,9 +74,9 @@ namespace CobaltEditor
 		ImGui::End();
 	}
 
-	Ref<MainViewportPanel> MainViewportPanel::Create(const Ref<Scene>& scene)
+	Ref<MainViewportPanel> MainViewportPanel::Create()
 	{
-		auto panel = CreateRef<MainViewportPanel>(scene);
+		auto panel = CreateRef<MainViewportPanel>();
 		EditorPanelManager::PushPanel(panel);
 		
 		return panel;

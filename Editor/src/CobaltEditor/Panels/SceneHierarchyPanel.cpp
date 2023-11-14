@@ -6,9 +6,14 @@ namespace CobaltEditor
 {
 	SceneHierarchyPanel* SceneHierarchyPanel::s_Instance = nullptr;
 
-	SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& scene) : m_Scene(scene)
+	SceneHierarchyPanel::SceneHierarchyPanel()
 	{
 		s_Instance = this;
+	}
+
+	void SceneHierarchyPanel::Update()
+	{
+		m_Scene = SceneManager::GetActiveScene();
 	}
 
 	void SceneHierarchyPanel::UIRender()
@@ -28,9 +33,9 @@ namespace CobaltEditor
 		ImGui::End();
 	}
 
-	Ref<SceneHierarchyPanel> SceneHierarchyPanel::Create(const Ref<Scene>& scene)
+	Ref<SceneHierarchyPanel> SceneHierarchyPanel::Create()
 	{
-		auto panel = CreateRef<SceneHierarchyPanel>(scene);
+		auto panel = CreateRef<SceneHierarchyPanel>();
 		EditorPanelManager::PushPanel(panel);
 
 		return panel;

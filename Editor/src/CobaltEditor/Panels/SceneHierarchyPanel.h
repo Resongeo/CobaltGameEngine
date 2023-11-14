@@ -7,16 +7,16 @@ namespace CobaltEditor
 	class SceneHierarchyPanel : public EditorPanel
 	{
 	public:
-		SceneHierarchyPanel(const Ref<Scene>& scene);
+		SceneHierarchyPanel();
 
-		void Update() override { }
+		void Update() override;
 		void UIRender() override;
 
 		static void DeselectEntity() { s_Instance->m_SelectedEntity = {}; }
 		static void SetSelectedEntity(Entity entity) { s_Instance->m_SelectedEntity = entity; }
 		static Entity GetSelectedEntity() { return s_Instance->m_SelectedEntity; }
 
-		static Ref<SceneHierarchyPanel> Create(const Ref<Scene>& scene);
+		static Ref<SceneHierarchyPanel> Create();
 
 	private:
 		inline void DrawEntityNode(Entity entity);

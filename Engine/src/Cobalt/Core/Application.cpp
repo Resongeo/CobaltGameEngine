@@ -1,6 +1,7 @@
 #include "cbpch.h"
 
 #include "Cobalt/Core/Application.h"
+#include "Cobalt/Scene/SceneManager.h"
 
 namespace Cobalt
 {
@@ -20,6 +21,7 @@ namespace Cobalt
 		m_Window = Window::Create(appSpecs.WindowProps);
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
+		SceneManager::Init();
 		Renderer::SetAPI(appSpecs.GraphicsAPI);
 		Renderer::Init();
 		Input::Init();

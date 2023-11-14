@@ -73,4 +73,9 @@ namespace Cobalt
 			m_Registry.destroy(entityID);
 		});
 	}
+
+	Ref<Scene> Scene::Create(const char* name)
+	{
+		return CreateRef<Scene>(name);
+	}
 }

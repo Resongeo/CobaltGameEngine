@@ -14,11 +14,13 @@ namespace CobaltEditor
 {
 	void EditorLayer::OnAttach()
 	{
+		m_Window = Application::GetWindow();
+
 		ImGuiIO& io = ImGui::GetIO();
 		io.IniFilename = "..\\imgui.ini";
 
-		float baseFontSize = 18.0f;
-		float iconFontSize = baseFontSize * 2.0f / 3.0f;
+		const float baseFontSize = 18.0f;
+		const float iconFontSize = baseFontSize * 2.0f / 3.0f;
 
 		ImFontConfig fontConfig;
 		fontConfig.MergeMode = true;
@@ -30,13 +32,11 @@ namespace CobaltEditor
 		io.FontDefault = io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\JetBrainsMono-Regular.ttf", baseFontSize);
 		io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\" FONT_ICON_FILE_NAME_FAS, baseFontSize, &fontConfig, icon_ranges);
 
-		m_Window = Application::GetWindow();
-		m_Scene = CreateRef<Scene>("Scene");
-		auto entity = m_Scene->CreateEntity("Red Square");
-		entity.AddComponent<SpriteRendererComponent>().Tint = Color(230, 80, 80);
+		// TODO: Do this when there is no default scene in the project file
+		SceneManager::CreateDefaultScene();
 
-		MainViewportPanel::Create(m_Scene);
-		SceneHierarchyPanel::Create(m_Scene);
+		MainViewportPanel::Create();
+		SceneHierarchyPanel::Create();
 		LogPanel::Create();
 	}
 
