@@ -2,6 +2,7 @@
 
 #include "CobaltEditor/Core/EditorLayer.h"
 #include "CobaltEditor/Managers/EditorPanelManager.h"
+#include "CobaltEditor/Managers/StyleManager.h"
 #include "CobaltEditor/Logger/Log.h"
 
 namespace CobaltEditor
@@ -12,6 +13,7 @@ namespace CobaltEditor
 		CobaltEditorApplication(const Cobalt::ApplicationSpecification& appSpecs) : Application(appSpecs)
 		{
 			Log::Init();
+			StyleManager::Init();
 			EditorPanelManager::Init();
 
 			PushLayer(new EditorLayer);

@@ -28,7 +28,7 @@ namespace CobaltEditor
 		{
 			RenderCommand::BeginScene(m_EditorCamera);
 
-			RenderCommand::ClearColor(Color(21, 21, 23));
+			RenderCommand::ClearColor(Color(18, 18, 19));
 			RenderCommand::Clear();
 
 			m_Scene->EditorUpdate();

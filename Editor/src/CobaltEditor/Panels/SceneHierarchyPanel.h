@@ -31,8 +31,8 @@ namespace CobaltEditor
 		Color m_EvenColor = Color(30, 30, 30);
 		Color m_OddColor = Color(35, 35, 35);
 		Color m_HoverColor = Color(50, 50, 50);
-		Color m_SelectColor = Color(50, 90, 140);
-		Color m_SelectHoverColor = Color(90, 110, 140);
+		Color m_SelectColor = Color(70, 100, 130);
+		Color m_SelectHoverColor = Color(70, 100, 130, 150);
 		Vec2 m_Padding = Vec2(15.0f, 9.0f);
 		float m_BottomMargin = 1.9f;
 		uint32_t m_NodeCounter = 0;
