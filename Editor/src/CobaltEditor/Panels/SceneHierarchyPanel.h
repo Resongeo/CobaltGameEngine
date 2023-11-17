@@ -9,8 +9,8 @@ namespace CobaltEditor
 	public:
 		SceneHierarchyPanel();
 
-		void Update() override;
-		void UIRender() override;
+		void OnUpdate() override;
+		void OnUIRender() override;
 
 		static void DeselectEntity() { s_Instance->m_SelectedEntity = {}; }
 		static void SetSelectedEntity(Entity entity) { s_Instance->m_SelectedEntity = entity; }

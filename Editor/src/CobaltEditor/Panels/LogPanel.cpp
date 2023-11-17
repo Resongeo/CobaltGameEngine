@@ -5,7 +5,7 @@
 
 namespace CobaltEditor
 {
-	void LogPanel::UIRender()
+	void LogPanel::OnUIRender()
 	{
 		ImGui::Begin("Logs");
 		

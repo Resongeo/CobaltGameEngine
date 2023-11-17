@@ -20,7 +20,7 @@ namespace CobaltEditor
 		m_EditorCamera = CreateRef<EditorCamera>();
 	}
 
-	void MainViewportPanel::Update()
+	void MainViewportPanel::OnUpdate()
 	{
 		m_Scene = SceneManager::GetActiveScene();
 
@@ -30,6 +30,8 @@ namespace CobaltEditor
 
 			RenderCommand::ClearColor(Color(18, 18, 19));
 			RenderCommand::Clear();
+
+			DrawGrid();
 
 			m_Scene->EditorUpdate();
 			m_Viewport->GetFramebuffer()->ClearAttachment(1, -1);
@@ -52,7 +54,7 @@ namespace CobaltEditor
 		if (Input::GetKeyDown(KEYCODE_E)) m_GizmoMode = ImGuizmo::MODE::WORLD;
 	}
 
-	void MainViewportPanel::UIRender()
+	void MainViewportPanel::OnUIRender()
 	{
 		ScopedStyleVar _(ImGuiStyleVar_WindowPadding, { 0, 0 });
 
@@ -72,6 +74,11 @@ namespace CobaltEditor
 			m_EditorCamera->SetMouseOverViewport(ImGui::IsWindowHovered());
 		}
 		ImGui::End();
+	}
+
+	void MainViewportPanel::OnEvent(Event& event)
+	{
+		m_EditorCamera->OnEvent(event);
 	}
 
 	Ref<MainViewportPanel> MainViewportPanel::Create()
@@ -175,6 +182,33 @@ namespace CobaltEditor
 					SceneHierarchyPanel::DeselectEntity();
 				}
 			}
+		}
+	}
+
+	inline void MainViewportPanel::DrawGrid()
+	{
+		int bigLineHalfSize = 9;
+		int smallLineHalfSize = bigLineHalfSize * 4;
+
+		Color thickColor = Color(25, 25, 26);
+		Color thinColor = Color(22, 22, 23);
+
+		for (int y = -bigLineHalfSize; y < bigLineHalfSize + 1; y++)
+		{
+			RenderCommand::DrawQuad(Vec3(0.0f, y, 0.0f), Vec3(bigLineHalfSize * 2, 0.025f, 1), thickColor);
+		}
+		for (int x = -bigLineHalfSize; x < bigLineHalfSize + 1; x++)
+		{
+			RenderCommand::DrawQuad(Vec3(x, 0.0f, 0.0f), Vec3(0.025f, bigLineHalfSize * 2, 1), thickColor);
+		}
+
+		for (float y = -bigLineHalfSize; y < bigLineHalfSize; y += 0.25f)
+		{
+			RenderCommand::DrawQuad(Vec3(0.0f, y, 0.0f), Vec3(bigLineHalfSize * 2, 0.01f, 1), thinColor);
+		}
+		for (float x = -bigLineHalfSize; x < bigLineHalfSize; x += 0.25f)
+		{
+			RenderCommand::DrawQuad(Vec3(x, 0.0f, 0.0f), Vec3(0.01f, bigLineHalfSize * 2, 1), thinColor);
 		}
 	}
 }

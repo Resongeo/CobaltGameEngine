@@ -11,12 +11,12 @@ namespace CobaltEditor
 		s_Instance = this;
 	}
 
-	void SceneHierarchyPanel::Update()
+	void SceneHierarchyPanel::OnUpdate()
 	{
 		m_Scene = SceneManager::GetActiveScene();
 	}
 
-	void SceneHierarchyPanel::UIRender()
+	void SceneHierarchyPanel::OnUIRender()
 	{
 		ScopedStyleVar _(ImGuiStyleVar_WindowPadding, { 0, 0 });
 

@@ -10,8 +10,9 @@ namespace CobaltEditor
 	public:
 		MainViewportPanel();
 
-		void Update() override;
-		void UIRender() override;
+		void OnUpdate() override;
+		void OnUIRender() override;
+		void OnEvent(Event& event) override;
 
 		static Ref<MainViewportPanel> Create();
 
@@ -20,6 +21,7 @@ namespace CobaltEditor
 		inline void UpdateBounds();
 		inline void DrawGizmo();
 		inline void MousePick();
+		inline void DrawGrid();
 
 	private:
 		Ref<Scene> m_Scene;

@@ -5,12 +5,12 @@
 
 namespace CobaltEditor
 {
-	void ComponentsPanel::Update()
+	void ComponentsPanel::OnUpdate()
 	{
 		m_SelectedEntity = SceneHierarchyPanel::GetSelectedEntity();
 	}
 
-	void ComponentsPanel::UIRender()
+	void ComponentsPanel::OnUIRender()
 	{
 		ImGui::Begin("Components");
 

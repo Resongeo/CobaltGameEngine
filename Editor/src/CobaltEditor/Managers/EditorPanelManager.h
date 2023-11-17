@@ -11,6 +11,8 @@ namespace CobaltEditor
 		static void Init();
 		static void Update();
 		static void UIRender();
+		static void OnEvent(Event& event);
+
 		static void PushPanel(Ref<EditorPanel>&& panel);
 
 	private:

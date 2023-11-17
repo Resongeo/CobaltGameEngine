@@ -9,8 +9,8 @@ namespace CobaltEditor
 	public:
 		ComponentsPanel() = default;
 
-		void Update() override;
-		void UIRender() override;
+		void OnUpdate() override;
+		void OnUIRender() override;
 
 		static Ref<ComponentsPanel> Create();
 

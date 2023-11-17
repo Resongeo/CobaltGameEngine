@@ -8,7 +8,8 @@ namespace CobaltEditor
 	class EditorPanel
 	{
 	public:
-		virtual void Update() = 0;
-		virtual void UIRender() = 0;
+		virtual void OnUpdate() { }
+		virtual void OnUIRender() { }
+		virtual void OnEvent(Event& event) { }
 	};
 }

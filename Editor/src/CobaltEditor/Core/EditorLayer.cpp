@@ -58,5 +58,6 @@ namespace CobaltEditor
 
 	void EditorLayer::OnEvent(Event& event)
 	{
+		EditorPanelManager::OnEvent(event);
 	}
 }

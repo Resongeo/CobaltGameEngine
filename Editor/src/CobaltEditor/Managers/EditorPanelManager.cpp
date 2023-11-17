@@ -13,13 +13,19 @@ namespace CobaltEditor
 	void EditorPanelManager::Update()
 	{
 		for (Ref<EditorPanel> panel : s_Instance->m_Panels)
-			panel->Update();
+			panel->OnUpdate();
 	}
 
 	void EditorPanelManager::UIRender()
 	{
 		for (Ref<EditorPanel> panel : s_Instance->m_Panels)
-			panel->UIRender();
+			panel->OnUIRender();
+	}
+
+	void EditorPanelManager::OnEvent(Event& event)
+	{
+		for (Ref<EditorPanel> panel : s_Instance->m_Panels)
+			panel->OnEvent(event);
 	}
 
 	void EditorPanelManager::PushPanel(Ref<EditorPanel>&& panel)
