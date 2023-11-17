@@ -2,6 +2,7 @@
 #include "CobaltEditor/Core/EditorLayer.h"
 #include "CobaltEditor/Components/DockSpace.h"
 #include "CobaltEditor/Managers/EditorPanelManager.h"
+#include "CobaltEditor/Panels/ComponentsPanel.h"
 #include "CobaltEditor/Panels/MainViewportPanel.h"
 #include "CobaltEditor/Panels/SceneHierarchyPanel.h"
 #include "CobaltEditor/Panels/LogPanel.h"
@@ -35,6 +36,7 @@ namespace CobaltEditor
 		// TODO: Do this when there is no default scene in the project file
 		SceneManager::CreateDefaultScene();
 
+		ComponentsPanel::Create();
 		MainViewportPanel::Create();
 		SceneHierarchyPanel::Create();
 		LogPanel::Create();
@@ -63,6 +65,8 @@ namespace CobaltEditor
 			Log::Error("Error message");
 		}
 		ImGui::End();
+
+		ImGui::ShowDemoWindow();
 	}
 
 	void EditorLayer::OnEvent(Event& event)
