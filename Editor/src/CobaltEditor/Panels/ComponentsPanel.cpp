@@ -5,6 +5,11 @@
 
 namespace CobaltEditor
 {
+	void ComponentsPanel::OnLoad()
+	{
+
+	}
+
 	void ComponentsPanel::OnUpdate()
 	{
 		m_SelectedEntity = SceneHierarchyPanel::GetSelectedEntity();

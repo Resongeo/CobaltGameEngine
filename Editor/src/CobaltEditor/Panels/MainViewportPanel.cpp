@@ -187,28 +187,26 @@ namespace CobaltEditor
 
 	inline void MainViewportPanel::DrawGrid()
 	{
-		int bigLineHalfSize = 9;
-		int smallLineHalfSize = bigLineHalfSize * 4;
-
+		int halfSize = 9;
 		Color thickColor = Color(25, 25, 26);
 		Color thinColor = Color(22, 22, 23);
 
-		for (int y = -bigLineHalfSize; y < bigLineHalfSize + 1; y++)
+		for (int y = -halfSize; y < halfSize + 1; y++)
 		{
-			RenderCommand::DrawQuad(Vec3(0.0f, y, 0.0f), Vec3(bigLineHalfSize * 2, 0.025f, 1), thickColor);
+			RenderCommand::DrawQuad(Vec3(0.0f, y, 0.0f), Vec3(halfSize * 2, 0.025f, 1), thickColor);
 		}
-		for (int x = -bigLineHalfSize; x < bigLineHalfSize + 1; x++)
+		for (int x = -halfSize; x < halfSize + 1; x++)
 		{
-			RenderCommand::DrawQuad(Vec3(x, 0.0f, 0.0f), Vec3(0.025f, bigLineHalfSize * 2, 1), thickColor);
+			RenderCommand::DrawQuad(Vec3(x, 0.0f, 0.0f), Vec3(0.025f, halfSize * 2, 1), thickColor);
 		}
 
-		for (float y = -bigLineHalfSize; y < bigLineHalfSize; y += 0.25f)
+		for (float y = -halfSize; y < halfSize; y += 0.25f)
 		{
-			RenderCommand::DrawQuad(Vec3(0.0f, y, 0.0f), Vec3(bigLineHalfSize * 2, 0.01f, 1), thinColor);
+			RenderCommand::DrawQuad(Vec3(0.0f, y, 0.0f), Vec3(halfSize * 2, 0.01f, 1), thinColor);
 		}
-		for (float x = -bigLineHalfSize; x < bigLineHalfSize; x += 0.25f)
+		for (float x = -halfSize; x < halfSize; x += 0.25f)
 		{
-			RenderCommand::DrawQuad(Vec3(x, 0.0f, 0.0f), Vec3(0.01f, bigLineHalfSize * 2, 1), thinColor);
+			RenderCommand::DrawQuad(Vec3(x, 0.0f, 0.0f), Vec3(0.01f, halfSize * 2, 1), thinColor);
 		}
 	}
 }

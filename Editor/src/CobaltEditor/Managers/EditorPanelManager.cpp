@@ -28,8 +28,9 @@ namespace CobaltEditor
 			panel->OnEvent(event);
 	}
 
-	void EditorPanelManager::PushPanel(Ref<EditorPanel>&& panel)
+	void EditorPanelManager::PushPanel(const Ref<EditorPanel>& panel)
 	{
-		s_Instance->m_Panels.push_back(std::move(panel));
+		s_Instance->m_Panels.push_back(panel);
+		panel->OnLoad();
 	}
 }

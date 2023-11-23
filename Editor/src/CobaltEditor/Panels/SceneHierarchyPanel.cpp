@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "CobaltEditor/Managers/EditorPanelManager.h"
 #include "CobaltEditor/Panels/SceneHierarchyPanel.h"
 
 namespace CobaltEditor
@@ -9,6 +8,16 @@ namespace CobaltEditor
 	SceneHierarchyPanel::SceneHierarchyPanel()
 	{
 		s_Instance = this;
+	}
+
+	void SceneHierarchyPanel::OnLoad()
+	{
+		auto& colors = StyleManager::GetColors();
+		m_EvenColor = colors.Panels.SceneHierarchy.EvenColor;
+		m_OddColor = colors.Panels.SceneHierarchy.OddColor;
+		m_HoverColor = colors.Panels.SceneHierarchy.HoverColor;
+		m_SelectColor = colors.Panels.SceneHierarchy.SelectColor;
+		m_SelectHoverColor = colors.Panels.SceneHierarchy.SelectHoverColor;
 	}
 
 	void SceneHierarchyPanel::OnUpdate()
