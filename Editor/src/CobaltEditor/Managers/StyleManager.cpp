@@ -26,8 +26,12 @@ namespace CobaltEditor
 		static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
 
 		s_Instance->m_Fonts.Regular = io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\JetBrainsMono-Regular.ttf", baseFontSize);
+		io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\" FONT_ICON_FILE_NAME_FAS, iconFontSize, &fontConfig, icon_ranges);
+
+		s_Instance->m_Fonts.SemiBold = io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\JetBrainsMono-Bold.ttf", baseFontSize);
+		io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\" FONT_ICON_FILE_NAME_FAS, iconFontSize + 2.0f, &fontConfig, icon_ranges);
+
 		io.FontDefault = s_Instance->m_Fonts.Regular;
-		io.Fonts->AddFontFromFileTTF("..\\assets\\fonts\\" FONT_ICON_FILE_NAME_FAS, baseFontSize, &fontConfig, icon_ranges);
 	}
 
 	void StyleManager::LoadStyle()

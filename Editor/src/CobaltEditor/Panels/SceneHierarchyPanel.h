@@ -21,7 +21,6 @@ namespace CobaltEditor
 
 	private:
 		inline void DrawEntityNode(Entity entity);
-		inline bool MouseOverNode(const ImVec2& min, const ImVec2& max);
 
 	private:
 		static SceneHierarchyPanel* s_Instance;

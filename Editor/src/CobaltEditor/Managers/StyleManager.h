@@ -8,6 +8,7 @@ namespace CobaltEditor
 	struct Fonts
 	{
 		ImFont* Regular;
+		ImFont* SemiBold;
 	};
 
 	struct SceneHierarchyColors
@@ -19,9 +20,18 @@ namespace CobaltEditor
 		Color SelectHoverColor = Color(70, 100, 130, 150);
 	};
 
+	struct ComponentsColors
+	{
+		Color BackgroundColor = Color(30);
+		Color InactiveColor = Color(150, 180);
+		Color TransformColor = Color(222, 157, 95);
+		Color SpriteRendererColor = Color(224, 162, 223);
+	};
+
 	struct PanelColors
 	{
 		SceneHierarchyColors SceneHierarchy;
+		ComponentsColors Components;
 	};
 
 	struct EditorColors

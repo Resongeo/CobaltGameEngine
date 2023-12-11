@@ -33,6 +33,34 @@ namespace CobaltEditor
 		}
 	};
 
+	class ScopedFont
+	{
+	public:
+		ScopedFont(ImFont* font)
+		{
+			ImGui::PushFont(font);
+		}
+
+		~ScopedFont()
+		{
+			ImGui::PopFont();
+		}
+	};
+
+	class ScopedColor
+	{
+	public:
+		ScopedColor(ImGuiCol idx, const Color& color)
+		{
+			ImGui::PushStyleColor(idx, (ImU32)color);
+		}
+
+		~ScopedColor()
+		{
+			ImGui::PopStyleColor();
+		}
+	};
+
 	class ScopedStyleVar
 	{
 	public:

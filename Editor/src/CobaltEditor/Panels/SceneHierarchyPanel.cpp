@@ -55,14 +55,13 @@ namespace CobaltEditor
 		ScopedID _(entity);
 
 		std::string& tag = entity.GetComponent<TagComponent>().Tag;
-		ImDrawList* drawList = ImGui::GetWindowDrawList();
 		ImVec2 cursorPos = ImGui::GetCursorScreenPos();
 		ImVec2 contentRegionMax = ImGui::GetContentRegionMax();
 		float textLineHeight = ImGui::GetTextLineHeight();
 
 		Color nodeBgColor;
 
-		if (MouseOverNode(cursorPos, { cursorPos.x + contentRegionMax.x, cursorPos.y + textLineHeight + (m_Padding.y * 2) }))
+		if (MouseUtils::Intersect(cursorPos, { cursorPos.x + contentRegionMax.x, cursorPos.y + textLineHeight + (m_Padding.y * 2) }))
 		{
 			if (Input::GetMouseButtonClicked(MOUSE_BUTTON_LEFT))
 			{
@@ -88,17 +87,12 @@ namespace CobaltEditor
 			}
 		}
 
-		drawList->AddRectFilled(cursorPos, { cursorPos.x + contentRegionMax.x, cursorPos.y + textLineHeight + (m_Padding.y * 2)}, nodeBgColor);
+		Shapes::DrawRect(cursorPos, { cursorPos.x + contentRegionMax.x, cursorPos.y + textLineHeight + (m_Padding.y * 2)}, nodeBgColor);
+		
 		cursorPos = ImGui::GetCursorPos();
 		ImGui::SetCursorPos({ cursorPos.x + m_Padding.x, cursorPos.y + m_Padding.y });
 		ImGui::Text(tag.c_str());
 
 		ImGui::Dummy({ 0, m_BottomMargin });
-	}
-
-	inline bool SceneHierarchyPanel::MouseOverNode(const ImVec2& min, const ImVec2& max)
-	{
-		auto mousePos = ImGui::GetMousePos();
-		return mousePos.x > min.x && mousePos.x < max.x && mousePos.y > min.y && mousePos.y < max.y;
 	}
 }
