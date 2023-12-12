@@ -52,16 +52,18 @@ namespace CobaltEditor
 				s_ComponentHeight[props.Title] = 0.0f;
 			}
 
+			Color primaryColor = props.Opened ? props.PrimaryColor : s_InactiveCol;
+
 			auto min = ImGui::GetCursorScreenPos();
 			auto max = ImVec2(min.x + ImGui::GetContentRegionAvail().x, min.y + s_ComponentHeight[props.Title]);
-			Shapes::DrawRectOutlined(min, max, s_BackgroundCol, props.PrimaryColor, 5.0f, 3.0f);
+			Shapes::DrawRectOutlined(min, max, s_BackgroundCol, primaryColor, 5.0f, 3.0f);
 
 			ImGui::BeginGroup();
 			{
 				{
 					ScopedFont _(StyleManager::GetFonts().SemiBold);
 					CursorUtils::Translate({ 10, 7 });
-					ImGui::TextColored(props.PrimaryColor, props.Title);
+					ImGui::TextColored(primaryColor, props.Title);
 					CursorUtils::Translate({ 10, 7 });
 				}
 

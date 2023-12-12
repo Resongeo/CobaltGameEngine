@@ -39,6 +39,18 @@ namespace CobaltEditor
 				m_NodeCounter++;
 			});
 		}
+
+		if (ImGui::BeginPopupContextWindow())
+		{
+			ImGui::Text("Create new entity");
+
+			if (ImGui::MenuItem("Empty entity"))
+			{
+				m_Scene->CreateEntity("Entity");
+			}
+
+			ImGui::EndPopup();
+		}
 		ImGui::End();
 	}
 
