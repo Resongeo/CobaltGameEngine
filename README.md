@@ -34,4 +34,9 @@ git clone --recursive https://github.com/Resongeo/CobaltGameEngine -b dev
 ``` bash
 cd CobaltGameEngine
 ```
-
+- Run `GenerateProject.py` python script
+``` bash
+python .\Tools\GenerateProject.py
+```
+> If running the first time it will prompt you to download the premake binaries
+- Open `CobaltGameEngine.sln` file and run the project with `f5`
