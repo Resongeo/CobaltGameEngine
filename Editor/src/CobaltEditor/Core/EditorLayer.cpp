@@ -54,8 +54,6 @@ namespace CobaltEditor
 			Log::Error("Error message");
 		}
 		ImGui::End();
-
-		ImGui::ShowMetricsWindow();
 	}
 
 	void EditorLayer::OnEvent(Event& event)

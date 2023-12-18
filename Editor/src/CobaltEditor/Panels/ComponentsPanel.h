@@ -1,5 +1,6 @@
 #pragma once
 
+#include "CobaltEditor/Components/ContextPopup.h"
 #include "CobaltEditor/Panels/EditorPanel.h"
 
 namespace CobaltEditor
@@ -24,11 +25,12 @@ namespace CobaltEditor
 
 	private:
 		inline void DrawEntityComponents();
-		inline void DrawAddComponentPopup();
+
 
 	private:
 		Entity m_SelectedEntity = {};
 		ComponentProperties m_TransformProps;
 		ComponentProperties m_SpriteRendererProps;
+		ContextPopup m_ContextPopup;
 	};
 }

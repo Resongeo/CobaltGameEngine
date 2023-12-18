@@ -18,6 +18,17 @@ namespace CobaltEditor
 		m_HoverColor = colors.Panels.SceneHierarchy.HoverColor;
 		m_SelectColor = colors.Panels.SceneHierarchy.SelectColor;
 		m_SelectHoverColor = colors.Panels.SceneHierarchy.SelectHoverColor;
+
+		m_ContextPopup.SetTitle("Create Entity");
+		m_ContextPopup.AddMenuItem("Empty Entity", []()
+		{
+			SceneManager::GetActiveScene()->CreateEntity("Empty Entity");
+		});
+		m_ContextPopup.AddMenuItem("Square", []()
+		{
+			auto entity = SceneManager::GetActiveScene()->CreateEntity("Square");
+			entity.AddComponent<SpriteRendererComponent>();
+		});
 	}
 
 	void SceneHierarchyPanel::OnUpdate()
@@ -39,18 +50,7 @@ namespace CobaltEditor
 				m_NodeCounter++;
 			});
 		}
-
-		if (ImGui::BeginPopupContextWindow())
-		{
-			ImGui::Text("Create new entity");
-
-			if (ImGui::MenuItem("Empty entity"))
-			{
-				m_Scene->CreateEntity("Entity");
-			}
-
-			ImGui::EndPopup();
-		}
+		m_ContextPopup.Draw();
 		ImGui::End();
 	}
 
@@ -84,9 +84,19 @@ namespace CobaltEditor
 		}
 		else
 		{
-			if (Input::GetMouseButtonClicked(MOUSE_BUTTON_LEFT) && m_SelectedEntity == entity && ImGui::IsWindowHovered())
+			if (Input::GetMouseButtonClicked(MOUSE_BUTTON_LEFT) && ImGui::IsWindowHovered())
 			{
-				m_SelectedEntity = {};
+				if (m_SelectedEntity == entity)
+				{
+					m_SelectedEntity = {};
+				}
+
+				m_ContextPopup.Close();
+			}
+
+			if (Input::GetMouseButtonClicked(MOUSE_BUTTON_RIGHT) && ImGui::IsWindowHovered())
+			{
+				m_ContextPopup.Open();
 			}
 
 			if (m_SelectedEntity == entity)

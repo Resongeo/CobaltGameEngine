@@ -20,6 +20,16 @@ namespace CobaltEditor
 
 		m_SpriteRendererProps.Title = "Sprite Renderer";
 		m_SpriteRendererProps.PrimaryColor = colors.Panels.Components.SpriteRendererColor;
+
+		m_ContextPopup.SetTitle("Add Component");
+		m_ContextPopup.AddMenuItem("Transform", []()
+		{
+			SceneHierarchyPanel::GetSelectedEntity().AddComponent<TransformComponent>();
+		});
+		m_ContextPopup.AddMenuItem("Sprite Renderer", []()
+		{
+			SceneHierarchyPanel::GetSelectedEntity().AddComponent<SpriteRendererComponent>();
+		});
 	}
 
 	void ComponentsPanel::OnUpdate()
@@ -35,7 +45,12 @@ namespace CobaltEditor
 		{
 			DrawEntityComponents();
 		}
+		else
+		{
+			m_ContextPopup.Close();
+		}
 
+		m_ContextPopup.Draw();
 		ImGui::End();
 
 	}
@@ -104,11 +119,9 @@ namespace CobaltEditor
 			ScopedColor _(ImGuiCol_Button, Color(38));
 			if (ImGui::Button(btnText, { btnTextSize.x + btnPadding.x, btnTextSize.y + btnPadding.y }))
 			{
-				ImGui::OpenPopup("AddComponentPopup");
+				m_ContextPopup.Toggle();
 			}
 		}
-
-		DrawAddComponentPopup();
 
 		ImGui::Dummy({ 0, 10 });
 
@@ -126,44 +139,6 @@ namespace CobaltEditor
 			ImGui::Text(component.Texture->GetPath().c_str());
 			ImGui::ColorEdit4("Tint", component.Tint);
 		});
-	}
-
-	inline void ComponentsPanel::DrawAddComponentPopup()
-	{
-		auto& colors = StyleManager::GetColors();
-		size_t missingComponentCounter = 0;
-
-		if (ImGui::BeginPopup("AddComponentPopup"))
-		{
-			ImGui::Text("Add Component");
-
-			if (!m_SelectedEntity.HasComponent<TransformComponent>())
-			{
-				ScopedColor _(ImGuiCol_Text, colors.Panels.Components.TransformColor);
-				if (ImGui::MenuItem("Transform"))
-				{
-					m_SelectedEntity.AddComponent<TransformComponent>();
-				}
-				missingComponentCounter++;
-			}
-
-			if (!m_SelectedEntity.HasComponent<SpriteRendererComponent>())
-			{
-				ScopedColor _(ImGuiCol_Text, colors.Panels.Components.SpriteRendererColor);
-				if (ImGui::MenuItem("Sprite Renderer"))
-				{
-					m_SelectedEntity.AddComponent<SpriteRendererComponent>();
-				}
-				missingComponentCounter++;
-			}
-
-			if (missingComponentCounter == 0)
-			{
-				ImGui::Text("No components to add");
-			}
-
-			ImGui::EndPopup();
-		}
 	}
 
 	Ref<ComponentsPanel> ComponentsPanel::Create()
