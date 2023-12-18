@@ -1,5 +1,5 @@
-include "Scripts/Dependencies.lua"
-include "Scripts/Common.lua"
+include "Tools/Dependencies.lua"
+include "Tools/Common.lua"
 
 workspace "CobaltGameEngine"
 	architecture "x86_64"

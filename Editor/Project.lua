@@ -7,18 +7,18 @@ project "Editor"
 
 	dependson { "Engine" }
 
-	targetdir ("%{wks.location}/%{prj.name}/bin/")
-	debugdir ("%{wks.location}/%{prj.name}/bin/")
+	targetdir ("%{wks.location}/%{prj.name}/Build/")
+	debugdir ("%{wks.location}/%{prj.name}/Build/")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "pch.h"
-	pchsource "%{wks.location}/Editor/src/CobaltEditor/Core/pch.cpp"
+	pchsource "%{wks.location}/Editor/Source/CobaltEditor/Core/pch.cpp"
 
 	files
 	{
-		"%{wks.location}/%{prj.name}/src/main.cpp",
-		"%{wks.location}/%{prj.name}/src/CobaltEditor/**.h",
-		"%{wks.location}/%{prj.name}/src/CobaltEditor/**.cpp"
+		"%{wks.location}/%{prj.name}/Source/main.cpp",
+		"%{wks.location}/%{prj.name}/Source/CobaltEditor/**.h",
+		"%{wks.location}/%{prj.name}/Source/CobaltEditor/**.cpp"
 	}
 
 	defines

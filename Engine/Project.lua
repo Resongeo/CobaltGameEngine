@@ -5,22 +5,22 @@ project "Engine"
 	cppdialect "C++20"
 	staticruntime "off"
 
-	targetdir ("%{wks.location}/Engine/lib/")
+	targetdir ("%{wks.location}/Engine/Build/" .. outputdir)
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "cbpch.h"
-	pchsource "%{wks.location}/Engine/src/Cobalt/cbpch.cpp"
+	pchsource "%{wks.location}/Engine/Source/Cobalt/cbpch.cpp"
 
 	files
 	{
-		"%{wks.location}/%{prj.name}/src/**.c",
-		"%{wks.location}/%{prj.name}/src/**.h",
-		"%{wks.location}/%{prj.name}/src/**.cpp",
-		"%{wks.location}/%{prj.name}/vendor/glm/glm/**.hpp",
-		"%{wks.location}/%{prj.name}/vendor/glm/glm/**.inl",
-		"%{wks.location}/%{prj.name}/vendor/ImGui/**.h",
-		"%{wks.location}/%{prj.name}/vendor/ImGui/**.cpp",
-		"%{wks.location}/%{prj.name}/vendor/ImGuizmo/**.cpp",
+		"%{wks.location}/%{prj.name}/Source/**.c",
+		"%{wks.location}/%{prj.name}/Source/**.h",
+		"%{wks.location}/%{prj.name}/Source/**.cpp",
+		"%{wks.location}/%{prj.name}/Dependencies/glm/glm/**.hpp",
+		"%{wks.location}/%{prj.name}/Dependencies/glm/glm/**.inl",
+		"%{wks.location}/%{prj.name}/Dependencies/ImGui/**.h",
+		"%{wks.location}/%{prj.name}/Dependencies/ImGui/**.cpp",
+		"%{wks.location}/%{prj.name}/Dependencies/ImGuizmo/**.cpp",
 	}
 
 	defines

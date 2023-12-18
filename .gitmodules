@@ -1,6 +1,6 @@
-[submodule "Engine/vendor/EnTT"]
-	path = Engine/vendor/EnTT
+[submodule "Engine/Dependencies/ENTT"]
+	path = Engine/Dependencies/ENTT
 	url = https://github.com/skypjack/entt
-[submodule "Engine/vendor/GLM"]
-	path = Engine/vendor/GLM
+[submodule "Engine/Dependencies/GLM"]
+	path = Engine/Dependencies/GLM
 	url = https://github.com/g-truc/glm
