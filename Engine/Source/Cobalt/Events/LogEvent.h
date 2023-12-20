@@ -7,59 +7,59 @@ namespace Cobalt
 	class LogTraceEvent : public Event
 	{
 	public:
-		LogTraceEvent(const std::string& message) : m_Message(message) {}
+		LogTraceEvent(const String& message) : m_Message(message) {}
 
-		inline std::string GetLogMessage() const { return m_Message; }
+		inline String GetLogMessage() const { return m_Message; }
 
 		EVENT_CLASS_TYPE(LogTrace)
 		EVENT_CLASS_CATEGORY(EventCategoryLog)
 
 	private:
-		std::string m_Message;
+		String m_Message;
 	};
 	
 
 	class LogInfoEvent : public Event
 	{
 	public:
-		LogInfoEvent(const std::string& message) : m_Message(message) {}
+		LogInfoEvent(const String& message) : m_Message(message) {}
 
-		inline std::string GetLogMessage() const { return m_Message; }
+		inline String GetLogMessage() const { return m_Message; }
 
 		EVENT_CLASS_TYPE(LogInfo)
 			EVENT_CLASS_CATEGORY(EventCategoryLog)
 
 	private:
-		std::string m_Message;
+		String m_Message;
 	};
 
 	
 	class LogWarnEvent : public Event
 	{
 	public:
-		LogWarnEvent(const std::string& message) : m_Message(message) {}
+		LogWarnEvent(const String& message) : m_Message(message) {}
 
-		inline std::string GetLogMessage() const { return m_Message; }
+		inline String GetLogMessage() const { return m_Message; }
 
 		EVENT_CLASS_TYPE(LogWarn)
 		EVENT_CLASS_CATEGORY(EventCategoryLog)
 
 	private:
-		std::string m_Message;
+		String m_Message;
 	};
 
 
 	class LogErrorEvent : public Event
 	{
 	public:
-		LogErrorEvent(const std::string& message) : m_Message(message) {}
+		LogErrorEvent(const String& message) : m_Message(message) {}
 
-		inline std::string GetLogMessage() const { return m_Message; }
+		inline String GetLogMessage() const { return m_Message; }
 
 		EVENT_CLASS_TYPE(LogError)
 		EVENT_CLASS_CATEGORY(EventCategoryLog)
 
 	private:
-		std::string m_Message;
+		String m_Message;
 	};
 }

@@ -1,7 +1,6 @@
 #include "cbpch.h"
 
 #include "Cobalt/Scene/Serialization/Parser.h"
-#include "Cobalt/Logger/Log.h"
 
 namespace Cobalt
 {
@@ -10,11 +9,11 @@ namespace Cobalt
 		void Parser::CreateEntity(std::ifstream& file, const Ref<Scene>& scene)
 		{
 			Entity entity = scene->CreateEntity();
-			std::string line;
+			String line;
 
 			while (std::getline(file, line))
 			{
-				if (line.find("ID component:") != std::string::npos)
+				if (line.find("ID component:") != String::npos)
 				{
 					auto& ic = entity.GetComponent<IDComponent>();
 					
@@ -24,7 +23,7 @@ namespace Cobalt
 					continue;
 				}
 
-				if (line.find("Tag component:") != std::string::npos)
+				if (line.find("Tag component:") != String::npos)
 				{
 					auto& tc = entity.GetComponent<TagComponent>();
 
@@ -34,7 +33,7 @@ namespace Cobalt
 					continue;
 				}
 				
-				if (line.find("Transform component:") != std::string::npos)
+				if (line.find("Transform component:") != String::npos)
 				{
 					auto& tc = entity.GetComponent<TransformComponent>();
 
@@ -50,7 +49,7 @@ namespace Cobalt
 					continue;
 				}
 				
-				if (line.find("Sprite renderer component:") != std::string::npos)
+				if (line.find("Sprite renderer component:") != String::npos)
 				{
 					auto& src = entity.AddComponent<SpriteRendererComponent>();
 
@@ -66,7 +65,7 @@ namespace Cobalt
 					continue;
 				}
 				
-				if (line.find("Lua Script component:") != std::string::npos)
+				if (line.find("Lua Script component:") != String::npos)
 				{
 					auto& lsc = entity.AddComponent<LuaScriptComponent>();
 

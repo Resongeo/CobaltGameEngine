@@ -8,8 +8,8 @@ namespace Cobalt
 	class Layer
 	{
 	public:
-		Layer(const std::string& name = "Layer");
-		virtual ~Layer();
+		Layer(const String& name = "Layer") : m_DebugName(name) {}
+		virtual ~Layer() {}
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
@@ -17,9 +17,9 @@ namespace Cobalt
 		virtual void OnImGuiUpdate() {}
 		virtual void OnEvent(Event& event) {}
 
-		const std::string& GetName() const { return m_DebugName; }
+		const String& GetName() const { return m_DebugName; }
 
 	protected:
-		std::string m_DebugName;
+		String m_DebugName;
 	};
 }

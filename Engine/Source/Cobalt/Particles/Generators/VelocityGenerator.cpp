@@ -5,9 +5,9 @@
 
 namespace Cobalt
 {
-	void VelocityGenerator::Generate(ParticleData& particleData, size_t startIndex, size_t endIndex)
+	void VelocityGenerator::Generate(ParticleData& particleData, size startIndex, size endIndex)
 	{
-		for (size_t i = startIndex; i < endIndex; i++)
+		for (size i = startIndex; i < endIndex; i++)
 		{
 			particleData.Velocity[i] = Vec3(Random::Range(MinDirection.x, MaxDirection.x), Random::Range(MinDirection.y, MaxDirection.y), 0.0f);
 		}

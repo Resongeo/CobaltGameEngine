@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Color.h"
+#include "Cobalt/Core/Types/Color.h"
 #include "Cobalt/Rendering/Renderer.h"
 #include "Cobalt/Rendering/RendererAPI.h"
 #include "Cobalt/Scene/ECS/Components.h"
@@ -20,10 +20,10 @@ namespace Cobalt
 
 		static void DrawQuad(const Vec3& position, const Vec3& scale, const Color& color);
 		static void DrawQuad(const Vec3& position, const Vec3& rotation, const Vec3& scale, const Color& color);
-		static void DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, uint32_t entityID);
-		static void DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, const Ref<Texture2D>& texture, uint32_t entityID);
+		static void DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, u32 entityID);
+		static void DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, const Ref<Texture2D>& texture, u32 entityID);
 
-		static void DrawEntity(const Mat4& transform, const SpriteRendererComponent& spriteComponent, uint32_t entityID);
+		static void DrawEntity(const Mat4& transform, const SpriteRendererComponent& spriteComponent, u32 entityID);
 
 		static void SetViewport(int x, int y, int width, int height);
 

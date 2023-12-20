@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Cobalt.h"
+using namespace Cobalt;
 
 namespace CobaltEditor
 {
@@ -99,7 +100,7 @@ namespace CobaltEditor
 	class ScopedStyleVars
 	{
 	public:
-		ScopedStyleVars(std::initializer_list<StyleVar> styleVars) : m_StyleVars(styleVars)
+		ScopedStyleVars(InitializerList<StyleVar> styleVars) : m_StyleVars(styleVars)
 		{
 			for (auto& style : m_StyleVars)
 			{
@@ -121,6 +122,6 @@ namespace CobaltEditor
 		}
 
 	private:
-		std::vector<StyleVar> m_StyleVars;
+		Vector<StyleVar> m_StyleVars;
 	};
 }

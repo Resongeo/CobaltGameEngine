@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Color.h"
+#include "Cobalt/Core/Types/Color.h"
 #include "Cobalt/Events/Event.h"
 #include "Cobalt/Events/KeyEvent.h"
 #include "Cobalt/Events/MouseEvent.h"
@@ -14,9 +14,9 @@ namespace Cobalt
 {
 	struct WindowProperties
 	{
-		std::string Title = "Cobalt Engine";
-		uint32_t Width = 1280;
-		uint32_t Height = 720;
+		String Title = "Cobalt Engine";
+		u32 Width = 1280;
+		u32 Height = 720;
 		bool Vsync = true;
 		bool Resizeable = true;
 		Color CaptionColor = Color(20, 20, 21);
@@ -33,13 +33,13 @@ namespace Cobalt
 		WindowProperties GetProperties();
 		GLFWwindow* GetHandle() const { return m_Window; }
 
-		uint32_t GetWidth() const { return m_Data.Width; }
-		uint32_t GetHeight() const { return m_Data.Height; }
+		u32 GetWidth() const { return m_Data.Width; }
+		u32 GetHeight() const { return m_Data.Height; }
 
-		void SetWidth(uint32_t width);
-		void SetHeight(uint32_t height);
+		void SetWidth(u32 width);
+		void SetHeight(u32 height);
 
-		void SetTitle(const std::string& title);
+		void SetTitle(const String& title);
 		void SetVsync(bool value);
 
 		void SetPosition(const Vec2& pos);
@@ -61,9 +61,9 @@ namespace Cobalt
 
 		struct WindowData
 		{
-			std::string Title;
-			uint32_t Width;
-			uint32_t Height;
+			String Title;
+			u32 Width;
+			u32 Height;
 			bool Vsync;
 
 			EventCallbackFn EventCallback;

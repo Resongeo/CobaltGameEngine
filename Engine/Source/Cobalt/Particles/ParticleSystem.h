@@ -21,10 +21,10 @@ namespace Cobalt
 
 		void AddGenerator(const Ref<ParticleGenerator>& generator) { m_ParticleEmitter.AddGenerator(generator); }
 
-		std::vector<Ref<ParticleGenerator>> GetGenerators() const { return m_ParticleEmitter.m_Generators; }
+		Vector<Ref<ParticleGenerator>> GetGenerators() const { return m_ParticleEmitter.m_Generators; }
 
 		inline ParticleSystemState GetState() const { return m_State; }
-		inline size_t* GetEmitRatePtr() { return &m_ParticleEmitter.EmitRate; }
+		inline size* GetEmitRatePtr() { return &m_ParticleEmitter.EmitRate; }
 		inline const ParticleSystemSpecification& GetSpecs() const { return m_Specs; }
 
 	public:

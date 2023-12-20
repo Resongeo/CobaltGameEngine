@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
+#include "Cobalt/Core/Types/DataStructures.h"
 #include "Cobalt/Graphics/VertexBuffer.h"
 #include "Cobalt/Graphics/IndexBuffer.h"
 
@@ -17,7 +18,7 @@ namespace Cobalt
 		virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) = 0;
 		virtual void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) = 0;
 
-		virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const = 0;
+		virtual const Vector<Ref<VertexBuffer>>& GetVertexBuffers() const = 0;
 		virtual const Ref<IndexBuffer>& GetIndexBuffer() const = 0;
 
 		static Ref<VertexArray> Create();

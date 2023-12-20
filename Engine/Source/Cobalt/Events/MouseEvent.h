@@ -12,7 +12,7 @@ namespace Cobalt
 		inline float GetX() const { return m_MouseX; }
 		inline float GetY() const { return m_MouseY; }
 
-		std::string ToString() const override
+		String ToString() const override
 		{
 			std::stringstream ss;
 			ss << "MouseMovedEvent: " << m_MouseX << ", " << m_MouseY;
@@ -33,7 +33,7 @@ namespace Cobalt
 		inline float GetXOffset() const { return m_XOffset; }
 		inline float GetYOffset() const { return m_YOffset; }
 
-		std::string ToString() const override
+		String ToString() const override
 		{
 			std::stringstream ss;
 			ss << "MouseScrolledEvent: " << GetXOffset() << ", " << GetYOffset();
@@ -63,7 +63,7 @@ namespace Cobalt
 	public:
 		MouseButtonPressedEvent(int button) : MouseButtonEvent(button) {}
 
-		std::string ToString() const override
+		String ToString() const override
 		{
 			std::stringstream ss;
 			ss << "MouseButtonPressedEvent: " << m_Button;
@@ -78,7 +78,7 @@ namespace Cobalt
 	public:
 		MouseButtonReleasedEvent(int button) : MouseButtonEvent(button) {}
 
-		std::string ToString() const override
+		String ToString() const override
 		{
 			std::stringstream ss;
 			ss << "MouseButtonReleasedEvent: " << m_Button;

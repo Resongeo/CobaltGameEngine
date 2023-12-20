@@ -2,7 +2,6 @@
 
 #include "Cobalt/Scene/ECS/LuaEntity.h"
 #include "Cobalt/Scene/ECS/Components.h"
-#include "Cobalt/Logger/Log.h"
 #include "Cobalt/Input/Input.h"
 
 #include <cmath>

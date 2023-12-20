@@ -21,7 +21,7 @@ namespace Cobalt
 		template<typename ...Args>
 		constexpr void Trace(std::format_string<Args...> fmt, Args&& ...args)
 		{
-			std::string message = std::format(fmt, std::forward<Args>(args)...);
+			String message = std::format(fmt, std::forward<Args>(args)...);
 			std::cout << GetPrefix("TRACE", CONSOLE_COLOR_WHITE) << message << "\n" << CONSOLE_RESET;
 		
 			LogTraceEvent event(message);
@@ -31,7 +31,7 @@ namespace Cobalt
 		template<typename ...Args>
 		constexpr void Info(std::format_string<Args...> fmt, Args&& ...args)
 		{
-			std::string message = std::format(fmt, std::forward<Args>(args)...);
+			String message = std::format(fmt, std::forward<Args>(args)...);
 			std::cout << GetPrefix("INFO", CONSOLE_COLOR_GREEN) << message << "\n" << CONSOLE_RESET;
 
 			LogInfoEvent event(message);
@@ -41,7 +41,7 @@ namespace Cobalt
 		template<typename ...Args>
 		constexpr void Warn(std::format_string<Args...> fmt, Args&& ...args)
 		{
-			std::string message = std::format(fmt, std::forward<Args>(args)...);
+			String message = std::format(fmt, std::forward<Args>(args)...);
 			std::cout << GetPrefix("WARN", CONSOLE_COLOR_YELLOW) << message << "\n" << CONSOLE_RESET;
 
 			LogWarnEvent event(message);
@@ -51,7 +51,7 @@ namespace Cobalt
 		template<typename ...Args>
 		constexpr void Error(std::format_string<Args...> fmt, Args&& ...args)
 		{
-			std::string message = std::format(fmt, std::forward<Args>(args)...);
+			String message = std::format(fmt, std::forward<Args>(args)...);
 			std::cout << GetPrefix("ERROR", CONSOLE_COLOR_RED) << message << "\n" << CONSOLE_RESET;
 
 			LogErrorEvent event(message);

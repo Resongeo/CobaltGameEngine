@@ -9,7 +9,7 @@ namespace Cobalt
 	public:
 		LifetimeGenerator() : ParticleGenerator(ParticleGeneratorType::Lifetime) {}
 
-		void Generate(ParticleData& particleData, size_t startIndex, size_t endIndex) override;
+		void Generate(ParticleData& particleData, size startIndex, size endIndex) override;
 
 		float Min = 1.0f;
 		float Max = 1.0f;

@@ -12,6 +12,7 @@ namespace CobaltEditor
 			auto current = ImGui::GetCursorPos();
 			ImGui::SetCursorPos({ current.x + x, current.y + y });
 		}
+
 		inline void Translate(const Vec2& offset)
 		{
 			auto current = ImGui::GetCursorPos();

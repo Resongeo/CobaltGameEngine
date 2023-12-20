@@ -1,7 +1,6 @@
 #include "cbpch.h"
 
 #include "Cobalt/Platform/OpenGL/OpenGLTexture2D.h"
-#include "Cobalt/Logger/Log.h"
 
 #include <filesystem>
 #include <stb_image.h>
@@ -9,7 +8,7 @@
 
 namespace Cobalt
 {
-	OpenGLTexture::OpenGLTexture(const std::string& path) : m_Path(path)
+	OpenGLTexture::OpenGLTexture(const String& path) : m_Path(path)
 	{
 		if (!std::filesystem::exists(path))
 		{
@@ -41,9 +40,9 @@ namespace Cobalt
 		stbi_image_free(data);
 	}
 
-	OpenGLTexture::OpenGLTexture(uint32_t width, uint32_t height) : m_Width(width), m_Height(height), m_Path("Default Texture")
+	OpenGLTexture::OpenGLTexture(u32 width, u32 height) : m_Width(width), m_Height(height), m_Path("Default Texture")
 	{
-		std::vector<unsigned char> tempBuffer;
+		Vector<unsigned char> tempBuffer;
 		tempBuffer.resize(m_Width * m_Height * 4, 255);
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
@@ -62,12 +61,12 @@ namespace Cobalt
 		glDeleteTextures(1, &m_RendererID);
 	}
 
-	void OpenGLTexture::SetData(void* data, uint32_t size)
+	void OpenGLTexture::SetData(void* data, u32 size)
 	{
 		glTexSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, GL_RGBA, GL_UNSIGNED_BYTE, data);
 	}
 
-	void OpenGLTexture::Bind(uint32_t slot)
+	void OpenGLTexture::Bind(u32 slot)
 	{
 		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);

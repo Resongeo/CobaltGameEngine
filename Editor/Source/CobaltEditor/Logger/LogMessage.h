@@ -7,9 +7,9 @@ namespace CobaltEditor
 {
 	struct LogMessage
 	{
-		std::string Message;
+		String Message;
 		Color MessageColor;
 
-		LogMessage(const std::string& message, const Color& color) : Message(message), MessageColor(color) { }
+		LogMessage(const String& message, const Color& color) : Message(message), MessageColor(color) { }
 	};
 }

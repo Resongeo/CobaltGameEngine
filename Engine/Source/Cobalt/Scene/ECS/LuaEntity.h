@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Cobalt/Logger/Log.h"
 #include "Cobalt/Scene/ECS/Fwd.h"
 
 #include <sol.hpp>

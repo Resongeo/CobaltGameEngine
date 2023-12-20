@@ -6,7 +6,7 @@
 
 namespace Cobalt
 {
-	Ref<Texture2D> Texture2D::Create(const std::string& path)
+	Ref<Texture2D> Texture2D::Create(const String& path)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -16,7 +16,7 @@ namespace Cobalt
 		return nullptr;
 	}
 
-	Ref<Texture2D> Texture2D::Create(uint32_t width, uint32_t height)
+	Ref<Texture2D> Texture2D::Create(u32 width, u32 height)
 	{
 		switch (Renderer::GetAPI())
 		{

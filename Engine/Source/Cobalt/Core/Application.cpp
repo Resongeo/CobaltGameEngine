@@ -2,6 +2,8 @@
 
 #include "Cobalt/Core/Application.h"
 #include "Cobalt/Scene/SceneManager.h"
+#include "Cobalt/Input/Input.h"
+#include "Cobalt/Gui/Gui.h"
 
 namespace Cobalt
 {

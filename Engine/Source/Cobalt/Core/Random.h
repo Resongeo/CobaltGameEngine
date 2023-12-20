@@ -8,6 +8,7 @@ namespace Cobalt
 	{
 	public:
 		static void Init();
+
 		static float Float();
 		static float Range(float min, float max);
 		static int RangeInt(int min, int max);

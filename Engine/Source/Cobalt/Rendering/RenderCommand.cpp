@@ -18,17 +18,17 @@ namespace Cobalt
 	
 	struct RendererData
 	{
-		const uint32_t MaxQuads = 10000;
-		const uint32_t MaxVertices = MaxQuads * 4;
-		const uint32_t MaxIndices = MaxQuads * 6;
-		static const uint32_t MaxTextureSlots = 32;
+		const u32 MaxQuads = 10000;
+		const u32 MaxVertices = MaxQuads * 4;
+		const u32 MaxIndices = MaxQuads * 6;
+		static const u32 MaxTextureSlots = 32;
 
-		uint32_t QuadIndexCount = 0;
+		u32 QuadIndexCount = 0;
 		QuadVertex* QuadVertexBufferBase = nullptr;
 		QuadVertex* QuadVertexBufferPtr = nullptr;
 
-		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
-		uint32_t TextureIndexCount = 1;
+		Array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
+		u32 TextureIndexCount = 1;
 
 		Vec4 QuadVertexPositions[4];
 
@@ -46,10 +46,10 @@ namespace Cobalt
 	{
 		s_RendererAPI->Init();
 
-		uint32_t* quadIndices = new uint32_t[s_RendererData.MaxIndices];
+		u32* quadIndices = new u32[s_RendererData.MaxIndices];
 
-		uint32_t offset = 0;
-		for (uint32_t i = 0; i < s_RendererData.MaxIndices; i += 6)
+		u32 offset = 0;
+		for (size i = 0; i < s_RendererData.MaxIndices; i += 6)
 		{
 			quadIndices[i + 0] = offset + 0;
 			quadIndices[i + 1] = offset + 1;
@@ -85,7 +85,7 @@ namespace Cobalt
 		s_RendererData.WhiteTexture = Texture2D::Create(1, 1);
 		s_RendererData.TexturedQuadShader = Shader::Create(s_RendererAPI->GetDefaultShader(), ShaderSourceType::String);
 
-		int samplers[s_RendererData.MaxTextureSlots];
+		int samplers[s_RendererData.MaxTextureSlots]{};
 		for (int i = 0; i < s_RendererData.MaxTextureSlots; i++)
 			samplers[i] = i;
 
@@ -114,7 +114,7 @@ namespace Cobalt
 
 	void RenderCommand::EndScene()
 	{
-		uint32_t dataSize = (uint8_t*)s_RendererData.QuadVertexBufferPtr - (uint8_t*)s_RendererData.QuadVertexBufferBase;
+		u32 dataSize = (u8*)s_RendererData.QuadVertexBufferPtr - (u8*)s_RendererData.QuadVertexBufferBase;
 		s_RendererData.QuadVertexBuffer->CopyData(s_RendererData.QuadVertexBufferBase, dataSize);
 
 		Flush();
@@ -132,7 +132,7 @@ namespace Cobalt
 
 	void RenderCommand::Flush()
 	{
-		for (uint32_t i = 0; i < s_RendererData.TextureIndexCount; i++)
+		for (size i = 0; i < s_RendererData.TextureIndexCount; i++)
 		{
 			s_RendererData.TextureSlots[i]->Bind(i);
 		}
@@ -236,7 +236,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, uint32_t entityID)
+	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, u32 entityID)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
@@ -244,8 +244,7 @@ namespace Cobalt
 			StartBatch();
 		}
 
-		uint32_t textureIndex = 0;
-
+		u32 textureIndex = 0;
 
 		s_RendererData.QuadVertexBufferPtr->Position = transform * s_RendererData.QuadVertexPositions[0];
 		s_RendererData.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
@@ -284,7 +283,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, const Ref<Texture2D>& texture, uint32_t entityID)
+	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, const Ref<Texture2D>& texture, u32 entityID)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{
@@ -292,9 +291,9 @@ namespace Cobalt
 			StartBatch();
 		}
 
-		uint32_t textureIndex = 0;
+		u32 textureIndex = 0;
 		
-		for (uint32_t i = 0; i < s_RendererData.TextureIndexCount; i++)
+		for (size i = 0; i < s_RendererData.TextureIndexCount; i++)
 		{
 			if (s_RendererData.TextureSlots[i]->GetID() == texture->GetID())
 			{
@@ -349,7 +348,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawEntity(const Mat4& transform, const SpriteRendererComponent& spriteComponent, uint32_t entityID)
+	void RenderCommand::DrawEntity(const Mat4& transform, const SpriteRendererComponent& spriteComponent, u32 entityID)
 	{
 		DrawQuad(transform, spriteComponent.Tiling, spriteComponent.Tint, spriteComponent.Texture, entityID);
 	}

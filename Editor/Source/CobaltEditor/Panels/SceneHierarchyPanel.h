@@ -36,7 +36,7 @@ namespace CobaltEditor
 		Color m_SelectHoverColor;
 		Vec2 m_Padding = Vec2(15.0f, 9.0f);
 		float m_BottomMargin = 1.9f;
-		uint32_t m_NodeCounter = 0;
+		u32 m_NodeCounter = 0;
 
 		ContextPopup m_ContextPopup;
 	};

@@ -29,17 +29,17 @@ namespace Cobalt
 			return multisampled ? GL_TEXTURE_2D_MULTISAMPLE : GL_TEXTURE_2D;
 		}
 
-		static void CreateTextures(bool multisampled, size_t count, uint32_t* id)
+		static void CreateTextures(bool multisampled, size count, u32* id)
 		{
 			glCreateTextures(TextureTarget(multisampled), count, id);
 		}
 
-		static void BindTexture(bool multisampled, uint32_t id)
+		static void BindTexture(bool multisampled, u32 id)
 		{
 			glBindTexture(TextureTarget(multisampled), id);
 		}
 
-		static void AttachTexture(int index, uint32_t id, GLenum internalFormat, GLenum format, const FramebufferSpecification& fbSpec, AttachmentType type)
+		static void AttachTexture(int index, u32 id, GLenum internalFormat, GLenum format, const FramebufferSpecification& fbSpec, AttachmentType type)
 		{
 			bool multisampled = fbSpec.Samples > 1;
 
@@ -139,7 +139,7 @@ namespace Cobalt
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void OpenGLFramebuffer::Resize(uint32_t width, uint32_t height)
+	void OpenGLFramebuffer::Resize(u32 width, u32 height)
 	{
 		m_Specification.Size.x = width;
 		m_Specification.Size.y = height;
@@ -152,7 +152,7 @@ namespace Cobalt
 		glDeleteTextures(m_AttachmentIDs.size(), m_AttachmentIDs.data());
 	}
 
-	int OpenGLFramebuffer::ReadPixel(uint32_t index, int x, int y)
+	int OpenGLFramebuffer::ReadPixel(u32 index, int x, int y)
 	{
 		glReadBuffer(GL_COLOR_ATTACHMENT0 + index);
 
@@ -162,7 +162,7 @@ namespace Cobalt
 		return pixelData;
 	}
 
-	void OpenGLFramebuffer::ClearAttachment(uint32_t attachmentIndex, int data)
+	void OpenGLFramebuffer::ClearAttachment(u32 attachmentIndex, int data)
 	{
 		glClearTexImage(m_AttachmentIDs[attachmentIndex], 0, GL_RED_INTEGER, GL_INT, &data);
 	}

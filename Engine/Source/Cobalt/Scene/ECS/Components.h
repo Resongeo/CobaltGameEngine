@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Math.h"
-#include "Cobalt/Core/Color.h"
+#include "Cobalt/Core/Types/Math.h"
+#include "Cobalt/Core/Types/Color.h"
+#include "Cobalt/Core/Types/String.h"
 #include "Cobalt/Graphics/VertexArray.h"
 #include "Cobalt/Graphics/Texture2D.h"
 #include "Cobalt/Graphics/Shader.h"
@@ -12,25 +13,25 @@ namespace Cobalt
 {
 	struct IDComponent
 	{
-		uint64_t UUID;
+		u64 UUID;
 
 		IDComponent() = default;
 		IDComponent(const IDComponent&) = default;
-		IDComponent(uint64_t id) : UUID(id) {}
+		IDComponent(u64 id) : UUID(id) {}
 
-		operator uint64_t() { return UUID; }
+		operator u64() { return UUID; }
 	};
 
 	struct TagComponent
 	{
-		std::string Tag;
+		String Tag;
 
 		TagComponent() = default;
 		TagComponent(const TagComponent&) = default;
-		TagComponent(const std::string& tag) : Tag(tag) {}
+		TagComponent(const String& tag) : Tag(tag) {}
 
-		operator std::string&() { return Tag; }
-		operator const std::string&() const { return Tag; }
+		operator String&() { return Tag; }
+		operator const String&() const { return Tag; }
 		operator const char*() { return Tag.c_str(); }
 	};
 
@@ -81,12 +82,12 @@ namespace Cobalt
 	{
 		LuaEntity ScriptEntity;
 		sol::state LuaState;
-		std::string Source;
+		String Source;
 		LuaScriptSourceType SourceType = LuaScriptSourceType::None;
 		bool HasScriptLoaded = false;
 
 		LuaScriptComponent() = default;
 		LuaScriptComponent(const LuaScriptComponent&) = default;
-		LuaScriptComponent(const std::string& source, LuaScriptSourceType sourceType) : Source(source), SourceType(sourceType) {}
+		LuaScriptComponent(const String& source, LuaScriptSourceType sourceType) : Source(source), SourceType(sourceType) {}
 	};
 }

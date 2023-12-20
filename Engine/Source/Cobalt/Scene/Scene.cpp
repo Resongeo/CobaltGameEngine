@@ -12,7 +12,7 @@ namespace Cobalt
 {
 	Scene::Scene(const char* name)
 	{
-		m_Name = std::string(name);
+		m_Name = String(name);
 		m_Registry.clear();
 	}
 
@@ -51,7 +51,7 @@ namespace Cobalt
 		ScriptEngine::UpdateScripts(this);
 	}
 
-	Entity Scene::CreateEntity(const std::string& name)
+	Entity Scene::CreateEntity(const String& name)
 	{
 		Entity entity = { m_Registry.create(), this };
 		entity.AddComponent<IDComponent>(Random::ID());

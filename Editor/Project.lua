@@ -17,6 +17,7 @@ project "Editor"
 	files
 	{
 		"%{wks.location}/%{prj.name}/Source/main.cpp",
+		"%{wks.location}/%{prj.name}/Source/pch.h",
 		"%{wks.location}/%{prj.name}/Source/CobaltEditor/**.h",
 		"%{wks.location}/%{prj.name}/Source/CobaltEditor/**.cpp"
 	}

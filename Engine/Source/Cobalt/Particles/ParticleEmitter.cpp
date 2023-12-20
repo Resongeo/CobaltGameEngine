@@ -7,15 +7,15 @@ namespace Cobalt
 {
 	void ParticleEmitter::Emit(ParticleData& particleData)
 	{
-        size_t startIndex = particleData.GetCount();
-        size_t endIndex = startIndex + EmitRate;
+        size startIndex = particleData.GetCount();
+        size endIndex = startIndex + EmitRate;
 
         if (endIndex >= particleData.GetMaxCount()) endIndex = particleData.GetMaxCount();
 
         for (auto& generator : m_Generators)
             generator->Generate(particleData, startIndex, endIndex);
 
-        for (size_t i = startIndex; i < endIndex; i++)
+        for (size i = startIndex; i < endIndex; i++)
             particleData.Wake(i);
 	}
 }

@@ -1,22 +1,21 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Math.h"
+#include "Cobalt/Core/Types/Math.h"
 #include "Cobalt/Rendering/RendererAPI.h"
+#include "Cobalt/Graphics/GraphicsAPI.h"
 
 namespace Cobalt
 {
-	enum class GraphicsAPI { OpenGL = 0 }; /* For future Vulkan may be supported */
-
 	class Renderer
 	{
 	public:
 		struct Statistics
 		{
-			uint32_t DrawCalls = 0;
-			uint32_t QuadCount = 0;
-			uint32_t GetVertexCount() { return QuadCount * 4; }
-			uint32_t GetIndexCount() { return QuadCount * 6; }
+			u32 DrawCalls = 0;
+			u32 QuadCount = 0;
+			u32 GetVertexCount() const { return QuadCount * 4; }
+			u32 GetIndexCount() const { return QuadCount * 6; }
 		};
 
 		static GraphicsAPI GetAPI() { return s_GraphicsAPI; }

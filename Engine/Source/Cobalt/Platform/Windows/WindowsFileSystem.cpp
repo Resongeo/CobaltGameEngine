@@ -13,7 +13,7 @@
 
 namespace Cobalt
 {
-	std::string FileSystem::OpenFileDialog(const char* filter)
+	String FileSystem::OpenFileDialog(const char* filter)
 	{
 		OPENFILENAMEA ofn;
 		CHAR szFile[256] = { 0 };
@@ -40,10 +40,10 @@ namespace Cobalt
 			return ofn.lpstrFile;
 		}
 
-		return std::string();
+		return String();
 	}
 
-	std::string FileSystem::SaveFileDialog(const char* filter)
+	String FileSystem::SaveFileDialog(const char* filter)
 	{
 		OPENFILENAMEA ofn;
 		CHAR szFile[256] = { 0 };
@@ -71,7 +71,7 @@ namespace Cobalt
 			return ofn.lpstrFile;
 		}
 
-		return std::string();
+		return String();
 	}
 }
 

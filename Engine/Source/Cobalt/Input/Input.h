@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Math.h"
+#include "Cobalt/Core/Types/Math.h"
 
 struct GLFWwindow;
 

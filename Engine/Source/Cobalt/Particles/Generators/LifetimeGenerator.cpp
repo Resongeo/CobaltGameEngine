@@ -5,9 +5,9 @@
 
 namespace Cobalt
 {
-	void LifetimeGenerator::Generate(ParticleData& particleData, size_t startIndex, size_t endIndex)
+	void LifetimeGenerator::Generate(ParticleData& particleData, size startIndex, size endIndex)
 	{
-		for (size_t i = startIndex; i < endIndex; i++)
+		for (size i = startIndex; i < endIndex; i++)
 		{
 			particleData.LifeTime[i] = Random::Range(Min, Max);
 		}

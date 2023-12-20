@@ -51,7 +51,7 @@ namespace Cobalt
 			return m_EntityHandle != otherEntity.m_EntityHandle || m_Scene != otherEntity.m_Scene;
 		}
 
-		void Test();
+		void Test() const;
 
 	private:
 		entt::entity m_EntityHandle{ entt::null };

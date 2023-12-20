@@ -4,7 +4,6 @@
 
 #include "Cobalt/Platform/Window.h"
 #include "Cobalt/Rendering/Renderer.h"
-#include "Cobalt/Logger/Log.h"
 
 #include <dwmapi.h>
 
@@ -20,9 +19,9 @@ namespace Cobalt
 	{
 		COLORREF ColorToCOLORREF(const Color& col)
 		{
-			uint8_t r = static_cast<uint8_t>(col.r * 255.0f);
-			uint8_t g = static_cast<uint8_t>(col.g * 255.0f);
-			uint8_t b = static_cast<uint8_t>(col.b * 255.0f);
+			u8 r = static_cast<u8>(col.r * 255.0f);
+			u8 g = static_cast<u8>(col.g * 255.0f);
+			u8 b = static_cast<u8>(col.b * 255.0f);
 
 			return (b << 16) | (g << 8) | r;
 		}
@@ -185,19 +184,19 @@ namespace Cobalt
 		return m_Properties;
 	}
 
-	void Window::SetWidth(uint32_t width)
+	void Window::SetWidth(u32 width)
 	{
 		m_Properties.Width = width;
 		glfwSetWindowSize(m_Window, m_Properties.Width, m_Properties.Height);
 	}
 
-	void Window::SetHeight(uint32_t height)
+	void Window::SetHeight(u32 height)
 	{
 		m_Properties.Height = height;
 		glfwSetWindowSize(m_Window, m_Properties.Width, m_Properties.Height);
 	}
 
-	void Window::SetTitle(const std::string& title)
+	void Window::SetTitle(const String& title)
 	{
 		m_Properties.Title = title;
 		glfwSetWindowTitle(m_Window, m_Properties.Title.c_str());

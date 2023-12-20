@@ -49,7 +49,7 @@ namespace Cobalt
 
 	void ParticleSystem::BaseUpdater()
 	{
-		for (size_t i = 0; i < m_ParticleData.GetCount(); i++)
+		for (size i = 0; i < m_ParticleData.GetCount(); i++)
 		{
 			m_ParticleData.Position[i] += m_ParticleData.Velocity[i] * Time::deltaTime;
 
@@ -62,7 +62,7 @@ namespace Cobalt
 
 	void ParticleSystem::Render()
 	{
-		for (size_t i = 0; i < m_ParticleData.GetCount(); i++)
+		for (size i = 0; i < m_ParticleData.GetCount(); i++)
 		{
 			RenderCommand::DrawQuad(m_ParticleData.Position[i], Vec3(0.1f), m_ParticleData.CurrentColor[i]);
 		}

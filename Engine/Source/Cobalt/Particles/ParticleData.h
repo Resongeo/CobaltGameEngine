@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Math.h"
-#include "Cobalt/Core/Color.h"
+#include "Cobalt/Core/Types/Math.h"
+#include "Cobalt/Core/Types/Color.h"
 
 namespace Cobalt
 {
@@ -11,12 +11,12 @@ namespace Cobalt
 	public:
 		ParticleData() = default;
 
-		void Generate(size_t maxCount);
-		void Wake(size_t index);
-		void Kill(size_t index);
+		void Generate(size maxCount);
+		void Wake(size index);
+		void Kill(size index);
 
-		inline size_t GetCount() const { return m_Count; }
-		inline size_t GetMaxCount() const { return m_MaxCount; }
+		inline size GetCount() const { return m_Count; }
+		inline size GetMaxCount() const { return m_MaxCount; }
 
 	public:
 		Scope<Vec3[]> Position;
@@ -29,11 +29,11 @@ namespace Cobalt
 		Scope<bool[]> IsAlive;
 
 	private:
-		void SwapData(size_t a, size_t b);
-		void ResetData(size_t index);
+		void SwapData(size a, size b);
+		void ResetData(size index);
 
 	private:
-		size_t m_MaxCount = 0;
-		size_t m_Count = 0;
+		size m_MaxCount = 0;
+		size m_Count = 0;
 	};
 }

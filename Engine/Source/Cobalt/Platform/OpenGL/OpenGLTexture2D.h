@@ -7,18 +7,18 @@ namespace Cobalt
 	class OpenGLTexture : public Texture2D
 	{
 	public:
-		OpenGLTexture(const std::string& path);
-		OpenGLTexture(uint32_t width, uint32_t height);
+		OpenGLTexture(const String& path);
+		OpenGLTexture(u32 width, u32 height);
 		virtual ~OpenGLTexture();
 
-		virtual uint32_t GetWidth() const override { return m_Width; }
-		virtual uint32_t GetHeight() const override { return m_Height; }
-		virtual uint32_t GetID() const override { return m_RendererID; };
+		virtual u32 GetWidth() const override { return m_Width; }
+		virtual u32 GetHeight() const override { return m_Height; }
+		virtual u32 GetID() const override { return m_RendererID; };
 
-		virtual std::string GetPath() const override { return m_Path; };
+		virtual String GetPath() const override { return m_Path; };
 
-		virtual void SetData(void* data, uint32_t size) override;
-		virtual void Bind(uint32_t slot) override;
+		virtual void SetData(void* data, u32 size) override;
+		virtual void Bind(u32 slot) override;
 
 		virtual bool operator == (const Ref<Texture2D>& other) const override
 		{
@@ -26,9 +26,8 @@ namespace Cobalt
 		}
 
 	private:
-		uint32_t m_RendererID;
-		uint32_t m_Width, m_Height;
-
-		std::string m_Path;
+		u32 m_RendererID;
+		u32 m_Width, m_Height;
+		String m_Path;
 	};
 }

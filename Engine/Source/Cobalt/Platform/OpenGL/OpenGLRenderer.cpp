@@ -29,7 +29,7 @@ namespace Cobalt
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	void OpenGLRenderer::DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount)
+	void OpenGLRenderer::DrawIndexed(const Ref<VertexArray>& vertexArray, u32 indexCount)
 	{
 		uint32_t count = indexCount == 0 ? vertexArray->GetIndexBuffer()->GetCount() : indexCount;
 
@@ -42,9 +42,9 @@ namespace Cobalt
 		glViewport(x, y, width, height);
 	}
 
-	std::string OpenGLRenderer::GetDefaultShader()
+	String OpenGLRenderer::GetDefaultShader()
 	{
-		return std::string(R"(
+		return String(R"(
 			#type vertex
 			#version 450 core
 			

@@ -6,12 +6,12 @@
 
 namespace Cobalt
 {
-	void Cobalt::BoxPositionGenerator::Generate(ParticleData& particleData, size_t startIndex, size_t endIndex)
+	void Cobalt::BoxPositionGenerator::Generate(ParticleData& particleData, size startIndex, size endIndex)
 	{
 		Vec3 minPos = PositionOffset - MinPosition;
 		Vec3 maxPos = PositionOffset + MaxPosition;
 
-		for (size_t i = startIndex; i < endIndex; i++)
+		for (size i = startIndex; i < endIndex; i++)
 		{
 			particleData.Position[i] = Vec3(Random::Range(MinPosition.x, MaxPosition.x), Random::Range(MinPosition.y, MaxPosition.y), 0.0f);
 		}

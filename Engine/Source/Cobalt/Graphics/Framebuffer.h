@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Math.h"
+#include "Cobalt/Core/Types/Math.h"
+#include "Cobalt/Core/Types/DataStructures.h"
 
 namespace Cobalt
 {
@@ -15,17 +16,17 @@ namespace Cobalt
 
 	struct FramebufferAttachmentSpecification
 	{
-		std::vector<FramebufferAttachmentType> Types;
+		Vector<FramebufferAttachmentType> Types;
 
 		FramebufferAttachmentSpecification() = default;
-		FramebufferAttachmentSpecification(std::initializer_list<FramebufferAttachmentType> types) : Types(types) {}
+		FramebufferAttachmentSpecification(InitializerList<FramebufferAttachmentType> types) : Types(types) {}
 	};
 
 	struct FramebufferSpecification
 	{
 		FramebufferAttachmentSpecification Attachments;
 		Vec2 Size = Vec2(1);
-		uint32_t Samples = 1;
+		u32 Samples = 1;
 	};
 
 	class Framebuffer
@@ -34,11 +35,11 @@ namespace Cobalt
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
 
-		virtual void Resize(uint32_t width, uint32_t height) = 0;
-		virtual int ReadPixel(uint32_t attachmentIndex, int x, int y) = 0;
+		virtual void Resize(u32 width, u32 height) = 0;
+		virtual int ReadPixel(u32 attachmentIndex, int x, int y) = 0;
 
-		virtual uint32_t GetColorAttachmentID(int index) const = 0;
-		virtual void ClearAttachment(uint32_t attachmentIndex, int data) = 0;
+		virtual u32 GetColorAttachmentID(int index) const = 0;
+		virtual void ClearAttachment(u32 attachmentIndex, int data) = 0;
 
 		virtual const FramebufferSpecification& GetSpecification() const = 0;
 

@@ -1,16 +1,9 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Time.h"
-#include "Cobalt/Core/Random.h"
-#include "Cobalt/Events/ApplicationEvent.h"
-#include "Cobalt/Gui/Gui.h"
-#include "Cobalt/Input/Input.h"
+#include "Cobalt/Core/Types/Memory.h"
 #include "Cobalt/Layers/LayerStack.h"
-#include "Cobalt/Logger/Log.h"
+#include "Cobalt/Graphics/GraphicsAPI.h"
 #include "Cobalt/Platform/Window.h"
-#include "Cobalt/Rendering/Renderer.h"
-#include "Cobalt/Rendering/RenderCommand.h"
 
 namespace Cobalt
 {

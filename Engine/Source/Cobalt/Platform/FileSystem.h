@@ -1,13 +1,13 @@
 #pragma once
 
-#include <string>
+#include "Cobalt/Core/Types/String.h"
 
 namespace Cobalt
 {
 	class FileSystem
 	{
 	public:
-		static std::string OpenFileDialog(const char* filter);
-		static std::string SaveFileDialog(const char* filter);
+		static String OpenFileDialog(const char* filter);
+		static String SaveFileDialog(const char* filter);
 	};
 }

@@ -7,13 +7,13 @@ namespace Cobalt
 	namespace Utils
 	{
 		template<typename T, typename U>
-		inline void Fill(T* array, size_t count, U value)
+		inline void Fill(T* array, size count, U value)
 		{
 			std::fill(array, array + count, value);
 		}
 
 		template<typename T>
-		inline void Swap(T& attrib, size_t a, size_t b)
+		inline void Swap(T& attrib, size a, size b)
 		{
 			auto temp = std::move(attrib[a]);
 			attrib[a] = std::move(attrib[b]);
@@ -21,7 +21,7 @@ namespace Cobalt
 		}
 	}
 
-	void ParticleData::Generate(size_t maxCount)
+	void ParticleData::Generate(size maxCount)
 	{
 		m_MaxCount = maxCount;
 		m_Count = 0;
@@ -40,7 +40,7 @@ namespace Cobalt
 		Utils::Fill(Acceleration.get(), m_MaxCount, Vec3(0.0f));
 	}
 
-	void ParticleData::Wake(size_t index)
+	void ParticleData::Wake(size index)
 	{
 		if (m_Count >= m_MaxCount) return;
 
@@ -48,7 +48,7 @@ namespace Cobalt
 		SwapData(index, m_Count++);
 	}
 
-	void ParticleData::Kill(size_t index)
+	void ParticleData::Kill(size index)
 	{
 		if (m_Count <= 0) return;
 
@@ -57,7 +57,7 @@ namespace Cobalt
 		SwapData(index, --m_Count);
 	}
 
-	void ParticleData::SwapData(size_t a, size_t b)
+	void ParticleData::SwapData(size a, size b)
 	{
 		Utils::Swap(Position, a, b);
 		Utils::Swap(Velocity, a, b);
@@ -69,7 +69,7 @@ namespace Cobalt
 		Utils::Swap(IsAlive, a, b);
 	}
 
-	void ParticleData::ResetData(size_t index)
+	void ParticleData::ResetData(size index)
 	{
 		// TODO: Get values from a struct or something
 		Position[index] = Vec3(0.0f);

@@ -15,10 +15,10 @@ namespace Cobalt
 		void AddGenerator(const Ref<ParticleGenerator>& generator) { m_Generators.push_back(generator); }
 
 	public:
-		size_t EmitRate = 1;
+		size EmitRate = 1;
 
 	private:
-		std::vector<Ref<ParticleGenerator>> m_Generators;
+		Vector<Ref<ParticleGenerator>> m_Generators;
 
 		friend class ParticleSystem;
 	};

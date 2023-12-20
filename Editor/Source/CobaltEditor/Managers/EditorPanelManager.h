@@ -17,6 +17,6 @@ namespace CobaltEditor
 
 	private:
 		static EditorPanelManager* s_Instance;
-		std::vector<Ref<EditorPanel>> m_Panels;
+		Vector<Ref<EditorPanel>> m_Panels;
 	};
 }

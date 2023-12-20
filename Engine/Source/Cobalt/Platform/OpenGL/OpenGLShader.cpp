@@ -5,7 +5,7 @@
 
 namespace Cobalt
 {
-	static GLenum ShaderTypeFromString(const std::string& type)
+	static GLenum ShaderTypeFromString(const String& type)
 	{
 		if (type == "vertex" || type == "vert" || type == "vt" || type == "v")
 			return GL_VERTEX_SHADER;
@@ -16,16 +16,16 @@ namespace Cobalt
 		return 0;
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& source, ShaderSourceType sourceType)
+	OpenGLShader::OpenGLShader(const String& source, ShaderSourceType sourceType)
 	{
 		std::string src = sourceType == ShaderSourceType::Filepath ? ReadFile(source) : source;
 		auto shaderSources = PreProcess(src);
 		CompileSources(shaderSources);
 	}
 
-	std::string OpenGLShader::ReadFile(const std::string& filepath)
+	String OpenGLShader::ReadFile(const String& filepath)
 	{
-		std::string result;
+		String result;
 		std::ifstream stream(filepath, std::ios::in, std::ios::binary);
 
 		if (stream)
@@ -44,36 +44,36 @@ namespace Cobalt
 		return result;
 	}
 
-	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
+	HashMap<GLenum, String> OpenGLShader::PreProcess(const String& source)
 	{
-		std::unordered_map<GLenum, std::string> shaderSources;
+		HashMap<GLenum, String> shaderSources;
 
 		const char* typeToken = "#type";
-		size_t typeTokenLength = strlen(typeToken);
-		size_t pos = source.find(typeToken, 0);
-		while (pos != std::string::npos)
+		size typeTokenLength = strlen(typeToken);
+		size pos = source.find(typeToken, 0);
+		while (pos != String::npos)
 		{
-			size_t eol = source.find_first_of("\r\n", pos);
-			size_t begin = pos + typeTokenLength + 1;
-			std::string type = source.substr(begin, eol - begin);
+			size eol = source.find_first_of("\r\n", pos);
+			size begin = pos + typeTokenLength + 1;
+			String type = source.substr(begin, eol - begin);
 
-			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
+			size nextLinePos = source.find_first_not_of("\r\n", eol);
 			pos = source.find(typeToken, nextLinePos);
-			shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
+			shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos, pos - (nextLinePos == String::npos ? source.size() - 1 : nextLinePos));
 		}
 
 		return shaderSources;
 	}
 
-	void OpenGLShader::CompileSources(const std::unordered_map<GLenum, std::string>& shaderSources)
+	void OpenGLShader::CompileSources(const HashMap<GLenum, String>& shaderSources)
 	{
 		GLuint program = glCreateProgram();
-		std::vector<GLenum> glShaderIDs;
+		Vector<GLenum> glShaderIDs;
 		glShaderIDs.reserve(shaderSources.size());
 		for (auto& kv : shaderSources)
 		{
 			GLenum type = kv.first;
-			const std::string& source = kv.second;
+			const String& source = kv.second;
 
 			GLuint shader = glCreateShader(type);
 
@@ -89,7 +89,7 @@ namespace Cobalt
 				GLint maxLength = 0;
 				glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
 
-				std::vector<GLchar> infoLog(maxLength);
+				Vector<GLchar> infoLog(maxLength);
 				glGetShaderInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
 
 				glDeleteShader(shader);
@@ -113,7 +113,7 @@ namespace Cobalt
 			GLint maxLength = 0;
 			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
 
-			std::vector<GLchar> infoLog(maxLength);
+			Vector<GLchar> infoLog(maxLength);
 			glGetProgramInfoLog(program, maxLength, &maxLength, &infoLog[0]);
 
 			glDeleteProgram(program);
@@ -151,7 +151,7 @@ namespace Cobalt
 		glUniform1i(GetUniformLocation(name), value);
 	}
 
-	void OpenGLShader::SetIntArray(const char* name, int* values, uint32_t count) const
+	void OpenGLShader::SetIntArray(const char* name, int* values, u32 count) const
 	{
 		glUniform1iv(GetUniformLocation(name), count, values);
 	}

@@ -5,7 +5,7 @@
 
 namespace CobaltEditor
 {
-	static std::unordered_map<const char*, float> s_ComponentHeight;
+	static HashMap<const char*, float> s_ComponentHeight;
 	static Color s_BackgroundCol;
 	static Color s_InactiveCol;
 

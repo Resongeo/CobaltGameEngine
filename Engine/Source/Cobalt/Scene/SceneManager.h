@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Cobalt/Core/Types/String.h"
+#include "Cobalt/Core/Types/DataStructures.h"
 #include "Cobalt/Scene/Scene.h"
 #include "Cobalt/Scene/Serialization/SceneSerializer.h"
 
@@ -24,6 +26,6 @@ namespace Cobalt
 		static SceneSerializer s_SceneSerializer;
 
 		Ref<Scene> m_ActiveScene;
-		std::unordered_map<std::string, std::string> m_ScenePaths;
+		HashMap<String, String> m_ScenePaths;
 	};
 }

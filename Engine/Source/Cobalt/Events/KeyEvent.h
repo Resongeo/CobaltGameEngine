@@ -23,7 +23,7 @@ namespace Cobalt
 
 		inline int GetRepeatCount() const { return m_RepeatCount; }
 
-		std::string ToString() const override
+		String ToString() const override
 		{
 			std::stringstream ss;
 			ss << "KeyPressedEvent: " << m_KeyCode << " (" << m_RepeatCount << " repeats)";
@@ -40,7 +40,7 @@ namespace Cobalt
 	public:
 		KeyReleasedEvent(int keycode) : KeyEvent(keycode) {}
 
-		std::string ToString() const override
+		String ToString() const override
 		{
 			std::stringstream ss;
 			ss << "KeyReleasedEvent: " << m_KeyCode;

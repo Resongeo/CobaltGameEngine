@@ -6,14 +6,14 @@
 
 namespace Cobalt
 {
-	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(u32 size)
 	{
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 	}
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, u32 size)
 	{
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
@@ -35,7 +35,7 @@ namespace Cobalt
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void OpenGLVertexBuffer::CopyData(const void* data, uint32_t size)
+	void OpenGLVertexBuffer::CopyData(const void* data, u32 size)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);

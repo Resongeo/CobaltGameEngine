@@ -6,7 +6,7 @@
 
 namespace Cobalt
 {
-	Ref<Shader> Shader::Create(const std::string& source, ShaderSourceType sourceType)
+	Ref<Shader> Shader::Create(const String& source, ShaderSourceType sourceType)
 	{
 		switch (Renderer::GetAPI())
 		{

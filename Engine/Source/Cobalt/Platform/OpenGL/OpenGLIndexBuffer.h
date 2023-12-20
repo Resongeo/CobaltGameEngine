@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Cobalt/Core/Core.h"
 #include "Cobalt/Graphics/IndexBuffer.h"
 
 namespace Cobalt
@@ -7,16 +8,16 @@ namespace Cobalt
 	class OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
-		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
+		OpenGLIndexBuffer(u32* indices, u32 count);
 		virtual ~OpenGLIndexBuffer();
 
 		virtual void Bind() const;
 		virtual void Unbind() const;
 
-		virtual uint32_t GetCount() const { return m_Count; }
+		virtual u32 GetCount() const { return m_Count; }
 
 	private:
-		uint32_t m_RendererID;
-		uint32_t m_Count;
+		u32 m_RendererID;
+		u32 m_Count;
 	};
 }

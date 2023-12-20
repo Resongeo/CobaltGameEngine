@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Math.h"
+#include "Cobalt/Core/Types/String.h"
+#include "Cobalt/Core/Types/Math.h"
 #include "Cobalt/Scene/ECS/Entity.h"
 
 namespace Cobalt
@@ -13,19 +14,19 @@ namespace Cobalt
 		public:
 			static void CreateEntity(std::ifstream& file, const Ref<Scene>& scene);
 
-			inline static std::string GetString(const std::string& input)
+			inline static String GetString(const String& input)
 			{
 				return input.substr(input.find(':') + 1);
 			}
 
 		private:
 			template<int size>
-			static glm::vec<size, float> GetVec(const std::string& input)
+			static Vec<size, float> GetVec(const String& input)
 			{
-				glm::vec<size, float> result{};
+				Vec<size, float> result{};
 
 				std::stringstream ss(input);
-				std::string temp;
+				String temp;
 
 				for (int i = 0; i < size; i++)
 				{
@@ -36,16 +37,16 @@ namespace Cobalt
 				return result;
 			}
 
-			inline static uint64_t GetUUID(const std::string& input)
+			inline static u64 GetUUID(const String& input)
 			{
-				std::string idStr = input.substr(input.find(":") + 1);
+				String idStr = input.substr(input.find(":") + 1);
 				char* end;
 				return strtoull(idStr.c_str(), &end, 10);
 			}
 
-			inline static std::string ExtractNumbers(const std::string& input)
+			inline static String ExtractNumbers(const String& input)
 			{
-				std::string result = input;
+				String result = input;
 
 				result = result.substr(input.find(":") + 2);
 				result = result.substr(0, result.size() - 1);

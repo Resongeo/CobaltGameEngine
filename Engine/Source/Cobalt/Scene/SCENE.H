@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Cobalt/Core/Types/String.h"
 #include "Cobalt/Rendering/RenderCommand.h"
 #include "Cobalt/Scene/SceneState.h"
 #include "Cobalt/Scene/ECS/Components.h"
@@ -20,12 +21,12 @@ namespace Cobalt
 		void EditorUpdate();
 		void RuntimeUpdate();
 
-		Entity CreateEntity(const std::string& name = "Entity");
+		Entity CreateEntity(const String& name = "Entity");
 		void DestroyEntity(Entity entity);
 		void ClearEntites();
 
-		std::string& GetName() { return m_Name; }
-		void SetName(const char* name) { m_Name = std::string(name); }
+		String& GetName() { return m_Name; }
+		void SetName(const char* name) { m_Name = String(name); }
 
 		entt::registry& Registry() { return m_Registry; }
 
@@ -33,7 +34,7 @@ namespace Cobalt
 
 	private:
 		entt::registry m_Registry;
-		std::string m_Name;
+		String m_Name;
 
 		friend class Entity;
 	};

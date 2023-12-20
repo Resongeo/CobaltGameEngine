@@ -1,10 +1,12 @@
 #pragma once
 
+#include "Cobalt/Core/Core.h"
+
 namespace Cobalt
 {
 	struct ParticleSystemSpecification
 	{
-		uint32_t MaxParticles = 1000;
+		u32 MaxParticles = 1000;
 		bool StartsWithScene = true;
 
 		ParticleSystemSpecification() = default;

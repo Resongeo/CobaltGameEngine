@@ -2,7 +2,6 @@
 
 #include "Cobalt/Platform/OpenGL/OpenGLContext.h"
 
-#include <iostream>
 #include <glad/glad.h>
 
 #define GLFW_INCLUDE_NONE

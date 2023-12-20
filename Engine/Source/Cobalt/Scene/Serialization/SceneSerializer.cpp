@@ -5,11 +5,10 @@
 #include "Cobalt/Scene/Serialization/Parser.h"
 #include "Cobalt/Scene/ECS/Entity.h"
 #include "Cobalt/Scene/Scene.h"
-#include "Cobalt/Logger/Log.h"
 
 namespace Cobalt
 {
-	void SceneSerializer::Serialize(const std::string& filepath, const Ref<Scene>& scene)
+	void SceneSerializer::Serialize(const String& filepath, const Ref<Scene>& scene)
 	{
 		CBS::Emitter out(filepath);
 		
@@ -77,19 +76,19 @@ namespace Cobalt
 		LOG_INFO("Scene saved: {}", filepath);
 	}
 
-	void SceneSerializer::Deserialize(const std::string& filepath, const Ref<Scene>& scene)
+	void SceneSerializer::Deserialize(const String& filepath, const Ref<Scene>& scene)
 	{
 		scene->ClearEntites();
 
 		std::ifstream file(filepath);
-		std::string line;
+		String line;
 
 		std::getline(file, line);
 		scene->SetName(CBS::Parser::GetString(line).c_str());
 
 		while (std::getline(file, line))
 		{
-			if (line.find("Entity") != std::string::npos)
+			if (line.find("Entity") != String::npos)
 			{
 				CBS::Parser::CreateEntity(file, scene);
 			}

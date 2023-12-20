@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Cobalt/Core/Core.h"
+#include "Cobalt/Core/Types/String.h"
 
 namespace Cobalt
 {
@@ -40,9 +41,9 @@ namespace Cobalt
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
-		virtual std::string ToString() const { return GetName(); }
+		virtual String ToString() const { return GetName(); }
 
-		bool IsInCategory(EventCategory category) { return GetCategoryFlags() & category; }
+		bool IsInCategory(EventCategory category) const { return GetCategoryFlags() & category; }
 
 	protected:
 	};
