@@ -33,8 +33,6 @@ project "Editor"
 		"%{IncludeDir.IMGUIZMO}",
 		"%{IncludeDir.GLM}",
 		"%{IncludeDir.ENTT}",
-		"%{IncludeDir.LUA}",
-		"%{IncludeDir.SOL2}",
 		"%{IncludeDir.COBALT}",
 		"%{IncludeDir.ENGINE_SRC}",
 		"%{IncludeDir.EDITOR_SRC}",

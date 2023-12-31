@@ -6,8 +6,6 @@
 
 #include "Cobalt/Logger/Log.h"
 
-#include "Cobalt/Scripting/ScriptEngine.h"
-
 namespace Cobalt
 {
 	Scene::Scene(const char* name)
@@ -18,7 +16,7 @@ namespace Cobalt
 
 	void Scene::RuntimeStart()
 	{
-		ScriptEngine::RuntimeStart(this);
+		// TODO: Start script engine, physics etc...
 	}
 
 	void Scene::EditorUpdate()
@@ -48,7 +46,7 @@ namespace Cobalt
 			RenderCommand::DrawEntity(transform.GetTransform(), spriteRenderer, entity);
 		}
 
-		ScriptEngine::UpdateScripts(this);
+		// TODO: Update script engine, physics etc...
 	}
 
 	Entity Scene::CreateEntity(const String& name)

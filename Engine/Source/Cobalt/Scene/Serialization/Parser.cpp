@@ -64,17 +64,6 @@ namespace Cobalt
 
 					continue;
 				}
-				
-				if (line.find("Lua Script component:") != String::npos)
-				{
-					auto& lsc = entity.AddComponent<LuaScriptComponent>();
-
-					std::getline(file, line);
-					lsc.Source = GetString(line);
-					lsc.SourceType = LuaScriptSourceType::Filepath;
-
-					continue;
-				}
 
 				return;
 			}

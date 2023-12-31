@@ -36,8 +36,6 @@ project "Engine"
 		"%{IncludeDir.GLM}",
 		"%{IncludeDir.STB}",
 		"%{IncludeDir.ENTT}",
-		"%{IncludeDir.LUA}",
-		"%{IncludeDir.SOL2}",
 		"%{IncludeDir.ENGINE_SRC}",
 		"%{IncludeDir.COBALT}"
 	}
@@ -47,7 +45,6 @@ project "Engine"
         "%{LibDir.GLFW}",
         "%{LibDir.IMGUIZMO}",
         "%{LibDir.IMGUI}",
-        "%{LibDir.LUA}",
     }
 
 	links 
@@ -57,7 +54,6 @@ project "Engine"
 		"%{Link.IMGUI}",
 		"%{Link.OPENGL}",
 		"%{Link.DWMAPI}",
-		"%{Link.LUA}",
 	}
 
 	-- Removing errors

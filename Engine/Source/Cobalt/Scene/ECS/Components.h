@@ -7,7 +7,6 @@
 #include "Cobalt/Graphics/VertexArray.h"
 #include "Cobalt/Graphics/Texture2D.h"
 #include "Cobalt/Graphics/Shader.h"
-#include "Cobalt/Scene/ECS/LuaEntity.h"
 
 namespace Cobalt
 {
@@ -76,18 +75,5 @@ namespace Cobalt
 	enum class LuaScriptSourceType
 	{
 		None = 0, Filepath, String
-	};
-
-	struct LuaScriptComponent
-	{
-		LuaEntity ScriptEntity;
-		sol::state LuaState;
-		String Source;
-		LuaScriptSourceType SourceType = LuaScriptSourceType::None;
-		bool HasScriptLoaded = false;
-
-		LuaScriptComponent() = default;
-		LuaScriptComponent(const LuaScriptComponent&) = default;
-		LuaScriptComponent(const String& source, LuaScriptSourceType sourceType) : Source(source), SourceType(sourceType) {}
 	};
 }

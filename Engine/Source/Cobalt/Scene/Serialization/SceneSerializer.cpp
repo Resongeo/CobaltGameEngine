@@ -57,17 +57,6 @@ namespace Cobalt
 				out.EndMap();
 			}
 
-			if (entity.HasComponent<LuaScriptComponent>())
-			{
-				auto& luaScript = entity.GetComponent<LuaScriptComponent>();
-				out << "Lua Script component:\n";
-				out.BeginMap();
-
-				out.Add("Source", !luaScript.Source.empty() ? luaScript.Source : "null");
-
-				out.EndMap();
-			}
-
 			out << "\n";
 			out.EndMap();
 		});
