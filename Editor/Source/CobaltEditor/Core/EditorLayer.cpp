@@ -46,6 +46,16 @@ namespace CobaltEditor
 		EditorPanelManager::UIRender();
 
 		ImGui::Begin("Debug");
+
+		if (ImGui::Button("Close application"))
+		{
+			Application::Close();
+		}
+		if (ImGui::Button("Restart application"))
+		{
+			Application::Restart();
+		}
+
 		if (ImGui::Button("Add Logs"))
 		{
 			Log::Trace("Trace message");

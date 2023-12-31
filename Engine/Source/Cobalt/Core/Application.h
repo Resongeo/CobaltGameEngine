@@ -28,6 +28,9 @@ namespace Cobalt
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
+		static void Close();
+		static void Restart();
+
 		static Application& Get() { return *s_Instance; }
 		static Ref<Window>& GetWindow() { return s_Instance->m_Window; }
 

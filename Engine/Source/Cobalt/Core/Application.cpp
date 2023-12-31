@@ -4,6 +4,7 @@
 #include "Cobalt/Scene/SceneManager.h"
 #include "Cobalt/Input/Input.h"
 #include "Cobalt/Gui/Gui.h"
+#include "Cobalt/Platform/PlatformUtils.h"
 
 namespace Cobalt
 {
@@ -88,6 +89,16 @@ namespace Cobalt
 	{
 		m_LayerStack.PushOverlay(overlay);
 		overlay->OnAttach();
+	}
+
+	void Application::Close()
+	{
+		s_Instance->m_Running = false;
+	}
+
+	void Application::Restart()
+	{
+		PlatformUtils::RestartApplication();
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
