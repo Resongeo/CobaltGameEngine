@@ -1,1 +1,2 @@
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+buildconf = "%{cfg.buildcfg}"
+outputdir = buildconf .. "-%{cfg.system}"

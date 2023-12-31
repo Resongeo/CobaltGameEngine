@@ -2,10 +2,6 @@
 
 #include "Cobalt/Core/Core.h"
 
-#include <imgui.h>
-
-struct GLFWwindow;
-
 namespace Cobalt
 {
 	class ImGuiImpl
@@ -15,6 +11,6 @@ namespace Cobalt
 		virtual void Render() = 0;
 		virtual void ShutDown() = 0;
 
-		static Scope<ImGuiImpl> Create(GLFWwindow* window);
+		static Scope<ImGuiImpl> Create();
 	};
 }

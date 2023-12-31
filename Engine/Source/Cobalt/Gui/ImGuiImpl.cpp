@@ -4,16 +4,13 @@
 #include "Cobalt/Rendering/Renderer.h"
 #include "Cobalt/Platform/OpenGL/Gui/OpenGLImGuiImpl.h"
 
-#define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
-
 namespace Cobalt
 {
-	Scope<ImGuiImpl> ImGuiImpl::Create(GLFWwindow* window)
+	Scope<ImGuiImpl> ImGuiImpl::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
-			case GraphicsAPI::OpenGL: return CreateScope<OpenGLImGuiImpl>(window);
+			case GraphicsAPI::OpenGL: return CreateScope<OpenGLImGuiImpl>();
 		}
 
 		return nullptr;

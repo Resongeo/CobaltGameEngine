@@ -1,7 +1,6 @@
 #include "cbpch.h"
 
 #include "Cobalt/Gui/Gui.h"
-#include "Cobalt/Core/Application.h"
 
 namespace Cobalt
 {
@@ -9,7 +8,7 @@ namespace Cobalt
 
 	void Gui::Init()
 	{
-		s_ImGuiImpl = ImGuiImpl::Create(Application::GetWindow()->GetHandle());
+		s_ImGuiImpl = ImGuiImpl::Create();
 	}
 
 	void Gui::NewFrame()

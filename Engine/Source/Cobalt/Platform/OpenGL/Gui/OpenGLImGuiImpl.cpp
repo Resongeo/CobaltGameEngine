@@ -2,9 +2,9 @@
 
 #include "Cobalt/Platform/OpenGL/Gui/OpenGLImGuiImpl.h"
 
+#include <imgui.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
-#include <backends/imgui_impl_opengl3_loader.h>
 
 #include <ImGuizmo.h>
 
@@ -13,7 +13,7 @@
 
 namespace Cobalt
 {
-	OpenGLImGuiImpl::OpenGLImGuiImpl(GLFWwindow* window) : m_GLFWWindow(window)
+	OpenGLImGuiImpl::OpenGLImGuiImpl()
 	{
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -22,7 +22,7 @@ namespace Cobalt
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-		ImGui_ImplGlfw_InitForOpenGL(window, true);
+		ImGui_ImplGlfw_InitForOpenGL(glfwGetCurrentContext(), true);
 		ImGui_ImplOpenGL3_Init(OPENGL_VERSION_STRING);
 	}
 

@@ -5,11 +5,13 @@ project "Engine"
 	cppdialect "C++20"
 	staticruntime "off"
 
-	targetdir ("%{wks.location}/Engine/Build/" .. outputdir)
+	dependson { "GLFW", "IMGUIZMO", "IMGUI" }
+
+	targetdir ("%{wks.location}/%{prj.name}/bin/" .. outputdir)
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "cbpch.h"
-	pchsource "%{wks.location}/Engine/Source/Cobalt/cbpch.cpp"
+	pchsource "%{wks.location}/%{prj.name}/Source/Cobalt/cbpch.cpp"
 
 	files
 	{
@@ -18,9 +20,6 @@ project "Engine"
 		"%{wks.location}/%{prj.name}/Source/**.cpp",
 		"%{wks.location}/%{prj.name}/Dependencies/glm/glm/**.hpp",
 		"%{wks.location}/%{prj.name}/Dependencies/glm/glm/**.inl",
-		"%{wks.location}/%{prj.name}/Dependencies/ImGui/**.h",
-		"%{wks.location}/%{prj.name}/Dependencies/ImGui/**.cpp",
-		"%{wks.location}/%{prj.name}/Dependencies/ImGuizmo/**.cpp",
 	}
 
 	defines
@@ -35,7 +34,7 @@ project "Engine"
 		"%{IncludeDir.IMGUI}",
 		"%{IncludeDir.IMGUIZMO}",
 		"%{IncludeDir.GLM}",
-		"%{IncludeDir.STBIMAGE}",
+		"%{IncludeDir.STB}",
 		"%{IncludeDir.ENTT}",
 		"%{IncludeDir.LUA}",
 		"%{IncludeDir.SOL2}",
@@ -46,17 +45,22 @@ project "Engine"
     libdirs
     {
         "%{LibDir.GLFW}",
+        "%{LibDir.IMGUIZMO}",
+        "%{LibDir.IMGUI}",
         "%{LibDir.LUA}",
     }
 
 	links 
 	{
 		"%{Link.GLFW}",
+		"%{Link.IMGUIZMO}",
+		"%{Link.IMGUI}",
 		"%{Link.OPENGL}",
 		"%{Link.DWMAPI}",
 		"%{Link.LUA}",
 	}
 
+	-- Removing errors
 	filter "system:windows"
 		systemversion "latest"
 		buildoptions { "/wd4312", "/wd4267", "/wd4244" }
@@ -69,12 +73,13 @@ project "Engine"
 	filter "configurations:Release"
 		defines "CB_RELEASE"
 		runtime "Release"
-		optimize "on"
+		optimize "speed"
 
 	filter "configurations:Dist"
 		defines "CB_DIST"
 		runtime "Release"
-		optimize "on"
+		optimize "speed"
 
+	-- glad.c can't have a precompiled header
     filter "files:**.c"
         flags {"NoPCH"}

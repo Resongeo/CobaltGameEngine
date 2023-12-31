@@ -4,3 +4,16 @@
 [submodule "Engine/Dependencies/GLM"]
 	path = Engine/Dependencies/GLM
 	url = https://github.com/g-truc/glm
+[submodule "Engine/Dependencies/IMGUIZMO"]
+	path = Engine/Dependencies/IMGUIZMO
+	url = https://github.com/CedricGuillemet/ImGuizmo
+[submodule "Engine/Dependencies/GLFW"]
+	path = Engine/Dependencies/GLFW
+	url = https://github.com/TheCherno/glfw
+[submodule "Engine/Dependencies/IMGUI"]
+	path = Engine/Dependencies/IMGUI
+	url = https://github.com/ocornut/imgui
+	branch = docking
+[submodule "Engine/Dependencies/STB"]
+	path = Engine/Dependencies/STB
+	url = https://github.com/nothings/stb

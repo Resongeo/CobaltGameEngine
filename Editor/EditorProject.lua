@@ -7,8 +7,8 @@ project "Editor"
 
 	dependson { "Engine" }
 
-	targetdir ("%{wks.location}/%{prj.name}/Build/")
-	debugdir ("%{wks.location}/%{prj.name}/Build/")
+	targetdir ("%{wks.location}/%{prj.name}/bin/" .. outputdir)
+	debugdir ("%{wks.location}/%{prj.name}/bin/" .. outputdir)
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "pch.h"
@@ -50,22 +50,23 @@ project "Editor"
 		"%{Link.ENGINE}",
 	}
 
+	-- Removing errors
 	filter "system:windows"
 		systemversion "latest"
 		buildoptions { "/wd4312", "/wd4267", "/wd4244" }
 		ignoredefaultlibraries { "LIBCMT", "MSVCRT" }
 		
 	filter "configurations:Debug"
-		defines "CB_DEBUG"
+		defines "CB_EDITOR_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "CB_RELEASE"
+		defines "CB_EDITOR_RELEASE"
 		runtime "Release"
-		optimize "on"
+		optimize "speed"
 
 	filter "configurations:Dist"
-		defines "CB_DIST"
+		defines "CB_EDITOR_DIST"
 		runtime "Release"
-		optimize "on"
+		optimize "speed"
