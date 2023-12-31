@@ -12,10 +12,7 @@ The project includes all the dependency. Dependencies are below
 - [GLM](https://github.com/g-truc/glm)
 - [Dear ImGui](https://github.com/ocornut/imgui)
 - [ImGuizmo](https://github.com/CedricGuillemet/ImGuizmo)
-- [Lua](https://www.lua.org/)
-- [Sol2](https://github.com/ThePhD/sol2)
-- [spdlog](https://github.com/gabime/spdlog)
-- [stbimage](https://github.com/nothings/stb)
+- [stb](https://github.com/nothings/stb)
  
 ## Platforms
 - Windows
