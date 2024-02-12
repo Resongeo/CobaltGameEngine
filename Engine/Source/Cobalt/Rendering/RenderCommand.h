@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Types/Color.h"
+#include "Cobalt/Core/Types.h"
 #include "Cobalt/Rendering/Renderer.h"
 #include "Cobalt/Rendering/RendererAPI.h"
 #include "Cobalt/Scene/ECS/Components.h"
@@ -10,7 +10,7 @@ namespace Cobalt
 	class RenderCommand
 	{
 	public:
-		static void BeginScene(const Ref<Camera>& camera);
+		static void BeginScene(const Shared<Camera>& camera);
 		static void EndScene();
 		
 		static void ClearColor(const Color& color);
@@ -21,7 +21,7 @@ namespace Cobalt
 		static void DrawQuad(const Vec3& position, const Vec3& scale, const Color& color);
 		static void DrawQuad(const Vec3& position, const Vec3& rotation, const Vec3& scale, const Color& color);
 		static void DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, u32 entityID);
-		static void DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, const Ref<Texture2D>& texture, u32 entityID);
+		static void DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, const Shared<Texture2D>& texture, u32 entityID);
 
 		static void DrawEntity(const Mat4& transform, const SpriteRendererComponent& spriteComponent, u32 entityID);
 

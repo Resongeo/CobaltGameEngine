@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Cobalt/Core/Types/Memory.h"
-#include "Cobalt/Layers/LayerStack.h"
+#include "Cobalt/Core/Types.h"
+#include "Cobalt/Core/Fwd.h"
 #include "Cobalt/Graphics/GraphicsAPI.h"
 #include "Cobalt/Platform/Window.h"
 
@@ -32,7 +32,7 @@ namespace Cobalt
 		static void Restart();
 
 		static Application& Get() { return *s_Instance; }
-		static Ref<Window>& GetWindow() { return s_Instance->m_Window; }
+		static Shared<Window>& GetWindow() { return s_Instance->m_Window; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
@@ -41,8 +41,8 @@ namespace Cobalt
 	private:
 		static Application* s_Instance;
 
-		Ref<Window> m_Window;
-		LayerStack m_LayerStack;
+		Unique<LayerStack> m_LayerStack;
+		Shared<Window> m_Window;
 		bool m_Running = true;
 	};
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
+#include "Cobalt/Core/Types.h"
 #include "Cobalt/Particles/ParticleData.h"
 #include "Cobalt/Particles/ParticleEmitter.h"
 #include "Cobalt/Particles/ParticleSystemState.h"
@@ -19,9 +19,9 @@ namespace Cobalt
 		void Reset();
 		void Update();
 
-		void AddGenerator(const Ref<ParticleGenerator>& generator) { m_ParticleEmitter.AddGenerator(generator); }
+		void AddGenerator(const Shared<ParticleGenerator>& generator) { m_ParticleEmitter.AddGenerator(generator); }
 
-		Vector<Ref<ParticleGenerator>> GetGenerators() const { return m_ParticleEmitter.m_Generators; }
+		Vector<Shared<ParticleGenerator>> GetGenerators() const { return m_ParticleEmitter.m_Generators; }
 
 		inline ParticleSystemState GetState() const { return m_State; }
 		inline size* GetEmitRatePtr() { return &m_ParticleEmitter.EmitRate; }

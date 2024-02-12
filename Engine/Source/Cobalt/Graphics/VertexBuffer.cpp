@@ -6,21 +6,21 @@
 
 namespace Cobalt
 {
-	Ref<VertexBuffer> VertexBuffer::Create(u32 size)
+	Shared<VertexBuffer> VertexBuffer::Create(u32 size)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case GraphicsAPI::OpenGL: return CreateRef<OpenGLVertexBuffer>(size);
+			case GraphicsAPI::OpenGL: return CreateShared<OpenGLVertexBuffer>(size);
 		}
 
 		return nullptr;
 	}
 
-	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, u32 size)
+	Shared<VertexBuffer> VertexBuffer::Create(float* vertices, u32 size)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case GraphicsAPI::OpenGL: return CreateRef<OpenGLVertexBuffer>(vertices, size);
+			case GraphicsAPI::OpenGL: return CreateShared<OpenGLVertexBuffer>(vertices, size);
 		}
 		
 		return nullptr;

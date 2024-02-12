@@ -8,7 +8,7 @@
 
 namespace Cobalt
 {
-	void SceneSerializer::Serialize(const String& filepath, const Ref<Scene>& scene)
+	void SceneSerializer::Serialize(const String& filepath, const Shared<Scene>& scene)
 	{
 		CBS::Emitter out(filepath);
 		
@@ -65,7 +65,7 @@ namespace Cobalt
 		LOG_INFO("Scene saved: {}", filepath);
 	}
 
-	void SceneSerializer::Deserialize(const String& filepath, const Ref<Scene>& scene)
+	void SceneSerializer::Deserialize(const String& filepath, const Shared<Scene>& scene)
 	{
 		scene->ClearEntites();
 

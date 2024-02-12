@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Types/Memory.h"
-#include "Cobalt/Core/Types/String.h"
+#include "Cobalt/Core/Types.h"
 
 namespace Cobalt
 {
@@ -10,7 +9,7 @@ namespace Cobalt
 	class SceneSerializer
 	{
 	public:
-		void Serialize(const String& filepath, const Ref<Scene>& scene);
-		void Deserialize(const String& filepath, const Ref<Scene>& scene);
+		void Serialize(const String& filepath, const Shared<Scene>& scene);
+		void Deserialize(const String& filepath, const Shared<Scene>& scene);
 	};
 }

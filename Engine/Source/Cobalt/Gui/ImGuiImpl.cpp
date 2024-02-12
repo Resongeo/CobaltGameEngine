@@ -6,11 +6,11 @@
 
 namespace Cobalt
 {
-	Scope<ImGuiImpl> ImGuiImpl::Create()
+	Unique<ImGuiImpl> ImGuiImpl::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
-			case GraphicsAPI::OpenGL: return CreateScope<OpenGLImGuiImpl>();
+			case GraphicsAPI::OpenGL: return CreateUnique<OpenGLImGuiImpl>();
 		}
 
 		return nullptr;

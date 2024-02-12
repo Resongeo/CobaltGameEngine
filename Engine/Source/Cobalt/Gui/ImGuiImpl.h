@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
+#include "Cobalt/Core/Types.h"
 
 namespace Cobalt
 {
@@ -11,6 +11,6 @@ namespace Cobalt
 		virtual void Render() = 0;
 		virtual void ShutDown() = 0;
 
-		static Scope<ImGuiImpl> Create();
+		static Unique<ImGuiImpl> Create();
 	};
 }

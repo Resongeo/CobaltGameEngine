@@ -30,7 +30,7 @@ namespace Cobalt
 
 		entt::registry& Registry() { return m_Registry; }
 
-		static Ref<Scene> Create(const char* name);
+		static Shared<Scene> Create(const char* name);
 
 	private:
 		entt::registry m_Registry;

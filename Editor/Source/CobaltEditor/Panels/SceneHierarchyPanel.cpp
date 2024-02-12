@@ -54,9 +54,9 @@ namespace CobaltEditor
 		ImGui::End();
 	}
 
-	Ref<SceneHierarchyPanel> SceneHierarchyPanel::Create()
+	Shared<SceneHierarchyPanel> SceneHierarchyPanel::Create()
 	{
-		auto panel = CreateRef<SceneHierarchyPanel>();
+		auto panel = CreateShared<SceneHierarchyPanel>();
 		EditorPanelManager::PushPanel(panel);
 
 		return panel;

@@ -21,7 +21,7 @@ namespace CobaltEditor
 		void OnUpdate() override;
 		void OnUIRender() override;
 
-		static Ref<ComponentsPanel> Create();
+		static Shared<ComponentsPanel> Create();
 
 	private:
 		inline void DrawEntityComponents();

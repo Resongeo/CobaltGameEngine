@@ -5,7 +5,7 @@ namespace CobaltEditor
 {
 	float DockSpace::s_ToolbarHeight = 40.f; // TODO: Get this from a config
 
-	void DockSpace::MasterSpace(const Ref<Cobalt::Window>& window)
+	void DockSpace::MasterSpace(const Shared<Cobalt::Window>& window)
 	{
 		ImGuiViewport* viewport = ImGui::GetMainViewport();
 		Vec2 windowPos = window->GetPosition();

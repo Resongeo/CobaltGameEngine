@@ -6,11 +6,11 @@
 
 namespace Cobalt
 {
-	Ref<IndexBuffer> IndexBuffer::Create(u32* indices, u32 count)
+	Shared<IndexBuffer> IndexBuffer::Create(u32* indices, u32 count)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case GraphicsAPI::OpenGL: return CreateRef<OpenGLIndexBuffer>(indices, count);
+			case GraphicsAPI::OpenGL: return CreateShared<OpenGLIndexBuffer>(indices, count);
 		}
 
 		return nullptr;

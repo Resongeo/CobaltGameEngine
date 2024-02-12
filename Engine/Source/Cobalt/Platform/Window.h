@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Types/Color.h"
+#include "Cobalt/Core/Types.h"
 #include "Cobalt/Events/Event.h"
 #include "Cobalt/Events/KeyEvent.h"
 #include "Cobalt/Events/MouseEvent.h"
@@ -52,12 +51,12 @@ namespace Cobalt
 
 		void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
 
-		static Ref<Window> Create(const WindowProperties& properties = WindowProperties());
+		static Shared<Window> Create(const WindowProperties& properties = WindowProperties());
 
 	private:
 		GLFWwindow* m_Window;
 		WindowProperties m_Properties;
-		Ref<GraphicsContext> m_GraphicsContext;
+		Shared<GraphicsContext> m_GraphicsContext;
 
 		struct WindowData
 		{

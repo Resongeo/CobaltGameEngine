@@ -7,7 +7,7 @@ namespace CobaltEditor
 	class DockSpace
 	{
 	public:
-		static void MasterSpace(const Ref<Cobalt::Window>& window);
+		static void MasterSpace(const Shared<Cobalt::Window>& window);
 
 	private:
 		static float s_ToolbarHeight;

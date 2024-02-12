@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Types/String.h"
+#include "Cobalt/Core/Types.h"
 
 namespace Cobalt
 {
@@ -17,9 +16,9 @@ namespace Cobalt
 
 		virtual String GetPath() const = 0;
 
-		static Ref<Texture2D> Create(const String& path);
-		static Ref<Texture2D> Create(u32 width, u32 height);
+		static Shared<Texture2D> Create(const String& path);
+		static Shared<Texture2D> Create(u32 width, u32 height);
 
-		virtual bool operator == (const Ref<Texture2D>& other) const = 0;
+		virtual bool operator == (const Shared<Texture2D>& other) const = 0;
 	};
 }

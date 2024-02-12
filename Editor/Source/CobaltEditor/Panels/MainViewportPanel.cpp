@@ -17,7 +17,7 @@ namespace CobaltEditor
 		framebufferSpecs.Samples = 1;
 		
 		m_Viewport = Viewport::Create({ 100, 100 }, framebufferSpecs);
-		m_EditorCamera = CreateRef<EditorCamera>();
+		m_EditorCamera = CreateShared<EditorCamera>();
 	}
 
 	void MainViewportPanel::OnUpdate()
@@ -81,9 +81,9 @@ namespace CobaltEditor
 		m_EditorCamera->OnEvent(event);
 	}
 
-	Ref<MainViewportPanel> MainViewportPanel::Create()
+	Shared<MainViewportPanel> MainViewportPanel::Create()
 	{
-		auto panel = CreateRef<MainViewportPanel>();
+		auto panel = CreateShared<MainViewportPanel>();
 		EditorPanelManager::PushPanel(panel);
 		
 		return panel;

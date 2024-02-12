@@ -1,9 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Types/Math.h"
-#include "Cobalt/Core/Types/Color.h"
-#include "Cobalt/Core/Types/String.h"
+#include "Cobalt/Core/Types.h"
 #include "Cobalt/Graphics/VertexArray.h"
 #include "Cobalt/Graphics/Texture2D.h"
 #include "Cobalt/Graphics/Shader.h"
@@ -57,16 +54,16 @@ namespace Cobalt
 
 	struct SpriteRendererComponent
 	{
-		Ref<Texture2D> Texture = Texture2D::Create(1, 1);
+		Shared<Texture2D> Texture = Texture2D::Create(1, 1);
 		Color Tint = Color(255);
 		Vec2 Tiling = Vec2(1.0f);
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
-		SpriteRendererComponent(const Ref<Texture2D>& texture) : Texture(texture) {}
+		SpriteRendererComponent(const Shared<Texture2D>& texture) : Texture(texture) {}
 
-		operator Ref<Texture2D>&() { return Texture; }
-		operator const Ref<Texture2D>&() const { return Texture; }
+		operator Shared<Texture2D>&() { return Texture; }
+		operator const Shared<Texture2D>&() const { return Texture; }
 		operator const Color() const { return Tint; }
 		operator const Vec4&() const { return Tint; }
 		operator const Vec2&() const { return Tiling; }

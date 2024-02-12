@@ -6,11 +6,11 @@
 
 namespace Cobalt
 {
-	Ref<Framebuffer> Framebuffer::Create(const FramebufferSpecification& specification)
+	Shared<Framebuffer> Framebuffer::Create(const FramebufferSpecification& specification)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case GraphicsAPI::OpenGL: return CreateRef<OpenGLFramebuffer>(specification);
+			case GraphicsAPI::OpenGL: return CreateShared<OpenGLFramebuffer>(specification);
 		}
 		
 		return nullptr;

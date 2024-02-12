@@ -11,11 +11,7 @@
 #include "Cobalt/Core/Time.h"
 #include "Cobalt/Core/Random.h"
 #include "Cobalt/Core/Application.h"
-#include "Cobalt/Core/Types/Color.h"
-#include "Cobalt/Core/Types/DataStructures.h"
-#include "Cobalt/Core/Types/Math.h"
-#include "Cobalt/Core/Types/Memory.h"
-#include "Cobalt/Core/Types/String.h"
+#include "Cobalt/Core/Types.h"
 
 #include "Cobalt/Cameras/Camera.h"
 #include "Cobalt/Cameras/EditorCamera.h"

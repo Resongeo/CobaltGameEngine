@@ -22,7 +22,7 @@ namespace Cobalt
 
 	void Time::Update()
 	{
-		m_Time = (float)glfwGetTime();
+		m_Time = (float)glfwGetTime(); // TODO: Get this from PlatformUtils
 		deltaTime = m_Time - m_LastFrameTime;
 		m_LastFrameTime = m_Time;
 

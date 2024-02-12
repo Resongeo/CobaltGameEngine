@@ -4,7 +4,7 @@
 
 namespace Cobalt
 {
-	Scope<ImGuiImpl> Gui::s_ImGuiImpl = nullptr;
+	Unique<ImGuiImpl> Gui::s_ImGuiImpl = nullptr;
 
 	void Gui::Init()
 	{

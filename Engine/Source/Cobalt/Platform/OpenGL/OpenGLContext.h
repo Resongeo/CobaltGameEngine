@@ -1,8 +1,7 @@
 #pragma once
 
 #include "Cobalt/Graphics/GraphicsContext.h"
-
-struct GFLWwindow;
+#include "Cobalt/Core/Fwd.h"
 
 namespace Cobalt
 {

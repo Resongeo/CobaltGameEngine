@@ -9,7 +9,7 @@ namespace CobaltEditor
 	public:
 		void OnUIRender() override;
 
-		static Ref<LogPanel> Create();
+		static Shared<LogPanel> Create();
 
 	private:
 		bool m_ScrollToBottom = true;

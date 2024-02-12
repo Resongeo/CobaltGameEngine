@@ -8,21 +8,6 @@
 
 namespace Cobalt
 {
-#ifdef _WIN64
-	typedef unsigned long long	size;
-#else
-	typedef unsigned int		size;
-#endif
-
-	typedef char		i8;
-	typedef short		i16;
-	typedef int			i32;
-	typedef long long	i64;
-
-	typedef unsigned char		u8;
-	typedef unsigned short		u16;
-	typedef unsigned int		u32;
-	typedef unsigned long long	u64;
 
 	#define BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
 

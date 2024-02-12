@@ -20,7 +20,7 @@ namespace Cobalt
 		virtual void SetData(void* data, u32 size) override;
 		virtual void Bind(u32 slot) override;
 
-		virtual bool operator == (const Ref<Texture2D>& other) const override
+		virtual bool operator == (const Shared<Texture2D>& other) const override
 		{
 			return m_RendererID == other->GetID();
 		}

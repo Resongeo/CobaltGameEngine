@@ -33,9 +33,9 @@ namespace CobaltEditor
 		ImGui::End();
 	}
 
-	Ref<LogPanel> LogPanel::Create()
+	Shared<LogPanel> LogPanel::Create()
 	{
-		auto panel = CreateRef<LogPanel>();
+		auto panel = CreateShared<LogPanel>();
 		EditorPanelManager::PushPanel(panel);
 
 		return panel;

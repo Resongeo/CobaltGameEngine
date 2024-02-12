@@ -1,8 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Types/Math.h"
-#include "Cobalt/Core/Types/DataStructures.h"
+#include "Cobalt/Core/Types.h"
 
 namespace Cobalt
 {
@@ -43,6 +41,6 @@ namespace Cobalt
 
 		virtual const FramebufferSpecification& GetSpecification() const = 0;
 
-		static Ref<Framebuffer> Create(const FramebufferSpecification& specification);
+		static Shared<Framebuffer> Create(const FramebufferSpecification& specification);
 	};
 }

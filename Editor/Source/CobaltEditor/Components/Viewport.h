@@ -18,13 +18,13 @@ namespace CobaltEditor
 		void Resize(uint32_t w, uint32_t h);
 		int ReadPixel(uint32_t attachmentIndex, int x, int y);
 
-		Ref<Framebuffer> GetFramebuffer() const { return m_Framebuffer; }
+		Shared<Framebuffer> GetFramebuffer() const { return m_Framebuffer; }
 
-		static Ref<Viewport> Create(const Vec2& defaultSize);
-		static Ref<Viewport> Create(const Vec2& defaultSize, FramebufferSpecification framebufferSpecs);
+		static Shared<Viewport> Create(const Vec2& defaultSize);
+		static Shared<Viewport> Create(const Vec2& defaultSize, FramebufferSpecification framebufferSpecs);
 
 	private:
-		Ref<Framebuffer> m_Framebuffer;
+		Shared<Framebuffer> m_Framebuffer;
 		Vec2 m_Size;
 	};
 }

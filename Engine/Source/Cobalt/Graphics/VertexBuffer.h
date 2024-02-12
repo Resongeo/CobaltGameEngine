@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Types/DataStructures.h"
+#include "Cobalt/Core/Types.h"
 
 namespace Cobalt
 {
@@ -103,7 +102,7 @@ namespace Cobalt
 
 		virtual void CopyData(const void* data, u32 size) = 0;
 
-		static Ref<VertexBuffer> Create(u32 size);
-		static Ref<VertexBuffer> Create(float* vertices, u32 size);
+		static Shared<VertexBuffer> Create(u32 size);
+		static Shared<VertexBuffer> Create(float* vertices, u32 size);
 	};
 }

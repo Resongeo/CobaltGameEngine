@@ -1,11 +1,8 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Types/String.h"
-#include "Cobalt/Core/Types/DataStructures.h"	
+#include "Cobalt/Core/Types.h"
 #include "Cobalt/Graphics/Shader.h"
 
-#include <fstream>
 #include <glad/glad.h>
 
 namespace Cobalt
@@ -37,7 +34,7 @@ namespace Cobalt
 
 	private:
 		u32 m_RendererID;
-		mutable HashMap<const char*, GLint> m_UniformLocations;
-		GLint GetUniformLocation(const char* name) const;
+		mutable HashMap<const char*, i32> m_UniformLocations;
+		i32 GetUniformLocation(const char* name) const;
 	};
 }

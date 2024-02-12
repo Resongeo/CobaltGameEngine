@@ -4,7 +4,7 @@
 #include "Cobalt/Scene/SceneManager.h"
 #include "Cobalt/Input/Input.h"
 #include "Cobalt/Gui/Gui.h"
-#include "Cobalt/Platform/PlatformUtils.h"
+#include "Cobalt/Layers/LayerStack.h"
 
 namespace Cobalt
 {
@@ -21,6 +21,8 @@ namespace Cobalt
 
 		Random::Init();
 
+		m_LayerStack = CreateUnique<LayerStack>();
+
 		m_Window = Window::Create(appSpecs.WindowProps);
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
@@ -33,7 +35,7 @@ namespace Cobalt
 
 	Application::~Application()
 	{
-		for (Layer* layer : m_LayerStack)
+		for (Layer* layer : *m_LayerStack)
 		{
 			layer->OnDetach();
 		}
@@ -49,12 +51,12 @@ namespace Cobalt
 			Time::Update();
 			Gui::NewFrame();
 
-			for (Layer* layer : m_LayerStack)
+			for (Layer* layer : *m_LayerStack)
 			{
 				layer->OnUpdate();
 			}
 
-			for (Layer* layer : m_LayerStack)
+			for (Layer* layer : *m_LayerStack)
 			{
 				layer->OnImGuiUpdate();
 			}
@@ -70,16 +72,24 @@ namespace Cobalt
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+		for (auto it = m_LayerStack->end(); it != m_LayerStack->begin();)
 		{
 			(*--it)->OnEvent(e);
 			if (e.Handled) break;
 		}
+
+		/* why not this:
+		for (Layer* layer : *m_LayerStack)
+			{
+				layer->OnEvent(e);
+				if (e.Handled) break;
+			}
+		*/
 	}
 
 	void Application::PushLayer(Layer* layer)
 	{
-		m_LayerStack.PushLayer(layer);
+		m_LayerStack->PushLayer(layer);
 		layer->OnAttach();
 
 		LOG_INFO("{} attached!", layer->GetName());
@@ -87,7 +97,7 @@ namespace Cobalt
 
 	void Application::PushOverlay(Layer* overlay)
 	{
-		m_LayerStack.PushOverlay(overlay);
+		m_LayerStack->PushOverlay(overlay);
 		overlay->OnAttach();
 	}
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
+#include "Cobalt/Core/Types.h"
 #include "Cobalt/Events/Event.h"
 #include "Cobalt/Events/LogEvent.h"
 

@@ -14,7 +14,7 @@ namespace CobaltEditor
 		void OnUIRender() override;
 		void OnEvent(Event& event) override;
 
-		static Ref<MainViewportPanel> Create();
+		static Shared<MainViewportPanel> Create();
 
 	private:
 		inline void ResizeViewport();
@@ -24,9 +24,9 @@ namespace CobaltEditor
 		inline void DrawGrid();
 
 	private:
-		Ref<Scene> m_Scene;
-		Ref<Viewport> m_Viewport;
-		Ref<EditorCamera> m_EditorCamera;
+		Shared<Scene> m_Scene;
+		Shared<Viewport> m_Viewport;
+		Shared<EditorCamera> m_EditorCamera;
 
 		Vec2 m_ViewportBounds[2] = {};
 		ImVec2 m_ViewportOffset;

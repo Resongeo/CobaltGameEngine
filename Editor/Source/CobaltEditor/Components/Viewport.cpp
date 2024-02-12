@@ -44,12 +44,12 @@ namespace CobaltEditor
 		return m_Framebuffer->ReadPixel(attachmentIndex, x, y);
 	}
 
-	Ref<Viewport> Viewport::Create(const Vec2& defaultSize)
+	Shared<Viewport> Viewport::Create(const Vec2& defaultSize)
 	{
-		return CreateRef<Viewport>(defaultSize);
+		return CreateShared<Viewport>(defaultSize);
 	}
-	Ref<Viewport> Viewport::Create(const Vec2& defaultSize, FramebufferSpecification framebufferSpecs)
+	Shared<Viewport> Viewport::Create(const Vec2& defaultSize, FramebufferSpecification framebufferSpecs)
 	{
-		return CreateRef<Viewport>(defaultSize, framebufferSpecs);
+		return CreateShared<Viewport>(defaultSize, framebufferSpecs);
 	}
 }

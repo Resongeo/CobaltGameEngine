@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
+#include "Cobalt/Core/Types.h"
 #include "Cobalt/Particles/ParticleData.h"
 #include "Cobalt/Particles/Generators/ParticleGenerator.h"
 
@@ -12,13 +12,13 @@ namespace Cobalt
 		ParticleEmitter() = default;
 
 		void Emit(ParticleData& particleData);
-		void AddGenerator(const Ref<ParticleGenerator>& generator) { m_Generators.push_back(generator); }
+		void AddGenerator(const Shared<ParticleGenerator>& generator) { m_Generators.push_back(generator); }
 
 	public:
 		size EmitRate = 1;
 
 	private:
-		Vector<Ref<ParticleGenerator>> m_Generators;
+		Vector<Shared<ParticleGenerator>> m_Generators;
 
 		friend class ParticleSystem;
 	};

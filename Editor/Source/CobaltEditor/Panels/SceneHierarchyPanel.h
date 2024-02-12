@@ -18,7 +18,7 @@ namespace CobaltEditor
 		static void SetSelectedEntity(Entity entity) { s_Instance->m_SelectedEntity = entity; }
 		static Entity GetSelectedEntity() { return s_Instance->m_SelectedEntity; }
 
-		static Ref<SceneHierarchyPanel> Create();
+		static Shared<SceneHierarchyPanel> Create();
 
 	private:
 		inline void DrawEntityNode(Entity entity);
@@ -26,7 +26,7 @@ namespace CobaltEditor
 	private:
 		static SceneHierarchyPanel* s_Instance;
 
-		Ref<Scene> m_Scene;
+		Shared<Scene> m_Scene;
 		Entity m_SelectedEntity = {};
 
 		Color m_EvenColor;

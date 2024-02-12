@@ -6,21 +6,21 @@
 
 namespace Cobalt
 {
-	Ref<Texture2D> Texture2D::Create(const String& path)
+	Shared<Texture2D> Texture2D::Create(const String& path)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case GraphicsAPI::OpenGL: return CreateRef<OpenGLTexture>(path);
+			case GraphicsAPI::OpenGL: return CreateShared<OpenGLTexture>(path);
 		}
 
 		return nullptr;
 	}
 
-	Ref<Texture2D> Texture2D::Create(u32 width, u32 height)
+	Shared<Texture2D> Texture2D::Create(u32 width, u32 height)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case GraphicsAPI::OpenGL: return CreateRef<OpenGLTexture>(width, height);
+			case GraphicsAPI::OpenGL: return CreateShared<OpenGLTexture>(width, height);
 		}
 
 		return nullptr;

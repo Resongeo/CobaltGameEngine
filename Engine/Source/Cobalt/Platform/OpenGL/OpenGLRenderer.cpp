@@ -14,7 +14,7 @@ namespace Cobalt
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
-	void OpenGLRenderer::BeginScene(const Ref<Camera>& camera)
+	void OpenGLRenderer::BeginScene(const Shared<Camera>& camera)
 	{
 		s_SceneData->ViewProjectionMatrix = camera->GetViewProjectionMatrix();
 	}
@@ -29,7 +29,7 @@ namespace Cobalt
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	void OpenGLRenderer::DrawIndexed(const Ref<VertexArray>& vertexArray, u32 indexCount)
+	void OpenGLRenderer::DrawIndexed(const Shared<VertexArray>& vertexArray, u32 indexCount)
 	{
 		uint32_t count = indexCount == 0 ? vertexArray->GetIndexBuffer()->GetCount() : indexCount;
 

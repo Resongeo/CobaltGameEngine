@@ -1,8 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Types/String.h"
-#include "Cobalt/Core/Types/Math.h"
+#include "Cobalt/Core/Types.h"
 #include "Cobalt/Scene/ECS/Entity.h"
 
 namespace Cobalt
@@ -12,7 +10,7 @@ namespace Cobalt
 		class Parser
 		{
 		public:
-			static void CreateEntity(std::ifstream& file, const Ref<Scene>& scene);
+			static void CreateEntity(std::ifstream& file, const Shared<Scene>& scene);
 
 			inline static String GetString(const String& input)
 			{

@@ -13,15 +13,15 @@ namespace Cobalt
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
-		virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
-		virtual void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
+		virtual void AddVertexBuffer(const Shared<VertexBuffer>& vertexBuffer) override;
+		virtual void SetIndexBuffer(const Shared<IndexBuffer>& indexBuffer) override;
 
-		virtual const Vector<Ref<VertexBuffer>>& GetVertexBuffers() const { return m_VertexBuffers; }
-		virtual const Ref<IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; }
+		virtual const Vector<Shared<VertexBuffer>>& GetVertexBuffers() const { return m_VertexBuffers; }
+		virtual const Shared<IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; }
 
 	private:
-		Vector<Ref<VertexBuffer>> m_VertexBuffers;
-		Ref<IndexBuffer> m_IndexBuffer;
+		Vector<Shared<VertexBuffer>> m_VertexBuffers;
+		Shared<IndexBuffer> m_IndexBuffer;
 
 		u32 m_RendererID;
 	};

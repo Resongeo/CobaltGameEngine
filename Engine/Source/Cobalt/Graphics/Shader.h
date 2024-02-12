@@ -1,8 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Types/Math.h"
-#include "Cobalt/Core/Types/String.h"
+#include "Cobalt/Core/Types.h"
 
 namespace Cobalt
 {
@@ -30,6 +28,6 @@ namespace Cobalt
 		virtual void SetVec4(const char* name, Vec4 value) const = 0;
 		virtual void SetMat4(const char* name, Mat4 value) const = 0;
 
-		static Ref<Shader> Create(const String& source, ShaderSourceType sourceType);
+		static Shared<Shader> Create(const String& source, ShaderSourceType sourceType);
 	};
 }

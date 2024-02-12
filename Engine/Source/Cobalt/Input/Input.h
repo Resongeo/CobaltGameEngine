@@ -1,9 +1,7 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Types/Math.h"
-
-struct GLFWwindow;
+#include "Cobalt/Core/Types.h"
+#include "Cobalt/Core/Fwd.h"
 
 namespace Cobalt
 {

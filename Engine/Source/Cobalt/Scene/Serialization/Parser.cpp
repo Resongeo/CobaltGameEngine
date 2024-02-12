@@ -6,7 +6,7 @@ namespace Cobalt
 {
 	namespace CBS
 	{
-		void Parser::CreateEntity(std::ifstream& file, const Ref<Scene>& scene)
+		void Parser::CreateEntity(std::ifstream& file, const Shared<Scene>& scene)
 		{
 			Entity entity = scene->CreateEntity();
 			String line;

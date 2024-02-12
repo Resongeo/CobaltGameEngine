@@ -168,9 +168,9 @@ namespace Cobalt
 			m_Properties.Width, m_Properties.Height, GLFW_DONT_CARE);
 	}
 
-	Ref<Window> Window::Create(const WindowProperties& properties)
+	Shared<Window> Window::Create(const WindowProperties& properties)
 	{
-		return CreateRef<Window>(properties);
+		return CreateShared<Window>(properties);
 	}
 
 	WindowProperties Window::GetProperties()

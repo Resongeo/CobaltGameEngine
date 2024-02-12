@@ -13,10 +13,10 @@ namespace CobaltEditor
 		static void UIRender();
 		static void OnEvent(Event& event);
 
-		static void PushPanel(const Ref<EditorPanel>& panel);
+		static void PushPanel(const Shared<EditorPanel>& panel);
 
 	private:
 		static EditorPanelManager* s_Instance;
-		Vector<Ref<EditorPanel>> m_Panels;
+		Vector<Shared<EditorPanel>> m_Panels;
 	};
 }

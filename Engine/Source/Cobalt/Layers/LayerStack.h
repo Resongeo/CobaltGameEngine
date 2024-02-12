@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
-#include "Cobalt/Core/Types/DataStructures.h"
+#include "Cobalt/Core/Types.h"
 #include "Cobalt/Layers/Layer.h"
 
 namespace Cobalt

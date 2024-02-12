@@ -13,6 +13,6 @@ namespace Cobalt
 		static void ShutDown();
 
 	private:
-		static Scope<ImGuiImpl> s_ImGuiImpl;
+		static Unique<ImGuiImpl> s_ImGuiImpl;
 	};
 }

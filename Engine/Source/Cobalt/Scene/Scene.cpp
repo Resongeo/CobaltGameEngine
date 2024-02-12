@@ -72,8 +72,8 @@ namespace Cobalt
 		});
 	}
 
-	Ref<Scene> Scene::Create(const char* name)
+	Shared<Scene> Scene::Create(const char* name)
 	{
-		return CreateRef<Scene>(name);
+		return CreateShared<Scene>(name);
 	}
 }

@@ -27,15 +27,15 @@ namespace Cobalt
 		QuadVertex* QuadVertexBufferBase = nullptr;
 		QuadVertex* QuadVertexBufferPtr = nullptr;
 
-		Array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
+		Array<Shared<Texture2D>, MaxTextureSlots> TextureSlots;
 		u32 TextureIndexCount = 1;
 
 		Vec4 QuadVertexPositions[4];
 
-		Ref<VertexArray> QuadVertexArray;
-		Ref<VertexBuffer> QuadVertexBuffer;
-		Ref<Shader> TexturedQuadShader;
-		Ref<Texture2D> WhiteTexture;
+		Shared<VertexArray> QuadVertexArray;
+		Shared<VertexBuffer> QuadVertexBuffer;
+		Shared<Shader> TexturedQuadShader;
+		Shared<Texture2D> WhiteTexture;
 
 		Renderer::Statistics Stats;
 	};
@@ -64,7 +64,7 @@ namespace Cobalt
 
 		s_RendererData.QuadVertexArray = VertexArray::Create();
 		s_RendererData.QuadVertexBuffer = VertexBuffer::Create(s_RendererData.MaxVertices * sizeof(QuadVertex));
-		Ref<IndexBuffer> indexBuffer = IndexBuffer::Create(quadIndices, s_RendererData.MaxIndices);
+		Shared<IndexBuffer> indexBuffer = IndexBuffer::Create(quadIndices, s_RendererData.MaxIndices);
 
 		BufferLayout layout =
 		{
@@ -102,7 +102,7 @@ namespace Cobalt
 		delete[] quadIndices;
 	}
 
-	void RenderCommand::BeginScene(const Ref<Camera>& camera)
+	void RenderCommand::BeginScene(const Shared<Camera>& camera)
 	{
 		s_RendererAPI->BeginScene(camera);
 
@@ -283,7 +283,7 @@ namespace Cobalt
 		s_RendererData.Stats.QuadCount++;
 	}
 
-	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, const Ref<Texture2D>& texture, u32 entityID)
+	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, const Shared<Texture2D>& texture, u32 entityID)
 	{
 		if (s_RendererData.QuadIndexCount >= s_RendererData.MaxIndices || s_RendererData.TextureIndexCount >= s_RendererData.MaxTextureSlots)
 		{

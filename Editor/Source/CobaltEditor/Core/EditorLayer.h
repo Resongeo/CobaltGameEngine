@@ -17,7 +17,7 @@ namespace CobaltEditor
 		void OnEvent(Event& event) override;
 
 	private:
-		Ref<Window> m_Window;
-		Ref<Scene> m_Scene;
+		Shared<Window> m_Window;
+		Shared<Scene> m_Scene;
 	};
 }

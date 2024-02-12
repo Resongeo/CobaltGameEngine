@@ -25,7 +25,7 @@ namespace Cobalt
 		ParticleGeneratorType Type = ParticleGeneratorType::None;
 
 		template<typename T>
-		static inline Ref<T> Create()
+		static inline Shared<T> Create()
 		{
 			return CreateRef<T>();
 		}

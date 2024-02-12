@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
-
-struct GLFWwindow;
+#include "Cobalt/Core/Types.h"
+#include "Cobalt/Core/Fwd.h"
 
 namespace Cobalt
 {
@@ -12,6 +11,6 @@ namespace Cobalt
 		virtual void Init() = 0;
 		virtual void SwapBuffers() = 0;
 
-		static Ref<GraphicsContext> Create(GLFWwindow* glfwWindow);
+		static Shared<GraphicsContext> Create(GLFWwindow* glfwWindow);
 	};
 }

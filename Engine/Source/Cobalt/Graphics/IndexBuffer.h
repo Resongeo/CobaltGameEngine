@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Core.h"
+#include "Cobalt/Core/Types.h"
 
 namespace Cobalt
 {
@@ -14,6 +14,6 @@ namespace Cobalt
 
 		virtual u32 GetCount() const = 0;
 
-		static Ref<IndexBuffer> Create(u32* indices, u32 count);
+		static Shared<IndexBuffer> Create(u32* indices, u32 count);
 	};
 }

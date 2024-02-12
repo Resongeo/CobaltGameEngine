@@ -6,11 +6,11 @@
 
 namespace Cobalt
 {
-	Ref<VertexArray> VertexArray::Create()
+	Shared<VertexArray> VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
-			case GraphicsAPI::OpenGL: return CreateRef<OpenGLVertexArray>();
+			case GraphicsAPI::OpenGL: return CreateShared<OpenGLVertexArray>();
 		}
 
 		return nullptr;

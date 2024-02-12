@@ -141,9 +141,9 @@ namespace CobaltEditor
 		});
 	}
 
-	Ref<ComponentsPanel> ComponentsPanel::Create()
+	Shared<ComponentsPanel> ComponentsPanel::Create()
 	{
-		auto panel = CreateRef<ComponentsPanel>();
+		auto panel = CreateShared<ComponentsPanel>();
 		EditorPanelManager::PushPanel(panel);
 
 		return panel;
