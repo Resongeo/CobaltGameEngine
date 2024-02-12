@@ -1,25 +1,33 @@
 #pragma once
 
-#include "Cobalt/Core/Types.h"
-#include "Cobalt/Graphics/VertexBuffer.h"
-#include "Cobalt/Graphics/IndexBuffer.h"
+#include "Cobalt/Graphics/GraphicsObject.h"
+#include "Cobalt/Graphics/Fwd.h"
 
 namespace Cobalt
 {
-	class VertexArray
+	class VertexArray : public GraphicsObject
 	{
 	public:
-		virtual ~VertexArray() {}
+		VertexArray();
+		~VertexArray();
 
-		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
+		void Bind() const override;
+		void Unbind() const override;
 
-		virtual void AddVertexBuffer(const Shared<VertexBuffer>& vertexBuffer) = 0;
-		virtual void SetIndexBuffer(const Shared<IndexBuffer>& indexBuffer) = 0;
+		void AddVertexBuffer(const Shared<VertexBuffer>& vertexBuffer);
+		void SetIndexBuffer(const Shared<IndexBuffer>& indexBuffer);
 
-		virtual const Vector<Shared<VertexBuffer>>& GetVertexBuffers() const = 0;
-		virtual const Shared<IndexBuffer>& GetIndexBuffer() const = 0;
+		const Vector<Shared<VertexBuffer>>& GetVertexBuffers() const
+		{
+			return m_VertexBuffers;
+		}
+		const Shared<IndexBuffer>& GetIndexBuffer() const
+		{
+			return m_IndexBuffer;
+		}
 
-		static Shared<VertexArray> Create();
+	private:
+		Vector<Shared<VertexBuffer>> m_VertexBuffers;
+		Shared<IndexBuffer> m_IndexBuffer;
 	};
 }

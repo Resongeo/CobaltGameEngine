@@ -27,8 +27,7 @@ namespace Cobalt
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		SceneManager::Init();
-		Renderer::SetAPI(appSpecs.GraphicsAPI);
-		Renderer::Init();
+		RenderCommand::Init();
 		Input::Init();
 		Gui::Init();
 	}
@@ -72,19 +71,11 @@ namespace Cobalt
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
-		for (auto it = m_LayerStack->end(); it != m_LayerStack->begin();)
+		for (Layer* layer : *m_LayerStack)
 		{
-			(*--it)->OnEvent(e);
+			layer->OnEvent(e);
 			if (e.Handled) break;
 		}
-
-		/* why not this:
-		for (Layer* layer : *m_LayerStack)
-			{
-				layer->OnEvent(e);
-				if (e.Handled) break;
-			}
-		*/
 	}
 
 	void Application::PushLayer(Layer* layer)

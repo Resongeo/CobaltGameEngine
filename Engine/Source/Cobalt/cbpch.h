@@ -6,6 +6,8 @@
 #include <functional>
 #include <sstream>
 
+#include <glad/glad.h>
+
 #include "Cobalt/Core/Core.h"
 #include "Cobalt/Core/Time.h"
 #include "Cobalt/Core/Random.h"

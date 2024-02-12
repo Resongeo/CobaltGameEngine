@@ -9,13 +9,13 @@ namespace CobaltEditor
 		framebufferSpecs.Attachments = { FramebufferAttachmentType::RGBA8 };
 		framebufferSpecs.Size = m_Size;
 		framebufferSpecs.Samples = 1;
-		m_Framebuffer = Framebuffer::Create(framebufferSpecs);
+		m_Framebuffer = GraphicsObject::Create<Framebuffer>(framebufferSpecs);
 	}
 
 	Viewport::Viewport(const Vec2& defaultSize, FramebufferSpecification framebufferSpecs) : m_Size(defaultSize)
 	{
 		framebufferSpecs.Size = m_Size;
-		m_Framebuffer = Framebuffer::Create(framebufferSpecs);
+		m_Framebuffer = GraphicsObject::Create<Framebuffer>(framebufferSpecs);
 	}
 
 	void Viewport::Begin()

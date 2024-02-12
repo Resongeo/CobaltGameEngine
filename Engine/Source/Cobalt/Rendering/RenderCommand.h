@@ -2,7 +2,6 @@
 
 #include "Cobalt/Core/Types.h"
 #include "Cobalt/Rendering/Renderer.h"
-#include "Cobalt/Rendering/RendererAPI.h"
 #include "Cobalt/Scene/ECS/Components.h"
 
 namespace Cobalt
@@ -27,16 +26,13 @@ namespace Cobalt
 
 		static void SetViewport(int x, int y, int width, int height);
 
-		static Renderer::Statistics& GetStats();
-		static void ResetStats();
-
 	private:
 		static void Init();
 		static void StartBatch();
 
-		friend class Renderer;
+		friend class Application;
 
 	private:
-		static RendererAPI* s_RendererAPI;
+		static Unique<Renderer> s_Renderer;
 	};
 }

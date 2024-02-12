@@ -54,7 +54,7 @@ namespace Cobalt
 
 	struct SpriteRendererComponent
 	{
-		Shared<Texture2D> Texture = Texture2D::Create(1, 1);
+		Shared<Texture2D> Texture = GraphicsObject::Create<Texture2D>(1, 1);
 		Color Tint = Color(255);
 		Vec2 Tiling = Vec2(1.0f);
 

@@ -2,7 +2,6 @@
 
 #include "Cobalt/Core/Types.h"
 #include "Cobalt/Core/Fwd.h"
-#include "Cobalt/Graphics/GraphicsAPI.h"
 #include "Cobalt/Platform/Window.h"
 
 namespace Cobalt
@@ -10,9 +9,8 @@ namespace Cobalt
 	struct ApplicationSpecification
 	{
 		WindowProperties WindowProps;
-		GraphicsAPI GraphicsAPI;
 
-		ApplicationSpecification() : WindowProps(WindowProperties()), GraphicsAPI(GraphicsAPI::OpenGL) {}
+		ApplicationSpecification() : WindowProps(WindowProperties()) {}
 	};
 
 	class Application

@@ -1,19 +1,24 @@
 #pragma once
 
-#include "Cobalt/Core/Types.h"
+#include "Cobalt/Graphics/GraphicsObject.h"
 
 namespace Cobalt
 {
-	class IndexBuffer
+	class IndexBuffer : public GraphicsObject
 	{
 	public:
-		virtual ~IndexBuffer() {}
+		IndexBuffer(u32* indices, u32 count);
+		~IndexBuffer();
 
-		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
+		void Bind() const override;
+		void Unbind() const override;
 
-		virtual u32 GetCount() const = 0;
+		u32 GetCount() const
+		{
+			return m_Count;
+		}
 
-		static Shared<IndexBuffer> Create(u32* indices, u32 count);
+	private:
+		u32 m_Count = 0;
 	};
 }

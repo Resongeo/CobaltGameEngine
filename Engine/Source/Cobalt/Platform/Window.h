@@ -5,7 +5,6 @@
 #include "Cobalt/Events/KeyEvent.h"
 #include "Cobalt/Events/MouseEvent.h"
 #include "Cobalt/Events/ApplicationEvent.h"
-#include "Cobalt/Graphics/GraphicsContext.h"
 
 struct GLFWwindow;
 
@@ -56,7 +55,6 @@ namespace Cobalt
 	private:
 		GLFWwindow* m_Window;
 		WindowProperties m_Properties;
-		Shared<GraphicsContext> m_GraphicsContext;
 
 		struct WindowData
 		{

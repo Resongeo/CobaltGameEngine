@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cobalt/Core/Types.h"
+#include "Cobalt/Graphics/GraphicsObject.h"
 
 namespace Cobalt
 {
@@ -86,23 +86,28 @@ namespace Cobalt
 
 	private:
 		Vector<BufferElement> m_Elements{};
-		u32 m_Stride{};
+		u32 m_Stride = 0;
 	};
 
-	class VertexBuffer
+	class VertexBuffer : public GraphicsObject
 	{
 	public:
-		virtual ~VertexBuffer() {}
+		VertexBuffer(u32 size);
+		VertexBuffer(float* vertices, u32 size);
+		~VertexBuffer();
 
-		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
+		void Bind() const override;
+		void Unbind() const override;
 
-		virtual const BufferLayout& GetLayout() const = 0;
-		virtual void SetLayout(const BufferLayout& layout) = 0;
+		void SetLayout(const BufferLayout& layout);
+		const BufferLayout& GetLayout() const
+		{
+			return m_Layout;
+		}
 
-		virtual void CopyData(const void* data, u32 size) = 0;
+		void CopyData(const void* data, u32 size);
 
-		static Shared<VertexBuffer> Create(u32 size);
-		static Shared<VertexBuffer> Create(float* vertices, u32 size);
+	private:
+		BufferLayout m_Layout;
 	};
 }

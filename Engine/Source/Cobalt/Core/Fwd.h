@@ -8,4 +8,5 @@ namespace Cobalt
 	class Window;
 	class LayerStack;
 	class Layer;
+	class Camera;
 }

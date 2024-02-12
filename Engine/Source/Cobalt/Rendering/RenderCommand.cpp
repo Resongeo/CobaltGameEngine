@@ -1,10 +1,13 @@
 #include "cbpch.h"
 
+#include "Cobalt/Cameras/Camera.h"
 #include "Cobalt/Rendering/RenderCommand.h"
+#include "Cobalt/Graphics/VertexBuffer.h"
+#include "Cobalt/Graphics/IndexBuffer.h"
 
 namespace Cobalt
 {
-	RendererAPI* RenderCommand::s_RendererAPI = RendererAPI::Create();
+	Unique<Renderer> RenderCommand::s_Renderer = Renderer::Create();
 
 	struct QuadVertex
 	{
@@ -36,15 +39,13 @@ namespace Cobalt
 		Shared<VertexBuffer> QuadVertexBuffer;
 		Shared<Shader> TexturedQuadShader;
 		Shared<Texture2D> WhiteTexture;
-
-		Renderer::Statistics Stats;
 	};
 
 	static RendererData s_RendererData;
 
 	void RenderCommand::Init()
 	{
-		s_RendererAPI->Init();
+		s_Renderer->Init();
 
 		u32* quadIndices = new u32[s_RendererData.MaxIndices];
 
@@ -62,9 +63,9 @@ namespace Cobalt
 			offset += 4;
 		}
 
-		s_RendererData.QuadVertexArray = VertexArray::Create();
-		s_RendererData.QuadVertexBuffer = VertexBuffer::Create(s_RendererData.MaxVertices * sizeof(QuadVertex));
-		Shared<IndexBuffer> indexBuffer = IndexBuffer::Create(quadIndices, s_RendererData.MaxIndices);
+		s_RendererData.QuadVertexArray = GraphicsObject::Create<VertexArray>();
+		s_RendererData.QuadVertexBuffer = GraphicsObject::Create<VertexBuffer>(s_RendererData.MaxVertices * sizeof(QuadVertex));
+		Shared<IndexBuffer> indexBuffer = GraphicsObject::Create<IndexBuffer>(quadIndices, s_RendererData.MaxIndices);
 
 		BufferLayout layout =
 		{
@@ -82,8 +83,8 @@ namespace Cobalt
 		s_RendererData.QuadVertexArray->AddVertexBuffer(s_RendererData.QuadVertexBuffer);
 		s_RendererData.QuadVertexArray->SetIndexBuffer(indexBuffer);
 
-		s_RendererData.WhiteTexture = Texture2D::Create(1, 1);
-		s_RendererData.TexturedQuadShader = Shader::Create(s_RendererAPI->GetDefaultShader(), ShaderSourceType::String);
+		s_RendererData.WhiteTexture = GraphicsObject::Create<Texture2D>(1, 1);
+		s_RendererData.TexturedQuadShader = GraphicsObject::Create<Shader>(s_Renderer->GetDefaultShader(), ShaderSourceType::String);
 
 		int samplers[s_RendererData.MaxTextureSlots]{};
 		for (int i = 0; i < s_RendererData.MaxTextureSlots; i++)
@@ -104,7 +105,7 @@ namespace Cobalt
 
 	void RenderCommand::BeginScene(const Shared<Camera>& camera)
 	{
-		s_RendererAPI->BeginScene(camera);
+		s_Renderer->BeginScene(camera);
 
 		s_RendererData.TexturedQuadShader->Bind();
 		s_RendererData.TexturedQuadShader->SetMat4("u_ViewProjection", camera->GetViewProjectionMatrix());
@@ -122,12 +123,12 @@ namespace Cobalt
 
 	void RenderCommand::ClearColor(const Color& color)
 	{
-		s_RendererAPI->ClearColor(color);
+		s_Renderer->ClearColor(color);
 	}
 
 	void RenderCommand::Clear()
 	{
-		s_RendererAPI->Clear();
+		s_Renderer->Clear();
 	}
 
 	void RenderCommand::Flush()
@@ -137,9 +138,7 @@ namespace Cobalt
 			s_RendererData.TextureSlots[i]->Bind(i);
 		}
 
-		s_RendererAPI->DrawIndexed(s_RendererData.QuadVertexArray, s_RendererData.QuadIndexCount);
-
-		s_RendererData.Stats.DrawCalls++;
+		s_Renderer->DrawIndexed(s_RendererData.QuadVertexArray, s_RendererData.QuadIndexCount);
 	}
 
 	void RenderCommand::DrawQuad(const Vec3& position, const Vec3& scale, const Color& color)
@@ -183,8 +182,6 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadIndexCount += 6;
-
-		s_RendererData.Stats.QuadCount++;
 	}
 
 	void RenderCommand::DrawQuad(const Vec3& position, const Vec3& rotation, const Vec3& scale, const Color& color)
@@ -232,8 +229,6 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadIndexCount += 6;
-
-		s_RendererData.Stats.QuadCount++;
 	}
 
 	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, u32 entityID)
@@ -279,8 +274,6 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadIndexCount += 6;
-
-		s_RendererData.Stats.QuadCount++;
 	}
 
 	void RenderCommand::DrawQuad(const Mat4& transform, const Vec2& tiling, const Color& color, const Shared<Texture2D>& texture, u32 entityID)
@@ -344,8 +337,6 @@ namespace Cobalt
 		s_RendererData.QuadVertexBufferPtr++;
 
 		s_RendererData.QuadIndexCount += 6;
-
-		s_RendererData.Stats.QuadCount++;
 	}
 
 	void RenderCommand::DrawEntity(const Mat4& transform, const SpriteRendererComponent& spriteComponent, u32 entityID)
@@ -355,17 +346,7 @@ namespace Cobalt
 
 	void RenderCommand::SetViewport(int x, int y, int width, int height)
 	{
-		s_RendererAPI->SetViewport(x, y, width, height);
-	}
-
-	Renderer::Statistics& RenderCommand::GetStats()
-	{
-		return s_RendererData.Stats;
-	}
-
-	void RenderCommand::ResetStats()
-	{
-		memset(&s_RendererData.Stats, 0, sizeof(Renderer::Statistics));
+		s_Renderer->SetViewport(x, y, width, height);
 	}
 
 	void RenderCommand::StartBatch()

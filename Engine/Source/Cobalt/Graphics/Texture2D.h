@@ -1,24 +1,32 @@
 #pragma once
 
-#include "Cobalt/Core/Types.h"
+#include "Cobalt/Graphics/GraphicsObject.h"
 
 namespace Cobalt
 {
-	class Texture2D
+	class Texture2D : public GraphicsObject
 	{
 	public:
-		virtual u32 GetWidth() const = 0;
-		virtual u32 GetHeight() const = 0;
-		virtual u32 GetID() const = 0;
+		Texture2D(const String& path);
+		Texture2D(u32 width, u32 height);
+		~Texture2D();
+
+		u32 GetWidth() const { return m_Width; }
+		u32 GetHeight() const { return m_Height; }
+		String GetPath() const { return m_Path; }
+		RenderID GetID() const { return p_ID; }
 		
-		virtual void SetData(void* data, u32 size) = 0;
-		virtual void Bind(u32 slot) = 0;
+		void Bind(u32 slot);
+		void SetData(void* data, u32 size);
 
-		virtual String GetPath() const = 0;
+		bool operator == (const Shared<Texture2D>& other) const
+		{
+			return p_ID == other->GetID();
+		}
 
-		static Shared<Texture2D> Create(const String& path);
-		static Shared<Texture2D> Create(u32 width, u32 height);
-
-		virtual bool operator == (const Shared<Texture2D>& other) const = 0;
+	private:
+		u32 m_Width = 0;
+		u32 m_Height = 0;
+		String m_Path;
 	};
 }

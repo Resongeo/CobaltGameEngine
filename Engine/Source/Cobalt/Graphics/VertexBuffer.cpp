@@ -1,28 +1,52 @@
 #include "cbpch.h"
 
 #include "Cobalt/Graphics/VertexBuffer.h"
-#include "Cobalt/Rendering/Renderer.h"
-#include "Cobalt/Platform/OpenGL/OpenGLVertexBuffer.h"
 
 namespace Cobalt
 {
-	Shared<VertexBuffer> VertexBuffer::Create(u32 size)
+	VertexBuffer::VertexBuffer(u32 size)
 	{
-		switch (Renderer::GetAPI())
-		{
-			case GraphicsAPI::OpenGL: return CreateShared<OpenGLVertexBuffer>(size);
-		}
+		glGenBuffers(1, &p_ID);
+		glBindBuffer(GL_ARRAY_BUFFER, p_ID);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 
-		return nullptr;
+		LOG_INFO("Created vertex buffer (ID: {}). Size: {}", p_ID, size);
 	}
 
-	Shared<VertexBuffer> VertexBuffer::Create(float* vertices, u32 size)
+	VertexBuffer::VertexBuffer(float* vertices, u32 size)
 	{
-		switch (Renderer::GetAPI())
-		{
-			case GraphicsAPI::OpenGL: return CreateShared<OpenGLVertexBuffer>(vertices, size);
-		}
-		
-		return nullptr;
+		glGenBuffers(1, &p_ID);
+		glBindBuffer(GL_ARRAY_BUFFER, p_ID);
+		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+
+		LOG_INFO("Created vertex buffer (ID: {}). Size: {}", p_ID, size);
+	}
+	
+	VertexBuffer::~VertexBuffer()
+	{
+		LOG_INFO("Deleted vertex buffer (ID: {})", p_ID);
+
+		glDeleteBuffers(1, &p_ID);
+	}
+	
+	void VertexBuffer::Bind() const
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, p_ID);
+	}
+	
+	void VertexBuffer::Unbind() const
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+	
+	void VertexBuffer::SetLayout(const BufferLayout& layout)
+	{
+		m_Layout = layout;
+	}
+	
+	void VertexBuffer::CopyData(const void* data, u32 size)
+	{
+		Bind();
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 	}
 }

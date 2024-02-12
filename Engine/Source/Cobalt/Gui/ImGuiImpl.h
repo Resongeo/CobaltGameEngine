@@ -7,9 +7,11 @@ namespace Cobalt
 	class ImGuiImpl
 	{
 	public:
-		virtual void NewFrame() = 0;
-		virtual void Render() = 0;
-		virtual void ShutDown() = 0;
+		ImGuiImpl();
+
+		void NewFrame();
+		void Render();
+		void ShutDown();
 
 		static Unique<ImGuiImpl> Create();
 	};

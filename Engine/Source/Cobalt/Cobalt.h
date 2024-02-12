@@ -37,7 +37,6 @@
 #include "Cobalt/Platform/Window.h"
 #include "Cobalt/Platform/FileSystem.h"
 
-#include "Cobalt/Graphics/GraphicsContext.h"
 #include "Cobalt/Graphics/VertexArray.h"
 #include "Cobalt/Graphics/IndexBuffer.h"
 #include "Cobalt/Graphics/Framebuffer.h"

@@ -5,13 +5,13 @@
 #include "Cobalt/Platform/Window.h"
 #include "Cobalt/Rendering/Renderer.h"
 
-#include <dwmapi.h>
-
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
-
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
+
+#include <dwmapi.h>
+#include <glad/glad.h>
 
 namespace Cobalt
 {
@@ -40,17 +40,9 @@ namespace Cobalt
 
 		LOG_INFO("GLFW initialized");
 
-		switch (Renderer::GetAPI())
-		{
-			case GraphicsAPI::OpenGL:
-			{
-				glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_VERSION_MAJOR);
-				glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_VERSION_MINOR);
-				glfwWindowHint(GLFW_OPENGL_PROFILE, OPENGL_PROFILE);
-
-				break;
-			}
-		}
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_VERSION_MAJOR);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_VERSION_MINOR);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, OPENGL_PROFILE);
 
 		if (!m_Properties.Resizeable)
 		{
@@ -63,8 +55,17 @@ namespace Cobalt
 		
 		LOG_INFO("Window created: Dimensions: {}x{} Title: {}", m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str());
 
-		m_GraphicsContext = GraphicsContext::Create(m_Window);
-		m_GraphicsContext->Init();
+		glfwMakeContextCurrent(m_Window);
+		if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) < 1)
+		{
+			LOG_ERROR("Failed to load GLAD!");
+			return;
+		}
+		LOG_INFO("GLAD loaded OpenGL headers!");
+		LOG_INFO("OpenGL version: {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
+		LOG_INFO("OpenGL vendor: {}", reinterpret_cast<const char*>(glGetString(GL_VENDOR)));
+		LOG_INFO("OpenGL GLSL version: {}", reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION)));
+		LOG_INFO("OpenGL renderer: {}", reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
 
 		HWND hWnd = glfwGetWin32Window(m_Window);
 
@@ -236,7 +237,7 @@ namespace Cobalt
 	void Window::Update()
 	{
 		glfwPollEvents();
-		m_GraphicsContext->SwapBuffers();
+		glfwSwapBuffers(m_Window);
 	}
 }
 

@@ -1,38 +1,28 @@
 #pragma once
 
 #include "Cobalt/Core/Types.h"
-#include "Cobalt/Rendering/RendererAPI.h"
-#include "Cobalt/Graphics/GraphicsAPI.h"
+#include "Cobalt/Core/Fwd.h"
+#include "Cobalt/Graphics/Fwd.h"
 
 namespace Cobalt
 {
 	class Renderer
 	{
 	public:
-		struct Statistics
-		{
-			u32 DrawCalls = 0;
-			u32 QuadCount = 0;
-			u32 GetVertexCount() const { return QuadCount * 4; }
-			u32 GetIndexCount() const { return QuadCount * 6; }
-		};
+		Renderer() {}
 
-		static GraphicsAPI GetAPI() { return s_GraphicsAPI; }
-		static GraphicsAPI SetAPI(GraphicsAPI GraphicsAPI);
+		void Init();
+		void BeginScene(const Shared<Camera>& camera);
+		void ClearColor(const Color& color);
+		void Clear();
+		void DrawIndexed(const Shared<VertexArray>& vertexArray, u32 indexCount);
+		void SetViewport(int x, int y, int width, int height);
 
-		static const char* GetAPIString();
+		String GetDefaultShader();
 
-	private:
-		static void Init();
-		friend class Application;
+		static Unique<Renderer> Create();
 
 	private:
-		static GraphicsAPI s_GraphicsAPI;
-
-	protected:
-		struct SceneData
-		{
-			Mat4 ViewProjectionMatrix;
-		};
+		Mat4 m_VPM = Mat4(0);
 	};
 }
