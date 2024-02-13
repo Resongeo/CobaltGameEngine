@@ -16,7 +16,7 @@ namespace CobaltEditor
 			StyleManager::Init();
 			EditorPanelManager::Init();
 
-			PushLayer(new EditorLayer);
+			PushLayer(CreateUnique<EditorLayer>());
 		}
 	};
 }

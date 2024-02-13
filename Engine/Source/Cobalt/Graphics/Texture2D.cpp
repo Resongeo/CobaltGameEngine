@@ -36,7 +36,7 @@ namespace Cobalt
 
 		stbi_image_free(data);
 
-		LOG_INFO("Created texture (ID_: {}). Path: {}", p_ID, m_Path);
+		LOG_INFO("Created texture (ID: {}). Path: {}", p_ID, m_Path);
 	}
 
 	Texture2D::Texture2D(u32 width, u32 height) : m_Width(width), m_Height(height), m_Path("Default Texture")
@@ -54,12 +54,12 @@ namespace Cobalt
 
 		glTextureSubImage2D(p_ID, 0, 0, 0, m_Width, m_Height, GL_RGBA, GL_UNSIGNED_BYTE, tempBuffer.data());
 
-		LOG_INFO("Created texture (ID_: {}). Size: {}x{}", p_ID, m_Width, m_Height);
+		LOG_INFO("Created texture (ID: {}). Size: {}x{}", p_ID, m_Width, m_Height);
 	}
 	
 	Texture2D::~Texture2D()
 	{
-		LOG_INFO("Deleted texture (ID_: {})", p_ID);
+		LOG_INFO("Deleted texture (ID: {})", p_ID);
 
 		glDeleteTextures(1, &p_ID);
 	}

@@ -3,6 +3,7 @@
 #include "Cobalt/Core/Types.h"
 #include "Cobalt/Core/Fwd.h"
 #include "Cobalt/Platform/Window.h"
+#include "Cobalt/Layers/LayerStack.h"
 
 namespace Cobalt
 {
@@ -23,8 +24,7 @@ namespace Cobalt
 
 		void OnEvent(Event& e);
 
-		void PushLayer(Layer* layer);
-		void PushOverlay(Layer* overlay);
+		void PushLayer(Unique<Layer> layer);
 
 		static void Close();
 		static void Restart();
@@ -38,9 +38,8 @@ namespace Cobalt
 
 	private:
 		static Application* s_Instance;
-
-		Unique<LayerStack> m_LayerStack;
 		Shared<Window> m_Window;
+		LayerStack m_LayerStack;
 		bool m_Running = true;
 	};
 }

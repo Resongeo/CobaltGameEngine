@@ -4,7 +4,6 @@
 #include "Cobalt/Scene/SceneManager.h"
 #include "Cobalt/Input/Input.h"
 #include "Cobalt/Gui/Gui.h"
-#include "Cobalt/Layers/LayerStack.h"
 
 namespace Cobalt
 {
@@ -21,8 +20,6 @@ namespace Cobalt
 
 		Random::Init();
 
-		m_LayerStack = CreateUnique<LayerStack>();
-
 		m_Window = Window::Create(appSpecs.WindowProps);
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
@@ -34,7 +31,7 @@ namespace Cobalt
 
 	Application::~Application()
 	{
-		for (Layer* layer : *m_LayerStack)
+		for (const auto& layer : m_LayerStack.GetLayers())
 		{
 			layer->OnDetach();
 		}
@@ -45,23 +42,35 @@ namespace Cobalt
 
 	void Application::Run()
 	{
+		for (const auto& layer : m_LayerStack.GetLayers())
+		{
+			layer->OnAttach();
+			LOG_INFO("{} attached", layer->GetName());
+		}
+
 		while (m_Running)
 		{
 			Time::Update();
 			Gui::NewFrame();
 
-			for (Layer* layer : *m_LayerStack)
+			for (const auto& layer : m_LayerStack.GetLayers())
 			{
 				layer->OnUpdate();
 			}
 
-			for (Layer* layer : *m_LayerStack)
+			for (const auto& layer : m_LayerStack.GetLayers())
 			{
 				layer->OnImGuiUpdate();
 			}
 
 			Gui::Render();
 			m_Window->Update();
+		}
+
+		for (const auto& layer : m_LayerStack.GetLayers())
+		{
+			layer->OnDetach();
+			LOG_INFO("{} detached", layer->GetName());
 		}
 	}
 
@@ -71,25 +80,16 @@ namespace Cobalt
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
-		for (Layer* layer : *m_LayerStack)
+		for (const auto& layer : m_LayerStack.GetLayers())
 		{
 			layer->OnEvent(e);
 			if (e.Handled) break;
 		}
 	}
 
-	void Application::PushLayer(Layer* layer)
+	void Application::PushLayer(Unique<Layer> layer)
 	{
-		m_LayerStack->PushLayer(layer);
-		layer->OnAttach();
-
-		LOG_INFO("{} attached!", layer->GetName());
-	}
-
-	void Application::PushOverlay(Layer* overlay)
-	{
-		m_LayerStack->PushOverlay(overlay);
-		overlay->OnAttach();
+		m_LayerStack.PushLayer(std::move(layer));
 	}
 
 	void Application::Close()

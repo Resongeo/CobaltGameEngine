@@ -9,9 +9,8 @@ int main()
 	appSpecs.WindowProps.Width = 1600;
 	appSpecs.WindowProps.Height = 900;
 
-	CobaltEditorApplication* application = new CobaltEditorApplication(appSpecs);
+	Cobalt::Unique<CobaltEditorApplication> application = Cobalt::CreateUnique<CobaltEditorApplication>(appSpecs);
 	application->Run();
-	delete application;
 
 	return 0;
 }
