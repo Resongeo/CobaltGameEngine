@@ -2,6 +2,7 @@
 
 #include "Cobalt/Core/Application.h"
 #include "Cobalt/Scene/SceneManager.h"
+#include "Cobalt/Scripting/ScriptEngine.h"
 #include "Cobalt/Input/Input.h"
 #include "Cobalt/Gui/Gui.h"
 
@@ -25,6 +26,7 @@ namespace Cobalt
 
 		SceneManager::Init();
 		RenderCommand::Init();
+		ScriptEngine::Init();
 		Input::Init();
 		Gui::Init();
 	}

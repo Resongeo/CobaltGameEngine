@@ -5,6 +5,7 @@
 #include "Cobalt/Core/Types/Math.h"
 #include "Cobalt/Core/Types/Memory.h"
 #include "Cobalt/Core/Types/String.h"
+#include "Cobalt/Core/Types/Buffers.h"
 
 namespace Cobalt
 {

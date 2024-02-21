@@ -17,8 +17,9 @@ workspace "CobaltGameEngine"
 		"MultiProcessorCompile"
 	}
 
-include "Engine/EngineProject.lua"
-include "Editor/EditorProject.lua"
+include "Engine"
+include "Editor"
+include "ScriptCore"
 
 include "Engine/Dependencies/Projects/ImGuizmo.lua"
 include "Engine/Dependencies/Projects/ImGui.lua"

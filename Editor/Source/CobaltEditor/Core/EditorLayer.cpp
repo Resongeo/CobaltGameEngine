@@ -16,9 +16,6 @@ namespace CobaltEditor
 	{
 		m_Window = Application::GetWindow();
 
-		ImGuiIO& io = ImGui::GetIO();
-		io.IniFilename = "..\\imgui.ini";
-
 		StyleManager::LoadFonts();
 		StyleManager::LoadStyle();
 
