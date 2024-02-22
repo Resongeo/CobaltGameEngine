@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Cobalt/Scripting/Fwd.h"
-
 namespace Cobalt
 {
 	class ScriptEngine
@@ -10,6 +8,7 @@ namespace Cobalt
 		static void Init();
 
 	private:
-		static void PrintAssemblyTypes(MonoAssembly* assembly);
+		static void InitMono();
+		static void LoadCoreAssembly();
 	};
 }

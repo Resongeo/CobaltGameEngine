@@ -12,7 +12,7 @@ namespace Cobalt
 		AppTick, AppUpdate, AppRender,
 		KeyPress, KeyRelease,
 		MouseButtonPress, MouseButtonRelease, MouseMove, MouseScroll,
-		LogTrace, LogInfo, LogWarn, LogError
+		Log
 	};
 
 	enum EventCategory

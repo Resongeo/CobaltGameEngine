@@ -53,18 +53,28 @@ namespace CobaltEditor
 			Application::Restart();
 		}
 
-		if (ImGui::Button("Add Logs"))
-		{
-			Log::Trace("Trace message");
-			Log::Info("Info message");
-			Log::Warn("Warn message");
-			Log::Error("Error message");
-		}
 		ImGui::End();
 	}
 
 	void EditorLayer::OnEvent(Event& event)
 	{
 		EditorPanelManager::OnEvent(event);
+
+		EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<LogEvent>(BIND_EVENT_FN(EditorLayer::OnLogEvent));
+	}
+
+	bool EditorLayer::OnLogEvent(LogEvent e)
+	{
+		auto message = e.GetLogMessage();
+		switch (e.GetLogType())
+		{
+			case LogEventType::Trace: Log::Trace("{}", message); break;
+			case LogEventType::Info: Log::Info("{}", message); break;
+			case LogEventType::Warn: Log::Warn("{}", message); break;
+			case LogEventType::Error: Log::Error("{}", message); break;
+		}
+
+		return true;
 	}
 }

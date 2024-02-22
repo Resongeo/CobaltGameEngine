@@ -17,6 +17,9 @@ namespace CobaltEditor
 		void OnEvent(Event& event) override;
 
 	private:
+		bool OnLogEvent(LogEvent e);
+
+	private:
 		Shared<Window> m_Window;
 		Shared<Scene> m_Scene;
 	};

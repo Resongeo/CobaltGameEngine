@@ -6,7 +6,10 @@ namespace Cobalt
     {
         public Main()
         {
-            Console.WriteLine("Called Cobalt.Main constructor from Mono!");
+            for(int i = 0; i < 10; i++)
+            {
+                Debug.Error($"Engine ERROR log from C#. Count: {i + 1}");
+            }
         }
     }
 }

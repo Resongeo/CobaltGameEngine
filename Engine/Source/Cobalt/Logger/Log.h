@@ -24,7 +24,7 @@ namespace Cobalt
 			String message = std::format(fmt, std::forward<Args>(args)...);
 			std::cout << GetPrefix("TRACE", CONSOLE_COLOR_WHITE) << message << "\n" << CONSOLE_RESET;
 		
-			LogTraceEvent event(message);
+			LogEvent event(message, LogEventType::Trace);
 			m_EventCallback(event);
 		}
 
@@ -34,7 +34,7 @@ namespace Cobalt
 			String message = std::format(fmt, std::forward<Args>(args)...);
 			std::cout << GetPrefix("INFO", CONSOLE_COLOR_GREEN) << message << "\n" << CONSOLE_RESET;
 
-			LogInfoEvent event(message);
+			LogEvent event(message, LogEventType::Info);
 			m_EventCallback(event);
 		}
 
@@ -44,7 +44,7 @@ namespace Cobalt
 			String message = std::format(fmt, std::forward<Args>(args)...);
 			std::cout << GetPrefix("WARN", CONSOLE_COLOR_YELLOW) << message << "\n" << CONSOLE_RESET;
 
-			LogWarnEvent event(message);
+			LogEvent event(message, LogEventType::Warn);
 			m_EventCallback(event);
 		}
 
@@ -54,7 +54,7 @@ namespace Cobalt
 			String message = std::format(fmt, std::forward<Args>(args)...);
 			std::cout << GetPrefix("ERROR", CONSOLE_COLOR_RED) << message << "\n" << CONSOLE_RESET;
 
-			LogErrorEvent event(message);
+			LogEvent event(message, LogEventType::Error);
 			m_EventCallback(event);
 		}
 

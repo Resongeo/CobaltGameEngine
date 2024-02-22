@@ -4,62 +4,27 @@
 
 namespace Cobalt
 {
-	class LogTraceEvent : public Event
+	enum class LogEventType
+	{
+		Trace = 0,
+		Info,
+		Warn,
+		Error
+	};
+
+	class LogEvent : public Event
 	{
 	public:
-		LogTraceEvent(const String& message) : m_Message(message) {}
+		LogEvent(const String& message, LogEventType type) : m_Message(message), m_Type(type) {}
 
 		inline String GetLogMessage() const { return m_Message; }
+		inline LogEventType GetLogType() const { return m_Type; }
 
-		EVENT_CLASS_TYPE(LogTrace)
+		EVENT_CLASS_TYPE(Log)
 		EVENT_CLASS_CATEGORY(EventCategoryLog)
 
 	private:
 		String m_Message;
-	};
-	
-
-	class LogInfoEvent : public Event
-	{
-	public:
-		LogInfoEvent(const String& message) : m_Message(message) {}
-
-		inline String GetLogMessage() const { return m_Message; }
-
-		EVENT_CLASS_TYPE(LogInfo)
-			EVENT_CLASS_CATEGORY(EventCategoryLog)
-
-	private:
-		String m_Message;
-	};
-
-	
-	class LogWarnEvent : public Event
-	{
-	public:
-		LogWarnEvent(const String& message) : m_Message(message) {}
-
-		inline String GetLogMessage() const { return m_Message; }
-
-		EVENT_CLASS_TYPE(LogWarn)
-		EVENT_CLASS_CATEGORY(EventCategoryLog)
-
-	private:
-		String m_Message;
-	};
-
-
-	class LogErrorEvent : public Event
-	{
-	public:
-		LogErrorEvent(const String& message) : m_Message(message) {}
-
-		inline String GetLogMessage() const { return m_Message; }
-
-		EVENT_CLASS_TYPE(LogError)
-		EVENT_CLASS_CATEGORY(EventCategoryLog)
-
-	private:
-		String m_Message;
+		LogEventType m_Type;
 	};
 }
