@@ -3,8 +3,7 @@
 #include "Cobalt/Core/Random.h"
 #include "Cobalt/Scene/Scene.h"
 #include "Cobalt/Scene/ECS/Entity.h"
-
-#include "Cobalt/Logger/Log.h"
+#include "Cobalt/Scripting/ScriptEngine.h"
 
 namespace Cobalt
 {
@@ -16,7 +15,17 @@ namespace Cobalt
 
 	void Scene::RuntimeStart()
 	{
-		// TODO: Start script engine, physics etc...
+		auto view = m_Registry.view<ScriptComponent>();
+		for (auto entityID : view)
+		{
+			Entity entity = { entityID, this };
+			auto& script = entity.GetComponent<ScriptComponent>();
+
+			if (ScriptEngine::IsEntityClassExists(script.ClassName))
+			{
+				ScriptEngine::InstantiateEntity(script.ClassName, (u32)entityID);
+			}
+		}
 	}
 
 	void Scene::EditorUpdate()
@@ -46,7 +55,13 @@ namespace Cobalt
 			RenderCommand::DrawEntity(transform.GetTransform(), spriteRenderer, entity);
 		}
 
-		// TODO: Update script engine, physics etc...
+		auto view = m_Registry.view<ScriptComponent>();
+		for (auto entityID : view)
+		{
+			Entity entity = { entityID, this };
+			auto& script = entity.GetComponent<ScriptComponent>();
+			ScriptEngine::UpdateEntity(script.ClassName);
+		}
 	}
 
 	Entity Scene::CreateEntity(const String& name)

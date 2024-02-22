@@ -20,7 +20,7 @@ namespace CobaltEditor
 		StyleManager::LoadStyle();
 
 		// TODO: Do this when there is no default scene in the project file
-		SceneManager::CreateDefaultScene();
+		m_Scene = SceneManager::CreateDefaultScene();
 
 		ComponentsPanel::Create();
 		MainViewportPanel::Create();
@@ -44,13 +44,27 @@ namespace CobaltEditor
 
 		ImGui::Begin("Debug");
 
-		if (ImGui::Button("Close application"))
+		switch (m_Scene->GetState())
 		{
-			Application::Close();
-		}
-		if (ImGui::Button("Restart application"))
-		{
-			Application::Restart();
+			case SceneState::None:
+			case SceneState::Edit:
+			{
+				if (ImGui::Button("Start Scene"))
+				{
+					m_Scene->RuntimeStart();
+					m_Scene->SetState(SceneState::Play);
+				}
+				break;
+			}
+			case SceneState::Play:
+			{
+				if (ImGui::Button("Stop Scene"))
+				{
+					m_Scene->SetState(SceneState::Edit);
+				}
+				break;
+			}
+			default: break;
 		}
 
 		ImGui::End();

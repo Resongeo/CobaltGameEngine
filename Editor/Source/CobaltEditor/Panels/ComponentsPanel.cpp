@@ -18,6 +18,9 @@ namespace CobaltEditor
 		m_TransformProps.Title = "Transform";
 		m_TransformProps.PrimaryColor = colors.Panels.Components.TransformColor;
 
+		m_ScriptProps.Title = "Script";
+		m_ScriptProps.PrimaryColor = colors.Panels.Components.ScriptColor;
+
 		m_SpriteRendererProps.Title = "Sprite Renderer";
 		m_SpriteRendererProps.PrimaryColor = colors.Panels.Components.SpriteRendererColor;
 
@@ -25,6 +28,10 @@ namespace CobaltEditor
 		m_ContextPopup.AddMenuItem("Transform", []()
 		{
 			SceneHierarchyPanel::GetSelectedEntity().AddComponent<TransformComponent>();
+		});
+		m_ContextPopup.AddMenuItem("Script", []()
+		{
+			SceneHierarchyPanel::GetSelectedEntity().AddComponent<ScriptComponent>();
 		});
 		m_ContextPopup.AddMenuItem("Sprite Renderer", []()
 		{
@@ -130,6 +137,16 @@ namespace CobaltEditor
 			Controls::Vector3("Position", component.Position, 0.0f, 0.1f, 100.0f, -1.0f, { 10, 0 }, 8.0f);
 			Controls::Vector3("Rotaiton", component.Rotation, 0.0f, 0.1f, 100.0f, -1.0f, { 10, 0 }, 8.0f);
 			Controls::Vector3("Scale", component.Scale, 1.0f, 0.1f, 100.0f, -1.0f, { 10, 0 }, 8.0f);
+		});
+
+		DrawComponent<ScriptComponent>(m_SelectedEntity, m_ScriptProps, [](auto& component)
+		{
+			static char buffer[64];
+			strcpy(buffer, component.ClassName.c_str());
+			if (ImGui::InputText("Class Name", buffer, sizeof(buffer)))
+			{
+				component.ClassName = buffer;
+			}
 		});
 
 		DrawComponent<SpriteRendererComponent>(m_SelectedEntity, m_SpriteRendererProps, [](auto& component)

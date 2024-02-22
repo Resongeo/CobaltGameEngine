@@ -28,6 +28,9 @@ namespace Cobalt
 		String& GetName() { return m_Name; }
 		void SetName(const char* name) { m_Name = String(name); }
 
+		SceneState GetState() const { return m_State; }
+		void SetState(SceneState state) { m_State = state; }
+
 		entt::registry& Registry() { return m_Registry; }
 
 		static Shared<Scene> Create(const char* name);
@@ -35,6 +38,7 @@ namespace Cobalt
 	private:
 		entt::registry m_Registry;
 		String m_Name;
+		SceneState m_State = SceneState::None;
 
 		friend class Entity;
 	};

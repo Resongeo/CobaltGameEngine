@@ -30,6 +30,7 @@ namespace CobaltEditor
 	private:
 		Entity m_SelectedEntity = {};
 		ComponentProperties m_TransformProps;
+		ComponentProperties m_ScriptProps;
 		ComponentProperties m_SpriteRendererProps;
 		ContextPopup m_ContextPopup;
 	};

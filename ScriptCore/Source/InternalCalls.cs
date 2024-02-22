@@ -15,5 +15,11 @@ namespace Cobalt
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         extern public static void EngineLog_Error(string message);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        extern public static bool Input_GetKeyDown(int keyCode);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        extern public static void Transform_Translate(ulong entityID, Vector3 translation);
     }
 }

@@ -25,6 +25,7 @@ namespace CobaltEditor
 		Color BackgroundColor = Color(30);
 		Color InactiveColor = Color(150, 180);
 		Color TransformColor = Color(222, 157, 95);
+		Color ScriptColor = Color(133, 214, 124);
 		Color SpriteRendererColor = Color(224, 162, 223);
 	};
 

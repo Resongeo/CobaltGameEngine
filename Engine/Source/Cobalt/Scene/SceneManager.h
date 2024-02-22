@@ -10,7 +10,7 @@ namespace Cobalt
 	{
 	public:
 		static Shared<Scene> GetActiveScene() { return s_Instance->m_ActiveScene; }
-		static void CreateDefaultScene();
+		static Shared<Scene> CreateDefaultScene();
 		static void LoadScene(const char* name);
 
 		static void AddScenePath(const char* sceneName, const char* filepath);

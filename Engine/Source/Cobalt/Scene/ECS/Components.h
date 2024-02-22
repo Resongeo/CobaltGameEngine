@@ -52,6 +52,14 @@ namespace Cobalt
 		}
 	};
 
+	struct ScriptComponent
+	{
+		String ClassName;
+
+		ScriptComponent() = default;
+		ScriptComponent(const ScriptComponent&) = default;
+	};
+
 	struct SpriteRendererComponent
 	{
 		Shared<Texture2D> Texture = GraphicsObject::Create<Texture2D>(1, 1);
@@ -67,10 +75,5 @@ namespace Cobalt
 		operator const Color() const { return Tint; }
 		operator const Vec4&() const { return Tint; }
 		operator const Vec2&() const { return Tiling; }
-	};
-
-	enum class LuaScriptSourceType
-	{
-		None = 0, Filepath, String
 	};
 }

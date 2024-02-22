@@ -33,7 +33,21 @@ namespace CobaltEditor
 
 			DrawGrid();
 
-			m_Scene->EditorUpdate();
+			switch (m_Scene->GetState())
+			{
+				case Cobalt::SceneState::None:
+					m_Scene->SetState(Cobalt::SceneState::Edit);
+					break;
+				case Cobalt::SceneState::Edit:
+					m_Scene->EditorUpdate();
+					break;
+				case Cobalt::SceneState::Play:
+					m_Scene->RuntimeUpdate();
+					break;
+				case Cobalt::SceneState::Simulate:
+					break;
+			}
+
 			m_Viewport->GetFramebuffer()->ClearAttachment(1, -1);
 
 			RenderCommand::EndScene();

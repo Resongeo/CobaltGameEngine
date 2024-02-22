@@ -13,10 +13,14 @@ namespace Cobalt
 		s_SceneSerializer.Deserialize(s_Instance->m_ScenePaths[name], s_Instance->m_ActiveScene);
 	}
 
-	void SceneManager::CreateDefaultScene()
+	Shared<Scene> SceneManager::CreateDefaultScene()
 	{
 		s_Instance->m_ActiveScene = Scene::Create("Default Scene");
-		s_Instance->m_ActiveScene->CreateEntity("Square").AddComponent<SpriteRendererComponent>().Tint = Color(230, 80, 80);
+		auto entity = s_Instance->m_ActiveScene->CreateEntity("Square");
+		entity.AddComponent<SpriteRendererComponent>().Tint = Color(230, 80, 80);
+		entity.AddComponent<ScriptComponent>().ClassName = "Test.Player";
+
+		return s_Instance->m_ActiveScene;
 	}
 
 	void SceneManager::Init()
