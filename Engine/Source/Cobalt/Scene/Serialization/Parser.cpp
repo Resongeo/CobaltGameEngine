@@ -1,6 +1,7 @@
 #include "cbpch.h"
 
 #include "Cobalt/Scene/Serialization/Parser.h"
+#include "Cobalt/Scene/ECS/Components.h"
 
 namespace Cobalt
 {
@@ -28,7 +29,7 @@ namespace Cobalt
 					auto& tc = entity.GetComponent<TagComponent>();
 
 					std::getline(file, line);
-					tc.Tag = GetString(line);
+					tc.Name = GetString(line);
 
 					continue;
 				}

@@ -114,7 +114,7 @@ namespace CobaltEditor
 		{
 			ScopedFont _(StyleManager::GetFonts().SemiBold);
 			CursorUtils::Translate({ 5, 3 });
-			ImGui::Text(m_SelectedEntity.GetComponent<TagComponent>().Tag.c_str());
+			ImGui::Text(m_SelectedEntity.GetComponent<TagComponent>().Name.c_str());
 		}
 
 		ImGui::SameLine();

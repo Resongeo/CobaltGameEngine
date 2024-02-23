@@ -9,6 +9,7 @@ namespace Cobalt
 	class SceneManager
 	{
 	public:
+		static void SetActiveScene(Shared<Scene> scene) { s_Instance->m_ActiveScene = scene; }
 		static Shared<Scene> GetActiveScene() { return s_Instance->m_ActiveScene; }
 		static Shared<Scene> CreateDefaultScene();
 		static void LoadScene(const char* name);

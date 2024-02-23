@@ -38,8 +38,11 @@ namespace Cobalt
 			m_Scene->Registry().remove<T>(m_EntityHandle);
 		}
 
-		operator bool() const { return (uint32_t)m_EntityHandle != entt::null; }
-		operator uint32_t() const { return (uint32_t)m_EntityHandle; }
+		UUID GetUUID();
+		String GetName();
+
+		operator bool() const { return (u32)m_EntityHandle != entt::null; }
+		operator u32() const { return (u32)m_EntityHandle; }
 		operator entt::entity() const { return m_EntityHandle; }
 
 		bool operator ==(const Entity& otherEntity) const
@@ -50,8 +53,6 @@ namespace Cobalt
 		{
 			return m_EntityHandle != otherEntity.m_EntityHandle || m_Scene != otherEntity.m_Scene;
 		}
-
-		void Test() const;
 
 	private:
 		entt::entity m_EntityHandle{ entt::null };

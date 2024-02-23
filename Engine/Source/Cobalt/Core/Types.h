@@ -21,4 +21,5 @@ namespace Cobalt
 
 	typedef size_t size;
 	typedef u32 RenderID;
+	typedef u64 UUID;
 }

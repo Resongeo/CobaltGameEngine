@@ -13,7 +13,7 @@ namespace Cobalt
 		static float Range(float min, float max);
 		static int RangeInt(int min, int max);
 
-		static uint64_t ID();
+		static uint64_t UUID();
 
 	private:
 		static std::mt19937 s_RandomEngine;

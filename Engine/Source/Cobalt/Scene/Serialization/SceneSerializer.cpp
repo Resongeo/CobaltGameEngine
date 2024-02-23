@@ -3,6 +3,7 @@
 #include "Cobalt/Scene/Serialization/SceneSerializer.h"
 #include "Cobalt/Scene/Serialization/Emitter.h"
 #include "Cobalt/Scene/Serialization/Parser.h"
+#include "Cobalt/Scene/ECS/Components.h"
 #include "Cobalt/Scene/ECS/Entity.h"
 #include "Cobalt/Scene/Scene.h"
 
@@ -33,7 +34,7 @@ namespace Cobalt
 			out << "Tag component:\n";
 
 			out.BeginMap();
-			out.Add("Tag", tag.Tag);
+			out.Add("Tag", tag.Name);
 			out.EndMap();
 
 			auto& transform = entity.GetComponent<TransformComponent>();

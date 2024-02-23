@@ -3,6 +3,7 @@
 #include "Cobalt/Input/Input.h"
 #include "Cobalt/Scene/SceneManager.h"
 #include "Cobalt/Scene/ECS/Entity.h"
+#include "Cobalt/Scene/ECS/Components.h"
 
 #include <mono/jit/jit.h>
 

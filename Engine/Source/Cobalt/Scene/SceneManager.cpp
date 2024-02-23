@@ -2,6 +2,7 @@
 
 #include "Cobalt/Scene/SceneManager.h"
 #include "Cobalt/Scene/ECS/Entity.h"
+#include "Cobalt/Scene/ECS/Components.h"
 
 namespace Cobalt
 {

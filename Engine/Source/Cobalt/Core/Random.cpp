@@ -30,7 +30,7 @@ namespace Cobalt
 		return (int)Random::Range((float)min, (float)max + 1);
 	}
 
-	uint64_t Random::ID()
+	uint64_t Random::UUID()
 	{
 		return s_Distribution64(s_RandomEngine64);
 	}

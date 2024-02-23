@@ -66,7 +66,7 @@ namespace CobaltEditor
 	{
 		ScopedID _(entity);
 
-		std::string& tag = entity.GetComponent<TagComponent>().Tag;
+		std::string& tag = entity.GetComponent<TagComponent>().Name;
 		ImVec2 cursorPos = ImGui::GetCursorScreenPos();
 		ImVec2 contentRegionMax = ImGui::GetContentRegionMax();
 		float textLineHeight = ImGui::GetTextLineHeight();

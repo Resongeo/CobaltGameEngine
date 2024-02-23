@@ -9,7 +9,7 @@ namespace Cobalt
 {
 	struct IDComponent
 	{
-		u64 UUID;
+		UUID UUID;
 
 		IDComponent() = default;
 		IDComponent(const IDComponent&) = default;
@@ -20,15 +20,15 @@ namespace Cobalt
 
 	struct TagComponent
 	{
-		String Tag;
+		String Name;
 
 		TagComponent() = default;
 		TagComponent(const TagComponent&) = default;
-		TagComponent(const String& tag) : Tag(tag) {}
+		TagComponent(const String& name) : Name(name) {}
 
-		operator String&() { return Tag; }
-		operator const String&() const { return Tag; }
-		operator const char*() { return Tag.c_str(); }
+		operator String&() { return Name; }
+		operator const String&() const { return Name; }
+		operator const char*() { return Name.c_str(); }
 	};
 
 	struct TransformComponent

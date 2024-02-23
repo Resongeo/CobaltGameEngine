@@ -3,6 +3,8 @@
 
 namespace CobaltEditor
 {
+	static Shared<Scene> s_PreviousScene = nullptr;
+
 	void Toolbars::Topbar()
 	{
 		auto scene = SceneManager::GetActiveScene();
@@ -81,6 +83,8 @@ namespace CobaltEditor
 						ScopedColor _(ImGuiCol_Text, Color(89, 222, 91));
 						if (ImGui::Button(ICON_FA_PLAY " Play Scene", { ImGui::CalcTextSize(ICON_FA_PLAY " Play Scene").x + 7.0f, buttonSize }))
 						{
+							s_PreviousScene = Scene::Copy(scene);
+
 							scene->RuntimeStart();
 							scene->SetState(SceneState::Play);
 
@@ -95,6 +99,8 @@ namespace CobaltEditor
 						{
 							scene->SetState(SceneState::Edit);
 							window->ResetBorderColor();
+
+							SceneManager::SetActiveScene(Scene::Copy(s_PreviousScene));
 						}
 						break;
 					}

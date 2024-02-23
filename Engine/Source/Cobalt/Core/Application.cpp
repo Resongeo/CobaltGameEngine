@@ -1,10 +1,12 @@
 #include "cbpch.h"
 
 #include "Cobalt/Core/Application.h"
-#include "Cobalt/Scene/SceneManager.h"
-#include "Cobalt/Scripting/ScriptEngine.h"
 #include "Cobalt/Input/Input.h"
 #include "Cobalt/Gui/Gui.h"
+#include "Cobalt/Rendering/RenderCommand.h"
+#include "Cobalt/Scene/SceneManager.h"
+#include "Cobalt/Scripting/ScriptEngine.h"
+#include "Cobalt/Platform/Window.h"
 
 namespace Cobalt
 {
@@ -31,17 +33,6 @@ namespace Cobalt
 		Gui::Init();
 	}
 
-	Application::~Application()
-	{
-		for (const auto& layer : m_LayerStack.GetLayers())
-		{
-			layer->OnDetach();
-		}
-
-		Gui::ShutDown();
-		m_Window->Destroy();
-	}
-
 	void Application::Run()
 	{
 		for (const auto& layer : m_LayerStack.GetLayers())
@@ -53,13 +44,14 @@ namespace Cobalt
 		while (m_Running)
 		{
 			Time::Update();
-			Gui::NewFrame();
 
 			for (const auto& layer : m_LayerStack.GetLayers())
 			{
 				layer->OnUpdate();
 			}
 
+			Gui::NewFrame();
+			
 			for (const auto& layer : m_LayerStack.GetLayers())
 			{
 				layer->OnImGuiUpdate();
@@ -74,6 +66,9 @@ namespace Cobalt
 			layer->OnDetach();
 			LOG_INFO("{} detached", layer->GetName());
 		}
+
+		Gui::ShutDown();
+		m_Window->Destroy();
 	}
 
 	void Application::OnEvent(Event& e)
