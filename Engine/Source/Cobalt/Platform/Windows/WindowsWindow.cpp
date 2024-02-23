@@ -169,6 +169,18 @@ namespace Cobalt
 			m_Properties.Width, m_Properties.Height, GLFW_DONT_CARE);
 	}
 
+	void Window::SetBorderColor(const Color& color)
+	{
+		HWND hWnd = glfwGetWin32Window(m_Window);
+		COLORREF BORDER_COLOR = Utils::ColorToCOLORREF(color);
+		DwmSetWindowAttribute(hWnd, DWMWINDOWATTRIBUTE::DWMWA_BORDER_COLOR, &BORDER_COLOR, sizeof(BORDER_COLOR));
+	}
+
+	void Window::ResetBorderColor()
+	{
+		SetBorderColor(m_Properties.BorderColor);
+	}
+
 	Shared<Window> Window::Create(const WindowProperties& properties)
 	{
 		return CreateShared<Window>(properties);

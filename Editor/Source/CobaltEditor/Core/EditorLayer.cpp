@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CobaltEditor/Core/EditorLayer.h"
 #include "CobaltEditor/Components/DockSpace.h"
+#include "CobaltEditor/Components/Toolbars.h"
 #include "CobaltEditor/Managers/EditorPanelManager.h"
 #include "CobaltEditor/Managers/StyleManager.h"
 #include "CobaltEditor/Panels/ComponentsPanel.h"
@@ -39,34 +40,37 @@ namespace CobaltEditor
 
 	void EditorLayer::OnImGuiUpdate()
 	{
-		DockSpace::MasterSpace(m_Window);
+		Toolbars::Topbar();
+		DockSpace::MasterSpace();
 		EditorPanelManager::UIRender();
 
 		ImGui::Begin("Debug");
-
-		switch (m_Scene->GetState())
 		{
-			case SceneState::None:
-			case SceneState::Edit:
+			switch (m_Scene->GetState())
 			{
-				if (ImGui::Button("Start Scene"))
+				case SceneState::None:
+				case SceneState::Edit:
 				{
-					m_Scene->RuntimeStart();
-					m_Scene->SetState(SceneState::Play);
+					if (ImGui::Button("Start Scene"))
+					{
+						m_Scene->RuntimeStart();
+						m_Scene->SetState(SceneState::Play);
+					}
+					break;
 				}
-				break;
-			}
-			case SceneState::Play:
-			{
-				if (ImGui::Button("Stop Scene"))
+				case SceneState::Play:
 				{
-					m_Scene->SetState(SceneState::Edit);
+					if (ImGui::Button("Stop Scene"))
+					{
+						m_Scene->SetState(SceneState::Edit);
+					}
+					break;
 				}
-				break;
+				default: break;
 			}
-			default: break;
-		}
 
+			ImGui::DragFloat("Topbar Group Margin", &StyleManager::GetSizes().Toolbar.TopbarGroupMargin, 0.01f);
+		}
 		ImGui::End();
 	}
 

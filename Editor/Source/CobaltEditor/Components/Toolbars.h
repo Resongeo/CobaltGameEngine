@@ -2,9 +2,9 @@
 
 namespace CobaltEditor
 {
-	class DockSpace
+	class Toolbars
 	{
 	public:
-		static void MasterSpace();
+		static void Topbar();
 	};
 }

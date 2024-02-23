@@ -16,13 +16,13 @@ namespace CobaltEditor
 		ImGuiIO& io = ImGui::GetIO();
 
 		const float baseFontSize = 18.0f;
-		const float iconFontSize = baseFontSize * 2.0f / 3.0f;
+		const float iconFontSize = baseFontSize * 0.9f;
 
 		ImFontConfig fontConfig;
 		fontConfig.MergeMode = true;
 		fontConfig.PixelSnapH = true;
 		fontConfig.GlyphMinAdvanceX = iconFontSize;
-		fontConfig.GlyphOffset = { 0, 2 };
+		fontConfig.GlyphOffset = { 0.5, 1.5 };
 		static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
 
 		s_Instance->m_Fonts.Regular = io.Fonts->AddFontFromFileTTF("Assets\\fonts\\JetBrainsMono-Regular.ttf", baseFontSize);

@@ -40,12 +40,6 @@ namespace CobaltEditor
 
 	void ContextPopup::Draw()
 	{
-		ImGui::Begin("Sizes");
-
-		ImGui::DragFloat2("Padding", &m_Padding.x, 0.1f);
-
-		ImGui::End();
-
 		if (!m_Opened) return;
 
 		ImGui::SetNextWindowPos(m_HasSpace ? m_MousePos : ImVec2(m_MousePos.x - (m_Width + m_Padding.x * 2) - 10.f, m_MousePos.y));

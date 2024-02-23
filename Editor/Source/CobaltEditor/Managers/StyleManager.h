@@ -7,8 +7,9 @@ namespace CobaltEditor
 {
 	struct Fonts
 	{
-		ImFont* Regular;
-		ImFont* SemiBold;
+		ImFont* Regular = nullptr;
+		ImFont* SemiBold = nullptr;
+		ImFont* IconFont = nullptr;
 	};
 
 	struct SceneHierarchyColors
@@ -35,9 +36,28 @@ namespace CobaltEditor
 		ComponentsColors Components;
 	};
 
+	struct ToolbarColors
+	{
+		Color GroupBackgroundColor = Color(35);
+		Color NavigationColor = Color(88, 151, 214);
+	};
+
 	struct EditorColors
 	{
 		PanelColors Panels;
+		ToolbarColors Toolbar;
+	};
+
+	struct ToolbarSizes
+	{
+		float TopbarHeight = 45.0f;
+		float TopbarPadding = 6.0f;
+		float TopbarGroupMargin = 3.0f;
+	};
+
+	struct EditorSizes
+	{
+		ToolbarSizes Toolbar;
 	};
 
 	class StyleManager
@@ -49,10 +69,12 @@ namespace CobaltEditor
 
 		static Fonts& GetFonts() { return s_Instance->m_Fonts; }
 		static EditorColors& GetColors() { return s_Instance->m_Colors; }
+		static EditorSizes& GetSizes() { return s_Instance->m_Sizes; }
 
 	private:
 		static StyleManager* s_Instance;
 		Fonts m_Fonts;
 		EditorColors m_Colors;
+		EditorSizes m_Sizes;
 	};
 }

@@ -48,6 +48,9 @@ namespace Cobalt
 		
 		bool ShouldClose();
 
+		void SetBorderColor(const Color& color);
+		void ResetBorderColor();
+
 		void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
 
 		static Shared<Window> Create(const WindowProperties& properties = WindowProperties());

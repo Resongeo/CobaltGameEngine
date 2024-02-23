@@ -3,21 +3,19 @@
 
 namespace CobaltEditor
 {
-	float DockSpace::s_ToolbarHeight = 40.f; // TODO: Get this from a config
-
-	void DockSpace::MasterSpace(const Shared<Cobalt::Window>& window)
+	void DockSpace::MasterSpace()
 	{
-		ImGuiViewport* viewport = ImGui::GetMainViewport();
-		Vec2 windowPos = window->GetPosition();
+		auto viewport = ImGui::GetMainViewport();
+		auto topbarHeight = StyleManager::GetSizes().Toolbar.TopbarHeight;
 
-		ImGui::SetNextWindowPos({ viewport->Pos.x, viewport->Pos.y + s_ToolbarHeight });
-		ImGui::SetNextWindowSize({ viewport->Size.x, viewport->Size.y - s_ToolbarHeight });
+		ImGui::SetNextWindowPos({ viewport->Pos.x, viewport->Pos.y + topbarHeight });
+		ImGui::SetNextWindowSize({ viewport->Size.x, viewport->Size.y - topbarHeight });
 		ImGui::SetNextWindowViewport(viewport->ID);
 		ImGuiWindowFlags dockspaceFlags = 0
-			| ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking
+			| ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_NoDocking
 			| ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse
 			| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
-			| ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+			| ImGuiWindowFlags_NoBringToFrontOnFocus;
 
 		ScopedStyleVars _
 		({
