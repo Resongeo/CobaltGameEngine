@@ -4,6 +4,16 @@ Simple 2D engine written in C++. The core engine and parts of the editor based o
 The main goal of this project for me is to learn C++, game engine architecture and game programming.
 > The engine is in a very early stage, not capable of creating games yet.
 
+## 0.1 Release Roadmap
+- [ ] Scene Management
+- [ ] Asset Management
+- [ ] Particle System
+- [ ] C# Scripting
+- [ ] Audio System
+- [ ] Custom Shaders
+- [ ] Projects
+- [ ] Building
+
 ## Dependencies
 The project includes all the dependency. Dependencies are below
 - [entt](https://github.com/skypjack/entt)
